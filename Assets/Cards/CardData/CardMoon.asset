@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e1754364a54f94c810aaf5438ea6c7, type: 3}
+  m_Name: CardMoon
+  m_EditorClassIdentifier: 
+  type: 12
+  cardSprite:
+  - {fileID: 21300000, guid: 4938ddd6a9471cb4bb18a77313cd6e78, type: 3}
+  - {fileID: 21300000, guid: 148ea56e135b32543adf83bc75b0703d, type: 3}
+  - {fileID: 21300000, guid: a27dd57bf19c6f949ad2d43c3361ee90, type: 3}
+  scoreValue: 15
+  isDarkCard: 0
+  isStrangeCard: 0

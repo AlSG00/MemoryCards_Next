@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e1754364a54f94c810aaf5438ea6c7, type: 3}
+  m_Name: CardStickDark
+  m_EditorClassIdentifier: 
+  type: 20
+  cardSprite:
+  - {fileID: 21300000, guid: c51bfc7c64396fb49bccc8f3e3781417, type: 3}
+  - {fileID: 21300000, guid: 8077407e3e6011242b06b5692baf7ef0, type: 3}
+  - {fileID: 21300000, guid: 77f61f6a71704624bafcdb42d57b06ad, type: 3}
+  scoreValue: 25
+  isDarkCard: 1
+  isStrangeCard: 0

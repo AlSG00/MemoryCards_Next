@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e1754364a54f94c810aaf5438ea6c7, type: 3}
+  m_Name: CardSnake
+  m_EditorClassIdentifier: 
+  type: 7
+  cardSprite:
+  - {fileID: 21300000, guid: 6d59d594229de3f4eb9aed358db2aeb6, type: 3}
+  - {fileID: 21300000, guid: bf3b32a4caa527240a40b6d35f21c47d, type: 3}
+  - {fileID: 21300000, guid: 6740508396c869440ba8572df2d807a4, type: 3}
+  scoreValue: 10
+  isDarkCard: 0
+  isStrangeCard: 0
