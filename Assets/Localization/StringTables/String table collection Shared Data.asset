@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: String table collection Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: String table collection
+  m_TableCollectionNameGuidString: 04e3602b5c04d6542aa41d025ff533c7
+  m_Entries:
+  - m_Id: 601058746368
+    m_Key: MainScene/MainMenu/Canvas/NewGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 645753249792
+    m_Key: MainScene/MainMenu/Canvas/NewGame (4)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 675767689216
+    m_Key: MainScene/MainMenu/Canvas/NewGame (5)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 724757159936
+    m_Key: MainScene/MainMenu/Canvas/NewGame (1)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 742599729152
+    m_Key: MainScene/MainMenu/Canvas/NewGame (2)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 766763114496
+    m_Key: MainScene/MainMenu/Canvas/NewGame (3)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1080119566336
+    m_Key: MainScene/MainMenu/Canvas/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4185905209344
+    m_Key: MainScene/ScoreList/Paper_Crumpled/Canvas/ScoreHeader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4204972515328
+    m_Key: MainScene/ScoreList/Paper_Crumpled/Canvas/HighscoreHeader
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 6386016592461299760
+  references:
+    version: 2
+    RefIds:
+    - rid: 6386016592461299760
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1699788831352

@@ -13,7 +13,7 @@ public class ScoreListHandler : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            TryShowList();
+            ChangeListVisibility();
         }
     }
 
@@ -29,6 +29,7 @@ public class ScoreListHandler : MonoBehaviour
 
     private void OnMouseExit()
     {
+        //ChangeListVisibility();
         _isCursorOnMouse = false;
     }
 
@@ -37,10 +38,11 @@ public class ScoreListHandler : MonoBehaviour
         gameObject.GetComponent<BoxCollider>().enabled = setActive;
     }
 
-    private void TryShowList()
+    private void ChangeListVisibility()
     {
         if (_isCursorOnMouse == false)
         {
+            //_animator.SetBool("Show", false);
             Debug.Log("<color=yellow>Cursor's not on the list</color>");
             return;
         }
