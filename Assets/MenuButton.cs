@@ -3,21 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MenuButton : MonoBehaviour, IPointerEnterHandler
+[RequireComponent(typeof(Animator))]
+public class MenuButton : MonoBehaviour
 {
-    public void OnPointerEnter(PointerEventData eventData)
+    private Animator _animator;
+
+    private void Awake()
     {
-        Debug.Log("Entered");
+        _animator = GetComponent<Animator>();
+    }
+
+    private void OnMouseDown()
+    {
+        //Debug.Log("Click");
+        GetComponent<IButtonAction>().OnClickAction();
     }
 
     private void OnMouseEnter()
     {
-        Debug.Log("Entered");
+        SetAnimatorValue(true);
     }
 
     private void OnMouseExit()
     {
-        Debug.Log("Leaved");
+        SetAnimatorValue(false);
     }
 
+    private void SetAnimatorValue(bool value)
+    {
+        _animator.SetBool("MouseEnter", value);
+    }
 }
