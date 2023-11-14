@@ -28,6 +28,18 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     private bool _isPreparing = false;
     private bool _isPlacing = false;
 
+    private int 
+
+    private void OnEnable()
+    {
+        CardComparator.OnMatchConfirm += 
+    }
+
+    private void OnDisable()
+    {
+        
+    }
+
     private void Start()
     {
         cardGenerator = GameObject.Find("CardGenerator").GetComponent<NEW_CardGenerator>();
@@ -175,4 +187,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             _cardPlacePoints[i] = temp;
         }
     }
+
+    
 }

@@ -25,13 +25,6 @@ public class CardComparator : MonoBehaviour
         NEW_Card.OnCardUnpicked -= UnpickCard;
     }
 
-    private void Start()
-    {
-        pickedCardList = null;
-        pickedCardList = new(3);
-        pickedCardList = null;
-    }
-
     public void PickCard(NEW_Card card)
     {
         if (pickedCardList == null)

@@ -67,14 +67,12 @@ public class NEW_Card : MonoBehaviour
         {
             cardAudioSource.PlayOneShot(PickSound);
             cardAnimator.SetTrigger("picked");
-            //cardHandler.Pick(this);
             OnCardPicked?.Invoke(this);
         }
         else
         {
             cardAudioSource.PlayOneShot(CancelSound);
             cardAnimator.SetTrigger("unpicked");
-            //cardHandler.Unpick();
             OnCardUnpicked?.Invoke(this);
         }
 

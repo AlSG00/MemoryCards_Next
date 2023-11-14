@@ -8,14 +8,42 @@ public class NEW_GameProgression : MonoBehaviour
     public NEW_CardGenerator tempCardGenerator;
     public NEW_CardLayoutHandler tempCardLayoutHandler;
 
+    public int remainingCards;
+    public int remainingturns;
+    public int score = 0;
+
+
     private void OnEnable()
     {
         StartButton.OnGameStart += StartGame;
+        CardComparator.OnMatchConfirm += CheckRoundProgression;
     }
 
     private void OnDisable()
     {
         StartButton.OnGameStart -= StartGame;
+        CardComparator.OnMatchConfirm -= CheckRoundProgression;
+    }
+
+    private void CheckRoundProgression()
+    {
+        // decrease remaining turns
+        score += 10; //TODO: TEMP. Move to score script
+
+        if (tempCardGenerator.CheckRemainingCards() == false)
+        {
+            NextRound();
+        }
+    }
+
+    private void NextRound()
+    {
+        // Decide which round is next (store or cards)
+        // Set new layout
+        // Generate cards
+        // Reset turns
+        // Maybe smth else
+        // Next
     }
 
     private void StartGame()
