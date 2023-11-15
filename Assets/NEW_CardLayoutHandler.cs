@@ -18,8 +18,9 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     [SerializeField] private NEW_GameProgression sessionProgress;
 
     [Header("Layouts collections")]
+    [SerializeField] private GameObject _twoCardLayout;
     [SerializeField] private GameObject _currentLayout;
-    [SerializeField] private GameObject _tutorialLayout;
+    //[SerializeField] private GameObject _tutorialLayout;
     [SerializeField] private List<GameObject> _firstPreparedLayouts = new List<GameObject>();
     [SerializeField] private List<GameObject> _secondPreparedLayouts = new List<GameObject>();
     [SerializeField] private List<GameObject> _thirdPreparedLayouts = new List<GameObject>();
@@ -60,6 +61,21 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         foreach (var card in cardsToRemove)
         {
             Destroy(card, 5f);
+        }
+    }
+
+    public void PrepareStartLayout()
+    {
+
+
+        _cardPlacePoints.Clear();
+        if (_isPreparing == false)
+        {
+            _isPreparing = true;
+            _cardPlacePoints.Add(_twoCardLayout.transform.GetChild(0));
+            _cardPlacePoints.Add(_twoCardLayout.transform.GetChild(1));
+            cardGenerator.GeneratePack(_cardPlacePoints.Count);
+            PlaceCards();
         }
     }
 
@@ -156,6 +172,17 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         StartCoroutine(MoveCardsRoutine());
     }
 
+    public void TakeCardsBack()
+    {
+        StartCoroutine(MoveCardsBackRoutine());
+        //RemoveConfirmedCards(_cardsInLayout);
+    }
+
+    public void MixCards()
+    {
+        // TODO: Future random debuff
+    }
+
     private IEnumerator MoveCardsRoutine()
     {
         _isPlacing = true;
@@ -189,6 +216,29 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         //{
         //    sessionProgress.counterStarted = true;
         //}
+        _isPreparing = false;
+    }
+
+    private IEnumerator MoveCardsBackRoutine()
+    {
+        _isPlacing = true;
+        for (int i = 0; i < _cardsInLayout.Count; i++)
+        {
+            StartCoroutine(MoveCardToPositionRoutine(_cardsInLayout[i].gameObject, cardsStartPosition));
+            yield return new WaitForSecondsRealtime(_cardPlacementDelay);
+            if (i == _cardsInLayout.Count - 1)
+            {
+                _isPlacing = false;
+            }
+        }
+
+        while (_isPlacing)
+        {
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
+
+        ActivateCardColliders(true);
+
         _isPreparing = false;
     }
 

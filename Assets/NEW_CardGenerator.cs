@@ -28,38 +28,20 @@ public class NEW_CardGenerator : MonoBehaviour
 
     public void GeneratePack(int countToGenerate)
     {
-
-        //if (countToGenerate % 2 != 0)
-        //{
-        //    Debug.LogError("Card generating error. Odd count");
-        //    return;
-        //}
-
-        // Карты сразу создаются парами, чтобы не возникло софт-лока из-за неполных пар во время игры
-        //CheckCurrentRound();
-
         _activeCardData = _firstCardsCollection; // TODO: TEMP
-
         _dataToUse = GetCollectionToGenerate(countToGenerate);
 
         int index = 0;
         int dataIndex = 0;
-
-        // TODO: Temporary changed for 3 cards mode. Make it flexible to generate any amount of cards
-        //generatedCardPack = new();
         while (index < countToGenerate)
         {
-            generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
             generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
             generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
 
             generatedCardPack[index].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);
             generatedCardPack[index + 1].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);
-            generatedCardPack[index + 2].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);
 
-
-            //index += 2;
-            index += 3; //TODO: TEMP
+            index += 2;
             dataIndex++;
         }
 
@@ -69,8 +51,8 @@ public class NEW_CardGenerator : MonoBehaviour
 
     public List<CardData> GetCollectionToGenerate(int countToGenerate)
     {
-        //int count = countToGenerate / 2;
-        int count = countToGenerate / 3; // TODO: TEMP
+        int count = countToGenerate / 2;
+       // int count = countToGenerate / 3; // TODO: TEMP
 
         List<CardData> resultData = new List<CardData>();
         for (int i = 0; i < count; i++)
@@ -114,14 +96,14 @@ public class NEW_CardGenerator : MonoBehaviour
         }
     }
 
-    public void RemoveConfirmedCards(Card[] pickedCards)
-    {
-        generatedCardPack.Remove(pickedCards[0].transform.parent.gameObject);
-        generatedCardPack.Remove(pickedCards[1].transform.parent.gameObject);
+    //public void RemoveConfirmedCards(Card[] pickedCards)
+    //{
+    //    generatedCardPack.Remove(pickedCards[0].transform.parent.gameObject);
+    //    generatedCardPack.Remove(pickedCards[1].transform.parent.gameObject);
 
-        Destroy(pickedCards[0].transform.parent.gameObject, 5f);
-        Destroy(pickedCards[1].transform.parent.gameObject, 5f);
-    }
+    //    Destroy(pickedCards[0].transform.parent.gameObject, 5f);
+    //    Destroy(pickedCards[1].transform.parent.gameObject, 5f);
+    //}
 
     public bool CheckRemainingCards()
     {

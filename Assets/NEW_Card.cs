@@ -15,7 +15,7 @@ public class NEW_Card : MonoBehaviour
     public Animator cardAnimator;
 
     // Various mathce
-    public int requiredMatchesCount = 3;
+    public int requiredMatchesCount = 2;
 
     //[Header("References")]
     //public CardHandler cardHandler;

@@ -300,7 +300,7 @@ MonoBehaviour:
   cardDrawing: {fileID: 7760042603015792007}
   cardCollider: {fileID: 8974184001398587025}
   cardAnimator: {fileID: 5824910436848138764}
-  requiredMatchesCount: 3
+  requiredMatchesCount: 2
   cardAudioSource: {fileID: 1754714178281935957}
   PickSound: {fileID: 8300000, guid: 11b8ad8a8f345cc4bbf2ffee86028905, type: 3}
   CancelSound: {fileID: 8300000, guid: 930e7509d7c5e6148ab6789fb22800e8, type: 3}

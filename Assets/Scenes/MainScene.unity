@@ -5539,6 +5539,10 @@ GameObject:
   - component: {fileID: 268105551}
   - component: {fileID: 268105550}
   - component: {fileID: 268105549}
+  - component: {fileID: 268105554}
+  - component: {fileID: 268105553}
+  - component: {fileID: 268105552}
+  - component: {fileID: 268105555}
   m_Layer: 0
   m_Name: ExitButton
   m_TagString: Untagged
@@ -5703,6 +5707,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 268105547}
   m_CullTransparentMesh: 1
+--- !u!114 &268105552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268105547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb9989bdd2db594584adb9a1a47817a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &268105553
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268105547}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26b591aa48a09344fb514bc59abcd796, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &268105554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268105547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 842c9c163cc084c49b15211f802c520e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &268105555
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268105547}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.95508385, y: 0.29180473, z: 0.003846256}
+  m_Center: {x: -1.8866849, y: 1.3097634, z: -0.005214821}
 --- !u!1 &268505650
 GameObject:
   m_ObjectHideFlags: 0
@@ -12189,13 +12250,14 @@ MonoBehaviour:
   _cardPlacementDelay: 0.1
   cardGenerator: {fileID: 1913652245}
   sessionProgress: {fileID: 1451625278}
+  _twoCardLayout: {fileID: 240361501}
   _currentLayout: {fileID: 0}
-  _tutorialLayout: {fileID: 0}
   _firstPreparedLayouts: []
   _secondPreparedLayouts: []
   _thirdPreparedLayouts: []
   _fourthPreparedLayouts: []
   _cardPlacePoints: []
+  _cardsInLayout: []
 --- !u!1 &509779314
 GameObject:
   m_ObjectHideFlags: 0
@@ -36185,6 +36247,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tempCardGenerator: {fileID: 1913652245}
   tempCardLayoutHandler: {fileID: 509114671}
+  currentRound: 0
+  remainingTurns: 0
+  score: 0
 --- !u!95 &1451625279
 Animator:
   serializedVersion: 4
@@ -48350,7 +48415,7 @@ MonoBehaviour:
   _cardsParent: {fileID: 1299716273}
   _cardLayoutHandler: {fileID: 509114671}
   _sessionProgress: {fileID: 1451625278}
-  currentCardPack: []
+  generatedCardPack: []
   _tutorialCardsCollection: []
   _firstCardsCollection:
   - {fileID: 11400000, guid: 07795e4d71f0ce9488f9a92986f45b0e, type: 2}

@@ -8,28 +8,48 @@ public class NEW_GameProgression : MonoBehaviour
     public NEW_CardGenerator tempCardGenerator;
     public NEW_CardLayoutHandler tempCardLayoutHandler;
 
-    public int remainingCards;
-    public int remainingturns;
+    //public int remainingCards;
+    public int currentRound = 0;
+    public int remainingTurns = 0;
     public int score = 0;
 
 
     private void OnEnable()
     {
         StartButton.OnGameStart += StartGame;
-        CardComparator.OnMatchConfirm += CheckRoundProgression;
+        RejectStartButton.OnGameStartReject += RejectGameStart;
+        CardComparator.OnPickConfirm += CheckRoundProgression;
     }
 
     private void OnDisable()
     {
         StartButton.OnGameStart -= StartGame;
-        CardComparator.OnMatchConfirm -= CheckRoundProgression;
+        RejectStartButton.OnGameStartReject -= RejectGameStart;
+        CardComparator.OnPickConfirm -= CheckRoundProgression;
     }
 
     private void CheckRoundProgression(List<GameObject> confirmedCards)
     {
         // decrease remaining turns
+        if (currentRound == 0)
+        {
+            ConfirmGameStart();
+        }
+
+        remainingTurns--;
+        Debug.Log($"Turns left: {remainingTurns}");
+        if (confirmedCards == null)
+        {
+            return;
+        }
+
         score += 10; //TODO: TEMP. Move to score script
         tempCardLayoutHandler.RemoveConfirmedCards(confirmedCards);
+
+        if (remainingTurns == 0)
+        {
+            Debug.Log($"<color=orange>NO TURNS LEFT! RESTART GAME</color>");
+        }
 
         if (tempCardGenerator.CheckRemainingCards() == false)
         {
@@ -39,6 +59,9 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void NextRound()
     {
+        remainingTurns = 10;
+        currentRound++;
+        Debug.Log($"Round: {currentRound}");
         tempCardLayoutHandler.PrepareNewLayout();
         // Decide which round is next (store or cards)
         // Set new layout
@@ -50,6 +73,24 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void StartGame()
     {
+        tempCardLayoutHandler.PrepareStartLayout();
+
+        //remainingTurns = 10;
+        //tempCardLayoutHandler.PrepareNewLayout();
+        //// reset score
+        //// reset all debuffs
+        //// reset all items
+        //// reset turn counter
+        //// reset stopwatch
+        //// reset all cards if has any
+        //// reset rounds
+        //// reset card layout
+    }
+
+    private void ConfirmGameStart()
+    {
+        currentRound++;
+        remainingTurns = 10;
         tempCardLayoutHandler.PrepareNewLayout();
         // reset score
         // reset all debuffs
@@ -59,6 +100,11 @@ public class NEW_GameProgression : MonoBehaviour
         // reset all cards if has any
         // reset rounds
         // reset card layout
+    }
+
+    private void RejectGameStart()
+    {
+        tempCardLayoutHandler.TakeCardsBack();
     }
 
     private void FinishGame()

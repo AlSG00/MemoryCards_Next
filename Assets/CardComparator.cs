@@ -12,7 +12,7 @@ public class CardComparator : MonoBehaviour
     public bool extraOnTable;
 
     public delegate void CardMatch(List<GameObject> matchedCards = null);
-    public static event CardMatch OnMatchConfirm;
+    public static event CardMatch OnPickConfirm;
 
     private void OnEnable()
     {
@@ -32,9 +32,11 @@ public class CardComparator : MonoBehaviour
         {
             pickedCardList = new List<NEW_Card>(card.requiredMatchesCount);
         }
+
         pickedCardList.Add(card);
         if (pickedCardList.Any(c => c.cardType != card.cardType))
         {
+            OnPickConfirm?.Invoke(null);
             UnpickAllCards();
             return;
         }
@@ -54,8 +56,8 @@ public class CardComparator : MonoBehaviour
             confirmedCards.Add(card.transform.parent.gameObject);
         }
 
-        
-        OnMatchConfirm?.Invoke(confirmedCards);
+
+        OnPickConfirm?.Invoke(confirmedCards);
         pickedCardList = null;
     }
 
@@ -69,6 +71,7 @@ public class CardComparator : MonoBehaviour
         {
             pickedCardList.Remove(card);
         }
+        OnPickConfirm?.Invoke(null);
     }
 
     private void UnpickAllCards()
