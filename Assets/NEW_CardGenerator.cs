@@ -12,14 +12,14 @@ public class NEW_CardGenerator : MonoBehaviour
     [SerializeField] private NEW_GameProgression _sessionProgress;
 
     [Header("Card collections")]
-    [HideInInspector] public List<GameObject> currentCardPack = new List<GameObject>();
+    [HideInInspector] public List<GameObject> generatedCardPack = new List<GameObject>();
     [SerializeField] private CardData[] _tutorialCardsCollection;
     [SerializeField] private CardData[] _firstCardsCollection;
     [SerializeField] private CardData[] _secondCardsCollection;
     [SerializeField] private CardData[] _thirdCardsCollection;
     [SerializeField] private CardData[] _fourthCardsCollection;
     [SerializeField] private List<CardData> _dataToUse;
-    private CardData[] _activeCardData;
+    private CardData[] _activeCardData; // Stores data for cards that are used for generating at current game stage
 
     private void Start()
     {
@@ -29,11 +29,11 @@ public class NEW_CardGenerator : MonoBehaviour
     public void GeneratePack(int countToGenerate)
     {
 
-        if (countToGenerate % 2 != 0)
-        {
-            Debug.LogError("Card generating error. Odd count");
-            return;
-        }
+        //if (countToGenerate % 2 != 0)
+        //{
+        //    Debug.LogError("Card generating error. Odd count");
+        //    return;
+        //}
 
         // Карты сразу создаются парами, чтобы не возникло софт-лока из-за неполных пар во время игры
         //CheckCurrentRound();
@@ -45,16 +45,17 @@ public class NEW_CardGenerator : MonoBehaviour
         int index = 0;
         int dataIndex = 0;
 
-        // TODO: Temporary changed for 3 cards mode
+        // TODO: Temporary changed for 3 cards mode. Make it flexible to generate any amount of cards
+        //generatedCardPack = new();
         while (index < countToGenerate)
         {
-            currentCardPack.Add(Instantiate(_cardPrefab, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
-            currentCardPack.Add(Instantiate(_cardPrefab, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
-            currentCardPack.Add(Instantiate(_cardPrefab, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
+            generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
+            generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
+            generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
 
-            currentCardPack[index].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);
-            currentCardPack[index + 1].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);
-            currentCardPack[index + 2].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);
+            generatedCardPack[index].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);
+            generatedCardPack[index + 1].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);
+            generatedCardPack[index + 2].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);
 
 
             //index += 2;
@@ -63,6 +64,7 @@ public class NEW_CardGenerator : MonoBehaviour
         }
 
         MixCardPack();
+        _cardLayoutHandler.ReceiveNewCardPack(generatedCardPack);
     }
 
     public List<CardData> GetCollectionToGenerate(int countToGenerate)
@@ -103,19 +105,19 @@ public class NEW_CardGenerator : MonoBehaviour
 
     private void MixCardPack()
     {
-        for (int i = 0; i < currentCardPack.Count; i++)
+        for (int i = 0; i < generatedCardPack.Count; i++)
         {
-            int j = Random.Range(0, currentCardPack.Count);
-            GameObject temp = currentCardPack[j];
-            currentCardPack[j] = currentCardPack[i];
-            currentCardPack[i] = temp;
+            int j = Random.Range(0, generatedCardPack.Count);
+            GameObject temp = generatedCardPack[j];
+            generatedCardPack[j] = generatedCardPack[i];
+            generatedCardPack[i] = temp;
         }
     }
 
     public void RemoveConfirmedCards(Card[] pickedCards)
     {
-        currentCardPack.Remove(pickedCards[0].transform.parent.gameObject);
-        currentCardPack.Remove(pickedCards[1].transform.parent.gameObject);
+        generatedCardPack.Remove(pickedCards[0].transform.parent.gameObject);
+        generatedCardPack.Remove(pickedCards[1].transform.parent.gameObject);
 
         Destroy(pickedCards[0].transform.parent.gameObject, 5f);
         Destroy(pickedCards[1].transform.parent.gameObject, 5f);
@@ -123,7 +125,7 @@ public class NEW_CardGenerator : MonoBehaviour
 
     public bool CheckRemainingCards()
     {
-        if (currentCardPack.Count == 0)
+        if (generatedCardPack.Count == 0)
         {
             return false;
         }
@@ -133,10 +135,10 @@ public class NEW_CardGenerator : MonoBehaviour
 
     public void RemoveAllCards()
     {
-        for (int i = currentCardPack.Count - 1; i >= 0; i--)
+        for (int i = generatedCardPack.Count - 1; i >= 0; i--)
         {
-            Destroy(currentCardPack[i].gameObject);
-            currentCardPack.Remove(currentCardPack[i]);
+            Destroy(generatedCardPack[i].gameObject);
+            generatedCardPack.Remove(generatedCardPack[i]);
         }
     }
 }

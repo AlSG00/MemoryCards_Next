@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class NEW_CardLayoutHandler : MonoBehaviour
 {
@@ -28,22 +29,38 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     private bool _isPreparing = false;
     private bool _isPlacing = false;
 
-    private int 
+    [SerializeField] private List<GameObject> _cardsInLayout;
+    //private int 
 
-    private void OnEnable()
-    {
-        CardComparator.OnMatchConfirm += 
-    }
+    //private void OnEnable()
+    //{
+    //    CardComparator.OnMatchConfirm += RemoveConfirmedCards;
+    //}
 
-    private void OnDisable()
-    {
-        
-    }
+    //private void OnDisable()
+    //{
+    //    CardComparator.OnMatchConfirm -= RemoveConfirmedCards;
+    //}
 
     private void Start()
     {
         cardGenerator = GameObject.Find("CardGenerator").GetComponent<NEW_CardGenerator>();
         sessionProgress = GameObject.Find("SessionProgressHandler").GetComponent<NEW_GameProgression>();
+    }
+
+    public void ReceiveNewCardPack(List<GameObject> newCardPack)
+    {
+        _cardsInLayout = newCardPack;
+    }
+
+    public void RemoveConfirmedCards(List<GameObject> cardsToRemove)
+    {
+        _cardsInLayout.RemoveAll(c => cardsToRemove.Contains(c)); // TODO: Check
+
+        foreach (var card in cardsToRemove)
+        {
+            Destroy(card, 5f);
+        }
     }
 
     public void PrepareNewLayout()
@@ -66,14 +83,20 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     public void ActivateCardColliders(bool activate)
     {
-        for (int i = 0; i < cardGenerator.currentCardPack.Count; i++)
+        //for (int i = 0; i < cardGenerator.currentCardPack.Count; i++)
+        //{
+        //    cardGenerator.currentCardPack[i].GetComponentInChildren<BoxCollider>().enabled = activate;
+        //}
+
+        for (int i = 0; i < _cardsInLayout.Count; i++)
         {
-            cardGenerator.currentCardPack[i].GetComponentInChildren<BoxCollider>().enabled = activate;
+            _cardsInLayout[i].GetComponentInChildren<BoxCollider>().enabled = activate;
         }
     }
 
     public void SetPlasePoints_TEMP()
     {
+        _cardPlacePoints.Clear();
         for (int i = 0; i < TEMP_testTripleLayout.transform.childCount; i++)
         {
             _cardPlacePoints.Add(TEMP_testTripleLayout.transform.GetChild(i));
@@ -136,11 +159,20 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     private IEnumerator MoveCardsRoutine()
     {
         _isPlacing = true;
-        for (int i = 0; i < cardGenerator.currentCardPack.Count; i++)
+        //for (int i = 0; i < cardGenerator.currentCardPack.Count; i++)
+        //{
+        //    StartCoroutine(MoveCardToPositionRoutine(cardGenerator.currentCardPack[i], _cardPlacePoints[i]));
+        //    yield return new WaitForSecondsRealtime(_cardPlacementDelay);
+        //    if (i == cardGenerator.currentCardPack.Count - 1)
+        //    {
+        //        _isPlacing = false;
+        //    }
+        //}
+        for (int i = 0; i < _cardsInLayout.Count; i++)
         {
-            StartCoroutine(MoveCardToPositionRoutine(cardGenerator.currentCardPack[i], _cardPlacePoints[i]));
+            StartCoroutine(MoveCardToPositionRoutine(_cardsInLayout[i].gameObject, _cardPlacePoints[i]));
             yield return new WaitForSecondsRealtime(_cardPlacementDelay);
-            if (i == cardGenerator.currentCardPack.Count - 1)
+            if (i == _cardsInLayout.Count - 1)
             {
                 _isPlacing = false;
             }

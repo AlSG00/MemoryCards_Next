@@ -43,7 +43,7 @@ public class ScoreListHandler : MonoBehaviour
         if (_isCursorOnMouse == false)
         {
             //_animator.SetBool("Show", false);
-            Debug.Log("<color=yellow>Cursor's not on the list</color>");
+            //Debug.Log("<color=yellow>Cursor's not on the list</color>");
             return;
         }
         var show = _animator.GetBool("Show");

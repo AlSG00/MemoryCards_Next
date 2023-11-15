@@ -25,10 +25,11 @@ public class NEW_GameProgression : MonoBehaviour
         CardComparator.OnMatchConfirm -= CheckRoundProgression;
     }
 
-    private void CheckRoundProgression()
+    private void CheckRoundProgression(List<GameObject> confirmedCards)
     {
         // decrease remaining turns
         score += 10; //TODO: TEMP. Move to score script
+        tempCardLayoutHandler.RemoveConfirmedCards(confirmedCards);
 
         if (tempCardGenerator.CheckRemainingCards() == false)
         {
@@ -38,6 +39,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void NextRound()
     {
+        tempCardLayoutHandler.PrepareNewLayout();
         // Decide which round is next (store or cards)
         // Set new layout
         // Generate cards
