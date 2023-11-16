@@ -31,11 +31,13 @@ public class NEW_GameProgression : MonoBehaviour
     }
 
     private void CheckRoundProgression(List<GameObject> confirmedCards)
-    {
+     {
         // decrease remaining turns
-        if (currentRound == 0 && confirmedCards == null)
+        if (currentRound == 0 && confirmedCards != null)
         {
+            tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             ConfirmGameStart();
+            return;
         }
 
         remainingTurns--;
@@ -49,7 +51,7 @@ public class NEW_GameProgression : MonoBehaviour
         score += 10; //TODO: TEMP. Move to score script
 
 
-        tempCardLayoutHandler.RemoveConfirmedCards(confirmedCards);
+        tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
 
         if (remainingTurns == 0)
         {
@@ -84,10 +86,11 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void ConfirmGameStart()
     {
+        OnGameStartConfirm?.Invoke();
         currentRound++;
         remainingTurns = 10;
         tempCardLayoutHandler.PrepareNewLayout();
-        OnGameStartConfirm?.Invoke();
+        
         // reset score
         // reset all debuffs
         // reset all items

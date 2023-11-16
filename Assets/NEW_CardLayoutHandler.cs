@@ -33,6 +33,9 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     [SerializeField] private List<GameObject> _cardsInLayout;
     //private int 
 
+
+    public static event System.Action CancelAllPicks;
+
     //private void OnEnable()
     //{
     //    CardComparator.OnMatchConfirm += RemoveConfirmedCards;
@@ -54,7 +57,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         _cardsInLayout = newCardPack;
     }
 
-    public void RemoveConfirmedCards(List<GameObject> cardsToRemove)
+    public void RemoveCertainCards(List<GameObject> cardsToRemove)
     {
         _cardsInLayout.RemoveAll(c => cardsToRemove.Contains(c)); // TODO: Check
 
@@ -169,13 +172,15 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     public void PlaceCards()
     {
+        StopAllCoroutines();
         StartCoroutine(MoveCardsRoutine());
     }
 
     public void TakeCardsBack()
     {
+        StopAllCoroutines();
+        CancelAllPicks?.Invoke();
         StartCoroutine(MoveCardsBackRoutine());
-        //RemoveConfirmedCards(_cardsInLayout);
     }
 
     public void MixCards()
@@ -237,8 +242,8 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.1f);
         }
 
-        ActivateCardColliders(true);
-
+        //ActivateCardColliders(true);
+        RemoveAllCards();
         _isPreparing = false;
     }
 
@@ -270,5 +275,13 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
     }
 
-    
+    private void RemoveAllCards()
+    {
+        foreach (var card in _cardsInLayout)
+        {
+            Destroy(card, 5f);
+        }
+
+        _cardsInLayout.Clear();
+    }
 }

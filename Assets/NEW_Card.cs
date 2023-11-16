@@ -37,6 +37,16 @@ public class NEW_Card : MonoBehaviour
     //    cardHandler = GameObject.Find("CardHandler").GetComponent<CardHandler>();
     //}
 
+    private void OnEnable()
+    {
+        NEW_CardLayoutHandler.CancelAllPicks += CancelPick;
+    }
+
+    private void OnDisable()
+    {
+        NEW_CardLayoutHandler.CancelAllPicks -= CancelPick;
+    }
+
     public void Initialize(CardData cardData)
     {
         cardType = cardData.type;
@@ -65,22 +75,29 @@ public class NEW_Card : MonoBehaviour
     {
         if (_wasPicked == false)
         {
+            _wasPicked = true;
             cardAudioSource.PlayOneShot(PickSound);
             cardAnimator.SetTrigger("picked");
             OnCardPicked?.Invoke(this);
         }
         else
         {
+            _wasPicked = false;
             cardAudioSource.PlayOneShot(CancelSound);
             cardAnimator.SetTrigger("unpicked");
             OnCardUnpicked?.Invoke(this);
         }
 
-        _wasPicked = !_wasPicked;
+        //_wasPicked = !_wasPicked;
     }
 
     public void CancelPick()
     {
+        if (_wasPicked == false)
+        {
+            return;
+        }
+
         cardCollider.enabled = false;
         StartCoroutine(CancelCardRoutine());
     }
