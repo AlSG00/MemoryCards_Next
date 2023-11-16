@@ -16,7 +16,7 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: 04e3602b5c04d6542aa41d025ff533c7
   m_Entries:
   - m_Id: 601058746368
-    m_Key: MainScene/MainMenu/Canvas/NewGame
+    m_Key: ConfirmMenu_MainLogo
     m_Metadata:
       m_Items: []
   - m_Id: 645753249792
@@ -39,16 +39,38 @@ MonoBehaviour:
     m_Key: MainScene/MainMenu/Canvas/NewGame (3)
     m_Metadata:
       m_Items: []
-  - m_Id: 1080119566336
-    m_Key: MainScene/MainMenu/Canvas/Text (TMP)
-    m_Metadata:
-      m_Items: []
   - m_Id: 4185905209344
     m_Key: MainScene/ScoreList/Paper_Crumpled/Canvas/ScoreHeader
     m_Metadata:
       m_Items: []
   - m_Id: 4204972515328
     m_Key: MainScene/ScoreList/Paper_Crumpled/Canvas/HighscoreHeader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507039560114176
+    m_Key: 'ConfirmMenu_MainLogo
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507246196695040
+    m_Key: ConfirmMenu_NoButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507304178753536
+    m_Key: ConfirmMenu_NoButtonHint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507394800885760
+    m_Key: ConfirmMenu_YesLogo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507430628630528
+    m_Key: ConfirmMenu_YesLogoHint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507492624637952
+    m_Key: ConfirmMenu_ControlsHint
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -16,7 +16,7 @@ public class DeathMenuHandler : MonoBehaviour
     public void RestartGame()
     {
         _sessionProgress.ResetProgress();
-        _mainMenuHandler.StartGame();
+        //_mainMenuHandler.StartGame();
     }
 
     public void HandleLight()

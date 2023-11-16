@@ -13,6 +13,8 @@ public class NEW_GameProgression : MonoBehaviour
     public int remainingTurns = 0;
     public int score = 0;
 
+    public static event System.Action OnPressStart;
+    public static event System.Action OnGameStartConfirm;
 
     private void OnEnable()
     {
@@ -31,7 +33,7 @@ public class NEW_GameProgression : MonoBehaviour
     private void CheckRoundProgression(List<GameObject> confirmedCards)
     {
         // decrease remaining turns
-        if (currentRound == 0)
+        if (currentRound == 0 && confirmedCards == null)
         {
             ConfirmGameStart();
         }
@@ -43,7 +45,10 @@ public class NEW_GameProgression : MonoBehaviour
             return;
         }
 
+
         score += 10; //TODO: TEMP. Move to score script
+
+
         tempCardLayoutHandler.RemoveConfirmedCards(confirmedCards);
 
         if (remainingTurns == 0)
@@ -74,17 +79,7 @@ public class NEW_GameProgression : MonoBehaviour
     private void StartGame()
     {
         tempCardLayoutHandler.PrepareStartLayout();
-
-        //remainingTurns = 10;
-        //tempCardLayoutHandler.PrepareNewLayout();
-        //// reset score
-        //// reset all debuffs
-        //// reset all items
-        //// reset turn counter
-        //// reset stopwatch
-        //// reset all cards if has any
-        //// reset rounds
-        //// reset card layout
+        OnPressStart?.Invoke();
     }
 
     private void ConfirmGameStart()
@@ -92,6 +87,7 @@ public class NEW_GameProgression : MonoBehaviour
         currentRound++;
         remainingTurns = 10;
         tempCardLayoutHandler.PrepareNewLayout();
+        OnGameStartConfirm?.Invoke();
         // reset score
         // reset all debuffs
         // reset all items

@@ -46,16 +46,36 @@ MonoBehaviour:
     m_Localized: EXIT
     m_Metadata:
       m_Items: []
-  - m_Id: 1080119566336
-    m_Localized: New Text
-    m_Metadata:
-      m_Items: []
   - m_Id: 4185905209344
     m_Localized: 'score:'
     m_Metadata:
       m_Items: []
   - m_Id: 4204972515328
     m_Localized: 'highscore:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507039560114176
+    m_Localized: START GAME?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507246196695040
+    m_Localized: NO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507394800885760
+    m_Localized: YES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507492624637952
+    m_Localized: '[LMB] - PICK CARD'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507304178753536
+    m_Localized: PRESS TO RETURN TO MAIN MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1507430628630528
+    m_Localized: PICK TWO CARDS IN FRONT OF YOU TO START GAME
     m_Metadata:
       m_Items: []
   references:
