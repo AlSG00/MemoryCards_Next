@@ -13,6 +13,9 @@ public class NEW_GameProgression : MonoBehaviour
     public int remainingTurns = 0;
     public int score = 0;
 
+    [Tooltip("Each round divisible by this digit will be a buy round")]
+    public int buyRound;
+
     public static event System.Action OnPressStart;
     public static event System.Action OnGameStartConfirm;
 
@@ -66,10 +69,42 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void NextRound()
     {
-        remainingTurns = 10;
         currentRound++;
         Debug.Log($"Round: {currentRound}");
+        if (currentRound % buyRound == 0)
+        {
+            SetBuyRound();
+
+        }
+        else
+        {
+            SetStandartRound();
+        }
+
+        
+
+    }
+
+    private void SetStandartRound()
+    {
+        // Deactivate turn counter
+        // Call a method to show store
+
+        remainingTurns = 10;
         tempCardLayoutHandler.PrepareNewLayout();
+    }
+
+    private void SetBuyRound()
+    {
+        Debug.Log("Buy round is currently in development");
+
+        NextRound();
+
+        // hide store if it was
+        // set new layout
+        // activate turn counter
+        // recalculate remaining turns
+
         // Decide which round is next (store or cards)
         // Set new layout
         // Generate cards
