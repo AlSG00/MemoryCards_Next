@@ -78,6 +78,46 @@ MonoBehaviour:
     m_Localized: PICK TWO CARDS IN FRONT OF YOU TO START GAME
     m_Metadata:
       m_Items: []
+  - m_Id: 2478236473008128
+    m_Localized: 'TURNS LEFT:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2479089133068288
+    m_Localized: 'TURNS LEFT:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2497782332301312
+    m_Localized: 'ROUND:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547591843979264
+    m_Localized: Sun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547634697183232
+    m_Localized: Mon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547676736692224
+    m_Localized: Tue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547687604133888
+    m_Localized: Wed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547703672512512
+    m_Localized: Thu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547719661199360
+    m_Localized: Fri
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547741391888384
+    m_Localized: Sat
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

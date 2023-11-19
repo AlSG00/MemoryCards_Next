@@ -73,6 +73,48 @@ MonoBehaviour:
     m_Key: ConfirmMenu_ControlsHint
     m_Metadata:
       m_Items: []
+  - m_Id: 2478236473008128
+    m_Key: 'TurnCounter_Text_1
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2479089133068288
+    m_Key: MainScene/[counter_final_withUV]/Canvas/Text_1/Text (TMP)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2497782332301312
+    m_Key: MainScene/[counter_final_withUV]/Canvas/Text_1/Text (TMP) (2)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547591843979264
+    m_Key: MainScene/[counter_final_withUV]/Canvas/Clock/Clock_DaysOfWeek/Sunday_0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547634697183232
+    m_Key: MainScene/[counter_final_withUV]/Canvas/Clock/Clock_DaysOfWeek/Monday_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547676736692224
+    m_Key: MainScene/[counter_final_withUV]/Canvas/Clock/Clock_DaysOfWeek/Tuesday_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547687604133888
+    m_Key: MainScene/[counter_final_withUV]/Canvas/Clock/Clock_DaysOfWeek/Wednesday_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547703672512512
+    m_Key: MainScene/[counter_final_withUV]/Canvas/Clock/Clock_DaysOfWeek/Thursday_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547719661199360
+    m_Key: MainScene/[counter_final_withUV]/Canvas/Clock/Clock_DaysOfWeek/Friday_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2547741391888384
+    m_Key: MainScene/[counter_final_withUV]/Canvas/Clock/Clock_DaysOfWeek/Saturday_6
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
