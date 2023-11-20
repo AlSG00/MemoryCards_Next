@@ -16,27 +16,34 @@ public class MainMenuHandler : MonoBehaviour
     {
         NEW_GameProgression.OnPressStart += HideMenu;
         RejectStartButton.OnGameStartReject += ShowMenu;
+        SetLocaleButton.OnChooseLocale += ShowMenu;
+        NEW_GameProgression.FirstTimePlaying += HideMenu;
     }
 
     private void OnDisable()
     {
         NEW_GameProgression.OnPressStart -= HideMenu;
         RejectStartButton.OnGameStartReject -= ShowMenu;
+        SetLocaleButton.OnChooseLocale -= ShowMenu;
+        NEW_GameProgression.FirstTimePlaying -= HideMenu;
     }
 
     // TODO: Make menu ui change it's visibility smoothly
     private void HideMenu()
     {
+        //Debug.Log("Hide");
         SetMenuVisibility(false);
     }
 
     private void ShowMenu()
     {
+        //Debug.Log("Show");
         SetMenuVisibility(true);
     }
 
     private void SetMenuVisibility(bool isVisible)
     {
+        Debug.Log("MainMenu");
         foreach (var textMesh in TextObjectArray)
         {
             textMesh.SetActive(isVisible);

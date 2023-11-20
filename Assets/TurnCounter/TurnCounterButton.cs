@@ -9,11 +9,11 @@ public class TurnCounterButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Pressed");
         if (_animator)
         {
             _animator.SetTrigger("Click");
-            //_animator.ResetTrigger("Click");
         }
+
+        GetComponent<IButtonAction>().OnClickAction();
     }
 }

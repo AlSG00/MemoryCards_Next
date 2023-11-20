@@ -14,13 +14,12 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private NEW_CardGenerator cardGenerator;
-    //[SerializeField] private SessionProgressHandler sessionProgress;
     [SerializeField] private NEW_GameProgression sessionProgress;
 
     [Header("Layouts collections")]
-    [SerializeField] private GameObject _twoCardLayout;
     [SerializeField] private GameObject _currentLayout;
-    //[SerializeField] private GameObject _tutorialLayout;
+    [SerializeField] private GameObject _twoCardLayout;
+    [SerializeField] private List<GameObject> _tutorialLayouts;
     [SerializeField] private List<GameObject> _firstPreparedLayouts = new List<GameObject>();
     [SerializeField] private List<GameObject> _secondPreparedLayouts = new List<GameObject>();
     [SerializeField] private List<GameObject> _thirdPreparedLayouts = new List<GameObject>();
@@ -29,6 +28,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     private bool _isPreparing = false;
     private bool _isPlacing = false;
+    private int currentTutorialLayout = 0;
 
     [SerializeField] private List<GameObject> _cardsInLayout;
     //private int 
@@ -48,8 +48,8 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     private void Start()
     {
-        cardGenerator = GameObject.Find("CardGenerator").GetComponent<NEW_CardGenerator>();
-        sessionProgress = GameObject.Find("SessionProgressHandler").GetComponent<NEW_GameProgression>();
+        //cardGenerator = GameObject.Find("CardGenerator").GetComponent<NEW_CardGenerator>();
+        //sessionProgress = GameObject.Find("GameProgressHandler").GetComponent<NEW_GameProgression>();
     }
 
     public void ReceiveNewCardPack(List<GameObject> newCardPack)
@@ -67,10 +67,13 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
     }
 
-    public void PrepareStartLayout()
+    private void PlayTutorial()
     {
 
+    }
 
+    public void PrepareStartLayout()
+    {
         _cardPlacePoints.Clear();
         if (_isPreparing == false)
         {

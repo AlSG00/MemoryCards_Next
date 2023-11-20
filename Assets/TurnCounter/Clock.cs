@@ -7,6 +7,8 @@ using System.Text;
 
 public class Clock : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI[] _GUIElements;
+
     [SerializeField] private TextMeshProUGUI _date;
 
     [SerializeField] private TextMeshProUGUI _weekDay;
@@ -16,10 +18,25 @@ public class Clock : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _minutes;
     [SerializeField] private TextMeshProUGUI _seconds;
 
-    
+    public bool isActive = true;
+
+    private void OnEnable()
+    {
+        SwitchTurnCounterMode.OnSwitchMode += ChangeClockVisiblity;
+    }
+
+    private void OnDisable()
+    {
+        SwitchTurnCounterMode.OnSwitchMode -= ChangeClockVisiblity;
+    }
 
     private void FixedUpdate()
     {
+        if (isActive == false)
+        {
+            return;
+        }
+
         SetTimeValue(DateTime.Now.Second, _seconds);
         SetTimeValue(DateTime.Now.Minute, _minutes);
         SetTimeValue(DateTime.Now.Hour, _hours);
@@ -80,6 +97,16 @@ public class Clock : MonoBehaviour
 
     private void ChangeClockVisiblity(bool isVisible)
     {
+        isActive = isVisible;
+        foreach (var gui in _GUIElements)
+        {
+            gui.enabled = isVisible;
+        }
 
+        if (isVisible)
+        {
+            SetDayValue();
+        }
+        Debug.Log($"clock is visible {isVisible}");
     }
 }

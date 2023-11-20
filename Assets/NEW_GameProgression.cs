@@ -18,6 +18,12 @@ public class NEW_GameProgression : MonoBehaviour
 
     public static event System.Action OnPressStart;
     public static event System.Action OnGameStartConfirm;
+    public static event System.Action<int> OnNextRound;
+    public static event System.Action/*<bool>*/ FirstTimePlaying;
+    public static event System.Action<int> OnTurnsChanged;
+
+    public bool firstTimePlaying;
+    public bool isTurnCounterActive;
 
     private void OnEnable()
     {
@@ -33,6 +39,14 @@ public class NEW_GameProgression : MonoBehaviour
         CardComparator.OnPickConfirm -= CheckRoundProgression;
     }
 
+    private void Start()
+    {
+        if (firstTimePlaying)
+        {
+            FirstTimePlaying?.Invoke();
+        }
+    }
+
     private void CheckRoundProgression(List<GameObject> confirmedCards)
      {
         // decrease remaining turns
@@ -44,6 +58,7 @@ public class NEW_GameProgression : MonoBehaviour
         }
 
         remainingTurns--;
+        OnTurnsChanged?.Invoke(remainingTurns);
         Debug.Log($"Turns left: {remainingTurns}");
         if (confirmedCards == null)
         {
@@ -70,6 +85,7 @@ public class NEW_GameProgression : MonoBehaviour
     private void NextRound()
     {
         currentRound++;
+        OnNextRound?.Invoke(currentRound);
         Debug.Log($"Round: {currentRound}");
         if (currentRound % buyRound == 0)
         {
@@ -91,6 +107,7 @@ public class NEW_GameProgression : MonoBehaviour
         // Call a method to show store
 
         remainingTurns = 10;
+        OnTurnsChanged?.Invoke(remainingTurns);
         tempCardLayoutHandler.PrepareNewLayout();
     }
 
@@ -124,8 +141,9 @@ public class NEW_GameProgression : MonoBehaviour
         OnGameStartConfirm?.Invoke();
         currentRound++;
         remainingTurns = 10;
+        OnTurnsChanged?.Invoke(remainingTurns);
         tempCardLayoutHandler.PrepareNewLayout();
-        
+        OnNextRound?.Invoke(currentRound);
         // reset score
         // reset all debuffs
         // reset all items

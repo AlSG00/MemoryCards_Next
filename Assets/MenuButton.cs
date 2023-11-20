@@ -15,7 +15,6 @@ public class MenuButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //Debug.Log("Click");
         GetComponent<IButtonAction>().OnClickAction();
     }
 
