@@ -97,7 +97,7 @@ public class NEW_GameProgression : MonoBehaviour
             SetStandartRound();
         }
 
-        
+        // TODO: Прикрутить, чтобы число ходов вычислялось по какой-нибудь формуле
 
     }
 
