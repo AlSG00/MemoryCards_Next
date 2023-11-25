@@ -107,7 +107,7 @@ public class NEW_GameProgression : MonoBehaviour
         // Call a method to show store
 
         remainingTurns = 10;
-        OnTurnsChanged?.Invoke(remainingTurns);
+        OnTurnsChanged?.Invoke(remainingTurns); // TODO: Resubscribe RemainingTurnsHandler to this
         tempCardLayoutHandler.PrepareNewLayout();
     }
 
