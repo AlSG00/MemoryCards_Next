@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class NEW_GameProgression : MonoBehaviour
 {
+    // Depends on current round and maybe smth else
+    // Will specify current set of layouts, random events and cards
+    public enum GameStage
+    {
+        Easy,
+        Medium,
+        Hard,
+        VeryHard
+    }
+
+    public static GameStage stage;
 
     public NEW_CardGenerator tempCardGenerator;
     public NEW_CardLayoutHandler tempCardLayoutHandler;
@@ -20,7 +31,9 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action OnGameStartConfirm;
     public static event System.Action<int> OnNextRound;
     public static event System.Action/*<bool>*/ FirstTimePlaying;
-    public static event System.Action<int> OnTurnsChanged;
+
+    public delegate void TurnAction(bool decreased, int changeValue = 1);
+    public static event TurnAction OnTurnsChanged;
 
     public bool firstTimePlaying;
     public bool isTurnCounterActive;
@@ -58,7 +71,7 @@ public class NEW_GameProgression : MonoBehaviour
         }
 
         remainingTurns--;
-        OnTurnsChanged?.Invoke(remainingTurns);
+        OnTurnsChanged?.Invoke(true);
         Debug.Log($"Turns left: {remainingTurns}");
         if (confirmedCards == null)
         {
@@ -90,7 +103,6 @@ public class NEW_GameProgression : MonoBehaviour
         if (currentRound % buyRound == 0)
         {
             SetBuyRound();
-
         }
         else
         {
@@ -103,16 +115,13 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetStandartRound()
     {
-        // Deactivate turn counter
-        // Call a method to show store
-
-        remainingTurns = 10;
-        OnTurnsChanged?.Invoke(remainingTurns); // TODO: Resubscribe RemainingTurnsHandler to this
         tempCardLayoutHandler.PrepareNewLayout();
     }
 
     private void SetBuyRound()
     {
+        // Deactivate turn counter
+        // Call a method to show store
         Debug.Log("Buy round is currently in development");
 
         NextRound();
@@ -141,7 +150,9 @@ public class NEW_GameProgression : MonoBehaviour
         OnGameStartConfirm?.Invoke();
         currentRound++;
         remainingTurns = 10;
-        OnTurnsChanged?.Invoke(remainingTurns);
+
+        //OnTurnsChanged?.Invoke(remainingTurns);
+
         tempCardLayoutHandler.PrepareNewLayout();
         OnNextRound?.Invoke(currentRound);
         // reset score

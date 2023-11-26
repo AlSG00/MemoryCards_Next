@@ -10,12 +10,14 @@ public class TurnCounterGUIController : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnTurnsChanged += UpdateRemainingTurns;
+        //NEW_GameProgression.OnTurnsChanged += UpdateRemainingTurns;
+        RemainingTurnsHandler.OnGUIUpdate += UpdateRemainingTurns;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnTurnsChanged -= UpdateRemainingTurns;
+        //NEW_GameProgression.OnTurnsChanged -= UpdateRemainingTurns;
+        RemainingTurnsHandler.OnGUIUpdate -= UpdateRemainingTurns;
     }
 
     private void UpdateRemainingTurns(int turnsLeft)

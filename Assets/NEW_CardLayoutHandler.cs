@@ -35,6 +35,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
 
     public static event System.Action CancelAllPicks;
+    public static event System.Action<int> OnSetRemainingTurns;
 
     //private void OnEnable()
     //{
@@ -100,6 +101,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             SetPlasePoints_TEMP();
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
+            OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count);
         }
     }
 
@@ -147,6 +149,27 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     private void SetCurrentLayout()
     {
+        switch (NEW_GameProgression.stage)
+        {
+            case NEW_GameProgression.GameStage.Easy:
+                _currentLayout = ;
+                break;
+
+            case NEW_GameProgression.GameStage.Medium:
+                _currentLayout = ;
+                break;
+
+            case NEW_GameProgression.GameStage.Hard:
+                _currentLayout = ;
+                break;
+
+            case NEW_GameProgression.GameStage.VeryHard:
+                _currentLayout = ;
+                break;
+        }
+
+        _currentLayout.SetActive(true);
+
         //switch (sessionProgress.currentRound)
         //{
         //    case 0:
