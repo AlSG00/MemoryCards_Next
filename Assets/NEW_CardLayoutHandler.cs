@@ -20,17 +20,18 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     [SerializeField] private GameObject _currentLayout;
     [SerializeField] private GameObject _twoCardLayout;
     [SerializeField] private List<GameObject> _tutorialLayouts;
-    [SerializeField] private List<GameObject> _firstPreparedLayouts = new List<GameObject>();
-    [SerializeField] private List<GameObject> _secondPreparedLayouts = new List<GameObject>();
-    [SerializeField] private List<GameObject> _thirdPreparedLayouts = new List<GameObject>();
-    [SerializeField] private List<GameObject> _fourthPreparedLayouts = new List<GameObject>();
-    [SerializeField] private List<Transform> _cardPlacePoints = new List<Transform>();
+    [SerializeField] private List<GameObject> _veryEasyLayoutSet = new List<GameObject>();
+    [SerializeField] private List<GameObject> _easyLayoutSet = new List<GameObject>();
+    [SerializeField] private List<GameObject> _mediumLayoutSet = new List<GameObject>();
+    [SerializeField] private List<GameObject> _hardLayoutSet = new List<GameObject>();
+    [SerializeField] private List<GameObject> _veryHardLayoutSet = new List<GameObject>();
+    /*[SerializeField]*/ private List<Transform> _cardPlacePoints = new List<Transform>();
 
     private bool _isPreparing = false;
     private bool _isPlacing = false;
     private int currentTutorialLayout = 0;
 
-    [SerializeField] private List<GameObject> _cardsInLayout;
+    /*[SerializeField]*/ private List<GameObject> _cardsInLayout;
     //private int 
 
 
@@ -98,7 +99,8 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             //}
 
             //sessionProgress.ResetDebuff();
-            SetPlasePoints_TEMP();
+            //SetPlasePoints_TEMP();
+            SetPlasePoints();
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
             OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count);
@@ -134,9 +136,8 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         if (_currentLayout != null)
         {
             _currentLayout.SetActive(false);
-            _cardPlacePoints.Clear();
         }
-
+        _cardPlacePoints.Clear();
         SetCurrentLayout();
 
         for (int i = 0; i < _currentLayout.transform.childCount; i++)
@@ -147,54 +148,40 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         MixPlacePoints();
     }
 
+    #region SET LAYOUT
     private void SetCurrentLayout()
     {
         switch (NEW_GameProgression.stage)
         {
+            case NEW_GameProgression.GameStage.VeryEasy:
+                SetRandomLayout(_easyLayoutSet);
+                break;
+
             case NEW_GameProgression.GameStage.Easy:
-                _currentLayout = ;
+                SetRandomLayout(_easyLayoutSet);
                 break;
 
             case NEW_GameProgression.GameStage.Medium:
-                _currentLayout = ;
+                SetRandomLayout(_mediumLayoutSet);
                 break;
 
             case NEW_GameProgression.GameStage.Hard:
-                _currentLayout = ;
+                SetRandomLayout(_hardLayoutSet);
                 break;
 
             case NEW_GameProgression.GameStage.VeryHard:
-                _currentLayout = ;
+                SetRandomLayout(_veryHardLayoutSet);
                 break;
         }
 
         _currentLayout.SetActive(true);
-
-        //switch (sessionProgress.currentRound)
-        //{
-        //    case 0:
-        //        _currentLayout = _tutorialLayout;
-        //        break;
-
-        //    case 1:
-        //        _currentLayout = _firstPreparedLayouts[Random.Range(0, _firstPreparedLayouts.Count)];
-        //        break;
-
-        //    case 2:
-        //        _currentLayout = _secondPreparedLayouts[Random.Range(0, _secondPreparedLayouts.Count)];
-        //        break;
-
-        //    case 3:
-        //        _currentLayout = _thirdPreparedLayouts[Random.Range(0, _thirdPreparedLayouts.Count)];
-        //        break;
-
-        //    default:
-        //        _currentLayout = _fourthPreparedLayouts[Random.Range(0, _fourthPreparedLayouts.Count)];
-        //        break;
-        //}
-
-        //_currentLayout.SetActive(true);
     }
+
+    private void SetRandomLayout(List<GameObject> list)
+    {
+        _currentLayout = list[Random.Range(0, list.Count)];
+    }
+    #endregion
 
     public void PlaceCards()
     {

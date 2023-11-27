@@ -43,7 +43,7 @@ public class MainMenuHandler : MonoBehaviour
 
     private void SetMenuVisibility(bool isVisible)
     {
-        Debug.Log("MainMenu");
+        //Debug.Log("MainMenu");
         foreach (var textMesh in TextObjectArray)
         {
             textMesh.SetActive(isVisible);

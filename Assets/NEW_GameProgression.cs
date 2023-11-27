@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,11 @@ public class NEW_GameProgression : MonoBehaviour
     // Will specify current set of layouts, random events and cards
     public enum GameStage
     {
+        VeryEasy,
         Easy,
         Medium,
         Hard,
-        VeryHard
+        VeryHard,
     }
 
     public static GameStage stage;
@@ -24,7 +26,7 @@ public class NEW_GameProgression : MonoBehaviour
     public int remainingTurns = 0;
     public int score = 0;
 
-    [Tooltip("Each round divisible by this digit will be a buy round")]
+    [Tooltip("Each round dividible by this digit will be a buy round")]
     public int buyRound;
 
     public static event System.Action OnPressStart;
@@ -56,6 +58,7 @@ public class NEW_GameProgression : MonoBehaviour
     {
         if (firstTimePlaying)
         {
+            stage = GameStage.VeryEasy;
             FirstTimePlaying?.Invoke();
         }
     }
@@ -63,6 +66,7 @@ public class NEW_GameProgression : MonoBehaviour
     private void CheckRoundProgression(List<GameObject> confirmedCards)
      {
         // decrease remaining turns
+        Debug.Log("CheckProgression");
         if (currentRound == 0 && confirmedCards != null)
         {
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
@@ -70,7 +74,7 @@ public class NEW_GameProgression : MonoBehaviour
             return;
         }
 
-        remainingTurns--;
+        //remainingTurns--;
         OnTurnsChanged?.Invoke(true);
         Debug.Log($"Turns left: {remainingTurns}");
         if (confirmedCards == null)
@@ -84,10 +88,10 @@ public class NEW_GameProgression : MonoBehaviour
 
         tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
 
-        if (remainingTurns == 0)
-        {
-            Debug.Log($"<color=orange>NO TURNS LEFT! RESTART GAME</color>");
-        }
+        //if (remainingTurns == 0)
+        //{
+        //    Debug.Log($"<color=orange>NO TURNS LEFT! RESTART GAME</color>");
+        //}
 
         if (tempCardGenerator.CheckRemainingCards() == false)
         {
@@ -99,7 +103,8 @@ public class NEW_GameProgression : MonoBehaviour
     {
         currentRound++;
         OnNextRound?.Invoke(currentRound);
-        Debug.Log($"Round: {currentRound}");
+        //UpdateDifficulty();
+
         if (currentRound % buyRound == 0)
         {
             SetBuyRound();
@@ -113,8 +118,31 @@ public class NEW_GameProgression : MonoBehaviour
 
     }
 
+    private void UpdateDifficulty()
+    {
+        if (currentRound < 2)
+        {
+            stage = GameStage.Easy;
+        }
+        else if (currentRound < 3)
+        {
+            stage = GameStage.Medium;
+        }
+        else if (currentRound < 4)
+        {
+            stage = GameStage.Hard;
+        }
+        else /*if (currentRound < 20)*/
+        {
+            stage = GameStage.VeryHard;
+        }
+        Debug.Log($"Stage: {stage}");
+    }
+
     private void SetStandartRound()
     {
+
+        UpdateDifficulty();
         tempCardLayoutHandler.PrepareNewLayout();
     }
 

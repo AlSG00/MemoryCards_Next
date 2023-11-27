@@ -9722,7 +9722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &376239449
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13361,12 +13361,16 @@ MonoBehaviour:
   _currentLayout: {fileID: 0}
   _twoCardLayout: {fileID: 240361501}
   _tutorialLayouts: []
-  _firstPreparedLayouts: []
-  _secondPreparedLayouts: []
-  _thirdPreparedLayouts: []
-  _fourthPreparedLayouts: []
-  _cardPlacePoints: []
-  _cardsInLayout: []
+  _veryEasyLayoutSet:
+  - {fileID: 709250200}
+  _easyLayoutSet:
+  - {fileID: 1371277780}
+  _mediumLayoutSet:
+  - {fileID: 1080683899}
+  _hardLayoutSet:
+  - {fileID: 1559989484}
+  _veryHardLayoutSet:
+  - {fileID: 1639010541}
 --- !u!1 &509779314
 GameObject:
   m_ObjectHideFlags: 0
@@ -35996,6 +36000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39325994c884fd4cbc973179611813f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  remainingTurns: 0
 --- !u!1 &1321374672
 GameObject:
   m_ObjectHideFlags: 0
@@ -37521,7 +37526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1371277781
 Transform:
   m_ObjectHideFlags: 0
