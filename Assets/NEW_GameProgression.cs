@@ -31,6 +31,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     public static event System.Action OnPressStart;
     public static event System.Action OnGameStartConfirm;
+    public static event System.Action OnTutorialStart;
     public static event System.Action<int> OnNextRound;
     public static event System.Action/*<bool>*/ FirstTimePlaying;
 
@@ -118,27 +119,6 @@ public class NEW_GameProgression : MonoBehaviour
 
     }
 
-    private void UpdateDifficulty()
-    {
-        if (currentRound < 2)
-        {
-            stage = GameStage.Easy;
-        }
-        else if (currentRound < 3)
-        {
-            stage = GameStage.Medium;
-        }
-        else if (currentRound < 4)
-        {
-            stage = GameStage.Hard;
-        }
-        else /*if (currentRound < 20)*/
-        {
-            stage = GameStage.VeryHard;
-        }
-        Debug.Log($"Stage: {stage}");
-    }
-
     private void SetStandartRound()
     {
 
@@ -167,6 +147,28 @@ public class NEW_GameProgression : MonoBehaviour
         // Next
     }
 
+    private void UpdateDifficulty()
+    {
+        if (currentRound < 2)
+        {
+            stage = GameStage.Easy;
+        }
+        else if (currentRound < 3)
+        {
+            stage = GameStage.Medium;
+        }
+        else if (currentRound < 4)
+        {
+            stage = GameStage.Hard;
+        }
+        else /*if (currentRound < 20)*/
+        {
+            stage = GameStage.VeryHard;
+        }
+        Debug.Log($"Stage: {stage}");
+    }
+
+    #region START GAME
     private void StartGame()
     {
         tempCardLayoutHandler.PrepareStartLayout();
@@ -179,10 +181,16 @@ public class NEW_GameProgression : MonoBehaviour
         currentRound++;
         remainingTurns = 10;
 
-        //OnTurnsChanged?.Invoke(remainingTurns);
-
-        tempCardLayoutHandler.PrepareNewLayout();
-        OnNextRound?.Invoke(currentRound);
+        if (firstTimePlaying)
+        {
+            StartTutorial();
+        }
+        else
+        {
+            tempCardLayoutHandler.PrepareNewLayout();
+            OnNextRound?.Invoke(currentRound);
+        }
+        
         // reset score
         // reset all debuffs
         // reset all items
@@ -193,10 +201,16 @@ public class NEW_GameProgression : MonoBehaviour
         // reset card layout
     }
 
+    private void StartTutorial()
+    {
+        OnTutorialStart?.Invoke();
+    }
+
     private void RejectGameStart()
     {
         tempCardLayoutHandler.TakeCardsBack();
     }
+    #endregion
 
     private void FinishGame()
     {

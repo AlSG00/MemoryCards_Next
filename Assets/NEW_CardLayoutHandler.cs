@@ -38,15 +38,15 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     public static event System.Action CancelAllPicks;
     public static event System.Action<int> OnSetRemainingTurns;
 
-    //private void OnEnable()
-    //{
-    //    CardComparator.OnMatchConfirm += RemoveConfirmedCards;
-    //}
+    private void OnEnable()
+    {
+        NEW_GameProgression.OnTutorialStart += PlayTutorial;
+    }
 
-    //private void OnDisable()
-    //{
-    //    CardComparator.OnMatchConfirm -= RemoveConfirmedCards;
-    //}
+    private void OnDisable()
+    {
+        NEW_GameProgression.OnTutorialStart += PlayTutorial;
+    }
 
     private void Start()
     {
@@ -71,7 +71,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     private void PlayTutorial()
     {
-
+        WebCamDevice[aopifhyo];
     }
 
     public void PrepareStartLayout()

@@ -32,10 +32,10 @@ public class Clock : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isActive == false)
-        {
-            return;
-        }
+        //if (isActive == false)
+        //{
+        //    return;
+        //}
 
         SetTimeValue(DateTime.Now.Second, _seconds);
         SetTimeValue(DateTime.Now.Minute, _minutes);
@@ -53,6 +53,11 @@ public class Clock : MonoBehaviour
 
     private void SetDayValue()
     {
+        if (isActive == false)
+        {
+            return;
+        }
+
         foreach (var day in _dayTextMeshCollection)
         {
             day.enabled = false;

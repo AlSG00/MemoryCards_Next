@@ -8,12 +8,23 @@ public class ScoreListHandler : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private bool _isCursorOnMouse = false;
+    private bool _isVisible = false;
+
+    private void OnEnable()
+    {
+        
+    }
+
+    private void OnDisable()
+    {
+        
+    }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            ChangeListVisibility();
+            ChangeFullListVisibility();
         }
     }
 
@@ -38,16 +49,33 @@ public class ScoreListHandler : MonoBehaviour
         gameObject.GetComponent<BoxCollider>().enabled = setActive;
     }
 
-    private void ChangeListVisibility()
+    private void ChangeFullListVisibility()
     {
         if (_isCursorOnMouse == false)
         {
-            //_animator.SetBool("Show", false);
-            //Debug.Log("<color=yellow>Cursor's not on the list</color>");
             return;
         }
-        var show = _animator.GetBool("Show");
+
+        var show = _animator.GetBool("ShowFull");
         show = !show;
-        _animator.SetBool("Show", show);
+        _animator.SetBool("ShowFull", show);
+    }
+
+    private void Show()
+    {
+        if (_isVisible == false)
+        {
+            _isVisible = true;
+            _animator.SetTrigger("Show");
+        }
+    }
+
+    private void Hide()
+    {
+        if (_isVisible)
+        {
+            _isVisible = false;
+            _animator.SetTrigger("Hide");
+        }
     }
 }
