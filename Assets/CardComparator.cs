@@ -11,7 +11,7 @@ public class CardComparator : MonoBehaviour
     public bool mimicOnTable;
     public bool extraOnTable;
 
-    public delegate void CardMatch(List<GameObject> matchedCards = null);
+    public delegate void CardMatch(List<GameObject> matchedCards/*, NEW_GameProgression.RoundType roundType*/);
     public static event CardMatch OnPickConfirm;
 
     private void OnEnable()
@@ -55,7 +55,6 @@ public class CardComparator : MonoBehaviour
             card.ConfirmPick();
             confirmedCards.Add(card.transform.parent.gameObject);
         }
-
 
         OnPickConfirm?.Invoke(confirmedCards);
         pickedCardList = null;

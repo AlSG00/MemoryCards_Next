@@ -38,18 +38,21 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     public static event System.Action CancelAllPicks;
     public static event System.Action<int> OnSetRemainingTurns;
 
+    private int _tutorialProgress = 0;
+
     private void OnEnable()
     {
-        NEW_GameProgression.OnTutorialStart += PlayTutorial;
+        NEW_GameProgression.OnTutorialStart += PlayTutorialRound;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnTutorialStart += PlayTutorial;
+        NEW_GameProgression.OnTutorialStart += PlayTutorialRound;
     }
 
     private void Start()
     {
+        _tutorialProgress = 0;
         //cardGenerator = GameObject.Find("CardGenerator").GetComponent<NEW_CardGenerator>();
         //sessionProgress = GameObject.Find("GameProgressHandler").GetComponent<NEW_GameProgression>();
     }
@@ -69,9 +72,26 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
     }
 
-    private void PlayTutorial()
+    private void PlayTutorialRound(int tutorialProgress)
     {
-        WebCamDevice[aopifhyo];
+        PrepareTutorialLayout(tutorialProgress);
+        засветить обучающую штуку по номеру
+        обучающая штука потом уберется после лббого confirm пика
+    }
+
+    private void PrepareTutorialLayout(int tutorialIndex)
+    {
+        if (_isPreparing == false)
+        {
+            _isPreparing = true;
+            SetPlasePoints(_tutorialLayouts[0]);
+            cardGenerator.GeneratePack(_cardPlacePoints.Count);
+            PlaceCards();
+            if (tutorialIndex >= tutorialIndex)
+            {
+                //OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count);
+            }
+        }
     }
 
     public void PrepareStartLayout()
@@ -93,13 +113,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         {
             //sessionProgress.SetRound();
             _isPreparing = true;
-            //if (sessionProgress.currentRound >= sessionProgress.roundToactivateTimer)
-            //{
-            //    sessionProgress.counterStarted = false;
-            //}
-
-            //sessionProgress.ResetDebuff();
-            //SetPlasePoints_TEMP();
             SetPlasePoints();
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
@@ -120,32 +133,51 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
     }
 
-    public void SetPlasePoints_TEMP()
+    //public void SetPlasePoints_TEMP()
+    //{
+    //    _cardPlacePoints.Clear();
+    //    for (int i = 0; i < TEMP_testTripleLayout.transform.childCount; i++)
+    //    {
+    //        _cardPlacePoints.Add(TEMP_testTripleLayout.transform.GetChild(i));
+    //    }
+
+    //    MixPlacePoints();
+    //}
+
+    public void SetPlasePoints(GameObject layout = null)
     {
-        _cardPlacePoints.Clear();
-        for (int i = 0; i < TEMP_testTripleLayout.transform.childCount; i++)
+        if (layout == null)
         {
-            _cardPlacePoints.Add(TEMP_testTripleLayout.transform.GetChild(i));
+            layout = _currentLayout;
         }
 
-        MixPlacePoints();
-    }
-
-    public void SetPlasePoints()
-    {
         if (_currentLayout != null)
         {
             _currentLayout.SetActive(false);
         }
-        _cardPlacePoints.Clear();
-        SetCurrentLayout();
 
-        for (int i = 0; i < _currentLayout.transform.childCount; i++)
-        {
-            _cardPlacePoints.Add(_currentLayout.transform.GetChild(i));
-        }
+        SetCurrentLayout();
+        //for (int i = 0; i < _currentLayout.transform.childCount; i++)
+        //{
+        //    _cardPlacePoints.Add(_currentLayout.transform.GetChild(i));
+        //}
+        SetPlacePointsList(_currentLayout);
 
         MixPlacePoints();
+    }
+
+    private void SetPlacePointsList(GameObject layout)
+    {
+        if (layout.transform.childCount == 0)
+        {
+            throw new System.Exception("Layout object doesn't contain any child objects.");
+        }
+
+        _cardPlacePoints.Clear();
+        for (int i = 0; i < layout.transform.childCount; i++)
+        {
+            _cardPlacePoints.Add(layout.transform.GetChild(i));
+        }
     }
 
     #region SET LAYOUT

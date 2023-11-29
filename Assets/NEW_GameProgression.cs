@@ -16,6 +16,13 @@ public class NEW_GameProgression : MonoBehaviour
         VeryHard,
     }
 
+    public enum RoundType
+    {
+        Confirm,
+        Tutorial,
+        Standart
+    }
+
     public static GameStage stage;
 
     public NEW_CardGenerator tempCardGenerator;
@@ -25,21 +32,41 @@ public class NEW_GameProgression : MonoBehaviour
     public int currentRound = 0;
     public int remainingTurns = 0;
     public int score = 0;
+    public int money = 0; // available only in this session
+    public int mainMoney = 0; // can be used in upgrade store
 
     [Tooltip("Each round dividible by this digit will be a buy round")]
     public int buyRound;
 
     public static event System.Action OnPressStart;
     public static event System.Action OnGameStartConfirm;
-    public static event System.Action OnTutorialStart;
+    public static event System.Action<int> OnTutorialStart;
+    public static event System.Action<int> OnTutorialProgress;
     public static event System.Action<int> OnNextRound;
     public static event System.Action/*<bool>*/ FirstTimePlaying;
+
+    // To activate text hints
+    public static event System.Action OnFirstTutorialPhase;
+    public static event System.Action OnSecondTutorialPhase;
+    public static event System.Action OnThirdTutorialPhase;
+    public static event System.Action OnFourthTutorialPhase;
+
+
+    public static event System.Action<bool> OnActivateTurnCounter;
+    public static event System.Action<bool> OnActivateScoreList;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
     public static event TurnAction OnTurnsChanged;
 
+
     public bool firstTimePlaying;
+    public bool playingTutorial;
+    private int _tutorialProgress;
+
+
     public bool isTurnCounterActive;
+    public bool isScoreListActive;
+    public bool isStopwatchActive;
 
     private void OnEnable()
     {
@@ -57,17 +84,23 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void Start()
     {
+        isTurnCounterActive = false;
+        isScoreListActive = false;
+        isStopwatchActive = false;
+
         if (firstTimePlaying)
         {
             stage = GameStage.VeryEasy;
+            playingTutorial = true;
             FirstTimePlaying?.Invoke();
         }
     }
 
-    private void CheckRoundProgression(List<GameObject> confirmedCards)
+
+
+    private void CheckRoundProgression(List<GameObject> confirmedCards/*, RoundType roundType*/)
      {
         // decrease remaining turns
-        Debug.Log("CheckProgression");
         if (currentRound == 0 && confirmedCards != null)
         {
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
@@ -75,28 +108,63 @@ public class NEW_GameProgression : MonoBehaviour
             return;
         }
 
-        //remainingTurns--;
-        OnTurnsChanged?.Invoke(true);
-        Debug.Log($"Turns left: {remainingTurns}");
+        if (playingTutorial)
+        {
+            tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
+            if (tempCardGenerator.CheckRemainingCards() == false)
+            {
+                _tutorialProgress++;
+                OnTutorialStart?.Invoke(_tutorialProgress);
+                UpdateTutorialProgression();
+            }
+        }
+
+        if (isTurnCounterActive)
+        {
+            OnTurnsChanged?.Invoke(true);
+        }
+        
+        // it's null if wrong pair or card was unpicked
         if (confirmedCards == null)
         {
             return;
         }
 
-
         score += 10; //TODO: TEMP. Move to score script
-
-
+        money += 1;
+        Debug.Log($"Money:{money}");
         tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
-
-        //if (remainingTurns == 0)
-        //{
-        //    Debug.Log($"<color=orange>NO TURNS LEFT! RESTART GAME</color>");
-        //}
-
         if (tempCardGenerator.CheckRemainingCards() == false)
         {
             NextRound();
+        }
+    }
+
+    private void UpdateTutorialProgression()
+    {
+        switch(_tutorialProgress)
+        {
+            case 1:
+                // Hints only
+                OnFirstTutorialPhase?.Invoke(); это не нужно, первая подсказка будет перенесена на ивент начала туториала
+                break;
+
+            case 4:
+                isScoreListActive = true;
+                OnActivateScoreList?.Invoke(true);
+                OnSecondTutorialPhase?.Invoke();
+                break;
+
+            case 7:
+                isTurnCounterActive = true;
+                OnActivateTurnCounter?.Invoke(true);
+                OnThirdTutorialPhase?.Invoke();
+                break;
+
+            case 10:
+                // Hints only
+                OnFourthTutorialPhase?.Invoke();
+                break;
         }
     }
 
@@ -104,7 +172,6 @@ public class NEW_GameProgression : MonoBehaviour
     {
         currentRound++;
         OnNextRound?.Invoke(currentRound);
-        //UpdateDifficulty();
 
         if (currentRound % buyRound == 0)
         {
@@ -203,7 +270,8 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void StartTutorial()
     {
-        OnTutorialStart?.Invoke();
+        _tutorialProgress = 0;
+        OnTutorialStart?.Invoke(_tutorialProgress);
     }
 
     private void RejectGameStart()

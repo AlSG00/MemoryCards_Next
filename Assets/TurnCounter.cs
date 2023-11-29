@@ -10,12 +10,24 @@ public class TurnCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        NEW_GameProgression.OnActivateTurnCounter += SetTurnCounterActive;
     }
 
     private void OnDisable()
     {
-        
+        NEW_GameProgression.OnActivateTurnCounter -= SetTurnCounterActive;
+    }
+
+    private void SetTurnCounterActive(bool isActive)
+    {
+        if (isActive)
+        {
+            Show();
+        }
+        else
+        {
+            Hide();
+        }
     }
 
     private void Show()

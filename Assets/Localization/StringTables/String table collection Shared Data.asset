@@ -115,6 +115,22 @@ MonoBehaviour:
     m_Key: MainScene/[counter_final_withUV]/Canvas/Clock/Clock_DaysOfWeek/Saturday_6
     m_Metadata:
       m_Items: []
+  - m_Id: 6224604005965824
+    m_Key: MainScene/--- UI/Canvas/- TutorialHints/Hint_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6225912897249280
+    m_Key: MainScene/--- UI/Canvas/- TutorialHints/Hint_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6226654701854720
+    m_Key: MainScene/--- UI/Canvas/- TutorialHints/Hint_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6227282241036288
+    m_Key: MainScene/--- UI/Canvas/- TutorialHints/Hint_4
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

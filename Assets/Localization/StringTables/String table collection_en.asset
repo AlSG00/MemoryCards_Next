@@ -118,6 +118,22 @@ MonoBehaviour:
     m_Localized: Sat
     m_Metadata:
       m_Items: []
+  - m_Id: 6224604005965824
+    m_Localized: Find all pairs of the same cards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6225912897249280
+    m_Localized: Here is your current score
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6226654701854720
+    m_Localized: Number of turns per round is limited
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6227282241036288
+    m_Localized: Difficulty increases with the number of rounds completed
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
