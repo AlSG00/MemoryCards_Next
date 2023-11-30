@@ -46,10 +46,11 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action/*<bool>*/ FirstTimePlaying;
 
     // To activate text hints
-    public static event System.Action OnFirstTutorialPhase;
-    public static event System.Action OnSecondTutorialPhase;
-    public static event System.Action OnThirdTutorialPhase;
-    public static event System.Action OnFourthTutorialPhase;
+    //public static event System.Action OnFirstTutorialPhase;
+    //public static event System.Action OnSecondTutorialPhase;
+    //public static event System.Action OnThirdTutorialPhase;
+    //public static event System.Action OnFourthTutorialPhase;
+    public static event System.Action<int> OnStartTutorialPhase;
 
 
     public static event System.Action<bool> OnActivateTurnCounter;
@@ -96,8 +97,6 @@ public class NEW_GameProgression : MonoBehaviour
         }
     }
 
-
-
     private void CheckRoundProgression(List<GameObject> confirmedCards/*, RoundType roundType*/)
      {
         // decrease remaining turns
@@ -110,6 +109,10 @@ public class NEW_GameProgression : MonoBehaviour
 
         if (playingTutorial)
         {
+            if (confirmedCards == null)
+            {
+                return;
+            }
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
@@ -144,26 +147,27 @@ public class NEW_GameProgression : MonoBehaviour
     {
         switch(_tutorialProgress)
         {
-            case 1:
+            case 0:
                 // Hints only
-                OnFirstTutorialPhase?.Invoke(); это не нужно, первая подсказка будет перенесена на ивент начала туториала
+                OnStartTutorialPhase?.Invoke(1);
+                //OnFirstTutorialPhase?.Invoke(); это не нужно, первая подсказка будет перенесена на ивент начала туториала
                 break;
 
             case 4:
                 isScoreListActive = true;
                 OnActivateScoreList?.Invoke(true);
-                OnSecondTutorialPhase?.Invoke();
+                OnStartTutorialPhase?.Invoke(2);
                 break;
 
             case 7:
                 isTurnCounterActive = true;
                 OnActivateTurnCounter?.Invoke(true);
-                OnThirdTutorialPhase?.Invoke();
+                OnStartTutorialPhase?.Invoke(3);
                 break;
 
             case 10:
                 // Hints only
-                OnFourthTutorialPhase?.Invoke();
+                OnStartTutorialPhase?.Invoke(4);
                 break;
         }
     }
@@ -271,7 +275,9 @@ public class NEW_GameProgression : MonoBehaviour
     private void StartTutorial()
     {
         _tutorialProgress = 0;
+        UpdateTutorialProgression();
         OnTutorialStart?.Invoke(_tutorialProgress);
+       // OnStartTutorialPhase?.Invoke(1);
     }
 
     private void RejectGameStart()

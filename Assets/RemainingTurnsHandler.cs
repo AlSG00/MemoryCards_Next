@@ -8,20 +8,38 @@ public class RemainingTurnsHandler : MonoBehaviour
 
     public static event System.Action<int> OnGUIUpdate;
 
+    [SerializeField] private bool _isActive;
+
     private void OnEnable()
     {
+        NEW_GameProgression.OnActivateTurnCounter += SetTurnHandlerActive;
         NEW_GameProgression.OnTurnsChanged += ChangeRemainingTurns;
         NEW_CardLayoutHandler.OnSetRemainingTurns += SetRemainingTurns;
     }
 
     private void OnDisable()
     {
+        NEW_GameProgression.OnActivateTurnCounter -= SetTurnHandlerActive;
         NEW_GameProgression.OnTurnsChanged -= ChangeRemainingTurns;
         NEW_CardLayoutHandler.OnSetRemainingTurns -= SetRemainingTurns;
     }
 
+    private void SetTurnHandlerActive(bool isActive)
+    {
+        _isActive = isActive;
+    }
+    //private void Start()
+    //{
+    //    _isActive = false;
+    //}
+
     private void ChangeRemainingTurns(bool decreased, int changeValue = 1)
     {
+        if (_isActive == false)
+        {
+            return;
+        }
+
         if (decreased)
         {
             remainingTurns -= changeValue;
@@ -43,6 +61,11 @@ public class RemainingTurnsHandler : MonoBehaviour
 
     private void SetRemainingTurns(int cardsInLayout)
     {
+        if (_isActive == false)
+        {
+            return;
+        }
+
         // TODO: Make complex formula for calculating turns depending on buffs, bebuffs and current round
         remainingTurns = cardsInLayout * 2;
         OnGUIUpdate?.Invoke(remainingTurns);

@@ -75,8 +75,8 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     private void PlayTutorialRound(int tutorialProgress)
     {
         PrepareTutorialLayout(tutorialProgress);
-        засветить обучающую штуку по номеру
-        обучающая штука потом уберется после лббого confirm пика
+        //засветить обучающую штуку по номеру
+        //обучающая штука потом уберется после лббого confirm пика
     }
 
     private void PrepareTutorialLayout(int tutorialIndex)
@@ -87,10 +87,11 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             SetPlasePoints(_tutorialLayouts[0]);
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
-            if (tutorialIndex >= tutorialIndex)
-            {
-                //OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count);
-            }
+
+            //if (tutorialIndex >= 6)
+            //{
+                OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count);
+            //}
         }
     }
 

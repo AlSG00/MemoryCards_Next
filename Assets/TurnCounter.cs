@@ -20,6 +20,11 @@ public class TurnCounter : MonoBehaviour
 
     private void SetTurnCounterActive(bool isActive)
     {
+        if (isActive == _isVisible)
+        {
+            return;
+        }
+
         if (isActive)
         {
             Show();
