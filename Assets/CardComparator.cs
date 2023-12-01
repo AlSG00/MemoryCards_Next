@@ -18,12 +18,14 @@ public class CardComparator : MonoBehaviour
     {
         NEW_Card.OnCardPicked += PickCard;
         NEW_Card.OnCardUnpicked += UnpickCard;
+        RejectStartButton.OnGameStartReject += UnpickAllCards;
     }
 
     private void OnDisable()
     {
         NEW_Card.OnCardPicked -= PickCard;
         NEW_Card.OnCardUnpicked -= UnpickCard;
+        RejectStartButton.OnGameStartReject += UnpickAllCards;
     }
 
     public void PickCard(NEW_Card card)

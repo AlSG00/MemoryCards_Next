@@ -12,12 +12,12 @@ public class ScoreListHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        NEW_GameProgression.OnActivateScoreList += SetScoreListActive;
     }
 
     private void OnDisable()
     {
-        
+        NEW_GameProgression.OnActivateScoreList -= SetScoreListActive;
     }
 
     private void Update()
@@ -59,6 +59,18 @@ public class ScoreListHandler : MonoBehaviour
         var show = _animator.GetBool("ShowFull");
         show = !show;
         _animator.SetBool("ShowFull", show);
+    }
+
+    private void SetScoreListActive(bool isActive)
+    {
+        if (isActive)
+        {
+            Show();
+        }
+        else
+        {
+            Hide();
+        }
     }
 
     private void Show()

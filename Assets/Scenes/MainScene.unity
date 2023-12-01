@@ -4541,7 +4541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf370eb9db39c78449700ffefe009040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
+  _animator: {fileID: 919132148914331118}
 --- !u!4 &177554798
 Transform:
   m_ObjectHideFlags: 0
@@ -8798,7 +8798,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.5200736, y: -0.07891493, z: 0.04833576, w: 0.84909344}
+  m_LocalRotation: {x: 0.5200736, y: -0.07891489, z: 0.048335735, w: 0.8490934}
   m_LocalPosition: {x: 1.2, y: 12.766, z: -6.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13590,7 +13590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c91d89da0a9bf478beed231302cf3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TEMP_testTripleLayout: {fileID: 1371277780}
   cardsStartPosition: {fileID: 112186186}
   _cardPlacingSpeed: 1
   _cardPlacementDelay: 0.1
@@ -33678,7 +33677,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222250152}
-  m_LocalRotation: {x: 0.5200736, y: -0.07891493, z: 0.04833576, w: 0.84909344}
+  m_LocalRotation: {x: 0.5200736, y: -0.07891489, z: 0.048335735, w: 0.8490934}
   m_LocalPosition: {x: 1.2, y: 12.766, z: -6.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

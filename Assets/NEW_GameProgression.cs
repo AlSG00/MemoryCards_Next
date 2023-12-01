@@ -117,6 +117,7 @@ public class NEW_GameProgression : MonoBehaviour
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
                 _tutorialProgress++;
+                Debug.Log(_tutorialProgress);
                 OnTutorialStart?.Invoke(_tutorialProgress);
                 UpdateTutorialProgression();
             }
@@ -153,19 +154,19 @@ public class NEW_GameProgression : MonoBehaviour
                 //OnFirstTutorialPhase?.Invoke(); это не нужно, первая подсказка будет перенесена на ивент начала туториала
                 break;
 
-            case 4:
+            case 3:
                 isScoreListActive = true;
                 OnActivateScoreList?.Invoke(true);
                 OnStartTutorialPhase?.Invoke(2);
                 break;
 
-            case 7:
+            case 6:
                 isTurnCounterActive = true;
                 OnActivateTurnCounter?.Invoke(true);
                 OnStartTutorialPhase?.Invoke(3);
                 break;
 
-            case 10:
+            case 9:
                 // Hints only
                 OnStartTutorialPhase?.Invoke(4);
                 break;

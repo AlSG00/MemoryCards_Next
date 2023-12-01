@@ -5,7 +5,7 @@ using System.Linq;
 
 public class NEW_CardLayoutHandler : MonoBehaviour
 {
-    public GameObject TEMP_testTripleLayout;
+   // public GameObject TEMP_testTripleLayout;
 
     [Header("Main parameters")]
     public Transform cardsStartPosition;
@@ -29,7 +29,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     private bool _isPreparing = false;
     private bool _isPlacing = false;
-    private int currentTutorialLayout = 0;
+    private int _currentTutorialLayout = 0;
 
     /*[SerializeField]*/ private List<GameObject> _cardsInLayout;
     //private int 
@@ -84,7 +84,11 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         if (_isPreparing == false)
         {
             _isPreparing = true;
-            SetPlasePoints(_tutorialLayouts[0]);
+            //SetPlasePoints(_tutorialLayouts[0]);
+
+            SetPlacePointsList(_tutorialLayouts[tutorialIndex]);
+            MixPlacePoints();
+
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
 
