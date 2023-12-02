@@ -40,7 +40,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     public static event System.Action OnPressStart;
     public static event System.Action OnGameStartConfirm;
-    public static event System.Action<int> OnTutorialStart;
+    public static event System.Action<int> OnPlayTutorial;
     public static event System.Action<int> OnTutorialProgress;
     public static event System.Action<int> OnNextRound;
     public static event System.Action/*<bool>*/ FirstTimePlaying;
@@ -107,40 +107,47 @@ public class NEW_GameProgression : MonoBehaviour
             return;
         }
 
+        if (isTurnCounterActive)
+        {
+            OnTurnsChanged?.Invoke(true);
+        }
+
         if (playingTutorial)
         {
             if (confirmedCards == null)
             {
                 return;
             }
+
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
                 _tutorialProgress++;
                 Debug.Log(_tutorialProgress);
-                OnTutorialStart?.Invoke(_tutorialProgress);
                 UpdateTutorialProgression();
+                OnPlayTutorial?.Invoke(_tutorialProgress);
+                if (_tutorialProgress == 9)
+                {
+                    playingTutorial = false;
+                }
             }
         }
+        else
+        {
+            // it's null if wrong pair or card was unpicked
+            if (confirmedCards == null)
+            {
+                return;
+            }
 
-        if (isTurnCounterActive)
-        {
-            OnTurnsChanged?.Invoke(true);
-        }
-        
-        // it's null if wrong pair or card was unpicked
-        if (confirmedCards == null)
-        {
-            return;
-        }
-
-        score += 10; //TODO: TEMP. Move to score script
-        money += 1;
-        Debug.Log($"Money:{money}");
-        tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
-        if (tempCardGenerator.CheckRemainingCards() == false)
-        {
-            NextRound();
+            score += 10; //TODO: TEMP. Move to score script
+            money += 1;
+            Debug.Log($"Money:{money}");
+            tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
+            if (tempCardGenerator.CheckRemainingCards() == false)
+            {
+                NextRound();
+            }
         }
     }
 
@@ -151,18 +158,15 @@ public class NEW_GameProgression : MonoBehaviour
             case 0:
                 // Hints only
                 OnStartTutorialPhase?.Invoke(1);
-                //OnFirstTutorialPhase?.Invoke(); это не нужно, первая подсказка будет перенесена на ивент начала туториала
                 break;
 
             case 3:
-                isScoreListActive = true;
-                OnActivateScoreList?.Invoke(true);
+                EnableScoreList(true);
                 OnStartTutorialPhase?.Invoke(2);
                 break;
 
             case 6:
-                isTurnCounterActive = true;
-                OnActivateTurnCounter?.Invoke(true);
+                EnableTurnCounter(true);
                 OnStartTutorialPhase?.Invoke(3);
                 break;
 
@@ -177,6 +181,10 @@ public class NEW_GameProgression : MonoBehaviour
     {
         currentRound++;
         OnNextRound?.Invoke(currentRound);
+        if (isTurnCounterActive == false)
+        {
+            EnableTurnCounter(true);
+        }
 
         if (currentRound % buyRound == 0)
         {
@@ -186,9 +194,19 @@ public class NEW_GameProgression : MonoBehaviour
         {
             SetStandartRound();
         }
+    }
 
-        // TODO: Прикрутить, чтобы число ходов вычислялось по какой-нибудь формуле
+    private void EnableTurnCounter(bool isEnabled)
+    {
+        isTurnCounterActive = isEnabled;
+        OnActivateTurnCounter?.Invoke(isEnabled);
+        
+    }
 
+    private void EnableScoreList(bool isEnabled)
+    {
+        isScoreListActive = isEnabled;
+        OnActivateScoreList?.Invoke(isEnabled);
     }
 
     private void SetStandartRound()
@@ -202,6 +220,7 @@ public class NEW_GameProgression : MonoBehaviour
     {
         // Deactivate turn counter
         // Call a method to show store
+        EnableTurnCounter(false);
         Debug.Log("Buy round is currently in development");
 
         NextRound();
@@ -277,7 +296,7 @@ public class NEW_GameProgression : MonoBehaviour
     {
         _tutorialProgress = 0;
         UpdateTutorialProgression();
-        OnTutorialStart?.Invoke(_tutorialProgress);
+        OnPlayTutorial?.Invoke(_tutorialProgress);
        // OnStartTutorialPhase?.Invoke(1);
     }
 

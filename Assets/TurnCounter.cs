@@ -8,6 +8,8 @@ public class TurnCounter : MonoBehaviour
 
     private bool _isVisible = false;
 
+    public static System.Action<bool> OnActivateTurnCounter;
+
     private void OnEnable()
     {
         NEW_GameProgression.OnActivateTurnCounter += SetTurnCounterActive;
@@ -41,6 +43,7 @@ public class TurnCounter : MonoBehaviour
         {
             _isVisible = true;
             _animator.SetTrigger("Show");
+            OnActivateTurnCounter?.Invoke(true);
         }
     }
 
@@ -50,6 +53,7 @@ public class TurnCounter : MonoBehaviour
         {
             _isVisible = false;
             _animator.SetTrigger("Hide");
+            OnActivateTurnCounter?.Invoke(false);
         }
     }
 

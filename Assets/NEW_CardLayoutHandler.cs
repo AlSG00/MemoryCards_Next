@@ -42,12 +42,12 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnTutorialStart += PlayTutorialRound;
+        NEW_GameProgression.OnPlayTutorial += PlayTutorialRound;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnTutorialStart += PlayTutorialRound;
+        NEW_GameProgression.OnPlayTutorial += PlayTutorialRound;
     }
 
     private void Start()
@@ -92,10 +92,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
 
-            //if (tutorialIndex >= 6)
-            //{
-                OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count);
-            //}
+            OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count);
         }
     }
 

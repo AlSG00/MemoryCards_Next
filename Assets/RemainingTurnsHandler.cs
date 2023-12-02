@@ -12,26 +12,29 @@ public class RemainingTurnsHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnActivateTurnCounter += SetTurnHandlerActive;
+        //NEW_GameProgression.OnActivateTurnCounter += SetTurnHandlerActive;
+        TurnCounter.OnActivateTurnCounter += SetTurnHandlerActive;
         NEW_GameProgression.OnTurnsChanged += ChangeRemainingTurns;
         NEW_CardLayoutHandler.OnSetRemainingTurns += SetRemainingTurns;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnActivateTurnCounter -= SetTurnHandlerActive;
+        //NEW_GameProgression.OnActivateTurnCounter -= SetTurnHandlerActive;
+        TurnCounter.OnActivateTurnCounter -= SetTurnHandlerActive;
         NEW_GameProgression.OnTurnsChanged -= ChangeRemainingTurns;
         NEW_CardLayoutHandler.OnSetRemainingTurns -= SetRemainingTurns;
+    }
+
+    private void Start()
+    {
+        _isActive = false;
     }
 
     private void SetTurnHandlerActive(bool isActive)
     {
         _isActive = isActive;
     }
-    //private void Start()
-    //{
-    //    _isActive = false;
-    //}
 
     private void ChangeRemainingTurns(bool decreased, int changeValue = 1)
     {
@@ -53,7 +56,7 @@ public class RemainingTurnsHandler : MonoBehaviour
         {
             remainingTurns = 0; // So without negatives on turn counter
             Debug.Log("<color=orange>No turns left</color>");
-            // TODO: Start lose event
+            throw new System.Exception("No game loose event"); // TODO: Add lose event
         }
 
         OnGUIUpdate?.Invoke(remainingTurns);
