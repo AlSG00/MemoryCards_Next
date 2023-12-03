@@ -43,13 +43,8 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<int> OnPlayTutorial;
     public static event System.Action<int> OnTutorialProgress;
     public static event System.Action<int> OnNextRound;
-    public static event System.Action/*<bool>*/ FirstTimePlaying;
+    public static event System.Action FirstTimePlaying;
 
-    // To activate text hints
-    //public static event System.Action OnFirstTutorialPhase;
-    //public static event System.Action OnSecondTutorialPhase;
-    //public static event System.Action OnThirdTutorialPhase;
-    //public static event System.Action OnFourthTutorialPhase;
     public static event System.Action<int> OnStartTutorialPhase;
 
 
@@ -60,7 +55,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event TurnAction OnTurnsChanged;
 
 
-    public bool firstTimePlaying;
+    public bool firstTimePlaying; // TODO: Save this parameter to JSON
     public bool playingTutorial;
     private int _tutorialProgress;
 
@@ -218,28 +213,14 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetBuyRound()
     {
-        // Deactivate turn counter
-        // Call a method to show store
         EnableTurnCounter(false);
         Debug.Log("Buy round is currently in development");
-
         NextRound();
-
-        // hide store if it was
-        // set new layout
-        // activate turn counter
-        // recalculate remaining turns
-
-        // Decide which round is next (store or cards)
-        // Set new layout
-        // Generate cards
-        // Reset turns
-        // Maybe smth else
-        // Next
     }
 
     private void UpdateDifficulty()
     {
+        
         if (currentRound < 2)
         {
             stage = GameStage.Easy;
@@ -278,8 +259,12 @@ public class NEW_GameProgression : MonoBehaviour
         }
         else
         {
+            
+            EnableScoreList(true);
+            EnableTurnCounter(true);
             tempCardLayoutHandler.PrepareNewLayout();
             OnNextRound?.Invoke(currentRound);
+            
         }
         
         // reset score
@@ -297,7 +282,6 @@ public class NEW_GameProgression : MonoBehaviour
         _tutorialProgress = 0;
         UpdateTutorialProgression();
         OnPlayTutorial?.Invoke(_tutorialProgress);
-       // OnStartTutorialPhase?.Invoke(1);
     }
 
     private void RejectGameStart()
