@@ -121,7 +121,8 @@ public class NEW_GameProgression : MonoBehaviour
                 Debug.Log(_tutorialProgress);
                 UpdateTutorialProgression();
                 OnPlayTutorial?.Invoke(_tutorialProgress);
-                if (_tutorialProgress == 9)
+
+                if (_tutorialProgress == 9) // TODO: is it ok?
                 {
                     playingTutorial = false;
                 }
@@ -136,7 +137,8 @@ public class NEW_GameProgression : MonoBehaviour
             }
 
             score += 10; //TODO: TEMP. Move to score script
-            money += 1;
+            money += 1; //TODO: TEMP. Move to money script
+
             Debug.Log($"Money:{money}");
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
