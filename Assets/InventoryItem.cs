@@ -6,6 +6,7 @@ using UnityEngine;
 public class InventoryItem : MonoBehaviour
 {
     [SerializeField] private Transform _currentPivot;
+    [SerializeField] private Transform _previousPivot;
     [SerializeField] private Transform _shopPivot;
     [SerializeField] private Transform _inventoryPivot;
     [SerializeField] private Transform _cursorPivot;
@@ -13,9 +14,10 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private bool _isReadyToUse;
     [SerializeField] private bool _isPicked;
+    [SerializeField] private bool _isBought;
     [SerializeField] private bool _isChangingPosition;
     
-    public static event System.Action OnTakeItem;
+    //public static event System.Action OnTakeItem;
 
     [SerializeField] private float _moveToInventoryTime;
     [SerializeField] private float _moveToCursorTime;
@@ -24,6 +26,7 @@ public class InventoryItem : MonoBehaviour
     {
         _isReadyToUse = false;
         _isPicked = false;
+        _isBought = false;
         _isChangingPosition = false;
     }
 
@@ -46,19 +49,35 @@ public class InventoryItem : MonoBehaviour
         }
     }
 
-    private void OnMouseEnter()
+    //private void OnMouseEnter()
+    //{
+    //    Debug.Log("Entered");
+    //}
+
+    //private void OnMouseExit()
+    //{
+    //    Debug.Log("Leaved");
+    //}
+
+    private void Buy()
     {
-        Debug.Log("Entered");
+
     }
 
-    private void OnMouseExit()
+    private void Sell()
     {
-        Debug.Log("Leaved");
+
+    }
+
+    private async void AddToInventory()
+    {
+
     }
 
     private void OnMouseDown()
     {
         _isChangingPosition = true;
+        Cursor.visible = false;
         _currentPivot = _cursorPivot;
         StopAllCoroutines();
         StartCoroutine(MoveToPivotRoutine(_currentPivot, _moveToCursorTime));
@@ -67,6 +86,7 @@ public class InventoryItem : MonoBehaviour
     private async void OnMouseUp()
     {
         _isChangingPosition = true;
+        Cursor.visible = true;
         _currentPivot = _inventoryPivot;
         StopAllCoroutines();
         StartCoroutine(MoveToPivotRoutine(_currentPivot, _moveToInventoryTime));
