@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class InventoryItem : MonoBehaviour
 {
+    [SerializeField] private string itemName;
     [SerializeField] private Transform _currentPivot;
     [SerializeField] private Transform _previousPivot;
     [SerializeField] private Transform _shopPivot;
@@ -12,15 +13,25 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] private Transform _cursorPivot;
 
     [SerializeField] private Animator _animator;
-    [SerializeField] private bool _isReadyToUse;
+    [SerializeField] private bool _isReadyToUse; // Means that item is near 
     [SerializeField] private bool _isPicked;
     [SerializeField] private bool _isBought;
     [SerializeField] private bool _isChangingPosition;
     
-    //public static event System.Action OnTakeItem;
+    public static event System.Action<Transform, string> OnAddToInventory;
 
     [SerializeField] private float _moveToInventoryTime;
     [SerializeField] private float _moveToCursorTime;
+
+    private void OnEnable()
+    {
+        Inventory.OnReceiveItem += MoveToInventory;
+    }
+
+    private void OnDisable()
+    {
+        Inventory.OnReceiveItem -= MoveToInventory;
+    }
 
     private void Awake()
     {
@@ -69,9 +80,27 @@ public class InventoryItem : MonoBehaviour
 
     }
 
-    private async void AddToInventory()
+    public void AddToInventory()
     {
+        OnAddToInventory?.Invoke(gameObject.transform, itemName);
+    }
 
+    private void MoveToPivot(Transform target, float timeToMove)
+    {
+        StopAllCoroutines();
+        StartCoroutine(MoveToPivotRoutine(_currentPivot, timeToMove));
+    }
+
+    private void MoveToInventory(Transform target)
+    {
+        if (target == null)
+        {
+            return;
+        }
+
+        _inventoryPivot = target;
+        StopAllCoroutines();
+        StartCoroutine(MoveToPivotRoutine(_inventoryPivot, _moveToInventoryTime));
     }
 
     private void OnMouseDown()
@@ -79,8 +108,7 @@ public class InventoryItem : MonoBehaviour
         _isChangingPosition = true;
         Cursor.visible = false;
         _currentPivot = _cursorPivot;
-        StopAllCoroutines();
-        StartCoroutine(MoveToPivotRoutine(_currentPivot, _moveToCursorTime));
+        MoveToPivot(_currentPivot, _moveToCursorTime);
     }
 
     private async void OnMouseUp()
@@ -88,11 +116,10 @@ public class InventoryItem : MonoBehaviour
         _isChangingPosition = true;
         Cursor.visible = true;
         _currentPivot = _inventoryPivot;
-        StopAllCoroutines();
-        StartCoroutine(MoveToPivotRoutine(_currentPivot, _moveToInventoryTime));
+        MoveToPivot(_currentPivot, _moveToInventoryTime);
     }
 
-    private IEnumerator MoveToPivotRoutine(Transform targetTransform, float time)
+    private IEnumerator MoveToPivotRoutine(Transform targetTransform, float time = 0.2f)
     {
         Vector3 startPosition = transform.position;
         Quaternion startRotation = transform.rotation;

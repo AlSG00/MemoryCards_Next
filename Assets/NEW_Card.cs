@@ -32,6 +32,8 @@ public class NEW_Card : MonoBehaviour
     public static event ClickAction OnCardPicked;
     public static event ClickAction OnCardUnpicked;
 
+    public static event System.Action<bool> OnHideFullList;
+
     //private void Start()
     //{
     //    cardHandler = GameObject.Find("CardHandler").GetComponent<CardHandler>();
@@ -88,6 +90,7 @@ public class NEW_Card : MonoBehaviour
             OnCardUnpicked?.Invoke(this);
         }
 
+        OnHideFullList?.Invoke(false);
         //_wasPicked = !_wasPicked;
     }
 

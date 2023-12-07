@@ -7,41 +7,55 @@ public class ScoreListHandler : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
 
-    private bool _isCursorOnMouse = false;
-    private bool _isVisible = false;
+    //private bool _isCursorOnMouse = false;
+    [SerializeField] private bool _isVisible = false;
+    [SerializeField] private bool isEnabled = false;
 
     private void OnEnable()
     {
         NEW_GameProgression.OnActivateScoreList += SetScoreListActive;
+        NEW_Card.OnHideFullList += ChangeFullListVisibility;
     }
 
     private void OnDisable()
     {
         NEW_GameProgression.OnActivateScoreList -= SetScoreListActive;
+        NEW_Card.OnHideFullList -= ChangeFullListVisibility;
     }
 
-    private void Update()
+    private void Awake()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            ChangeFullListVisibility();
-        }
+        isEnabled = false;
+        _isVisible = false;
     }
 
-    private void OnMouseEnter()
-    {
-        _isCursorOnMouse = true;
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        ChangeFullListVisibility();
+    //    }
+    //}
 
-    private void OnMouseOver()
-    {
-        _isCursorOnMouse = true;
-    }
+    //private void OnMouseEnter()
+    //{
+    //    _isCursorOnMouse = true;
+    //}
 
-    private void OnMouseExit()
+    //private void OnMouseOver()
+    //{
+    //    _isCursorOnMouse = true;
+    //}
+
+    //private void OnMouseExit()
+    //{
+    //    _isCursorOnMouse = false;
+    //}
+
+    private void OnMouseDown()
     {
-        //ChangeListVisibility();
-        _isCursorOnMouse = false;
+        _isVisible = !_isVisible;
+        ChangeFullListVisibility(_isVisible);
     }
 
     private void ActivateList(bool setActive)
@@ -49,16 +63,21 @@ public class ScoreListHandler : MonoBehaviour
         gameObject.GetComponent<BoxCollider>().enabled = setActive;
     }
 
-    private void ChangeFullListVisibility()
+    private void ChangeFullListVisibility(bool isFullyVisible)
     {
-        if (_isCursorOnMouse == false)
-        {
-            return;
-        }
+        //if (_isCursorOnMouse == false)
+        //{
+        //    return;
+        //}
 
         var show = _animator.GetBool("ShowFull");
-        show = !show;
-        _animator.SetBool("ShowFull", show);
+        //show = !show;
+        if (show != isFullyVisible)
+        {
+            _animator.SetBool("ShowFull", isFullyVisible);
+        }
+
+        _isVisible = isFullyVisible; // Needed for syncing values when invoking metod from other scripts;
     }
 
     private void SetScoreListActive(bool isActive)
@@ -75,18 +94,18 @@ public class ScoreListHandler : MonoBehaviour
 
     private void Show()
     {
-        if (_isVisible == false)
+        if (isEnabled == false)
         {
-            _isVisible = true;
+            isEnabled = true;
             _animator.SetTrigger("Show");
         }
     }
 
     private void Hide()
     {
-        if (_isVisible)
+        if (isEnabled)
         {
-            _isVisible = false;
+            isEnabled = false;
             _animator.SetTrigger("Hide");
         }
     }
