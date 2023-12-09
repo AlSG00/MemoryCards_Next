@@ -238,15 +238,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     private IEnumerator MoveCardsRoutine()
     {
         _isPlacing = true;
-        //for (int i = 0; i < cardGenerator.currentCardPack.Count; i++)
-        //{
-        //    StartCoroutine(MoveCardToPositionRoutine(cardGenerator.currentCardPack[i], _cardPlacePoints[i]));
-        //    yield return new WaitForSecondsRealtime(_cardPlacementDelay);
-        //    if (i == cardGenerator.currentCardPack.Count - 1)
-        //    {
-        //        _isPlacing = false;
-        //    }
-        //}
         for (int i = 0; i < _cardsInLayout.Count; i++)
         {
             StartCoroutine(MoveCardToPositionRoutine(_cardsInLayout[i].gameObject, _cardPlacePoints[i]));
@@ -263,11 +254,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
 
         ActivateCardColliders(true);
-
-        //if (sessionProgress.currentRound >= sessionProgress.roundToactivateTimer)
-        //{
-        //    sessionProgress.counterStarted = true;
-        //}
         _isPreparing = false;
     }
 

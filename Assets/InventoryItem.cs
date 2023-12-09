@@ -25,12 +25,12 @@ public class InventoryItem : MonoBehaviour
 
     private void OnEnable()
     {
-        Inventory.OnReceiveItem += MoveToInventory;
+        Inventory.OnReceiveItem += InitializeForInventory;
     }
 
     private void OnDisable()
     {
-        Inventory.OnReceiveItem -= MoveToInventory;
+        Inventory.OnReceiveItem -= InitializeForInventory;
     }
 
     private void Awake()
@@ -91,14 +91,32 @@ public class InventoryItem : MonoBehaviour
         StartCoroutine(MoveToPivotRoutine(_currentPivot, timeToMove));
     }
 
-    private void MoveToInventory(Transform target)
+    //private void MoveToInventory(Transform target, Transform )
+    //{
+    //    if (target == null)
+    //    {
+    //        return;
+    //    }
+
+    //    _inventoryPivot = target;
+    //    StopAllCoroutines();
+    //    StartCoroutine(MoveToPivotRoutine(_inventoryPivot, _moveToInventoryTime));
+    //}
+
+    private void InitializeForInventory(Transform inventoryPivot, Transform cursorPivot)
     {
-        if (target == null)
+        if (inventoryPivot == null)
         {
             return;
         }
 
-        _inventoryPivot = target;
+        if (cursorPivot == null)
+        {
+            throw new Exception("Cursor pivot not found");
+        }
+
+        _inventoryPivot = inventoryPivot;
+        _cursorPivot = cursorPivot;
         StopAllCoroutines();
         StartCoroutine(MoveToPivotRoutine(_inventoryPivot, _moveToInventoryTime));
     }

@@ -6,8 +6,9 @@ using System.Linq;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private InventorySlot[] _itemSlots;
+    [SerializeField] private Transform[] _cursorPivots;
 
-    public static event System.Action<Transform> OnReceiveItem;
+    public static event System.Action<Transform, Transform> OnReceiveItem;
 
     private void OnEnable()
     {
@@ -25,13 +26,14 @@ public class Inventory : MonoBehaviour
         {
             if (slot.IsAvailable())
             {
-                Transform requiredPivot = slot.itemSlotPivots.First(pivot => pivot.name == itemName);
+                Transform inventorySlotPivot = slot.itemSlotPivots.First(pivot => pivot.name == itemName);
                 slot.item = itemPivot;
-                OnReceiveItem?.Invoke(requiredPivot);
+                Transform itemCursorPivot = _cursorPivots.First(pivot => pivot.name == itemName);
+                OnReceiveItem?.Invoke(inventorySlotPivot, itemCursorPivot);
                 return;
             }
         }
-        OnReceiveItem?.Invoke(null);
+        OnReceiveItem?.Invoke(null, null);
         throw new System.Exception("Unhandled full inventory exception");
     }
 

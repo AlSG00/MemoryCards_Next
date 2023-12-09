@@ -222,8 +222,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void UpdateDifficulty()
     {
-        
-        if (currentRound < 2)
+        if (currentRound < 5)
         {
             stage = GameStage.Easy;
         }
