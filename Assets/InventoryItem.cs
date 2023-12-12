@@ -26,6 +26,7 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] private GameObject _priceTag;
     [SerializeField] private int _buyPrice;
     [SerializeField] private int _sellPrice;
+    [SerializeField] private bool _isReadyToSell;
 
     private void OnEnable()
     {
@@ -76,12 +77,24 @@ public class InventoryItem : MonoBehaviour
 
     private void Buy()
     {
-
+        // TODO: Remove price tag, move to inventory, and write down in inventory slot
     }
 
     private void Sell()
     {
+        // TODO: Move item and destroy
+    }
 
+    private void EnableReadyToSell()
+    {
+        _isReadyToSell = true;
+        Debug.Log($"_isReadyToSell: {_isReadyToSell}");
+    }
+
+    private void DisableReadyToSell()
+    {
+        _isReadyToSell = false;
+        Debug.Log($"_isReadyToSell: {_isReadyToSell}");
     }
 
     public void AddToInventory()
