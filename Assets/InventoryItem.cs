@@ -23,6 +23,10 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] private float _moveToInventoryTime;
     [SerializeField] private float _moveToCursorTime;
 
+    [SerializeField] private GameObject _priceTag;
+    [SerializeField] private int _buyPrice;
+    [SerializeField] private int _sellPrice;
+
     private void OnEnable()
     {
         Inventory.OnReceiveItem += InitializeForInventory;
@@ -124,8 +128,9 @@ public class InventoryItem : MonoBehaviour
     private void OnMouseDown()
     {
         _isChangingPosition = true;
-        Cursor.visible = false;
+        //Cursor.visible = false;
         _currentPivot = _cursorPivot;
+        GetComponent<BoxCollider>().enabled = false;
         MoveToPivot(_currentPivot, _moveToCursorTime);
     }
 
@@ -134,6 +139,7 @@ public class InventoryItem : MonoBehaviour
         _isChangingPosition = true;
         Cursor.visible = true;
         _currentPivot = _inventoryPivot;
+        GetComponent<BoxCollider>().enabled = true;
         MoveToPivot(_currentPivot, _moveToInventoryTime);
     }
 
