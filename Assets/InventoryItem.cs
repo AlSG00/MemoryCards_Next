@@ -19,6 +19,7 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] private bool _isChangingPosition;
     
     public static event System.Action<Transform, string> OnAddToInventory;
+    public static event System.Action<int> OnReadyToSell;
 
     [SerializeField] private float _moveToInventoryTime;
     [SerializeField] private float _moveToCursorTime;
@@ -31,11 +32,13 @@ public class InventoryItem : MonoBehaviour
     private void OnEnable()
     {
         Inventory.OnReceiveItem += InitializeForInventory;
+        ScaleColliderHandler.OnEnterCollider += EnableReadyToSell;
     }
 
     private void OnDisable()
     {
         Inventory.OnReceiveItem -= InitializeForInventory;
+        ScaleColliderHandler.OnEnterCollider -= EnableReadyToSell;
     }
 
     private void Awake()
@@ -85,17 +88,28 @@ public class InventoryItem : MonoBehaviour
         // TODO: Move item and destroy
     }
 
-    private void EnableReadyToSell()
+    private void EnableReadyToSell(bool enable)
     {
-        _isReadyToSell = true;
-        Debug.Log($"_isReadyToSell: {_isReadyToSell}");
+        if (enable)
+        {
+            _isReadyToSell = true;
+            OnReadyToSell?.Invoke(_sellPrice);
+            Debug.Log($"_isReadyToSell: {_isReadyToSell} : {_sellPrice}");
+        }
+        else
+        {
+            _isReadyToSell = false;
+            OnReadyToSell?.Invoke(0);
+            Debug.Log($"_isReadyToSell: {_isReadyToSell}");
+        }    
+        sdkjfhl
+       
     }
 
-    private void DisableReadyToSell()
-    {
-        _isReadyToSell = false;
-        Debug.Log($"_isReadyToSell: {_isReadyToSell}");
-    }
+    //private void DisableReadyToSell()
+    //{
+        
+    //}
 
     public void AddToInventory()
     {
