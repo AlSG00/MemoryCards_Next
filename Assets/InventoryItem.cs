@@ -13,13 +13,14 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] private Transform _cursorPivot;
 
     [SerializeField] private Animator _animator;
-    [SerializeField] private bool _isReadyToUse; // Means that item is near 
+    [SerializeField] private bool _isReadyToUse; // Means that item is near the object it could be assgned
     [SerializeField] private bool _isPicked;
-    [SerializeField] private bool _isBought;
+    [SerializeField] private bool _mustBuy;
     [SerializeField] private bool _isChangingPosition;
     
-    public static event System.Action<Transform, string> OnAddToInventory;
+    public static event System.Action<InventoryItem, Transform, string> OnAddToInventory;
     public static event System.Action<int> OnReadyToSell;
+    public static event System.Action<Transform, string, int> OnBuyItem;
 
     [SerializeField] private float _moveToInventoryTime;
     [SerializeField] private float _moveToCursorTime;
@@ -33,19 +34,21 @@ public class InventoryItem : MonoBehaviour
     {
         Inventory.OnReceiveItem += InitializeForInventory;
         ScaleColliderHandler.OnEnterCollider += EnableReadyToSell;
+        Inventory.OnBoughtItemAdded += Buy;
     }
 
     private void OnDisable()
     {
         Inventory.OnReceiveItem -= InitializeForInventory;
         ScaleColliderHandler.OnEnterCollider -= EnableReadyToSell;
+        Inventory.OnBoughtItemAdded -= Buy;
     }
 
     private void Awake()
     {
         _isReadyToUse = false;
         _isPicked = false;
-        _isBought = false;
+        _mustBuy = false;
         _isChangingPosition = false;
     }
 
@@ -81,6 +84,9 @@ public class InventoryItem : MonoBehaviour
     private void Buy()
     {
         // TODO: Remove price tag, move to inventory, and write down in inventory slot
+        _mustBuy = false;
+        _priceTag.SetActive(false);
+        //AddToInventory();
     }
 
     private void Sell()
@@ -90,6 +96,11 @@ public class InventoryItem : MonoBehaviour
 
     private void EnableReadyToSell(bool enable)
     {
+        if (_isPicked == false)
+        {
+            return;
+        }
+
         if (enable)
         {
             _isReadyToSell = true;
@@ -101,9 +112,7 @@ public class InventoryItem : MonoBehaviour
             _isReadyToSell = false;
             OnReadyToSell?.Invoke(0);
             Debug.Log($"_isReadyToSell: {_isReadyToSell}");
-        }    
-        sdkjfhl
-       
+        }
     }
 
     //private void DisableReadyToSell()
@@ -113,7 +122,7 @@ public class InventoryItem : MonoBehaviour
 
     public void AddToInventory()
     {
-        OnAddToInventory?.Invoke(gameObject.transform, itemName);
+        OnAddToInventory?.Invoke(this, gameObject.transform, itemName);
     }
 
     private void MoveToPivot(Transform target, float timeToMove)
@@ -154,20 +163,35 @@ public class InventoryItem : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (_mustBuy)
+        {
+            return;
+        }
+
         _isChangingPosition = true;
         //Cursor.visible = false;
         _currentPivot = _cursorPivot;
         GetComponent<BoxCollider>().enabled = false;
         MoveToPivot(_currentPivot, _moveToCursorTime);
+        _isPicked = true;
     }
 
     private async void OnMouseUp()
     {
-        _isChangingPosition = true;
-        Cursor.visible = true;
-        _currentPivot = _inventoryPivot;
-        GetComponent<BoxCollider>().enabled = true;
-        MoveToPivot(_currentPivot, _moveToInventoryTime);
+        if (_mustBuy)
+        {
+            OnBuyItem?.Invoke(gameObject.transform, itemName, _buyPrice);
+            //Buy();
+        }
+        else
+        {
+            _isChangingPosition = true;
+            Cursor.visible = true;
+            _currentPivot = _inventoryPivot;
+            GetComponent<BoxCollider>().enabled = true;
+            MoveToPivot(_currentPivot, _moveToInventoryTime);
+            _isPicked = false;
+        }
     }
 
     private IEnumerator MoveToPivotRoutine(Transform targetTransform, float time = 0.2f)

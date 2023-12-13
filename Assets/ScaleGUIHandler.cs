@@ -17,6 +17,11 @@ public class ScaleGUIHandler : MonoBehaviour
         InventoryItem.OnReadyToSell -= UpdateText;
     }
 
+    private void Start()
+    {
+        UpdateText(0);
+    }
+
     private void UpdateText(int value)
     {
         string result = value.ToString();

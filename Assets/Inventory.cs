@@ -9,18 +9,55 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Transform[] _cursorPivots;
 
     public static event System.Action<Transform, Transform> OnReceiveItem;
+    public static event System.Action OnBoughtItemAdded;
 
     private void OnEnable()
     {
         InventoryItem.OnAddToInventory += AddItem;
+        //InventoryItem.OnBuyItem += AddBoughtItem;
+        //ShopHandler.OnEnoughMoney += AddBoughtItem;
     }
 
     private void OnDisable()
     {
         InventoryItem.OnAddToInventory -= AddItem;
+        // InventoryItem.OnBuyItem += AddBoughtItem;
+        //ShopHandler.OnEnoughMoney -= AddBoughtItem;
     }
 
-    public void AddItem(Transform itemPivot, string itemName)
+    public void AddItem(InventoryItem item, Transform itemPivot, string itemName)
+    {
+        if (FoundAvailableSlot(itemPivot, itemName))
+        {
+            return;
+        }
+        пофиксить здесь
+        ивент рассылается всем подписанным объектам
+        хранить целиком ссылку на предмет, а в предмете хранить ссылку на его пивот
+
+
+        OnReceiveItem?.Invoke(null, null);
+        throw new System.Exception("Unhandled full inventory exception");
+    }
+
+    public bool AddBoughtItem(Transform itemPivot, string itemName/*, int itemPrice*/)
+    {
+        if (FoundAvailableSlot(itemPivot, itemName))
+        {
+            OnBoughtItemAdded?.Invoke();
+            return true;
+        }
+
+        
+
+        OnReceiveItem?.Invoke(null, null);
+        // Add event to indicate that you cant buy an item
+
+        return false;
+        //throw new System.Exception("Unhandled full inventory exception");
+    }
+
+    private bool FoundAvailableSlot(Transform itemPivot, string itemName)
     {
         foreach (var slot in _itemSlots)
         {
@@ -30,12 +67,13 @@ public class Inventory : MonoBehaviour
                 slot.item = itemPivot;
                 Transform itemCursorPivot = _cursorPivots.First(pivot => pivot.name == itemName);
                 OnReceiveItem?.Invoke(inventorySlotPivot, itemCursorPivot);
-                return;
+                return true;
             }
         }
-        OnReceiveItem?.Invoke(null, null);
-        throw new System.Exception("Unhandled full inventory exception");
+        return false;
     }
+
+
 
     [System.Serializable]
     public class InventorySlot

@@ -7,7 +7,7 @@ public class DebugAddHammer : MonoBehaviour
     [SerializeField] private InventoryItem _hammerPrefab;
     public void AddHammer()
     {
-        Instantiate(_hammerPrefab);
-        _hammerPrefab.AddToInventory();
+        var hammer = Instantiate(_hammerPrefab);
+        hammer.AddToInventory();
     }
 }
