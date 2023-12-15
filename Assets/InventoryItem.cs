@@ -20,7 +20,7 @@ public class InventoryItem : MonoBehaviour
     
     public static event System.Action<InventoryItem, Transform, string> OnAddToInventory;
     public static event System.Action<int> OnReadyToSell;
-    public static event System.Action<Transform, string, int> OnBuyItem;
+    public static event System.Action<InventoryItem, Transform, string, int> OnBuyItem;
 
     [SerializeField] private float _moveToInventoryTime;
     [SerializeField] private float _moveToCursorTime;
@@ -143,8 +143,13 @@ public class InventoryItem : MonoBehaviour
     //    StartCoroutine(MoveToPivotRoutine(_inventoryPivot, _moveToInventoryTime));
     //}
 
-    private void InitializeForInventory(Transform inventoryPivot, Transform cursorPivot)
+    private void InitializeForInventory(InventoryItem item, Transform inventoryPivot, Transform cursorPivot)
     {
+        if (item != this)
+        {
+            return;
+        }
+
         if (inventoryPivot == null)
         {
             return;
@@ -180,7 +185,7 @@ public class InventoryItem : MonoBehaviour
     {
         if (_mustBuy)
         {
-            OnBuyItem?.Invoke(gameObject.transform, itemName, _buyPrice);
+            OnBuyItem?.Invoke(this, gameObject.transform, itemName, _buyPrice);
             //Buy();
         }
         else
