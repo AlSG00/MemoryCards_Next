@@ -14,15 +14,18 @@ public class ShopHandler : MonoBehaviour
 
 
     public static event System.Action<Transform, string, int> OnEnoughMoney;
+    public static event System.Action<bool> OnShowScale;
 
     private void OnEnable()
     {
         InventoryItem.OnBuyItem += BuyItem;
+        NEW_GameProgression.OnStartBuyRound += EnableStore;
     }
 
     private void OnDisable()
     {
         InventoryItem.OnBuyItem -= BuyItem;
+        NEW_GameProgression.OnStartBuyRound -= EnableStore;
     }
 
     private void BuyItem(InventoryItem item, Transform itemPivot, string itemName, int itemPrice)
@@ -49,21 +52,36 @@ public class ShopHandler : MonoBehaviour
 
     private void GenerateGoods()
     {
-        
+        ShopSlots shopSlots = _shopSlots[_shopLevel];
+        foreach (var slot in shopSlots.slots)
+        {
+            // TODO: Generate and assign to pivots;
+        }
+
+        Debug.Log("Generated");
+    }
+
+    private void EnableStore(bool isEnabled)
+    {
+        if (enabled)
+        {
+            ShowStore();
+        }
+        else
+        {
+            HideStore();
+        }
     }
 
     private void ShowStore()
     {
-        ShopSlots shopSlots = _shopSlots[_shopLevel];
-        foreach (var slot in shopSlots.slots)
-        {
-            // TODO: Generate and assign to pivot;
-        }
+        GenerateGoods();
+        OnShowScale?.Invoke(true);
     }
 
     private void HideStore()
     {
-
+        throw new System.Exception("HideStore() isn't written");
     }
 
     public class ShopSlots

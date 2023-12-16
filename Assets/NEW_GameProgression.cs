@@ -46,7 +46,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action FirstTimePlaying;
 
     public static event System.Action<int> OnStartTutorialPhase;
-
+    public static event System.Action<bool> OnStartBuyRound; 
 
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
@@ -63,6 +63,7 @@ public class NEW_GameProgression : MonoBehaviour
     public bool isTurnCounterActive;
     public bool isScoreListActive;
     public bool isStopwatchActive;
+    [SerializeField] private bool _isBuyRoundGoing;
 
     private void OnEnable()
     {
@@ -215,9 +216,11 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetBuyRound()
     {
+        _isBuyRoundGoing = true;
         EnableTurnCounter(false);
-        Debug.Log("Buy round is currently in development");
-        NextRound();
+        OnStartBuyRound?.Invoke(true);
+        //Debug.Log("Buy round is currently in development");
+        //NextRound();
     }
 
     private void UpdateDifficulty()
