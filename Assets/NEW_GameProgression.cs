@@ -28,7 +28,6 @@ public class NEW_GameProgression : MonoBehaviour
     public NEW_CardGenerator tempCardGenerator;
     public NEW_CardLayoutHandler tempCardLayoutHandler;
 
-    //public int remainingCards;
     public int currentRound = 0;
     public int remainingTurns = 0;
     public int score = 0;
@@ -41,11 +40,11 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action OnPressStart;
     public static event System.Action OnGameStartConfirm;
     public static event System.Action<int> OnPlayTutorial;
-    public static event System.Action<int> OnTutorialProgress;
+    public static event System.Action<int> OnShowHint; // 0 -  hide all
     public static event System.Action<int> OnNextRound;
     public static event System.Action FirstTimePlaying;
 
-    public static event System.Action<int> OnStartTutorialPhase;
+    //public static event System.Action<int> OnStartTutorialPhase;
     public static event System.Action<bool> OnStartBuyRound; 
 
     public static event System.Action<bool> OnActivateTurnCounter;
@@ -56,14 +55,15 @@ public class NEW_GameProgression : MonoBehaviour
 
 
     public bool firstTimePlaying; // TODO: Save this parameter to JSON
+    public bool tutorialComplete;
     public bool playingTutorial;
-    private int _tutorialProgress;
+    public int _tutorialProgress;
 
 
     public bool isTurnCounterActive;
     public bool isScoreListActive;
     public bool isStopwatchActive;
-    [SerializeField] private bool _isBuyRoundGoing;
+    public bool isBuyRoundGoing;
 
     private void OnEnable()
     {
@@ -85,16 +85,22 @@ public class NEW_GameProgression : MonoBehaviour
         isScoreListActive = false;
         isStopwatchActive = false;
 
+        if (tutorialComplete == false)
+        {
+            playingTutorial = true;
+        }
+
         if (firstTimePlaying)
         {
             stage = GameStage.VeryEasy;
-            playingTutorial = true;
             FirstTimePlaying?.Invoke();
         }
     }
 
     private void CheckRoundProgression(List<GameObject> confirmedCards/*, RoundType roundType*/)
      {
+        OnShowHint?.Invoke(0);
+
         // decrease remaining turns
         if (currentRound == 0 && confirmedCards != null)
         {
@@ -126,6 +132,8 @@ public class NEW_GameProgression : MonoBehaviour
                 if (_tutorialProgress == 9) // TODO: is it ok?
                 {
                     playingTutorial = false;
+                   
+                    //OnPlayTutorial?.Invoke(10);
                 }
             }
         }
@@ -155,22 +163,26 @@ public class NEW_GameProgression : MonoBehaviour
         {
             case 0:
                 // Hints only
-                OnStartTutorialPhase?.Invoke(1);
+                //OnStartTutorialPhase?.Invoke(1);
+                OnShowHint?.Invoke(1);
                 break;
 
             case 3:
                 EnableScoreList(true);
-                OnStartTutorialPhase?.Invoke(2);
+                //OnStartTutorialPhase?.Invoke(2);
+                OnShowHint?.Invoke(2);
                 break;
 
             case 6:
                 EnableTurnCounter(true);
-                OnStartTutorialPhase?.Invoke(3);
+                //OnStartTutorialPhase?.Invoke(3);
+                OnShowHint?.Invoke(3);
                 break;
 
             case 9:
                 // Hints only
-                OnStartTutorialPhase?.Invoke(4);
+                //OnStartTutorialPhase?.Invoke(4);
+                OnShowHint?.Invoke(4);
                 break;
         }
     }
@@ -216,24 +228,29 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetBuyRound()
     {
-        _isBuyRoundGoing = true;
+        isBuyRoundGoing = true;
         EnableTurnCounter(false);
         OnStartBuyRound?.Invoke(true);
+
+        if (firstTimePlaying)
+        {
+            OnShowHint?.Invoke(5);
+        }
         //Debug.Log("Buy round is currently in development");
         //NextRound();
     }
 
     private void UpdateDifficulty()
     {
-        if (currentRound < 5)
+        if (currentRound < 3)
         {
             stage = GameStage.Easy;
         }
-        else if (currentRound < 3)
+        else if (currentRound < 4)
         {
             stage = GameStage.Medium;
         }
-        else if (currentRound < 4)
+        else if (currentRound < 5)
         {
             stage = GameStage.Hard;
         }

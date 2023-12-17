@@ -15,7 +15,7 @@ public class ScaleColliderHandler : MonoBehaviour
             return;
         }
 
-        Debug.Log($"{gameObject.name} entered mouse");
+        //Debug.Log($"{gameObject.name} entered mouse");
         OnEnterCollider?.Invoke(true);
     }
 
@@ -26,7 +26,7 @@ public class ScaleColliderHandler : MonoBehaviour
             return;
         }
 
-        Debug.Log($"{gameObject.name} leaved mouse");
+        //Debug.Log($"{gameObject.name} leaved mouse");
         OnEnterCollider?.Invoke(false);
     }
 }

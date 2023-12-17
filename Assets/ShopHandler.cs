@@ -9,12 +9,17 @@ public class ShopHandler : MonoBehaviour
     [SerializeField] private int _shopLevel;
     [SerializeField] private ShopSlots[] _shopSlots;
 
+    [SerializeField] private Transform _generatedItemPivot;
     [SerializeField] private Transform[] _sellPivots; // Pivot to move sold item off-screen
+    [SerializeField] private InventoryItem[] _earlyGameGoods;
+    [SerializeField] private InventoryItem[] goods;
 
 
 
-    public static event System.Action<Transform, string, int> OnEnoughMoney;
+    public static event System.Action<Transform, Transform, string, int> OnEnoughMoney;
     public static event System.Action<bool> OnShowScale;
+    public static event System.Action<InventoryItem> OnBoughtItemAdd;
+    public static event System.Action<InventoryItem, Transform> OnItemGenerated;
 
     private void OnEnable()
     {
@@ -32,15 +37,19 @@ public class ShopHandler : MonoBehaviour
     {
         if (_money.IsEnoughCurrentGameMoney(itemPrice) == false)
         {
+            Debug.Log("No money");
             return;
         }
 
         if (_inventory.AddBoughtItem(item, itemPivot, itemName) == false)
         {
+            Debug.Log("No free space");
             return;
         }
 
         _money.GetCurrentGameMoney(itemPrice);
+        //OnEnoughMoney?.Invoke(item, item.transform, itemName, itemPrice);
+        OnBoughtItemAdd?.Invoke(item);
     }
 
     private void SellItem()
@@ -56,8 +65,11 @@ public class ShopHandler : MonoBehaviour
         foreach (var slot in shopSlots.slots)
         {
             // TODO: Generate and assign to pivots;
+            var itemToGenerate = _earlyGameGoods[Random.Range(0, _earlyGameGoods.Length)];
+            var item =  Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
+            OnItemGenerated?.Invoke(item, slot);
         }
-
+        
         Debug.Log("Generated");
     }
 
@@ -84,6 +96,7 @@ public class ShopHandler : MonoBehaviour
         throw new System.Exception("HideStore() isn't written");
     }
 
+    [System.Serializable]
     public class ShopSlots
     {
         public Transform[] slots; 

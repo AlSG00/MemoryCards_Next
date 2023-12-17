@@ -37,6 +37,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     public static event System.Action CancelAllPicks;
     public static event System.Action<int> OnSetRemainingTurns;
+    public static event System.Action OnHideHints;
 
     private int _tutorialProgress = 0;
 

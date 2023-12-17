@@ -6,7 +6,9 @@ using UnityEngine;
 public class PlayerMoney : MonoBehaviour
 {
     [SerializeField] private int _mainMoney;
-    [SerializeField] private int _currentGameMoney;
+    public int _currentGameMoney;
+
+    //public int money { get => _currentGameMoney; }
 
     internal bool IsEnoughtMainMoney(int value)
     {

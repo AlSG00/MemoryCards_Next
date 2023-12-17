@@ -9,20 +9,16 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Transform[] _cursorPivots;
 
     public static event System.Action<InventoryItem, Transform, Transform> OnReceiveItem;
-    public static event System.Action OnBoughtItemAdded;
+    public static event System.Action<InventoryItem> OnBoughtItemAdd;
 
     private void OnEnable()
     {
         InventoryItem.OnAddToInventory += AddItem;
-        //InventoryItem.OnBuyItem += AddBoughtItem;
-        //ShopHandler.OnEnoughMoney += AddBoughtItem;
     }
 
     private void OnDisable()
     {
         InventoryItem.OnAddToInventory -= AddItem;
-        // InventoryItem.OnBuyItem += AddBoughtItem;
-        //ShopHandler.OnEnoughMoney -= AddBoughtItem;
     }
 
     public void AddItem(InventoryItem item, Transform itemPivot, string itemName)
@@ -32,11 +28,6 @@ public class Inventory : MonoBehaviour
             return;
         }
 
-        //пофиксить здесь
-        //ивент рассылается всем подписанным объектам
-        //хранить целиком ссылку на предмет, а в предмете хранить ссылку на его пивот
-
-
         OnReceiveItem?.Invoke(item, null, null);
         throw new System.Exception("Unhandled full inventory exception");
     }
@@ -45,17 +36,14 @@ public class Inventory : MonoBehaviour
     {
         if (FoundAvailableSlot(item, itemPivot, itemName))
         {
-            OnBoughtItemAdded?.Invoke();
+            OnBoughtItemAdd?.Invoke(item);
             return true;
         }
-
-        
 
         OnReceiveItem?.Invoke(item, null, null);
         // Add event to indicate that you cant buy an item
 
         return false;
-        //throw new System.Exception("Unhandled full inventory exception");
     }
 
     private bool FoundAvailableSlot(InventoryItem item, Transform itemPivot, string itemName)

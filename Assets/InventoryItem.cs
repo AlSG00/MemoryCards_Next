@@ -34,14 +34,16 @@ public class InventoryItem : MonoBehaviour
     {
         Inventory.OnReceiveItem += InitializeForInventory;
         ScaleColliderHandler.OnEnterCollider += EnableReadyToSell;
-        Inventory.OnBoughtItemAdded += Buy;
+        Inventory.OnBoughtItemAdd += Buy;
+        ShopHandler.OnItemGenerated += InitializeForShop; 
     }
 
     private void OnDisable()
     {
         Inventory.OnReceiveItem -= InitializeForInventory;
         ScaleColliderHandler.OnEnterCollider -= EnableReadyToSell;
-        Inventory.OnBoughtItemAdded -= Buy;
+        Inventory.OnBoughtItemAdd -= Buy;
+        ShopHandler.OnItemGenerated -= InitializeForShop;
     }
 
     private void Awake()
@@ -81,12 +83,16 @@ public class InventoryItem : MonoBehaviour
     //    Debug.Log("Leaved");
     //}
 
-    private void Buy()
+    private void Buy(InventoryItem item)
     {
         // TODO: Remove price tag, move to inventory, and write down in inventory slot
+        if (item != this)
+        {
+            return;
+        }
+
         _mustBuy = false;
         _priceTag.SetActive(false);
-        //AddToInventory();
     }
 
     private void Sell()
@@ -162,8 +168,27 @@ public class InventoryItem : MonoBehaviour
 
         _inventoryPivot = inventoryPivot;
         _cursorPivot = cursorPivot;
+        _currentPivot = _inventoryPivot;
         StopAllCoroutines();
         StartCoroutine(MoveToPivotRoutine(_inventoryPivot, _moveToInventoryTime));
+    }
+
+    private void InitializeForShop(InventoryItem item, Transform shopPivot)
+    {
+        if (item != this)
+        {
+            return;
+        }
+
+        if (shopPivot == null)
+        {
+            throw new System.Exception("Shop pivot not found");
+        }
+
+        _isChangingPosition = true;
+        _mustBuy = true;
+        _currentPivot = shopPivot;
+        MoveToPivot(_currentPivot, 1);
     }
 
     private void OnMouseDown()

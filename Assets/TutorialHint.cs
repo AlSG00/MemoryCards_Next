@@ -11,16 +11,12 @@ public class TutorialHint : MonoBehaviour
 
     private void OnEnable()
     {
-        //NEW_GameProgression.OnStartTutorialPhase += Show;
-        NEW_GameProgression.OnPlayTutorial += EnableHint;
-
-
+        NEW_GameProgression.OnShowHint += EnableHint;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnPlayTutorial += EnableHint;
-        //NEW_GameProgression.OnStartTutorialPhase -= Show;
+        NEW_GameProgression.OnShowHint += EnableHint;
     }
 
     private void Start()
@@ -29,9 +25,9 @@ public class TutorialHint : MonoBehaviour
         _hintTextMesh.enabled = false;
     }
 
-    private void EnableHint(int tutorialProgress)
+    private void EnableHint(int hintIndex)
     {
-        if (_hintIndex == tutorialProgress)
+        if (_hintIndex == hintIndex)
         {
             Show();
         }
@@ -41,7 +37,7 @@ public class TutorialHint : MonoBehaviour
         }
     }
 
-    private void Show(/*int requiredIndex*/)
+    private void Show()
     {
         if (isVisible)
         {
@@ -49,7 +45,7 @@ public class TutorialHint : MonoBehaviour
         }
         isVisible = true;
         _hintTextMesh.enabled = true;
-        Debug.Log($"Hint: {_hintIndex} shown");
+        //Debug.Log($"Hint: {_hintIndex} shown");
     }
 
     private void Hide()
