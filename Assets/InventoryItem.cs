@@ -16,7 +16,7 @@ public class InventoryItem : MonoBehaviour
     [SerializeField] private bool _isReadyToUse; // Means that item is near the object it could be assgned
     [SerializeField] private bool _isPicked;
     [SerializeField] private bool _mustBuy;
-    [SerializeField] private bool _isChangingPosition;
+    private bool _isChangingPosition;
     
     public static event System.Action<InventoryItem, Transform, string> OnAddToInventory;
     public static event System.Action<int> OnReadyToSell;
@@ -35,7 +35,8 @@ public class InventoryItem : MonoBehaviour
         Inventory.OnReceiveItem += InitializeForInventory;
         ScaleColliderHandler.OnEnterCollider += EnableReadyToSell;
         Inventory.OnBoughtItemAdd += Buy;
-        ShopHandler.OnItemGenerated += InitializeForShop; 
+        ShopHandler.OnItemGenerated += InitializeForShop;
+        ShopHandler.OnItemRemoved += RemoveItem;
     }
 
     private void OnDisable()
@@ -44,6 +45,7 @@ public class InventoryItem : MonoBehaviour
         ScaleColliderHandler.OnEnterCollider -= EnableReadyToSell;
         Inventory.OnBoughtItemAdd -= Buy;
         ShopHandler.OnItemGenerated -= InitializeForShop;
+        ShopHandler.OnItemRemoved -= RemoveItem;
     }
 
     private void Awake()
@@ -191,6 +193,24 @@ public class InventoryItem : MonoBehaviour
         MoveToPivot(_currentPivot, 1);
     }
 
+    private void RemoveItem(InventoryItem item, Transform pivot)
+    {
+        if (item != this)
+        {
+            return;
+        }
+
+        if (pivot == null)
+        {
+            throw new System.Exception("Shop pivot not found");
+        }
+
+        _isChangingPosition = true;
+        _currentPivot = pivot;
+        MoveToPivot(_currentPivot, 1);
+        Destroy(gameObject, 3f);
+    }
+
     private void OnMouseDown()
     {
         if (_mustBuy)
@@ -211,7 +231,6 @@ public class InventoryItem : MonoBehaviour
         if (_mustBuy)
         {
             OnBuyItem?.Invoke(this, gameObject.transform, itemName, _buyPrice);
-            //Buy();
         }
         else
         {

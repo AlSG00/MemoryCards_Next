@@ -20,6 +20,7 @@ public class ShopHandler : MonoBehaviour
     public static event System.Action<bool> OnShowScale;
     public static event System.Action<InventoryItem> OnBoughtItemAdd;
     public static event System.Action<InventoryItem, Transform> OnItemGenerated;
+    public static event System.Action<InventoryItem, Transform> OnItemRemoved;
 
     private void OnEnable()
     {
@@ -62,20 +63,43 @@ public class ShopHandler : MonoBehaviour
     private void GenerateGoods()
     {
         ShopSlots shopSlots = _shopSlots[_shopLevel];
-        foreach (var slot in shopSlots.slots)
+
+        for (int i = 0; i < shopSlots.slots.Length; i++)
         {
-            // TODO: Generate and assign to pivots;
             var itemToGenerate = _earlyGameGoods[Random.Range(0, _earlyGameGoods.Length)];
-            var item =  Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
-            OnItemGenerated?.Invoke(item, slot);
+            var item = Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
+            shopSlots.items[i] = item;
+            OnItemGenerated?.Invoke(item, shopSlots.slots[i]);
         }
+
+        //foreach (var slot in shopSlots.slots)
+        //{
+        //    // TODO: Generate and assign to pivots;
+        //    var itemToGenerate = _earlyGameGoods[Random.Range(0, _earlyGameGoods.Length)];
+        //    var item =  Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
+        //    shopSlots.items = item;
+        //    OnItemGenerated?.Invoke(item, slot);
+        //}
         
         Debug.Log("Generated");
     }
 
+    private void RemoveGoods()
+    {
+        ShopSlots shopSlots = _shopSlots[_shopLevel];
+
+        for (int i = 0; i < shopSlots.slots.Length; i++)
+        {
+            //var itemToGenerate = _earlyGameGoods[Random.Range(0, _earlyGameGoods.Length)];
+            //var item = Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
+            OnItemRemoved?.Invoke(shopSlots.items[i], _generatedItemPivot);
+            shopSlots.items[i] = null;
+        }
+    }
+
     private void EnableStore(bool isEnabled)
     {
-        if (enabled)
+        if (isEnabled)
         {
             ShowStore();
         }
@@ -93,12 +117,14 @@ public class ShopHandler : MonoBehaviour
 
     private void HideStore()
     {
-        throw new System.Exception("HideStore() isn't written");
+        RemoveGoods();
+        OnShowScale?.Invoke(false);
     }
 
     [System.Serializable]
     public class ShopSlots
     {
-        public Transform[] slots; 
+        public Transform[] slots;
+        public InventoryItem[] items;
     }
 }

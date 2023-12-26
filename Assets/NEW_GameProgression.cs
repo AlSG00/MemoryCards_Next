@@ -70,6 +70,8 @@ public class NEW_GameProgression : MonoBehaviour
         StartButton.OnGameStart += StartGame;
         RejectStartButton.OnGameStartReject += RejectGameStart;
         CardComparator.OnPickConfirm += CheckRoundProgression;
+        ScaleContinue.OnContinueGame += NextRound;
+        ScaleExit.OnFinishGame += FinishGameTest;
     }
 
     private void OnDisable()
@@ -77,6 +79,8 @@ public class NEW_GameProgression : MonoBehaviour
         StartButton.OnGameStart -= StartGame;
         RejectStartButton.OnGameStartReject -= RejectGameStart;
         CardComparator.OnPickConfirm -= CheckRoundProgression;
+        ScaleContinue.OnContinueGame -= NextRound;
+        ScaleExit.OnFinishGame -= FinishGameTest;
     }
 
     private void Start()
@@ -206,6 +210,11 @@ public class NEW_GameProgression : MonoBehaviour
         }
     }
 
+    private void FinishGameTest()
+    {
+        Debug.Log("Game finished");
+    }
+
     private void EnableTurnCounter(bool isEnabled)
     {
         isTurnCounterActive = isEnabled;
@@ -221,6 +230,11 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetStandartRound()
     {
+        if (isBuyRoundGoing)
+        {
+            isBuyRoundGoing = false;
+            OnStartBuyRound?.Invoke(false);
+        }
 
         UpdateDifficulty();
         tempCardLayoutHandler.PrepareNewLayout();
