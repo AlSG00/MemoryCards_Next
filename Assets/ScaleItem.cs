@@ -18,21 +18,26 @@ public class ScaleItem : MonoBehaviour
     [SerializeField] private float _moveToCursorTime;
     [SerializeField] private float _moveToStartPlaceTime;
 
+    [SerializeField] private bool _isVisible;
+
     // TODO: move logic to abstract class
     private void Awake()
     {
         _isPicked = false;
         _isReadyToUse = false;
+        _isVisible = false;
     }
 
     private void OnEnable()
     {
         ScaleColliderHandler.OnEnterCollider += SetReadyToUse;
+        ShopHandler.OnShowScaleItems += ChangeVisibility;
     }
 
     private void OnDisable()
     {
         ScaleColliderHandler.OnEnterCollider -= SetReadyToUse;
+        ShopHandler.OnShowScaleItems -= ChangeVisibility;
     }
 
     private void Update()
@@ -56,12 +61,47 @@ public class ScaleItem : MonoBehaviour
 
     private void OnMouseEnter()
     {
-       // Debug.Log($"Mouse entered {gameObject.name}");
+        _animator.SetBool("MouseOver", true);
     }
 
     private void OnMouseExit()
     {
-       // Debug.Log($"Mouse leaved {gameObject.name}");
+        _animator.SetBool("MouseOver", false);
+    }
+
+    private void ChangeVisibility(bool isActive)
+    {
+        if (isActive == _isVisible)
+        {
+            return;
+        }
+
+        if (isActive)
+        {
+            Show();
+        }
+        else
+        {
+            Hide();
+        }
+    }
+
+    private void Show()
+    {
+        if (_isVisible == false)
+        {
+            _isVisible = true;
+            _animator.SetTrigger("Show");
+        }
+    }
+
+    private void Hide()
+    {
+        if (_isVisible)
+        {
+            _isVisible = false;
+            _animator.SetTrigger("Hide");
+        }
     }
 
     private void OnMouseDown()

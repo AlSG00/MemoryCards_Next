@@ -18,6 +18,7 @@ public class ShopHandler : MonoBehaviour
 
     public static event System.Action<Transform, Transform, string, int> OnEnoughMoney;
     public static event System.Action<bool> OnShowScale;
+    public static event System.Action<bool> OnShowScaleItems;
     public static event System.Action<InventoryItem> OnBoughtItemAdd;
     public static event System.Action<InventoryItem, Transform> OnItemGenerated;
     public static event System.Action<InventoryItem, Transform> OnItemRemoved;
@@ -113,12 +114,14 @@ public class ShopHandler : MonoBehaviour
     {
         GenerateGoods();
         OnShowScale?.Invoke(true);
+        OnShowScaleItems?.Invoke(true);
     }
 
     private void HideStore()
     {
         RemoveGoods();
         OnShowScale?.Invoke(false);
+        OnShowScaleItems?.Invoke(false);
     }
 
     [System.Serializable]
