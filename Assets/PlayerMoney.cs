@@ -8,7 +8,23 @@ public class PlayerMoney : MonoBehaviour
     [SerializeField] private int _mainMoney;
     public int _currentGameMoney;
 
-    //public int money { get => _currentGameMoney; }
+    public static event Action<int> OnMoneyAmountChanged;
+
+    private void OnEnable()
+    {
+        NEW_GameProgression.OnAddMoney += AddMoney;
+    }
+
+    private void OnDisable()
+    {
+        NEW_GameProgression.OnAddMoney -= AddMoney;
+    }
+
+    private void AddMoney(int amount)
+    {
+        _currentGameMoney += amount;
+        OnMoneyAmountChanged?.Invoke(_currentGameMoney);
+    }
 
     internal bool IsEnoughtMainMoney(int value)
     {

@@ -49,6 +49,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
+    public static event System.Action<int> OnAddMoney;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
     public static event TurnAction OnTurnsChanged;
@@ -152,6 +153,8 @@ public class NEW_GameProgression : MonoBehaviour
             score += 10; //TODO: TEMP. Move to score script
             money += 1; //TODO: TEMP. Move to money script
 
+            OnAddMoney?.Invoke(1);
+
             Debug.Log($"Money:{money}");
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
@@ -167,25 +170,21 @@ public class NEW_GameProgression : MonoBehaviour
         {
             case 0:
                 // Hints only
-                //OnStartTutorialPhase?.Invoke(1);
                 OnShowHint?.Invoke(1);
                 break;
 
             case 3:
                 EnableScoreList(true);
-                //OnStartTutorialPhase?.Invoke(2);
                 OnShowHint?.Invoke(2);
                 break;
 
             case 6:
                 EnableTurnCounter(true);
-                //OnStartTutorialPhase?.Invoke(3);
                 OnShowHint?.Invoke(3);
                 break;
 
             case 9:
                 // Hints only
-                //OnStartTutorialPhase?.Invoke(4);
                 OnShowHint?.Invoke(4);
                 break;
         }
