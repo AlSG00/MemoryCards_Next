@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ShopHandler : MonoBehaviour
 {
@@ -52,6 +53,8 @@ public class ShopHandler : MonoBehaviour
         _money.GetCurrentGameMoney(itemPrice);
         //OnEnoughMoney?.Invoke(item, item.transform, itemName, itemPrice);
         OnBoughtItemAdd?.Invoke(item);
+        ShopSlots shopSlots = _shopSlots[_shopLevel];
+        _shopSlots[_shopLevel].items[System.Array.IndexOf(_shopSlots[_shopLevel].items, item)] = null;
     }
 
     private void SellItem()
@@ -93,8 +96,11 @@ public class ShopHandler : MonoBehaviour
         {
             //var itemToGenerate = _earlyGameGoods[Random.Range(0, _earlyGameGoods.Length)];
             //var item = Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
-            OnItemRemoved?.Invoke(shopSlots.items[i], _generatedItemPivot);
-            shopSlots.items[i] = null;
+            if (shopSlots.items[i] != null)
+            {
+                OnItemRemoved?.Invoke(shopSlots.items[i], _generatedItemPivot);
+                shopSlots.items[i] = null;
+            }
         }
     }
 

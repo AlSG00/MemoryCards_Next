@@ -36,6 +36,7 @@ public class MoneyRopeHandler : MonoBehaviour
 
     private void SetButtonsAmount(int amount)
     {
+        int originalAmount = _currentAmount;
         CountCurrentAmount();
         if (amount == _currentAmount)
         {
@@ -46,14 +47,14 @@ public class MoneyRopeHandler : MonoBehaviour
         {
             if (amount >= _buttonPivots.Length)
             {
-                for (int i = _currentAmount; i < _buttonPivots.Length; i++)
+                for (int i = originalAmount; i < _buttonPivots.Length; i++)
                 {
                     GenerateButton(_moneySlots[i]);
                 }
             }
             else
             {
-                for (int i = _currentAmount; i < amount; i++)
+                for (int i = originalAmount; i < amount; i++)
                 {
                     GenerateButton(_moneySlots[i]);
                 }
@@ -61,9 +62,9 @@ public class MoneyRopeHandler : MonoBehaviour
         }
         else
         {
-            for (int i = amount; i < _currentAmount; i++)
+            for (int i = amount; i < originalAmount; i++)
             {
-             RemoveButton(_moneySlots[i]);
+                RemoveButton(_moneySlots[i]);
             }
         }
     }

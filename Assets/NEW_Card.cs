@@ -78,6 +78,7 @@ public class NEW_Card : MonoBehaviour
         if (_wasPicked == false)
         {
             _wasPicked = true;
+            cardAudioSource.pitch = Random.Range(0.9f, 1.1f);
             cardAudioSource.PlayOneShot(PickSound);
             cardAnimator.SetTrigger("picked");
             OnCardPicked?.Invoke(this);

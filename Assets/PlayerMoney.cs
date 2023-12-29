@@ -50,6 +50,6 @@ public class PlayerMoney : MonoBehaviour
     {
         _currentGameMoney -= itemPrice;
         Debug.Log($"Remaining money: {_currentGameMoney}");
-        // TODO: Call method for handling pugovki
+        OnMoneyAmountChanged?.Invoke(_currentGameMoney);
     }
 }

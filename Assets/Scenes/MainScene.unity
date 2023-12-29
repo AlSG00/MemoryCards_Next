@@ -72761,6 +72761,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8074983383094902976, guid: ce86ad66b4cb7024aaa117b5cde69a53,
         type: 3}
+      propertyPath: _buyPrice
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074983383094902976, guid: ce86ad66b4cb7024aaa117b5cde69a53,
+        type: 3}
+      propertyPath: _sellPrice
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074983383094902976, guid: ce86ad66b4cb7024aaa117b5cde69a53,
+        type: 3}
       propertyPath: _cursorPivot
       value: 
       objectReference: {fileID: 515415248}

@@ -50,6 +50,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
     public static event System.Action<int> OnAddMoney;
+    public static event Action<int> onScoreChanged;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
     public static event TurnAction OnTurnsChanged;
@@ -102,7 +103,7 @@ public class NEW_GameProgression : MonoBehaviour
         }
     }
 
-    private void CheckRoundProgression(List<GameObject> confirmedCards/*, RoundType roundType*/)
+    private void CheckRoundProgression(List<GameObject> confirmedCards)
      {
         OnShowHint?.Invoke(0);
 
@@ -151,14 +152,16 @@ public class NEW_GameProgression : MonoBehaviour
             }
 
             score += 10; //TODO: TEMP. Move to score script
-            money += 1; //TODO: TEMP. Move to money script
+            //money += 1; //TODO: TEMP. Move to money script
 
             OnAddMoney?.Invoke(1);
+            onScoreChanged?.Invoke(10);
 
             Debug.Log($"Money:{money}");
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
+                
                 NextRound();
             }
         }
@@ -197,6 +200,11 @@ public class NEW_GameProgression : MonoBehaviour
         if (isTurnCounterActive == false)
         {
             EnableTurnCounter(true);
+        }
+
+        if (isScoreListActive == false)
+        {
+            EnableScoreList(true);
         }
 
         if (currentRound % buyRound == 0)

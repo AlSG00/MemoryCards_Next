@@ -472,12 +472,11 @@ MonoBehaviour:
   _isReadyToUse: 0
   _isPicked: 0
   _mustBuy: 1
-  _isChangingPosition: 0
   _moveToInventoryTime: 0.2
   _moveToCursorTime: 0.1
   _priceTag: {fileID: 8696426243378598769}
-  _buyPrice: 15
-  _sellPrice: 20
+  _buyPrice: 2
+  _sellPrice: 1
   _isReadyToSell: 0
 --- !u!65 &8074983383094902979
 BoxCollider:
