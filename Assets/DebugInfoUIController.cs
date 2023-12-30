@@ -3,8 +3,12 @@ using TMPro;
 
 public class DebugInfoUIController : MonoBehaviour
 {
+    [SerializeField] private InventoryItem _hammerPrefab;
+    [SerializeField] private InventoryItem _screwdriverPrefab;
+
     [SerializeField] private NEW_GameProgression _gameProgression;
     [SerializeField] private PlayerMoney _playerMoney;
+    [SerializeField] private Inventory _inventory;
 
     [SerializeField] private TextMeshProUGUI _currentRound;
     [SerializeField] private TextMeshProUGUI _currentMoney;
@@ -23,5 +27,22 @@ public class DebugInfoUIController : MonoBehaviour
         _currentDifficulty.text = $"Current difficulty: {NEW_GameProgression.stage.ToString()}";
         _isFirstTimePlaying.text = $"Is playing first time: {_gameProgression.firstTimePlaying.ToString()}";
         _isBuyRoundGoingOn.text = $"Is buy round going on: {_gameProgression.isBuyRoundGoing}";
+    }
+
+    public void AddHammer()
+    {
+        var hammer = Instantiate(_hammerPrefab);
+        hammer.AddToInventory();
+    }
+
+    public void AddScrewdriver()
+    {
+        var screwdriver = Instantiate(_screwdriverPrefab);
+        screwdriver.AddToInventory();
+    }
+
+    public void RemoveAllItems()
+    {
+
     }
 }
