@@ -5,6 +5,7 @@ using TMPro;
 
 public class PriceTag : MonoBehaviour
 {
+    [SerializeField] private InventoryItem _item;
     [SerializeField] private TextMeshProUGUI _tagText;
 
     private void OnEnable()
@@ -17,8 +18,8 @@ public class PriceTag : MonoBehaviour
         InventoryItem.OnInitializeForShop -= SetPriceValueText;
     }
 
-    private void SetPriceValueText(int value)
+    private void SetPriceValueText()
     {
-        _tagText.text = value.ToString();
+        _tagText.text = _item._buyPrice.ToString();
     }
 }

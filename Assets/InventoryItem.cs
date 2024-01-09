@@ -21,13 +21,13 @@ public class InventoryItem : MonoBehaviour
     public static event System.Action<InventoryItem, Transform, string> OnAddToInventory;
     public static event System.Action<int> OnReadyToSell;
     public static event System.Action<InventoryItem, Transform, string, int> OnBuyItem;
-    public static event System.Action<int> OnInitializeForShop;
+    public static event System.Action OnInitializeForShop;
 
     [SerializeField] private float _moveToInventoryTime;
     [SerializeField] private float _moveToCursorTime;
 
     [SerializeField] private GameObject _priceTag;
-    [SerializeField] private int _buyPrice;
+    public int _buyPrice;
     [SerializeField] private int _sellPrice;
     [SerializeField] private bool _isReadyToSell;
 
@@ -191,7 +191,7 @@ public class InventoryItem : MonoBehaviour
         _isChangingPosition = true;
         _mustBuy = true;
         _currentPivot = shopPivot;
-        OnInitializeForShop?.Invoke(_buyPrice);
+        OnInitializeForShop?.Invoke();
         MoveToPivot(_currentPivot, 1);
     }
 

@@ -56594,6 +56594,7 @@ MonoBehaviour:
   _sellPivots: []
   _earlyGameGoods:
   - {fileID: 8074983383094902976, guid: ce86ad66b4cb7024aaa117b5cde69a53, type: 3}
+  - {fileID: 1081423287021669866, guid: aaad29363aee68e4c8e440af9eb950ed, type: 3}
   goods: []
 --- !u!1 &1720620866
 GameObject:
