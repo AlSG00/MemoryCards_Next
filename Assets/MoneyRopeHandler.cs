@@ -7,7 +7,8 @@ public class MoneyRopeHandler : MonoBehaviour
 
     // TODO: money gui counter
 
-    [SerializeField] private Animator _animator;
+    [SerializeField] private Animator _visibilityAnimator;
+    [SerializeField] private Animator _visualFeedbackAnimator;
     [SerializeField] private bool _isVisible;
     [SerializeField] private Transform[] _buttonPivots;
     [SerializeField] private GameObject[] _buttonsCollection;
@@ -22,6 +23,8 @@ public class MoneyRopeHandler : MonoBehaviour
     private void OnEnable()
     {
         PlayerMoney.OnMoneyAmountChanged += SetButtonsAmount;
+        NEW_GameProgression.OnActivateMoneyRope += ChangeVisibility;
+        async;slkdfh
     }
 
     private void OnDisable()
@@ -190,7 +193,7 @@ public class MoneyRopeHandler : MonoBehaviour
         if (_isVisible == false)
         {
             _isVisible = true;
-            _animator.SetTrigger("Show");
+            _visibilityAnimator.SetTrigger("Show");
         }
     }
 
@@ -199,7 +202,7 @@ public class MoneyRopeHandler : MonoBehaviour
         if (_isVisible)
         {
             _isVisible = false;
-            _animator.SetTrigger("Hide");
+            _visibilityAnimator.SetTrigger("Hide");
         }
     }
 

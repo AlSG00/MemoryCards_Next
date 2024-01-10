@@ -34804,6 +34804,7 @@ GameObject:
   - component: {fileID: 1063138813}
   - component: {fileID: 1063138814}
   - component: {fileID: 1063138815}
+  - component: {fileID: 1063138816}
   m_Layer: 0
   m_Name: MoneyRope
   m_TagString: Untagged
@@ -34840,7 +34841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b4f3d2de0159a4d91db8e27d2348e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
+  _animator: {fileID: 1063138816}
   _isVisible: 0
   _buttonPivots:
   - {fileID: 371457964}
@@ -34988,6 +34989,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stickerText: {fileID: 1542321058}
+--- !u!95 &1063138816
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063138812}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f5f44559211301c41a7d9dbab8e2b6f2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1066173200
 GameObject:
   m_ObjectHideFlags: 0

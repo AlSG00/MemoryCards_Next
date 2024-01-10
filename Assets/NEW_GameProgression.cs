@@ -49,8 +49,10 @@ public class NEW_GameProgression : MonoBehaviour
 
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
+    public static event System.Action<bool> OnActivateMoneyRope;
+    public static event System.Action<bool> OnFullyActivateMoneyRope;
     public static event System.Action<int> OnAddMoney;
-    public static event Action<int> onScoreChanged;
+    public static event System.Action<int> onScoreChanged;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
     public static event TurnAction OnTurnsChanged;
@@ -65,6 +67,7 @@ public class NEW_GameProgression : MonoBehaviour
     public bool isTurnCounterActive;
     public bool isScoreListActive;
     public bool isStopwatchActive;
+    public bool isMoneyRopeActive;
     public bool isBuyRoundGoing;
 
     private void OnEnable()
@@ -180,7 +183,7 @@ public class NEW_GameProgression : MonoBehaviour
                 EnableScoreList(true);
                 OnShowHint?.Invoke(2);
                 break;
-
+                // TODO: Add new tutorial phase here
             case 6:
                 EnableTurnCounter(true);
                 OnShowHint?.Invoke(3);
@@ -235,6 +238,12 @@ public class NEW_GameProgression : MonoBehaviour
         OnActivateScoreList?.Invoke(isEnabled);
     }
 
+    private void EnableMoneyRope(bool isEnabled)
+    {
+        isMoneyRopeActive = isEnabled;
+        OnActivateMoneyRope?.Invoke(isEnabled);
+    }
+
     private void SetStandartRound()
     {
         if (isBuyRoundGoing)
@@ -251,6 +260,7 @@ public class NEW_GameProgression : MonoBehaviour
     {
         isBuyRoundGoing = true;
         EnableTurnCounter(false);
+        
         OnStartBuyRound?.Invoke(true);
 
         if (firstTimePlaying)
