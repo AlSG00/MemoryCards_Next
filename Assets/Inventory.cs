@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
     public static event System.Action<InventoryItem, Transform, Transform> OnReceiveItem;
     public static event System.Action<InventoryItem> OnBoughtItemAdd;
 
+
     private void OnEnable()
     {
         InventoryItem.OnAddToInventory += AddItem;
@@ -32,6 +33,17 @@ public class Inventory : MonoBehaviour
         throw new System.Exception("Unhandled full inventory exception");
     }
 
+    public void RemoveItem(InventoryItem item, Transform inventoryPivot)
+    {
+        foreach (var slot in _itemSlots)
+        {
+            if (slot.itemSlotPivots.Contains(inventoryPivot))
+            {
+                slot.item = null;
+            }
+        }
+    }
+
     public bool AddBoughtItem(InventoryItem item, Transform itemPivot, string itemName/*, int itemPrice*/)
     {
         if (FoundAvailableSlot(item, itemPivot, itemName))
@@ -46,16 +58,29 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
+    // TODO: Revork and simplify
     private bool FoundAvailableSlot(InventoryItem item, Transform itemPivot, string itemName)
     {
         foreach (var slot in _itemSlots)
         {
-            if (slot.IsAvailable())
+            if (slot.IsAvailable() && slot.item == null)
             {
                 Transform inventorySlotPivot = slot.itemSlotPivots.First(pivot => pivot.name == itemName);
                 slot.item = itemPivot;
                 Transform itemCursorPivot = _cursorPivots.First(pivot => pivot.name == itemName);
                 OnReceiveItem?.Invoke(item, inventorySlotPivot, itemCursorPivot);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool HasFreeSlotDebug()
+    {
+        foreach (var slot in _itemSlots)
+        {
+            if (slot.IsAvailable() && slot.item == null)
+            {
                 return true;
             }
         }

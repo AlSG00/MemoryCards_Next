@@ -11,6 +11,7 @@ public class ShopHandler : MonoBehaviour
     [SerializeField] private ShopSlots[] _shopSlots;
 
     [SerializeField] private Transform _generatedItemPivot;
+    [SerializeField] private Transform _soldItemPivot;
     [SerializeField] private Transform[] _sellPivots; // Pivot to move sold item off-screen
     [SerializeField] private InventoryItem[] _earlyGameGoods;
     [SerializeField] private InventoryItem[] goods;
@@ -22,17 +23,20 @@ public class ShopHandler : MonoBehaviour
     public static event System.Action<bool> OnShowScaleItems;
     public static event System.Action<InventoryItem> OnBoughtItemAdd;
     public static event System.Action<InventoryItem, Transform> OnItemGenerated;
-    public static event System.Action<InventoryItem, Transform> OnItemRemoved;
+    public static event System.Action<InventoryItem, Transform> OnItemRemove;
+    //public static event System.Action<InventoryItem, Transform> OnItemSold;
 
     private void OnEnable()
     {
         InventoryItem.OnBuyItem += BuyItem;
+        InventoryItem.OnSellItem += SellItem;
         NEW_GameProgression.OnStartBuyRound += EnableStore;
     }
 
     private void OnDisable()
     {
         InventoryItem.OnBuyItem -= BuyItem;
+        InventoryItem.OnSellItem += SellItem;
         NEW_GameProgression.OnStartBuyRound -= EnableStore;
     }
 
@@ -57,11 +61,11 @@ public class ShopHandler : MonoBehaviour
         _shopSlots[_shopLevel].items[System.Array.IndexOf(_shopSlots[_shopLevel].items, item)] = null;
     }
 
-    private void SellItem()
+    private void SellItem(InventoryItem item, Transform itemInventoryPivot, int itemSellPrice)
     {
-        // Remove from inventory
-        // Add money
-        //
+        _inventory.RemoveItem(item, itemInventoryPivot);
+        _money.AddCurrentGameMoney(itemSellPrice);
+        OnItemRemove?.Invoke(item, _soldItemPivot);
     }
 
     private void GenerateGoods()
@@ -98,7 +102,7 @@ public class ShopHandler : MonoBehaviour
             //var item = Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
             if (shopSlots.items[i] != null)
             {
-                OnItemRemoved?.Invoke(shopSlots.items[i], _generatedItemPivot);
+                OnItemRemove?.Invoke(shopSlots.items[i], _generatedItemPivot);
                 shopSlots.items[i] = null;
             }
         }

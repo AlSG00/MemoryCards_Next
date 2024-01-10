@@ -31,14 +31,20 @@ public class DebugInfoUIController : MonoBehaviour
 
     public void AddHammer()
     {
-        var hammer = Instantiate(_hammerPrefab);
-        hammer.AddToInventory();
+        if (_inventory.HasFreeSlotDebug())
+        {
+            var hammer = Instantiate(_hammerPrefab);
+            hammer.AddToInventory();
+        }
     }
 
     public void AddScrewdriver()
     {
-        var screwdriver = Instantiate(_screwdriverPrefab);
-        screwdriver.AddToInventory();
+        if (_inventory.HasFreeSlotDebug())
+        {
+            var screwdriver = Instantiate(_screwdriverPrefab);
+            screwdriver.AddToInventory();
+        }
     }
 
     public void RemoveAllItems()

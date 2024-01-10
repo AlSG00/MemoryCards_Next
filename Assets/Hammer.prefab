@@ -176,8 +176,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8074983383094902978}
   - component: {fileID: 8074983383094902976}
-  - component: {fileID: 8074983383094902979}
   - component: {fileID: 8510616438774062110}
+  - component: {fileID: 8074983383094902979}
   m_Layer: 0
   m_Name: Hammer
   m_TagString: Untagged
@@ -230,19 +230,6 @@ MonoBehaviour:
   _buyPrice: 2
   _sellPrice: 1
   _isReadyToSell: 0
---- !u!65 &8074983383094902979
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8074983383094902981}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5152564, y: 0.35591555, z: 1.7768406}
-  m_Center: {x: -0.026269674, y: 0.27728698, z: -0.2595604}
 --- !u!114 &8510616438774062110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +244,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _item: {fileID: 8074983383094902976}
   _tagText: {fileID: 1934698991834433828}
+--- !u!65 &8074983383094902979
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8074983383094902981}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5152564, y: 0.23221132, z: 1.7768406}
+  m_Center: {x: -0.026269674, y: 0.2154349, z: -0.2595604}
 --- !u!1 &8994096697318918826
 GameObject:
   m_ObjectHideFlags: 0

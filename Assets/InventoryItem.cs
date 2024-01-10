@@ -20,6 +20,7 @@ public class InventoryItem : MonoBehaviour
     
     public static event System.Action<InventoryItem, Transform, string> OnAddToInventory;
     public static event System.Action<int> OnReadyToSell;
+    public static event System.Action<InventoryItem, Transform, int> OnSellItem;
     public static event System.Action<InventoryItem, Transform, string, int> OnBuyItem;
     public static event System.Action OnInitializeForShop;
 
@@ -37,7 +38,8 @@ public class InventoryItem : MonoBehaviour
         ScaleColliderHandler.OnEnterCollider += EnableReadyToSell;
         Inventory.OnBoughtItemAdd += Buy;
         ShopHandler.OnItemGenerated += InitializeForShop;
-        ShopHandler.OnItemRemoved += RemoveItem;
+        ShopHandler.OnItemRemove += RemoveItem;
+        //ShopHandler.OnItemSold += RemoveItemAsSold;
     }
 
     private void OnDisable()
@@ -46,7 +48,8 @@ public class InventoryItem : MonoBehaviour
         ScaleColliderHandler.OnEnterCollider -= EnableReadyToSell;
         Inventory.OnBoughtItemAdd -= Buy;
         ShopHandler.OnItemGenerated -= InitializeForShop;
-        ShopHandler.OnItemRemoved -= RemoveItem;
+        ShopHandler.OnItemRemove -= RemoveItem;
+        //ShopHandler.OnItemSold -= RemoveItemAsSold;
     }
 
     private void Awake()
@@ -107,6 +110,7 @@ public class InventoryItem : MonoBehaviour
     {
         if (_isPicked == false)
         {
+            OnReadyToSell?.Invoke(0);
             return;
         }
 
@@ -230,19 +234,26 @@ public class InventoryItem : MonoBehaviour
 
     private async void OnMouseUp()
     {
+        _isPicked = false;
         if (_mustBuy)
         {
             OnBuyItem?.Invoke(this, gameObject.transform, itemName, _buyPrice);
+            return;
         }
-        else
+
+        if (_isReadyToSell)
         {
-            _isChangingPosition = true;
-            Cursor.visible = true;
-            _currentPivot = _inventoryPivot;
-            GetComponent<BoxCollider>().enabled = true;
-            MoveToPivot(_currentPivot, _moveToInventoryTime);
-            _isPicked = false;
+            OnSellItem?.Invoke(this, _inventoryPivot, _sellPrice);
+            OnReadyToSell?.Invoke(0);
+            return;
         }
+
+        _isChangingPosition = true;
+        Cursor.visible = true;
+        _currentPivot = _inventoryPivot;
+        GetComponent<BoxCollider>().enabled = true;
+        MoveToPivot(_currentPivot, _moveToInventoryTime);
+        
     }
 
     private IEnumerator MoveToPivotRoutine(Transform targetTransform, float time = 0.2f)

@@ -12,18 +12,12 @@ public class PlayerMoney : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnAddMoney += AddMoney;
+        NEW_GameProgression.OnAddMoney += AddCurrentGameMoney;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnAddMoney -= AddMoney;
-    }
-
-    private void AddMoney(int amount)
-    {
-        _currentGameMoney += amount;
-        OnMoneyAmountChanged?.Invoke(_currentGameMoney);
+        NEW_GameProgression.OnAddMoney -= AddCurrentGameMoney;
     }
 
     internal bool IsEnoughtMainMoney(int value)
@@ -44,6 +38,12 @@ public class PlayerMoney : MonoBehaviour
         }
 
         return true;
+    }
+
+    internal void AddCurrentGameMoney(int amount)
+    {
+        _currentGameMoney += amount;
+        OnMoneyAmountChanged?.Invoke(_currentGameMoney);
     }
 
     internal void GetCurrentGameMoney(int itemPrice)
