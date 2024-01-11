@@ -49,8 +49,8 @@ public class NEW_GameProgression : MonoBehaviour
 
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
-    public static event System.Action<bool> OnActivateMoneyRope;
-    public static event System.Action<bool> OnFullyActivateMoneyRope;
+    public static event System.Action<MoneyRopeHandler.Visibility> OnActivateMoneyRope;
+    //public static event System.Action<MoneyRopeHandler.Visibility> OnFullyActivateMoneyRope;
     public static event System.Action<int> OnAddMoney;
     public static event System.Action<int> onScoreChanged;
 
@@ -238,10 +238,16 @@ public class NEW_GameProgression : MonoBehaviour
         OnActivateScoreList?.Invoke(isEnabled);
     }
 
-    private void EnableMoneyRope(bool isEnabled)
+    private void EnableMoneyRope(MoneyRopeHandler.Visibility visibility)
     {
-        isMoneyRopeActive = isEnabled;
-        OnActivateMoneyRope?.Invoke(isEnabled);
+        if (visibility.Equals(MoneyRopeHandler.Visibility.Visible))
+        {
+            isMoneyRopeActive = true;
+        }
+
+        // isMoneyRopeActive = isEnabled;
+        OnActivateMoneyRope?.Invoke(visibility);
+         //OnActivateMoneyRope?.Invoke(isEnabled);
     }
 
     private void SetStandartRound()
@@ -250,6 +256,8 @@ public class NEW_GameProgression : MonoBehaviour
         {
             isBuyRoundGoing = false;
             OnStartBuyRound?.Invoke(false);
+            EnableTurnCounter(true);
+            EnableMoneyRope(MoneyRopeHandler.Visibility.PartiallyVisible);
         }
 
         UpdateDifficulty();
@@ -260,7 +268,7 @@ public class NEW_GameProgression : MonoBehaviour
     {
         isBuyRoundGoing = true;
         EnableTurnCounter(false);
-        
+        EnableMoneyRope(MoneyRopeHandler.Visibility.Visible);
         OnStartBuyRound?.Invoke(true);
 
         if (firstTimePlaying)

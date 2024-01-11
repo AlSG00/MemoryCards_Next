@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class MoneyRopeHandler : MonoBehaviour
 {
-
-    // TODO: money gui counter
+    public enum Visibility
+    {
+        Visible,
+        PartiallyVisible,
+        Hidden
+    }
 
     [SerializeField] private Animator _visibilityAnimator;
     [SerializeField] private Animator _visualFeedbackAnimator;
-    [SerializeField] private bool _isVisible;
+    //[SerializeField] private bool _isVisible;
+    [SerializeField] private Visibility _visibility;
     [SerializeField] private Transform[] _buttonPivots;
     [SerializeField] private GameObject[] _buttonsCollection;
     [SerializeField] private MoneySlot[] _moneySlots;
@@ -24,12 +29,14 @@ public class MoneyRopeHandler : MonoBehaviour
     {
         PlayerMoney.OnMoneyAmountChanged += SetButtonsAmount;
         NEW_GameProgression.OnActivateMoneyRope += ChangeVisibility;
-        async;slkdfh
+       // NEW_GameProgression.OnFullyActivateMoneyRope += 
+        //async;slkdfh
     }
 
     private void OnDisable()
     {
         PlayerMoney.OnMoneyAmountChanged -= SetButtonsAmount;
+        NEW_GameProgression.OnActivateMoneyRope -= ChangeVisibility;
     }
 
     private void Start()
@@ -90,6 +97,7 @@ public class MoneyRopeHandler : MonoBehaviour
 
     private void Initialize()
     {
+        _visibility = Visibility.Hidden;
         _moneySlots = new MoneySlot[_buttonPivots.Length];
         for (int i = 0; i < _buttonPivots.Length; i++)
         {
@@ -127,15 +135,6 @@ public class MoneyRopeHandler : MonoBehaviour
     private void GenerateButton(MoneySlot slot)
     {
         GameObject button = _buttonsCollection[Random.Range(0, _buttonsCollection.Length)];
-        //if (_previous == null)
-        //{
-        //    _previous = button;
-        //}
-
-        //while (button.GetComponent<MeshFilter>() == _previous.GetComponent<MeshFilter>())
-        //{
-        //    button = _buttonsCollection[Random.Range(0, _buttonsCollection.Length)];
-        //}
         slot.button = Instantiate(button, slot.pivot.position, slot.pivot.rotation);
         _previous = slot.button;
         _currentAmount++;
@@ -171,38 +170,60 @@ public class MoneyRopeHandler : MonoBehaviour
 
     #region VISIBILITY
 
-    private void ChangeVisibility(bool isActive)
+    private void ChangeVisibility(Visibility visibility)
     {
-        if (isActive == _isVisible)
+        if (visibility == _visibility)
         {
             return;
         }
+        
+        switch (visibility)
+        {
+            case Visibility.Visible:
+                Show();
+                break;
 
-        if (isActive)
-        {
-            Show();
+            case Visibility.PartiallyVisible:
+                SetPartialVisibility();
+                break;
+
+            case Visibility.Hidden:
+                Hide();
+                break;
         }
-        else
-        {
-            Hide();
-        }
+
+        _visibility = visibility;
     }
 
     private void Show()
     {
-        if (_isVisible == false)
+        if (_visibility == Visibility.Hidden)
         {
-            _isVisible = true;
-            _visibilityAnimator.SetTrigger("Show");
+            _visibilityAnimator.SetTrigger("ShowPartially");
         }
+
+        _visibilityAnimator.SetTrigger("Show");
     }
 
     private void Hide()
     {
-        if (_isVisible)
+        if (_visibility == Visibility.Hidden)
         {
-            _isVisible = false;
-            _visibilityAnimator.SetTrigger("Hide");
+            _visibilityAnimator.SetTrigger("HidePartially");
+        }
+
+        _visibilityAnimator.SetTrigger("Hide");
+    }
+
+    private void SetPartialVisibility()
+    {
+        if (_visibility == Visibility.Hidden)
+        {
+            _visibilityAnimator.SetTrigger("ShowPartially");
+        }
+        else if (_visibility == Visibility.Visible)
+        {
+            _visibilityAnimator.SetTrigger("HidePartially");
         }
     }
 

@@ -10427,7 +10427,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.5200736, y: -0.07891489, z: 0.048335735, w: 0.8490934}
+  m_LocalRotation: {x: 0.5200736, y: -0.07891493, z: 0.04833576, w: 0.84909344}
   m_LocalPosition: {x: 1.2, y: 12.766, z: -6.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -34841,8 +34841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b4f3d2de0159a4d91db8e27d2348e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 1063138816}
-  _isVisible: 0
+  _visibilityAnimator: {fileID: 1063138816}
+  _visualFeedbackAnimator: {fileID: 0}
+  _visibility: 0
   _buttonPivots:
   - {fileID: 371457964}
   - {fileID: 1117579787}
@@ -40254,7 +40255,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222250152}
-  m_LocalRotation: {x: 0.5200736, y: -0.07891489, z: 0.048335735, w: 0.8490934}
+  m_LocalRotation: {x: 0.5200736, y: -0.07891493, z: 0.04833576, w: 0.84909344}
   m_LocalPosition: {x: 1.2, y: 12.766, z: -6.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47375,6 +47376,7 @@ MonoBehaviour:
   isTurnCounterActive: 0
   isScoreListActive: 0
   isStopwatchActive: 0
+  isMoneyRopeActive: 0
   isBuyRoundGoing: 0
 --- !u!95 &1451625279
 Animator:
