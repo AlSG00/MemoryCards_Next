@@ -107,7 +107,6 @@ public class NEW_GameProgression : MonoBehaviour
         stage = GameStage.VeryEasy;
         if (firstTimePlaying)
         {
-            
             FirstTimePlaying?.Invoke();
         }
     }
@@ -164,7 +163,7 @@ public class NEW_GameProgression : MonoBehaviour
             //money += 1; //TODO: TEMP. Move to money script
 
             OnAddMoney?.Invoke(1);
-            onScoreChanged?.Invoke(10);
+            onScoreChanged?.Invoke(score);
 
             Debug.Log($"Money:{money}");
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
@@ -333,6 +332,7 @@ public class NEW_GameProgression : MonoBehaviour
             UpdateDifficulty();
             EnableScoreList(true);
             EnableTurnCounter(true);
+            EnableMoneyRope(MoneyRopeHandler.Visibility.PartiallyVisible);
             tempCardLayoutHandler.PrepareNewLayout();
             OnNextRound?.Invoke(currentRound);
             

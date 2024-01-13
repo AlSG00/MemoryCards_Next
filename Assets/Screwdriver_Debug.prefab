@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 615662476550975932}
   - component: {fileID: 1081423287021669866}
+  - component: {fileID: 1624213873885834046}
   - component: {fileID: 1081423287021669869}
   m_Layer: 0
   m_Name: Screwdriver_Debug
@@ -26,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270380278041275142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.137, y: 0.1, z: -2.53}
-  m_LocalScale: {x: 1.8485, y: 1.8485, z: 1.8485}
+  m_LocalPosition: {x: -2.0506577, y: 0.11941268, z: -2.7735543}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5958919897275292790}
@@ -55,13 +56,27 @@ MonoBehaviour:
   _animator: {fileID: 0}
   _isReadyToUse: 0
   _isPicked: 0
-  _mustBuy: 0
+  _mustBuy: 1
   _moveToInventoryTime: 0.2
   _moveToCursorTime: 0.1
   _priceTag: {fileID: 0}
-  _buyPrice: 0
-  _sellPrice: 0
+  _buyPrice: 5
+  _sellPrice: 2
   _isReadyToSell: 0
+--- !u!114 &1624213873885834046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270380278041275142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec9255f75d90e4448979e7da50fcaed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _item: {fileID: 1081423287021669866}
+  _tagText: {fileID: 0}
 --- !u!65 &1081423287021669869
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73,8 +88,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1600319, y: 0.13634562, z: 0.92957944}
-  m_Center: {x: -0.2511699, y: 0.0037956485, z: -0.03800906}
+  m_Size: {x: 0.2612245, y: 0.22284757, z: 1.7410364}
+  m_Center: {x: 0.10593027, y: 0.008650199, z: -0.22574592}
 --- !u!1 &5523142767909117080
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,8 +114,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5523142767909117080}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.569, y: -0.0000000074506, z: -0.13209}
+  m_LocalScale: {x: 1.8292532, y: 1.8292532, z: 1.8292532}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5211139207493741651}
