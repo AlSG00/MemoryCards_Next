@@ -14,10 +14,10 @@ public class NEW_CardGenerator : MonoBehaviour
     [Header("Card collections")]
     [HideInInspector] public List<GameObject> generatedCardPack = new List<GameObject>();
     [SerializeField] private CardData[] _tutorialCardsCollection;
-    [SerializeField] private CardData[] _firstCardsCollection;
-    [SerializeField] private CardData[] _secondCardsCollection;
-    [SerializeField] private CardData[] _thirdCardsCollection;
-    [SerializeField] private CardData[] _fourthCardsCollection;
+    [SerializeField] private CardData[] _easyCardsCollection;
+    [SerializeField] private CardData[] _mediumCardsCollection;
+    [SerializeField] private CardData[] _hardCardsCollection;
+    [SerializeField] private CardData[] _veryHardCardsCollection;
     [SerializeField] private List<CardData> _dataToUse;
     private CardData[] _activeCardData; // Stores data for cards that are used for generating at current game stage
 
@@ -28,7 +28,8 @@ public class NEW_CardGenerator : MonoBehaviour
 
     public void GeneratePack(int countToGenerate)
     {
-        _activeCardData = _firstCardsCollection; // TODO: TEMP
+        //_activeCardData = _easyCardsCollection; // TODO: TEMP
+        SetCardsToGenerate();
         _dataToUse = GetCollectionToGenerate(countToGenerate);
 
         int index = 0;
@@ -52,7 +53,6 @@ public class NEW_CardGenerator : MonoBehaviour
     public List<CardData> GetCollectionToGenerate(int countToGenerate)
     {
         int count = countToGenerate / 2;
-       // int count = countToGenerate / 3; // TODO: TEMP
 
         List<CardData> resultData = new List<CardData>();
         for (int i = 0; i < count; i++)
@@ -63,26 +63,30 @@ public class NEW_CardGenerator : MonoBehaviour
         return resultData;
     }
 
-    private void CheckCurrentRound()
+    private void SetCardsToGenerate()
     {
-        //switch (_sessionProgress.currentRound)
-        //{
-        //    case 0:
-        //        _activeCardData = _tutorialCardsCollection;
-        //        return;
-        //    case 1:
-        //        _activeCardData = _firstCardsCollection;
-        //        return;
-        //    case 2:
-        //        _activeCardData = _secondCardsCollection;
-        //        return;
-        //    case 3:
-        //        _activeCardData = _thirdCardsCollection;
-        //        return;
-        //    default:
-        //        _activeCardData = _fourthCardsCollection;
-        //        return;
-        //}
+        switch (NEW_GameProgression.stage)
+        {
+            case NEW_GameProgression.GameStage.Easy:
+                _activeCardData = _easyCardsCollection;
+                break;
+
+            case NEW_GameProgression.GameStage.Medium:
+                _activeCardData = _mediumCardsCollection;
+                break;
+
+            case NEW_GameProgression.GameStage.Hard:
+                _activeCardData = _hardCardsCollection;
+                break;
+
+            case NEW_GameProgression.GameStage.VeryEasy:
+                _activeCardData = _veryHardCardsCollection;
+                break;
+
+            case NEW_GameProgression.GameStage.FullRandom:
+                _activeCardData = _veryHardCardsCollection; // TODO: Temp
+                break;
+        }
     }
 
     private void MixCardPack()

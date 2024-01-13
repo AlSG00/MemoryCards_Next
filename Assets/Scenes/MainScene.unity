@@ -47361,6 +47361,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093422a6a1ff22c4aac4158a26170af7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  easyDifficultyRound: 3
+  mediumDifficultyRound: 5
+  hardDifficultyRound: 7
+  veryHardDifficultyRound: 8
   tempCardGenerator: {fileID: 1913652245}
   tempCardLayoutHandler: {fileID: 509114671}
   currentRound: 0
@@ -47368,7 +47372,7 @@ MonoBehaviour:
   score: 0
   money: 0
   mainMoney: 0
-  buyRound: 2
+  buyRound: 5
   firstTimePlaying: 1
   tutorialComplete: 1
   playingTutorial: 0
@@ -63824,16 +63828,41 @@ MonoBehaviour:
   _sessionProgress: {fileID: 1451625278}
   generatedCardPack: []
   _tutorialCardsCollection: []
-  _firstCardsCollection:
-  - {fileID: 11400000, guid: 07795e4d71f0ce9488f9a92986f45b0e, type: 2}
-  - {fileID: 11400000, guid: f1b2411bac68def499b806e99d05d1cc, type: 2}
+  _easyCardsCollection:
   - {fileID: 11400000, guid: 3a6df9036d402ea43babf13a38d38828, type: 2}
   - {fileID: 11400000, guid: 10e0727d521dff64b8d15c52e8c2961a, type: 2}
-  - {fileID: 11400000, guid: 0ce5016a9be8796458766a76c1db2f77, type: 2}
+  - {fileID: 11400000, guid: f1b2411bac68def499b806e99d05d1cc, type: 2}
+  - {fileID: 11400000, guid: 07795e4d71f0ce9488f9a92986f45b0e, type: 2}
+  _mediumCardsCollection:
+  - {fileID: 11400000, guid: 3a6df9036d402ea43babf13a38d38828, type: 2}
+  - {fileID: 11400000, guid: 10e0727d521dff64b8d15c52e8c2961a, type: 2}
+  - {fileID: 11400000, guid: f1b2411bac68def499b806e99d05d1cc, type: 2}
+  - {fileID: 11400000, guid: 07795e4d71f0ce9488f9a92986f45b0e, type: 2}
   - {fileID: 11400000, guid: f615bb60e43df3340a63094c8377340d, type: 2}
-  _secondCardsCollection: []
-  _thirdCardsCollection: []
-  _fourthCardsCollection: []
+  - {fileID: 11400000, guid: 0ce5016a9be8796458766a76c1db2f77, type: 2}
+  _hardCardsCollection:
+  - {fileID: 11400000, guid: 3a6df9036d402ea43babf13a38d38828, type: 2}
+  - {fileID: 11400000, guid: 10e0727d521dff64b8d15c52e8c2961a, type: 2}
+  - {fileID: 11400000, guid: f1b2411bac68def499b806e99d05d1cc, type: 2}
+  - {fileID: 11400000, guid: 07795e4d71f0ce9488f9a92986f45b0e, type: 2}
+  - {fileID: 11400000, guid: f615bb60e43df3340a63094c8377340d, type: 2}
+  - {fileID: 11400000, guid: 0ce5016a9be8796458766a76c1db2f77, type: 2}
+  - {fileID: 11400000, guid: 02ce947541e968d4ab1a0ef56d136547, type: 2}
+  - {fileID: 11400000, guid: 4ad65737ecb551f49aa5de2fcba6e3e6, type: 2}
+  - {fileID: 11400000, guid: 986ead94bee7c6d408af46e76b357459, type: 2}
+  _veryHardCardsCollection:
+  - {fileID: 11400000, guid: 3a6df9036d402ea43babf13a38d38828, type: 2}
+  - {fileID: 11400000, guid: 10e0727d521dff64b8d15c52e8c2961a, type: 2}
+  - {fileID: 11400000, guid: f1b2411bac68def499b806e99d05d1cc, type: 2}
+  - {fileID: 11400000, guid: 07795e4d71f0ce9488f9a92986f45b0e, type: 2}
+  - {fileID: 11400000, guid: f615bb60e43df3340a63094c8377340d, type: 2}
+  - {fileID: 11400000, guid: 0ce5016a9be8796458766a76c1db2f77, type: 2}
+  - {fileID: 11400000, guid: 02ce947541e968d4ab1a0ef56d136547, type: 2}
+  - {fileID: 11400000, guid: 4ad65737ecb551f49aa5de2fcba6e3e6, type: 2}
+  - {fileID: 11400000, guid: 986ead94bee7c6d408af46e76b357459, type: 2}
+  - {fileID: 11400000, guid: 440c352fd2b72ea4bb96fd8d651eb214, type: 2}
+  - {fileID: 11400000, guid: 6d19a549bb5a919479ba4c698e2abd63, type: 2}
+  - {fileID: 11400000, guid: 7159eec6516bb47489edaea1ae93471a, type: 2}
   _dataToUse: []
 --- !u!1 &1913814615
 GameObject:

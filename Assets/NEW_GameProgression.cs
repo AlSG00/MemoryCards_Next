@@ -14,6 +14,7 @@ public class NEW_GameProgression : MonoBehaviour
         Medium,
         Hard,
         VeryHard,
+        FullRandom
     }
 
     public enum RoundType
@@ -24,6 +25,11 @@ public class NEW_GameProgression : MonoBehaviour
     }
 
     public static GameStage stage;
+
+    public int easyDifficultyRound;
+    public int mediumDifficultyRound;
+    public int hardDifficultyRound;
+    public int veryHardDifficultyRound;
 
     public NEW_CardGenerator tempCardGenerator;
     public NEW_CardLayoutHandler tempCardLayoutHandler;
@@ -98,10 +104,10 @@ public class NEW_GameProgression : MonoBehaviour
         {
             playingTutorial = true;
         }
-
+        stage = GameStage.VeryEasy;
         if (firstTimePlaying)
         {
-            stage = GameStage.VeryEasy;
+            
             FirstTimePlaying?.Invoke();
         }
     }
@@ -198,8 +204,6 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void NextRound()
     {
-        currentRound++;
-        OnNextRound?.Invoke(currentRound);
         if (isTurnCounterActive == false)
         {
             EnableTurnCounter(true);
@@ -210,12 +214,15 @@ public class NEW_GameProgression : MonoBehaviour
             EnableScoreList(true);
         }
 
-        if (currentRound % buyRound == 0)
+        if (currentRound % buyRound == 0 &&
+            isBuyRoundGoing == false)
         {
             SetBuyRound();
         }
         else
         {
+            currentRound++;
+            OnNextRound?.Invoke(currentRound);
             SetStandartRound();
         }
     }
@@ -281,21 +288,25 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void UpdateDifficulty()
     {
-        if (currentRound < 3)
+        if (currentRound < easyDifficultyRound)
         {
             stage = GameStage.Easy;
         }
-        else if (currentRound < 4)
+        else if (currentRound < mediumDifficultyRound)
         {
             stage = GameStage.Medium;
         }
-        else if (currentRound < 5)
+        else if (currentRound < hardDifficultyRound)
         {
             stage = GameStage.Hard;
         }
-        else /*if (currentRound < 20)*/
+        else if (currentRound < veryHardDifficultyRound)
         {
             stage = GameStage.VeryHard;
+        }
+        else
+        {
+            stage = GameStage.FullRandom;
         }
         Debug.Log($"Stage: {stage}");
     }
@@ -313,13 +324,13 @@ public class NEW_GameProgression : MonoBehaviour
         currentRound++;
         remainingTurns = 10;
 
-        if (firstTimePlaying)
+        if (firstTimePlaying && tutorialComplete == false)
         {
             StartTutorial();
         }
         else
         {
-            
+            UpdateDifficulty();
             EnableScoreList(true);
             EnableTurnCounter(true);
             tempCardLayoutHandler.PrepareNewLayout();
