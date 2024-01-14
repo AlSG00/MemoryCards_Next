@@ -136,6 +136,8 @@ public class MoneyRopeHandler : MonoBehaviour
     {
         GameObject button = _buttonsCollection[Random.Range(0, _buttonsCollection.Length)];
         slot.button = Instantiate(button, slot.pivot.position, slot.pivot.rotation);
+        slot.button.transform.SetParent(slot.pivot);
+        //slot.button = Instantiate(button, slot.pivot);
         _previous = slot.button;
         _currentAmount++;
     }
@@ -207,7 +209,7 @@ public class MoneyRopeHandler : MonoBehaviour
 
     private void Hide()
     {
-        if (_visibility == Visibility.Hidden)
+        if (_visibility == Visibility.Visible)
         {
             _visibilityAnimator.SetTrigger("HidePartially");
         }

@@ -35,9 +35,9 @@ public class NEW_GameProgression : MonoBehaviour
     public NEW_CardLayoutHandler tempCardLayoutHandler;
 
     public int currentRound = 0;
-    public int remainingTurns = 0;
+    //public int remainingTurns = 0;
     public int score = 0;
-    public int money = 0; // available only in this session
+    //public int money = 0; // available only in this session
     public int mainMoney = 0; // can be used in upgrade store
 
     [Tooltip("Each round dividible by this digit will be a buy round")]
@@ -49,6 +49,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<int> OnShowHint; // 0 -  hide all
     public static event System.Action<int> OnNextRound;
     public static event System.Action FirstTimePlaying;
+    public static event System.Action OnGameFinished;
 
     //public static event System.Action<int> OnStartTutorialPhase;
     public static event System.Action<bool> OnStartBuyRound; 
@@ -59,6 +60,7 @@ public class NEW_GameProgression : MonoBehaviour
     //public static event System.Action<MoneyRopeHandler.Visibility> OnFullyActivateMoneyRope;
     public static event System.Action<int> OnAddMoney;
     public static event System.Action<int> onScoreChanged;
+    public static event System.Action OnCurrentProgressReset;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
     public static event TurnAction OnTurnsChanged;
@@ -162,10 +164,10 @@ public class NEW_GameProgression : MonoBehaviour
             score += 10; //TODO: TEMP. Move to score script
             //money += 1; //TODO: TEMP. Move to money script
 
-            OnAddMoney?.Invoke(1);
+            OnAddMoney?.Invoke(1); // TODO: Rework
             onScoreChanged?.Invoke(score);
 
-            Debug.Log($"Money:{money}");
+            //Debug.Log($"Money:{money}");
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
@@ -228,7 +230,11 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void FinishGameTest()
     {
-        Debug.Log("Game finished");
+        isBuyRoundGoing = false;
+        OnStartBuyRound?.Invoke(false);
+        EnableTurnCounter(true);
+        EnableScoreList(true);
+        OnGameFinished?.Invoke();
     }
 
     private void EnableTurnCounter(bool isEnabled)
@@ -246,14 +252,17 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void EnableMoneyRope(MoneyRopeHandler.Visibility visibility)
     {
-        if (visibility.Equals(MoneyRopeHandler.Visibility.Visible))
+        if (visibility.Equals(MoneyRopeHandler.Visibility.Visible) ||
+            visibility.Equals(MoneyRopeHandler.Visibility.PartiallyVisible))
         {
             isMoneyRopeActive = true;
         }
+        else
+        {
+            isMoneyRopeActive = false;
+        }
 
-        // isMoneyRopeActive = isEnabled;
         OnActivateMoneyRope?.Invoke(visibility);
-         //OnActivateMoneyRope?.Invoke(isEnabled);
     }
 
     private void SetStandartRound()
@@ -321,7 +330,7 @@ public class NEW_GameProgression : MonoBehaviour
     {
         OnGameStartConfirm?.Invoke();
         currentRound++;
-        remainingTurns = 10;
+        //remainingTurns = 10;
 
         if (firstTimePlaying && tutorialComplete == false)
         {
@@ -358,11 +367,34 @@ public class NEW_GameProgression : MonoBehaviour
     private void RejectGameStart()
     {
         tempCardLayoutHandler.TakeCardsBack();
+
+        if (isScoreListActive)
+        {
+            EnableScoreList(false);
+        }
+
+        if (isTurnCounterActive)
+        {
+            EnableTurnCounter(false);
+        }
+
+        if (isMoneyRopeActive)
+        {
+            EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
+        }
     }
     #endregion
 
     private void FinishGame()
     {
+
+    }
+
+    private void ResetCurrentProgress()
+    {
+        OnCurrentProgressReset?.Invoke(); // TODO: Reset money, inventory, rounds, local statistics, score
+        currentRound = 0;
+        score = 0;
 
     }
 }

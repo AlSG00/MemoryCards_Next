@@ -77,6 +77,11 @@ public class CardComparator : MonoBehaviour
 
     private void UnpickAllCards()
     {
+        if (pickedCardList == null)
+        {
+            return;
+        }
+
         foreach (var card in pickedCardList)
         {
             card.CancelPick();
