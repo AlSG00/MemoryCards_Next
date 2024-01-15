@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private SessionProgressHandler session;
-    [SerializeField] private PauseMenuHandler pauseMenuHandler;
+   // [SerializeField] private SessionProgressHandler session;
+  //  [SerializeField] private PauseMenuHandler pauseMenuHandler;
+
+    // TODO: Rework this menu
 
     private void Update()
     {
@@ -18,13 +20,13 @@ public class PlayerInput : MonoBehaviour
 
     private void HandlePauseMenu()
     {
-        if (!session.isGamePaused)
-        {
-            pauseMenuHandler.EnterPauseMenu();
-        }
-        else
-        {
-            pauseMenuHandler.ExitPauseMenu();
-        }
+        //if (!session.isGamePaused)
+        //{
+        //    pauseMenuHandler.EnterPauseMenu();
+        //}
+        //else
+        //{
+        //    pauseMenuHandler.ExitPauseMenu();
+        //}
     }
 }
