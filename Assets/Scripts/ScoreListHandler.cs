@@ -6,10 +6,8 @@ using UnityEngine;
 public class ScoreListHandler : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-
-    //private bool _isCursorOnMouse = false;
     [SerializeField] private bool _isVisible = false;
-    [SerializeField] private bool isEnabled = false;
+    [SerializeField] private bool _isEnabled = false;
 
     private void OnEnable()
     {
@@ -25,32 +23,9 @@ public class ScoreListHandler : MonoBehaviour
 
     private void Awake()
     {
-        isEnabled = false;
+        _isEnabled = false;
         _isVisible = false;
     }
-
-    //private void Update()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        ChangeFullListVisibility();
-    //    }
-    //}
-
-    //private void OnMouseEnter()
-    //{
-    //    _isCursorOnMouse = true;
-    //}
-
-    //private void OnMouseOver()
-    //{
-    //    _isCursorOnMouse = true;
-    //}
-
-    //private void OnMouseExit()
-    //{
-    //    _isCursorOnMouse = false;
-    //}
 
     private void OnMouseDown()
     {
@@ -65,13 +40,7 @@ public class ScoreListHandler : MonoBehaviour
 
     private void ChangeFullListVisibility(bool isFullyVisible)
     {
-        //if (_isCursorOnMouse == false)
-        //{
-        //    return;
-        //}
-
         var show = _animator.GetBool("ShowFull");
-        //show = !show;
         if (show != isFullyVisible)
         {
             _animator.SetBool("ShowFull", isFullyVisible);
@@ -94,18 +63,18 @@ public class ScoreListHandler : MonoBehaviour
 
     private void Show()
     {
-        if (isEnabled == false)
+        if (_isEnabled == false)
         {
-            isEnabled = true;
+            _isEnabled = true;
             _animator.SetTrigger("Show");
         }
     }
 
     private void Hide()
     {
-        if (isEnabled)
+        if (_isEnabled)
         {
-            isEnabled = false;
+            _isEnabled = false;
             _animator.SetTrigger("Hide");
         }
     }

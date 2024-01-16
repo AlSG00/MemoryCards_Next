@@ -8,17 +8,12 @@ public class NEW_Card : MonoBehaviour
     [Header("Main")]
     public CardData.Type cardType;
     public int scoreValue = 1;
-    //public bool isDark = false;
-    //public bool isStrange = false;
     public Image cardDrawing;
     public BoxCollider cardCollider;
     public Animator cardAnimator;
 
     // Various mathce
     public int requiredMatchesCount = 2;
-
-    //[Header("References")]
-    //public CardHandler cardHandler;
 
     [Header("Audio")]
     public AudioSource cardAudioSource;
@@ -33,11 +28,6 @@ public class NEW_Card : MonoBehaviour
     public static event ClickAction OnCardUnpicked;
 
     public static event System.Action<bool> OnHideFullList;
-
-    //private void Start()
-    //{
-    //    cardHandler = GameObject.Find("CardHandler").GetComponent<CardHandler>();
-    //}
 
     private void OnEnable()
     {
@@ -54,8 +44,6 @@ public class NEW_Card : MonoBehaviour
         cardType = cardData.type;
         cardDrawing.sprite = cardData.cardSprite[Random.Range(0, cardData.cardSprite.Length)];
         scoreValue = cardData.scoreValue;
-        //isDark = cardData.isDarkCard;
-        //isStrange = cardData.isStrangeCard;
     }
 
     private void OnMouseOver()
@@ -92,7 +80,6 @@ public class NEW_Card : MonoBehaviour
         }
 
         OnHideFullList?.Invoke(false);
-        //_wasPicked = !_wasPicked;
     }
 
     public void CancelPick()

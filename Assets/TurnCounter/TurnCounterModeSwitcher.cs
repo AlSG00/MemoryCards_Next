@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchTurnCounterMode : MonoBehaviour, IButtonAction
+public class TurnCounterModeSwitcher : MonoBehaviour, IButtonAction
 {
     public bool showClock;
     public static event System.Action<bool> OnSwitchMode;

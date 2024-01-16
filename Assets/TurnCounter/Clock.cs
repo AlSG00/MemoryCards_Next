@@ -8,35 +8,27 @@ using System.Text;
 public class Clock : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI[] _GUIElements;
-
-    [SerializeField] private TextMeshProUGUI _date;
-
-    [SerializeField] private TextMeshProUGUI _weekDay;
     [SerializeField] private TextMeshProUGUI[] _dayTextMeshCollection;
-
+    [SerializeField] private TextMeshProUGUI _date;
+    [SerializeField] private TextMeshProUGUI _weekDay;
     [SerializeField] private TextMeshProUGUI _hours;
     [SerializeField] private TextMeshProUGUI _minutes;
     [SerializeField] private TextMeshProUGUI _seconds;
 
-    public bool isActive = true;
+    private bool isActive = true;
 
     private void OnEnable()
     {
-        SwitchTurnCounterMode.OnSwitchMode += ChangeClockVisiblity;
+        TurnCounterModeSwitcher.OnSwitchMode += ChangeClockVisiblity;
     }
 
     private void OnDisable()
     {
-        SwitchTurnCounterMode.OnSwitchMode -= ChangeClockVisiblity;
+        TurnCounterModeSwitcher.OnSwitchMode -= ChangeClockVisiblity;
     }
 
     private void FixedUpdate()
     {
-        //if (isActive == false)
-        //{
-        //    return;
-        //}
-
         SetTimeValue(DateTime.Now.Second, _seconds);
         SetTimeValue(DateTime.Now.Minute, _minutes);
         SetTimeValue(DateTime.Now.Hour, _hours);

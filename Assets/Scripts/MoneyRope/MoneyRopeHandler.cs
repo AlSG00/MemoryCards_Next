@@ -13,7 +13,6 @@ public class MoneyRopeHandler : MonoBehaviour
 
     [SerializeField] private Animator _visibilityAnimator;
     [SerializeField] private Animator _visualFeedbackAnimator;
-    //[SerializeField] private bool _isVisible;
     [SerializeField] private Visibility _visibility;
     [SerializeField] private Transform[] _buttonPivots;
     [SerializeField] private GameObject[] _buttonsCollection;
@@ -29,19 +28,12 @@ public class MoneyRopeHandler : MonoBehaviour
     {
         PlayerMoney.OnMoneyAmountChanged += SetButtonsAmount;
         NEW_GameProgression.OnActivateMoneyRope += ChangeVisibility;
-       // NEW_GameProgression.OnFullyActivateMoneyRope += 
-        //async;slkdfh
     }
 
     private void OnDisable()
     {
         PlayerMoney.OnMoneyAmountChanged -= SetButtonsAmount;
         NEW_GameProgression.OnActivateMoneyRope -= ChangeVisibility;
-    }
-
-    private void Start()
-    {
-        
     }
 
     private void SetButtonsAmount(int amount)
@@ -137,7 +129,6 @@ public class MoneyRopeHandler : MonoBehaviour
         GameObject button = _buttonsCollection[Random.Range(0, _buttonsCollection.Length)];
         slot.button = Instantiate(button, slot.pivot.position, slot.pivot.rotation);
         slot.button.transform.SetParent(slot.pivot);
-        //slot.button = Instantiate(button, slot.pivot);
         _previous = slot.button;
         _currentAmount++;
     }

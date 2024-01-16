@@ -87,8 +87,6 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-
-
     [System.Serializable]
     public class InventorySlot
     {

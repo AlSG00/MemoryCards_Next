@@ -39,7 +39,6 @@ public class InventoryItem : MonoBehaviour
         Inventory.OnBoughtItemAdd += Buy;
         ShopHandler.OnItemGenerated += InitializeForShop;
         ShopHandler.OnItemRemove += RemoveItem;
-        //ShopHandler.OnItemSold += RemoveItemAsSold;
     }
 
     private void OnDisable()
@@ -49,7 +48,6 @@ public class InventoryItem : MonoBehaviour
         Inventory.OnBoughtItemAdd -= Buy;
         ShopHandler.OnItemGenerated -= InitializeForShop;
         ShopHandler.OnItemRemove -= RemoveItem;
-        //ShopHandler.OnItemSold -= RemoveItemAsSold;
     }
 
     private void Awake()
@@ -127,11 +125,6 @@ public class InventoryItem : MonoBehaviour
         }
     }
 
-    //private void DisableReadyToSell()
-    //{
-        
-    //}
-
     public void AddToInventory()
     {
         OnAddToInventory?.Invoke(this, gameObject.transform, itemName);
@@ -142,18 +135,6 @@ public class InventoryItem : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(MoveToPivotRoutine(_currentPivot, timeToMove));
     }
-
-    //private void MoveToInventory(Transform target, Transform )
-    //{
-    //    if (target == null)
-    //    {
-    //        return;
-    //    }
-
-    //    _inventoryPivot = target;
-    //    StopAllCoroutines();
-    //    StartCoroutine(MoveToPivotRoutine(_inventoryPivot, _moveToInventoryTime));
-    //}
 
     private void InitializeForInventory(InventoryItem item, Transform inventoryPivot, Transform cursorPivot)
     {
