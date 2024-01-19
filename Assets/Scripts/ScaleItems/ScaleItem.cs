@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScaleItem : MonoBehaviour
+public class ScaleItem : TableItem, IPickable
 {
-    [SerializeField] private Animator _animator;
+    abstract;lskdfja;sldk
+        доделать отдельный класс для предметов
+    //[SerializeField] private Animator _animator;
 
     [SerializeField] private bool _isPicked;
     [SerializeField] private bool _isReadyToUse;
@@ -22,7 +24,7 @@ public class ScaleItem : MonoBehaviour
 
     // TODO: move logic to abstract class
     private void Awake()
-    {
+    { 
         _isPicked = false;
         _isReadyToUse = false;
         _isVisible = false;
@@ -69,40 +71,40 @@ public class ScaleItem : MonoBehaviour
         _animator.SetBool("MouseOver", false);
     }
 
-    private void ChangeVisibility(bool isActive)
-    {
-        if (isActive == _isVisible)
-        {
-            return;
-        }
+    //private void ChangeVisibility(bool isActive)
+    //{
+    //    if (isActive == _isVisible)
+    //    {
+    //        return;
+    //    }
 
-        if (isActive)
-        {
-            Show();
-        }
-        else
-        {
-            Hide();
-        }
-    }
+    //    if (isActive)
+    //    {
+    //        Show();
+    //    }
+    //    else
+    //    {
+    //        Hide();
+    //    }
+    //}
 
-    private void Show()
-    {
-        if (_isVisible == false)
-        {
-            _isVisible = true;
-            _animator.SetTrigger("Show");
-        }
-    }
+    //private void Show()
+    //{
+    //    if (_isVisible == false)
+    //    {
+    //        _isVisible = true;
+    //        _animator.SetTrigger("Show");
+    //    }
+    //}
 
-    private void Hide()
-    {
-        if (_isVisible)
-        {
-            _isVisible = false;
-            _animator.SetTrigger("Hide");
-        }
-    }
+    //private void Hide()
+    //{
+    //    if (_isVisible)
+    //    {
+    //        _isVisible = false;
+    //        _animator.SetTrigger("Hide");
+    //    }
+    //}
 
     private void OnMouseDown()
     {

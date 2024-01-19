@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TurnCounter : MonoBehaviour
+public class TurnCounter : TableItem
 {
-    [SerializeField] private Animator _animator;
+    //[SerializeField] private Animator _animator;
 
     private bool _isVisible = false;
 
@@ -12,32 +10,32 @@ public class TurnCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnActivateTurnCounter += SetTurnCounterActive;
+        NEW_GameProgression.OnActivateTurnCounter += ChangeVisibility;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnActivateTurnCounter -= SetTurnCounterActive;
+        NEW_GameProgression.OnActivateTurnCounter -= ChangeVisibility;
     }
 
-    private void SetTurnCounterActive(bool isActive)
-    {
-        if (isActive == _isVisible)
-        {
-            return;
-        }
+    //private void SetTurnCounterActive(bool isActive)
+    //{
+    //    if (isActive == _isVisible)
+    //    {
+    //        return;
+    //    }
 
-        if (isActive)
-        {
-            Show();
-        }
-        else
-        {
-            Hide();
-        }
-    }
+    //    if (isActive)
+    //    {
+    //        Show();
+    //    }
+    //    else
+    //    {
+    //        Hide();
+    //    }
+    //}
 
-    private void Show()
+    private protected override void Show()
     {
         if (_isVisible == false)
         {
@@ -47,7 +45,7 @@ public class TurnCounter : MonoBehaviour
         }
     }
 
-    private void Hide()
+    private protected override void Hide()
     {
         if (_isVisible)
         {
@@ -59,6 +57,6 @@ public class TurnCounter : MonoBehaviour
 
     private void Break()
     {
-        // TODO: Will trigger animation of breaking counter to disabling in till the next round
+        // TODO: Will trigger animation of breaking counter to disable it 'till the next round
     }
 }

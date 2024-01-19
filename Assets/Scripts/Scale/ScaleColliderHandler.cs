@@ -10,7 +10,7 @@ public class ScaleColliderHandler : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (_scale._isVisible == false)
+        if (_scale.isVisible == false)
         {
             return;
         }
@@ -20,7 +20,7 @@ public class ScaleColliderHandler : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (_scale._isVisible == false)
+        if (_scale.isVisible == false)
         {
             return;
         }
