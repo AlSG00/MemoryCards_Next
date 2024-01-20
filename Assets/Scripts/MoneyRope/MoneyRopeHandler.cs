@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class MoneyRopeHandler : MonoBehaviour
 {
+    [SerializeField] private int _currentButtonsAmount;
+    [SerializeField] private Visibility _visibility;
+    [SerializeField] private Animator _visibilityAnimator;
+    [SerializeField] private Animator _visualFeedbackAnimator;
+    [SerializeField] private Transform[] _buttonPivots;
+    [SerializeField] private GameObject[] _buttonsCollection;
+    [SerializeField] private MoneySlot[] _moneySlots;
+    
     public enum Visibility
     {
         Visible,
         PartiallyVisible,
         Hidden
     }
-
-    [SerializeField] private Animator _visibilityAnimator;
-    [SerializeField] private Animator _visualFeedbackAnimator;
-    [SerializeField] private Visibility _visibility;
-    [SerializeField] private Transform[] _buttonPivots;
-    [SerializeField] private GameObject[] _buttonsCollection;
-    [SerializeField] private MoneySlot[] _moneySlots;
-    [SerializeField] private int _currentAmount;
 
     private void Awake()
     {
@@ -38,14 +38,14 @@ public class MoneyRopeHandler : MonoBehaviour
 
     private void SetButtonsAmount(int amount)
     {
-        int originalAmount = _currentAmount;
+        int originalAmount = _currentButtonsAmount;
         CountCurrentAmount();
-        if (amount == _currentAmount)
+        if (amount == _currentButtonsAmount)
         {
             return;
         }
 
-        if (amount > _currentAmount)
+        if (amount > _currentButtonsAmount)
         {
             if (amount >= _buttonPivots.Length)
             {
@@ -99,7 +99,7 @@ public class MoneyRopeHandler : MonoBehaviour
 
     private void GenerateSeveralButtons(int amount)
     {
-        for (int i = _currentAmount - 1; i < amount - 1; i++)
+        for (int i = _currentButtonsAmount - 1; i < amount - 1; i++)
         {
             GenerateButton(_moneySlots[i]);
         }
@@ -107,7 +107,7 @@ public class MoneyRopeHandler : MonoBehaviour
 
     private void RemoveSeveralButtons(int amount)
     {
-        for (int i = _currentAmount - 1; i < amount - 1; i++)
+        for (int i = _currentButtonsAmount - 1; i < amount - 1; i++)
         {
             GenerateButton(_moneySlots[i]);
         }
@@ -130,7 +130,7 @@ public class MoneyRopeHandler : MonoBehaviour
         slot.button = Instantiate(button, slot.pivot.position, slot.pivot.rotation);
         slot.button.transform.SetParent(slot.pivot);
         _previous = slot.button;
-        _currentAmount++;
+        _currentButtonsAmount++;
     }
 
     private void RemoveButton(MoneySlot slot)
@@ -142,17 +142,17 @@ public class MoneyRopeHandler : MonoBehaviour
 
         Destroy(slot.button);
         slot.button = null;
-        _currentAmount--;
+        _currentButtonsAmount--;
     }
 
     private void CountCurrentAmount()
     {
-        _currentAmount = 0;
+        _currentButtonsAmount = 0;
         foreach (var slot in _moneySlots)
         {
             if (slot.button != null)
             {
-                _currentAmount++;
+                _currentButtonsAmount++;
             }
             else
             {
@@ -223,7 +223,7 @@ public class MoneyRopeHandler : MonoBehaviour
     #endregion
 
     [System.Serializable]
-    public class MoneySlot
+    public sealed class MoneySlot
     {
         public Transform pivot;
         public GameObject button;

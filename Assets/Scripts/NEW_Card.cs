@@ -12,7 +12,6 @@ public class NEW_Card : MonoBehaviour
     public BoxCollider cardCollider;
     public Animator cardAnimator;
 
-    // Various mathce
     public int requiredMatchesCount = 2;
 
     [Header("Audio")]
@@ -21,13 +20,12 @@ public class NEW_Card : MonoBehaviour
     public AudioClip CancelSound;
     public AudioClip PlaceSound;
 
-    private bool _wasPicked;
-
     public delegate void ClickAction(NEW_Card card);
     public static event ClickAction OnCardPicked;
     public static event ClickAction OnCardUnpicked;
-
     public static event System.Action<bool> OnHideFullList;
+
+    private bool _wasPicked;
 
     private void OnEnable()
     {

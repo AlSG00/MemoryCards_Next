@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class ScaleColliderHandler : MonoBehaviour
 {
-    public static event System.Action<bool> OnEnterCollider;
     [SerializeField] private Scale _scale;
-
+    public static event System.Action<bool> OnEnterCollider;
 
     private void OnMouseEnter()
     {

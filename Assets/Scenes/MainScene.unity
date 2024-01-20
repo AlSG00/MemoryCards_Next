@@ -5081,6 +5081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf370eb9db39c78449700ffefe009040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVisible: 0
   _animator: {fileID: 919132148914331118}
 --- !u!4 &177554798
 Transform:
@@ -55399,9 +55400,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f365b69658fc754395af325090112b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVisible: 0
   _animator: {fileID: 1826880218}
-  _isVisible: 0
-  _isItemOnScale: 0
 --- !u!114 &1826880217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66726,9 +66726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163f8bbef7a47734ab17e36d488322bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isVisible: 0
   _animator: {fileID: 1684503991}
-  _isVisible: 0
-  _isEnabled: 0
 --- !u!33 &3469287837569222430
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -67455,6 +67454,11 @@ PrefabInstance:
       propertyPath: _cursorPivot
       value: 
       objectReference: {fileID: 477606264}
+    - target: {fileID: 7560714185250378084, guid: f26ebafaf6b9ec2429b624d9b082acdb,
+        type: 3}
+      propertyPath: _moveToStandartPositionTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7560714185250378085, guid: f26ebafaf6b9ec2429b624d9b082acdb,
         type: 3}
       propertyPath: m_RootOrder
@@ -67779,7 +67783,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3790454242260723559}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720e5ac9c3ac14747af403f08b3f4b98, type: 3}
+  m_Script: {fileID: 11500000, guid: 89c73367938f9cc44904c9889763b013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   showClock: 0

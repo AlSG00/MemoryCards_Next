@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour
     public static event System.Action<InventoryItem, Transform, Transform> OnReceiveItem;
     public static event System.Action<InventoryItem> OnBoughtItemAdd;
 
-
     private void OnEnable()
     {
         InventoryItem.OnAddToInventory += AddItem;
@@ -88,7 +87,7 @@ public class Inventory : MonoBehaviour
     }
 
     [System.Serializable]
-    public class InventorySlot
+    public sealed class InventorySlot
     {
         public bool isAvailable;
         public Transform[] itemSlotPivots;

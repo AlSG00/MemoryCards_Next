@@ -6,13 +6,8 @@ using TMPro;
 [RequireComponent(typeof(Animator))]
 public class Scale : TableItem
 {
-    //[SerializeField] private Animator _animator;
-    //public bool _isVisible;
-    //[SerializeField] private bool _isItemOnScale;
-
     private void Awake()
     {
-        //_isItemOnScale = false;
         isVisible = false;
     }
 
@@ -25,39 +20,4 @@ public class Scale : TableItem
     {
         ShopHandler.OnShowScale -= ChangeVisibility;
     }
-
-    //private void ChangeVisibility(bool isActive)
-    //{
-    //    if (isActive == _isVisible)
-    //    {
-    //        return;
-    //    }
-
-    //    if (isActive)
-    //    {
-    //        Show();
-    //    }
-    //    else
-    //    {
-    //        Hide();
-    //    }
-    //}
-
-    //private void Show()
-    //{
-    //    if (_isVisible == false)
-    //    {
-    //        _isVisible = true;
-    //        _animator.SetTrigger("Show");
-    //    }
-    //}
-
-    //private void Hide()
-    //{
-    //    if (_isVisible)
-    //    {
-    //        _isVisible = false;
-    //        _animator.SetTrigger("Hide");
-    //    }
-    //}
 }

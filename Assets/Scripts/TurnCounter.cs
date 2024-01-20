@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class TurnCounter : TableItem
 {
-    //[SerializeField] private Animator _animator;
-
-    private bool _isVisible = false;
-
     public static System.Action<bool> OnActivateTurnCounter;
 
     private void OnEnable()
@@ -18,28 +14,11 @@ public class TurnCounter : TableItem
         NEW_GameProgression.OnActivateTurnCounter -= ChangeVisibility;
     }
 
-    //private void SetTurnCounterActive(bool isActive)
-    //{
-    //    if (isActive == _isVisible)
-    //    {
-    //        return;
-    //    }
-
-    //    if (isActive)
-    //    {
-    //        Show();
-    //    }
-    //    else
-    //    {
-    //        Hide();
-    //    }
-    //}
-
     private protected override void Show()
     {
-        if (_isVisible == false)
+        if (isVisible == false)
         {
-            _isVisible = true;
+            isVisible = true;
             _animator.SetTrigger("Show");
             OnActivateTurnCounter?.Invoke(true);
         }
@@ -47,9 +26,9 @@ public class TurnCounter : TableItem
 
     private protected override void Hide()
     {
-        if (_isVisible)
+        if (isVisible)
         {
-            _isVisible = false;
+            isVisible = false;
             _animator.SetTrigger("Hide");
             OnActivateTurnCounter?.Invoke(false);
         }

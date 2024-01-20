@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class ScoreListHandler : TableItem
 {
-    //[SerializeField] private Animator _animator;
-    //[SerializeField] private bool _isVisible = false;
-    [SerializeField] private bool _isEnabled = false;
-
     private void OnEnable()
     {
         NEW_GameProgression.OnActivateScoreList += ChangeVisibility;
@@ -23,7 +19,7 @@ public class ScoreListHandler : TableItem
 
     private void Awake()
     {
-        _isEnabled = false;
+       // _isEnabled = false;
         isVisible = false;
     }
 
@@ -48,34 +44,4 @@ public class ScoreListHandler : TableItem
 
         isVisible = isFullyVisible; // Needed for syncing values when invoking metod from other scripts;
     }
-
-    //private void ChangeVisibility(bool isActive)
-    //{
-    //    if (isActive)
-    //    {
-    //        Show();
-    //    }
-    //    else
-    //    {
-    //        Hide();
-    //    }
-    //}
-
-    //private void Show()
-    //{
-    //    if (_isEnabled == false)
-    //    {
-    //        _isEnabled = true;
-    //        _animator.SetTrigger("Show");
-    //    }
-    //}
-
-    //private void Hide()
-    //{
-    //    if (_isEnabled)
-    //    {
-    //        _isEnabled = false;
-    //        _animator.SetTrigger("Hide");
-    //    }
-    //}
 }

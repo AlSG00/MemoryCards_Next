@@ -3,34 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryItem : MonoBehaviour
+public class InventoryItem : InteractiveItem
 {
+    public int _buyPrice;
     [SerializeField] private string itemName;
-    [SerializeField] private Transform _currentPivot;
-    [SerializeField] private Transform _previousPivot;
     [SerializeField] private Transform _shopPivot;
     [SerializeField] private Transform _inventoryPivot;
-    [SerializeField] private Transform _cursorPivot;
 
-    [SerializeField] private Animator _animator;
-    [SerializeField] private bool _isReadyToUse; // Means that item is near the object it could be assgned
-    [SerializeField] private bool _isPicked;
+    [Header("Shop info")]
     [SerializeField] private bool _mustBuy;
-    private bool _isChangingPosition;
-    
+    [SerializeField] private GameObject _priceTag;
+    [SerializeField] private int _sellPrice;
+    [SerializeField] private bool _isReadyToSell;
+
     public static event System.Action<InventoryItem, Transform, string> OnAddToInventory;
     public static event System.Action<int> OnReadyToSell;
     public static event System.Action<InventoryItem, Transform, int> OnSellItem;
     public static event System.Action<InventoryItem, Transform, string, int> OnBuyItem;
     public static event System.Action OnInitializeForShop;
-
-    [SerializeField] private float _moveToInventoryTime;
-    [SerializeField] private float _moveToCursorTime;
-
-    [SerializeField] private GameObject _priceTag;
-    public int _buyPrice;
-    [SerializeField] private int _sellPrice;
-    [SerializeField] private bool _isReadyToSell;
 
     private void OnEnable()
     {
@@ -38,7 +28,7 @@ public class InventoryItem : MonoBehaviour
         ScaleColliderHandler.OnEnterCollider += EnableReadyToSell;
         Inventory.OnBoughtItemAdd += Buy;
         ShopHandler.OnItemGenerated += InitializeForShop;
-        ShopHandler.OnItemRemove += RemoveItem;
+        ShopHandler.OnItemRemove += Remove;
     }
 
     private void OnDisable()
@@ -47,7 +37,7 @@ public class InventoryItem : MonoBehaviour
         ScaleColliderHandler.OnEnterCollider -= EnableReadyToSell;
         Inventory.OnBoughtItemAdd -= Buy;
         ShopHandler.OnItemGenerated -= InitializeForShop;
-        ShopHandler.OnItemRemove -= RemoveItem;
+        ShopHandler.OnItemRemove -= Remove;
     }
 
     private void Awake()
@@ -57,35 +47,6 @@ public class InventoryItem : MonoBehaviour
         _mustBuy = false;
         _isChangingPosition = false;
     }
-
-    private void Update()
-    {
-        UpdateTransform();
-    }
-
-    private void UpdateTransform()
-    {
-        if (_isChangingPosition)
-        {
-            return;
-        }
-
-        if (_currentPivot != null)
-        {
-            transform.position = _currentPivot.position;
-            transform.rotation = _currentPivot.rotation;
-        }
-    }
-
-    //private void OnMouseEnter()
-    //{
-    //    Debug.Log("Entered");
-    //}
-
-    //private void OnMouseExit()
-    //{
-    //    Debug.Log("Leaved");
-    //}
 
     private void Buy(InventoryItem item)
     {
@@ -97,11 +58,6 @@ public class InventoryItem : MonoBehaviour
         _mustBuy = false;
         _priceTag.SetActive(false);
     }
-
-    //private void Sell()
-    //{
-    //    // TODO: Move item and destroy
-    //}
 
     private void EnableReadyToSell(bool enable)
     {
@@ -130,11 +86,25 @@ public class InventoryItem : MonoBehaviour
         OnAddToInventory?.Invoke(this, gameObject.transform, itemName);
     }
 
-    private void MoveToPivot(Transform target, float timeToMove)
+    private void Remove(InventoryItem item, Transform pivot)
     {
-        StopAllCoroutines();
-        StartCoroutine(MoveToPivotRoutine(_currentPivot, timeToMove));
+        if (item != this)
+        {
+            return;
+        }
+
+        if (pivot == null)
+        {
+            throw new System.Exception("Shop pivot not found");
+        }
+
+        _isChangingPosition = true;
+        _currentPivot = pivot;
+        MoveToPivot(_currentPivot, 1);
+        Destroy(gameObject, 3f);
     }
+
+    #region INITIALIZATION
 
     private void InitializeForInventory(InventoryItem item, Transform inventoryPivot, Transform cursorPivot)
     {
@@ -156,8 +126,7 @@ public class InventoryItem : MonoBehaviour
         _inventoryPivot = inventoryPivot;
         _cursorPivot = cursorPivot;
         _currentPivot = _inventoryPivot;
-        StopAllCoroutines();
-        StartCoroutine(MoveToPivotRoutine(_inventoryPivot, _moveToInventoryTime));
+        MoveToPivot(_inventoryPivot, _moveToStandartPositionTime);
     }
 
     private void InitializeForShop(InventoryItem item, Transform shopPivot)
@@ -179,25 +148,9 @@ public class InventoryItem : MonoBehaviour
         MoveToPivot(_currentPivot, 1);
     }
 
-    private void RemoveItem(InventoryItem item, Transform pivot)
-    {
-        if (item != this)
-        {
-            return;
-        }
+    #endregion
 
-        if (pivot == null)
-        {
-            throw new System.Exception("Shop pivot not found");
-        }
-
-        _isChangingPosition = true;
-        _currentPivot = pivot;
-        MoveToPivot(_currentPivot, 1);
-        Destroy(gameObject, 3f);
-    }
-
-    private void OnMouseDown()
+    private protected override void OnMouseDown()
     {
         if (_mustBuy)
         {
@@ -205,14 +158,13 @@ public class InventoryItem : MonoBehaviour
         }
 
         _isChangingPosition = true;
-        //Cursor.visible = false;
         _currentPivot = _cursorPivot;
-        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<Collider>().enabled = false;
         MoveToPivot(_currentPivot, _moveToCursorTime);
         _isPicked = true;
     }
 
-    private async void OnMouseUp()
+    private protected override void OnMouseUp()
     {
         _isPicked = false;
         if (_mustBuy)
@@ -228,28 +180,15 @@ public class InventoryItem : MonoBehaviour
             return;
         }
 
+        if (_isReadyToUse)
+        {
+            GetComponent<IUsable>().Use();
+        }
+
         _isChangingPosition = true;
         Cursor.visible = true;
         _currentPivot = _inventoryPivot;
         GetComponent<BoxCollider>().enabled = true;
-        MoveToPivot(_currentPivot, _moveToInventoryTime);
-        
-    }
-
-    private IEnumerator MoveToPivotRoutine(Transform targetTransform, float time = 0.2f)
-    {
-        Vector3 startPosition = transform.position;
-        Quaternion startRotation = transform.rotation;
-        float elapsedTime = 0f;
-        while (elapsedTime < time)
-        {
-            transform.position = Vector3.Lerp(startPosition, targetTransform.position, (elapsedTime / time));
-            transform.rotation = Quaternion.Lerp(startRotation, targetTransform.rotation, (elapsedTime / time));
-            elapsedTime += Time.deltaTime;
-
-            yield return null;
-        }
-
-        _isChangingPosition = false;
+        MoveToPivot(_currentPivot, _moveToStandartPositionTime);
     }
 }

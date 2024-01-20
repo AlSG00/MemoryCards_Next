@@ -7,6 +7,54 @@ public class NEW_GameProgression : MonoBehaviour
 {
     // Depends on current round and maybe smth else
     // Will specify current set of layouts, random events and cards
+
+    [Header("Game stage parameters")]
+    public static GameStage stage;
+    public bool firstTimePlaying; // TODO: Save this parameter to JSON
+    public int easyDifficultyRound;
+    public int mediumDifficultyRound;
+    public int hardDifficultyRound;
+    public int veryHardDifficultyRound;
+
+    public NEW_CardGenerator tempCardGenerator;
+    public NEW_CardLayoutHandler tempCardLayoutHandler;
+
+
+    
+    public bool tutorialComplete;
+    public bool playingTutorial;
+    public int _tutorialProgress;
+
+
+    public bool isTurnCounterActive;
+    public bool isScoreListActive;
+    public bool isStopwatchActive;
+    public bool isMoneyRopeActive;
+    public bool isBuyRoundGoing;
+
+    public int currentRound = 0;
+    public int score = 0;
+    public int mainMoney = 0; // can be used in upgrade store
+    [Tooltip("Each round dividible by this digit will be a buy round")] public int buyRound;
+
+    public delegate void TurnAction(bool decreased, int changeValue = 1);
+
+    public static event TurnAction OnTurnsChanged;
+    public static event System.Action OnPressStart;
+    public static event System.Action OnGameStartConfirm;
+    public static event System.Action<int> OnPlayTutorial;
+    public static event System.Action<int> OnShowHint; // 0 -  hide all
+    public static event System.Action<int> OnNextRound;
+    public static event System.Action FirstTimePlaying;
+    public static event System.Action OnGameFinished;
+    public static event System.Action<bool> OnStartBuyRound; 
+    public static event System.Action<bool> OnActivateTurnCounter;
+    public static event System.Action<bool> OnActivateScoreList;
+    public static event System.Action<MoneyRopeHandler.Visibility> OnActivateMoneyRope;
+    public static event System.Action<int> OnAddMoney;
+    public static event System.Action<int> onScoreChanged;
+    public static event System.Action OnCurrentProgressReset;
+
     public enum GameStage
     {
         VeryEasy,
@@ -23,60 +71,6 @@ public class NEW_GameProgression : MonoBehaviour
         Tutorial,
         Standart
     }
-
-    public static GameStage stage;
-
-    public int easyDifficultyRound;
-    public int mediumDifficultyRound;
-    public int hardDifficultyRound;
-    public int veryHardDifficultyRound;
-
-    public NEW_CardGenerator tempCardGenerator;
-    public NEW_CardLayoutHandler tempCardLayoutHandler;
-
-    public int currentRound = 0;
-    //public int remainingTurns = 0;
-    public int score = 0;
-    //public int money = 0; // available only in this session
-    public int mainMoney = 0; // can be used in upgrade store
-
-    [Tooltip("Each round dividible by this digit will be a buy round")]
-    public int buyRound;
-
-    public static event System.Action OnPressStart;
-    public static event System.Action OnGameStartConfirm;
-    public static event System.Action<int> OnPlayTutorial;
-    public static event System.Action<int> OnShowHint; // 0 -  hide all
-    public static event System.Action<int> OnNextRound;
-    public static event System.Action FirstTimePlaying;
-    public static event System.Action OnGameFinished;
-
-    //public static event System.Action<int> OnStartTutorialPhase;
-    public static event System.Action<bool> OnStartBuyRound; 
-
-    public static event System.Action<bool> OnActivateTurnCounter;
-    public static event System.Action<bool> OnActivateScoreList;
-    public static event System.Action<MoneyRopeHandler.Visibility> OnActivateMoneyRope;
-    //public static event System.Action<MoneyRopeHandler.Visibility> OnFullyActivateMoneyRope;
-    public static event System.Action<int> OnAddMoney;
-    public static event System.Action<int> onScoreChanged;
-    public static event System.Action OnCurrentProgressReset;
-
-    public delegate void TurnAction(bool decreased, int changeValue = 1);
-    public static event TurnAction OnTurnsChanged;
-
-
-    public bool firstTimePlaying; // TODO: Save this parameter to JSON
-    public bool tutorialComplete;
-    public bool playingTutorial;
-    public int _tutorialProgress;
-
-
-    public bool isTurnCounterActive;
-    public bool isScoreListActive;
-    public bool isStopwatchActive;
-    public bool isMoneyRopeActive;
-    public bool isBuyRoundGoing;
 
     private void OnEnable()
     {
@@ -116,7 +110,6 @@ public class NEW_GameProgression : MonoBehaviour
     private void CheckRoundProgression(List<GameObject> confirmedCards)
      {
         OnShowHint?.Invoke(0);
-
         // decrease remaining turns
         if (currentRound == 0 && confirmedCards != null)
         {
@@ -148,8 +141,6 @@ public class NEW_GameProgression : MonoBehaviour
                 if (_tutorialProgress == 9) // TODO: is it ok? No it's not
                 {
                     playingTutorial = false;
-                   
-                    //OnPlayTutorial?.Invoke(10);
                 }
             }
         }
@@ -162,12 +153,10 @@ public class NEW_GameProgression : MonoBehaviour
             }
 
             score += 10; //TODO: TEMP. Move to score script
-            //money += 1; //TODO: TEMP. Move to money script
 
             OnAddMoney?.Invoke(1); // TODO: Rework
             onScoreChanged?.Invoke(score);
 
-            //Debug.Log($"Money:{money}");
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
@@ -241,7 +230,6 @@ public class NEW_GameProgression : MonoBehaviour
     {
         isTurnCounterActive = isEnabled;
         OnActivateTurnCounter?.Invoke(isEnabled);
-        
     }
 
     private void EnableScoreList(bool isEnabled)
@@ -290,8 +278,6 @@ public class NEW_GameProgression : MonoBehaviour
         {
             OnShowHint?.Invoke(5);
         }
-        //Debug.Log("Buy round is currently in development");
-        //NextRound();
     }
 
     private void UpdateDifficulty()
