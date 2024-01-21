@@ -54,7 +54,6 @@ public abstract class InteractiveItem : MonoBehaviour
             transform.position = Vector3.Lerp(startPosition, targetTransform.position, (elapsedTime / time));
             transform.rotation = Quaternion.Lerp(startRotation, targetTransform.rotation, (elapsedTime / time));
             elapsedTime += Time.deltaTime;
-
             yield return null;
         }
 
