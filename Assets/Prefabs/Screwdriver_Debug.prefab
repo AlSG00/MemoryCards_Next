@@ -47,20 +47,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05c34f59a12dd74399c0d1bd3cb3cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Screwdriver
+  _animator: {fileID: 0}
+  _moveToStandartPositionTime: 0
+  _moveToCursorTime: 0.1
   _currentPivot: {fileID: 0}
   _previousPivot: {fileID: 0}
+  _cursorPivot: {fileID: 0}
+  _buyPrice: 5
+  itemName: Screwdriver
   _shopPivot: {fileID: 0}
   _inventoryPivot: {fileID: 0}
-  _cursorPivot: {fileID: 0}
-  _animator: {fileID: 0}
-  _isReadyToUse: 0
-  _isPicked: 0
   _mustBuy: 1
-  _moveToInventoryTime: 0.2
-  _moveToCursorTime: 0.1
   _priceTag: {fileID: 0}
-  _buyPrice: 5
   _sellPrice: 2
   _isReadyToSell: 0
 --- !u!114 &1624213873885834046
@@ -88,8 +86,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2612245, y: 0.22284757, z: 1.7410364}
-  m_Center: {x: 0.10593027, y: 0.008650199, z: -0.22574592}
+  m_Size: {x: 0.25235158, y: 0.26983428, z: 1.7444826}
+  m_Center: {x: -0.46457717, y: 0, z: -0.09291023}
 --- !u!1 &5523142767909117080
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +112,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5523142767909117080}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.569, y: -0.0000000074506, z: -0.13209}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.8292532, y: 1.8292532, z: 1.8292532}
   m_ConstrainProportionsScale: 0
   m_Children:

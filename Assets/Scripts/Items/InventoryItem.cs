@@ -63,7 +63,7 @@ public class InventoryItem : InteractiveItem
     {
         if (_isPicked == false)
         {
-            OnReadyToSell?.Invoke(0);
+            //OnReadyToSell?.Invoke(0);
             return;
         }
 
@@ -71,13 +71,13 @@ public class InventoryItem : InteractiveItem
         {
             _isReadyToSell = true;
             OnReadyToSell?.Invoke(_sellPrice);
-            Debug.Log($"_isReadyToSell: {_isReadyToSell} : {_sellPrice}");
+            //Debug.Log($"_isReadyToSell: {_isReadyToSell} : {_sellPrice}");
         }
         else
         {
             _isReadyToSell = false;
             OnReadyToSell?.Invoke(0);
-            Debug.Log($"_isReadyToSell: {_isReadyToSell}");
+            //Debug.Log($"_isReadyToSell: {_isReadyToSell}");
         }
     }
 

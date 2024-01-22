@@ -198,7 +198,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8618381051699728400}
-  - {fileID: 8350862535175899595}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -214,20 +213,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05c34f59a12dd74399c0d1bd3cb3cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Hammer
+  _animator: {fileID: 6764570632215755432}
+  _moveToStandartPositionTime: 0.1
+  _moveToCursorTime: 0.1
   _currentPivot: {fileID: 0}
   _previousPivot: {fileID: 0}
+  _cursorPivot: {fileID: 0}
+  _buyPrice: 2
+  itemName: Hammer
   _shopPivot: {fileID: 0}
   _inventoryPivot: {fileID: 0}
-  _cursorPivot: {fileID: 0}
-  _animator: {fileID: 0}
-  _isReadyToUse: 0
-  _isPicked: 0
   _mustBuy: 1
-  _moveToInventoryTime: 0.2
-  _moveToCursorTime: 0.1
   _priceTag: {fileID: 8696426243378598769}
-  _buyPrice: 2
   _sellPrice: 1
   _isReadyToSell: 0
 --- !u!114 &8510616438774062110
@@ -266,6 +263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8618381051699728400}
+  - component: {fileID: 6764570632215755432}
   m_Layer: 0
   m_Name: HammerObj
   m_TagString: Untagged
@@ -287,15 +285,36 @@ Transform:
   m_Children:
   - {fileID: 646108149572726643}
   - {fileID: 3267724634052511263}
+  - {fileID: 8350862535175899595}
   m_Father: {fileID: 8074983383094902978}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6764570632215755432
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8994096697318918826}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8790dfadc6bf14a46b80f8fcfde00bf2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &9047085317207530034
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 8074983383094902978}
+    m_TransformParent: {fileID: 8618381051699728400}
     m_Modifications:
     - target: {fileID: 369961190613961027, guid: 027fff6a2438b364992e5558421971a7,
         type: 3}
@@ -305,7 +324,17 @@ PrefabInstance:
     - target: {fileID: 1038516300647339001, guid: 027fff6a2438b364992e5558421971a7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038516300647339001, guid: 027fff6a2438b364992e5558421971a7,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.12496003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038516300647339001, guid: 027fff6a2438b364992e5558421971a7,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.12496003
       objectReference: {fileID: 0}
     - target: {fileID: 1038516300647339001, guid: 027fff6a2438b364992e5558421971a7,
         type: 3}

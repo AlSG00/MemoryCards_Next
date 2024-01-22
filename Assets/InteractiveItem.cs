@@ -64,7 +64,8 @@ public abstract class InteractiveItem : MonoBehaviour
     {
         if (_animator == null)
         {
-            throw new System.Exception($"Missing animator in {gameObject.name}");
+            return;
+            //throw new System.Exception($"Missing animator in {gameObject.name}");
         }
 
         _animator.SetBool("MouseOver", true);
@@ -74,7 +75,8 @@ public abstract class InteractiveItem : MonoBehaviour
     {
         if (_animator == null)
         {
-            throw new System.Exception($"Missing animator in {gameObject.name}");
+            return;
+            //throw new System.Exception($"Missing animator in {gameObject.name}");
         }
 
         _animator.SetBool("MouseOver", false);
