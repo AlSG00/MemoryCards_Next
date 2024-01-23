@@ -38,6 +38,8 @@ public class MoneyRopeHandler : MonoBehaviour
 
     private void SetButtonsAmount(int amount)
     {
+        _visualFeedbackAnimator.SetTrigger("MoneyChanged");
+
         int originalAmount = _currentButtonsAmount;
         CountCurrentAmount();
         if (amount == _currentButtonsAmount)
