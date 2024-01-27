@@ -36,7 +36,6 @@ public class MainMenuHandler : MonoBehaviour
 
     private void ShowMenu()
     {
-        Debug.Log($"{this.name} Show");
         SetMenuVisibility(true);
     }
 

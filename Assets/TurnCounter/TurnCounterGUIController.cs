@@ -5,8 +5,8 @@ using TMPro;
 
 public class TurnCounterGUIController : MonoBehaviour
 {
-    [SerializeField] private int _counterTextLength = 3;
     [SerializeField] private TextMeshProUGUI[] _turnCounter;
+    private int _counterTextLength = 3;
 
     private void OnEnable()
     {

@@ -146,8 +146,7 @@ public class NEW_GameProgression : MonoBehaviour
         }
         else
         {
-            // it's null if wrong pair or card was unpicked
-            if (confirmedCards == null)
+            if (confirmedCards == null) // it's null if wrong pair or card was unpicked
             {
                 return;
             }

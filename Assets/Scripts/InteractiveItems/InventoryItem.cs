@@ -18,23 +18,24 @@ public class InventoryItem : InteractiveItem
 
     public static event System.Action<InventoryItem, Transform, string> OnAddToInventory;
     public static event System.Action<int> OnReadyToSell;
-    public static event System.Action<InventoryItem, Transform, int> OnSellItem;
+    public static event System.Action<InventoryItem, Transform, int> OnSellingItem;
     public static event System.Action<InventoryItem, Transform, string, int> OnBuyItem;
     public static event System.Action OnInitializeForShop;
 
     private void OnEnable()
     {
         Inventory.OnReceiveItem += InitializeForInventory;
-        ScaleColliderHandler.OnEnterCollider += EnableReadyToSell;
+        ScaleColliderHandler.OnEnterCollider += SetReadyToSell;
         Inventory.OnBoughtItemAdd += Buy;
         ShopHandler.OnItemGenerated += InitializeForShop;
         ShopHandler.OnItemRemove += Remove;
+        SetReadyToUse
     }
 
     private void OnDisable()
     {
         Inventory.OnReceiveItem -= InitializeForInventory;
-        ScaleColliderHandler.OnEnterCollider -= EnableReadyToSell;
+        ScaleColliderHandler.OnEnterCollider -= SetReadyToSell;
         Inventory.OnBoughtItemAdd -= Buy;
         ShopHandler.OnItemGenerated -= InitializeForShop;
         ShopHandler.OnItemRemove -= Remove;
@@ -59,25 +60,21 @@ public class InventoryItem : InteractiveItem
         _priceTag.SetActive(false);
     }
 
-    private void EnableReadyToSell(bool enable)
+    private void SetReadyToSell(bool isReady)
     {
         if (_isPicked == false)
         {
-            //OnReadyToSell?.Invoke(0);
             return;
         }
 
-        if (enable)
+        _isReadyToSell = isReady;
+        if (isReady)
         {
-            _isReadyToSell = true;
             OnReadyToSell?.Invoke(_sellPrice);
-            //Debug.Log($"_isReadyToSell: {_isReadyToSell} : {_sellPrice}");
         }
         else
         {
-            _isReadyToSell = false;
             OnReadyToSell?.Invoke(0);
-            //Debug.Log($"_isReadyToSell: {_isReadyToSell}");
         }
     }
 
@@ -175,7 +172,7 @@ public class InventoryItem : InteractiveItem
 
         if (_isReadyToSell)
         {
-            OnSellItem?.Invoke(this, _inventoryPivot, _sellPrice);
+            OnSellingItem?.Invoke(this, _inventoryPivot, _sellPrice);
             OnReadyToSell?.Invoke(0);
             return;
         }
@@ -183,12 +180,13 @@ public class InventoryItem : InteractiveItem
         if (_isReadyToUse)
         {
             GetComponent<IUsable>().Use();
+            return;
         }
 
         _isChangingPosition = true;
         Cursor.visible = true;
         _currentPivot = _inventoryPivot;
-        GetComponent<BoxCollider>().enabled = true;
+        GetComponent<Collider>().enabled = true;
         MoveToPivot(_currentPivot, _moveToStandartPositionTime);
     }
 }

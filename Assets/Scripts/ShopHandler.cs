@@ -29,14 +29,14 @@ public class ShopHandler : MonoBehaviour
     private void OnEnable()
     {
         InventoryItem.OnBuyItem += BuyItem;
-        InventoryItem.OnSellItem += SellItem;
+        InventoryItem.OnSellingItem += SellItem;
         NEW_GameProgression.OnStartBuyRound += EnableStore;
     }
 
     private void OnDisable()
     {
         InventoryItem.OnBuyItem -= BuyItem;
-        InventoryItem.OnSellItem += SellItem;
+        InventoryItem.OnSellingItem += SellItem;
         NEW_GameProgression.OnStartBuyRound -= EnableStore;
     }
 
@@ -55,7 +55,6 @@ public class ShopHandler : MonoBehaviour
         }
 
         _money.GetCurrentGameMoney(itemPrice);
-        //OnEnoughMoney?.Invoke(item, item.transform, itemName, itemPrice);
         OnBoughtItemAdd?.Invoke(item);
         ShopSlots shopSlots = _shopSlots[_shopLevel];
         _shopSlots[_shopLevel].items[System.Array.IndexOf(_shopSlots[_shopLevel].items, item)] = null;

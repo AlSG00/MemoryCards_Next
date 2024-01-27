@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[RequireComponent(typeof(InventoryItem))]
 public class PriceTag : MonoBehaviour
 {
     [SerializeField] private InventoryItem _item;

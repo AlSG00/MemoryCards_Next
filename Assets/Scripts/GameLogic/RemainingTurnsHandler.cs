@@ -1,27 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RemainingTurnsHandler : MonoBehaviour
 {
+    [SerializeField] private bool _isActive;
     [SerializeField] private int remainingTurns;
 
     public static event System.Action<int> OnGUIUpdate;
 
-    [SerializeField] private bool _isActive;
-
     private void OnEnable()
     {
-        //NEW_GameProgression.OnActivateTurnCounter += SetTurnHandlerActive;
         TurnCounter.OnActivateTurnCounter += SetTurnHandlerActive;
+        ScrewdriverUseLogic.OnUseScrewdriver += Deactivate;
         NEW_GameProgression.OnTurnsChanged += ChangeRemainingTurns;
         NEW_CardLayoutHandler.OnSetRemainingTurns += SetRemainingTurns;
     }
 
     private void OnDisable()
     {
-        //NEW_GameProgression.OnActivateTurnCounter -= SetTurnHandlerActive;
         TurnCounter.OnActivateTurnCounter -= SetTurnHandlerActive;
+        ScrewdriverUseLogic.OnUseScrewdriver -= Deactivate;
         NEW_GameProgression.OnTurnsChanged -= ChangeRemainingTurns;
         NEW_CardLayoutHandler.OnSetRemainingTurns -= SetRemainingTurns;
     }
@@ -34,6 +31,12 @@ public class RemainingTurnsHandler : MonoBehaviour
     private void SetTurnHandlerActive(bool isActive)
     {
         _isActive = isActive;
+    }
+
+    private void Deactivate()
+    {
+        Debug.Log($"{gameObject.name} Deactivate()");
+        _isActive = false;
     }
 
     private void ChangeRemainingTurns(bool decreased, int changeValue = 1)

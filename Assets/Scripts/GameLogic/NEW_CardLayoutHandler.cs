@@ -14,7 +14,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private NEW_CardGenerator cardGenerator;
-    [SerializeField] private NEW_GameProgression sessionProgress;
+    //[SerializeField] private NEW_GameProgression sessionProgress;
 
     [Header("Layouts collections")]
     [SerializeField] private GameObject _currentLayout;
@@ -25,21 +25,15 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     [SerializeField] private List<GameObject> _mediumLayoutSet = new List<GameObject>();
     [SerializeField] private List<GameObject> _hardLayoutSet = new List<GameObject>();
     [SerializeField] private List<GameObject> _veryHardLayoutSet = new List<GameObject>();
-    /*[SerializeField]*/ private List<Transform> _cardPlacePoints = new List<Transform>();
-
+    
+    private List<Transform> _cardPlacePoints = new List<Transform>();
+    private List<GameObject> _cardsInLayout;
     private bool _isPreparing = false;
     private bool _isPlacing = false;
-    private int _currentTutorialLayout = 0;
-
-    /*[SerializeField]*/ private List<GameObject> _cardsInLayout;
-    //private int 
-
 
     public static event System.Action CancelAllPicks;
     public static event System.Action<int> OnSetRemainingTurns;
     public static event System.Action OnHideHints;
-
-    private int _tutorialProgress = 0;
 
     private void OnEnable()
     {
@@ -49,13 +43,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     private void OnDisable()
     {
         NEW_GameProgression.OnPlayTutorial += PlayTutorialRound;
-    }
-
-    private void Start()
-    {
-        _tutorialProgress = 0;
-        //cardGenerator = GameObject.Find("CardGenerator").GetComponent<NEW_CardGenerator>();
-        //sessionProgress = GameObject.Find("GameProgressHandler").GetComponent<NEW_GameProgression>();
     }
 
     public void ReceiveNewCardPack(List<GameObject> newCardPack)
@@ -73,26 +60,15 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
     }
 
-    private void PlayTutorialRound(int tutorialProgress)
-    {
-        PrepareTutorialLayout(tutorialProgress);
-        //засветить обучающую штуку по номеру
-        //обучающая штука потом уберется после лббого confirm пика
-    }
-
-    private void PrepareTutorialLayout(int tutorialIndex)
+    private void PlayTutorialRound(int tutorialIndex)
     {
         if (_isPreparing == false)
         {
             _isPreparing = true;
-            //SetPlasePoints(_tutorialLayouts[0]);
-
             SetPlacePointsList(_tutorialLayouts[tutorialIndex]);
             MixPlacePoints();
-
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
-
             OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count);
         }
     }
@@ -114,7 +90,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     {
         if (_isPreparing == false)
         {
-            //sessionProgress.SetRound();
             _isPreparing = true;
             SetPlasePoints();
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
@@ -125,27 +100,11 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     public void ActivateCardColliders(bool activate)
     {
-        //for (int i = 0; i < cardGenerator.currentCardPack.Count; i++)
-        //{
-        //    cardGenerator.currentCardPack[i].GetComponentInChildren<BoxCollider>().enabled = activate;
-        //}
-
         for (int i = 0; i < _cardsInLayout.Count; i++)
         {
             _cardsInLayout[i].GetComponentInChildren<BoxCollider>().enabled = activate;
         }
     }
-
-    //public void SetPlasePoints_TEMP()
-    //{
-    //    _cardPlacePoints.Clear();
-    //    for (int i = 0; i < TEMP_testTripleLayout.transform.childCount; i++)
-    //    {
-    //        _cardPlacePoints.Add(TEMP_testTripleLayout.transform.GetChild(i));
-    //    }
-
-    //    MixPlacePoints();
-    //}
 
     public void SetPlasePoints(GameObject layout = null)
     {
@@ -160,12 +119,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
 
         SetCurrentLayout();
-        //for (int i = 0; i < _currentLayout.transform.childCount; i++)
-        //{
-        //    _cardPlacePoints.Add(_currentLayout.transform.GetChild(i));
-        //}
         SetPlacePointsList(_currentLayout);
-
         MixPlacePoints();
     }
 

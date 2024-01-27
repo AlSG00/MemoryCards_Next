@@ -7,11 +7,13 @@ public class TurnCounter : TableItem
     private void OnEnable()
     {
         NEW_GameProgression.OnActivateTurnCounter += ChangeVisibility;
+        ScrewdriverUseLogic.OnUseScrewdriver += DeactivateByScrewdriver;
     }
 
     private void OnDisable()
     {
         NEW_GameProgression.OnActivateTurnCounter -= ChangeVisibility;
+        ScrewdriverUseLogic.OnUseScrewdriver += DeactivateByScrewdriver;
     }
 
     private protected override void Show()
@@ -34,8 +36,14 @@ public class TurnCounter : TableItem
         }
     }
 
-    private void Break()
+    private void DeactivateByScrewdriver()
     {
-        // TODO: Will trigger animation of breaking counter to disable it 'till the next round
+        if (isVisible == false)
+        {
+            return;
+        }
+
+        Debug.Log($"{gameObject.name} DeactivateByScrewdriver()");
+        _animator.SetTrigger("Deactivate");
     }
 }
