@@ -21,11 +21,15 @@ public class EndGameStatistics : MonoBehaviour
     private void OnEnable()
     {
         NEW_GameProgression.OnGameFinished += Show;
+        StartButton.OnGameStart += Hide;
+        RejectStartButton.OnGameStartReject += Hide;
     }
 
     private void OnDisable()
     {
         NEW_GameProgression.OnGameFinished -= Show;
+        StartButton.OnGameStart -= Hide;
+        RejectStartButton.OnGameStartReject -= Hide;
     }
 
     private void Start()

@@ -193,10 +193,10 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void NextRound()
     {
-        if (isTurnCounterActive == false)
-        {
-            EnableTurnCounter(true);
-        }
+        //if (isBuyRoundGoing == false)
+        //{
+        //    EnableTurnCounter(true);
+        //}
 
         if (isScoreListActive == false)
         {
@@ -254,11 +254,11 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetStandartRound()
     {
+        EnableTurnCounter(true);
         if (isBuyRoundGoing)
         {
             isBuyRoundGoing = false;
             OnStartBuyRound?.Invoke(false);
-            EnableTurnCounter(true);
             EnableMoneyRope(MoneyRopeHandler.Visibility.PartiallyVisible);
         }
 
@@ -315,7 +315,6 @@ public class NEW_GameProgression : MonoBehaviour
     {
         OnGameStartConfirm?.Invoke();
         currentRound++;
-        //remainingTurns = 10;
 
         if (firstTimePlaying && tutorialComplete == false)
         {
@@ -331,15 +330,6 @@ public class NEW_GameProgression : MonoBehaviour
             OnNextRound?.Invoke(currentRound);
             
         }
-        
-        // reset score
-        // reset all debuffs
-        // reset all items
-        // reset turn counter
-        // reset stopwatch
-        // reset all cards if has any
-        // reset rounds
-        // reset card layout
     }
 
     private void StartTutorial()

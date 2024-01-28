@@ -7,6 +7,7 @@ public class InventoryItem : InteractiveItem
 {
     public int _buyPrice;
     [SerializeField] private string itemName;
+    [SerializeField] private ItemType _type;
     [SerializeField] private Transform _shopPivot;
     [SerializeField] private Transform _inventoryPivot;
 
@@ -29,7 +30,7 @@ public class InventoryItem : InteractiveItem
         Inventory.OnBoughtItemAdd += Buy;
         ShopHandler.OnItemGenerated += InitializeForShop;
         ShopHandler.OnItemRemove += Remove;
-        SetReadyToUse
+        ItemApplyingTriggerHandler.OnEnterTrigger += SetReadyToUse;
     }
 
     private void OnDisable()
@@ -39,6 +40,7 @@ public class InventoryItem : InteractiveItem
         Inventory.OnBoughtItemAdd -= Buy;
         ShopHandler.OnItemGenerated -= InitializeForShop;
         ShopHandler.OnItemRemove -= Remove;
+        ItemApplyingTriggerHandler.OnEnterTrigger -= SetReadyToUse;
     }
 
     private void Awake()
@@ -76,6 +78,21 @@ public class InventoryItem : InteractiveItem
         {
             OnReadyToSell?.Invoke(0);
         }
+    }
+
+    private protected void SetReadyToUse(bool isReady, ItemType type)
+    {
+        if (_isPicked == false)
+        {
+            return;
+        }
+
+        if (type.Equals(_type) == false)
+        {
+            return;
+        }
+
+        base.SetReadyToUse(isReady);
     }
 
     public void AddToInventory()

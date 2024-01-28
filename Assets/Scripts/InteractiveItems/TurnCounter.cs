@@ -44,6 +44,8 @@ public class TurnCounter : TableItem
         }
 
         Debug.Log($"{gameObject.name} DeactivateByScrewdriver()");
+        isVisible = false;
         _animator.SetTrigger("Deactivate");
+        OnActivateTurnCounter?.Invoke(false);
     }
 }

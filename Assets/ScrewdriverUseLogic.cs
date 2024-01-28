@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(InventoryItem))]
-public class ScrewdriverUseLogic : MonoBehaviour
+public class ScrewdriverUseLogic : MonoBehaviour, IUsable
 {
     [SerializeField] private Animator _animator;
 
@@ -16,7 +16,6 @@ public class ScrewdriverUseLogic : MonoBehaviour
 
     public void Use()
     {
-        //_animator.SetTrigger("Use");
         OnUseScrewdriver?.Invoke();
         Debug.Log($"{gameObject.name} Use()");
     }

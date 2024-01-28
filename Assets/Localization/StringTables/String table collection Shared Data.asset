@@ -131,6 +131,14 @@ MonoBehaviour:
     m_Key: MainScene/--- UI/Canvas/- TutorialHints/Hint_4
     m_Metadata:
       m_Items: []
+  - m_Id: 27802946714771456
+    m_Key: MainScene/--- UI/Canvas/- EndGameStatistics/BackToMenuButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27807551574024192
+    m_Key: MainScene/--- UI/Canvas/- EndGameStatistics/RestartButton
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

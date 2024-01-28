@@ -524,6 +524,7 @@ MonoBehaviour:
   _cursorPivot: {fileID: 0}
   _buyPrice: 5
   itemName: Screwdriver
+  _type: 1
   _shopPivot: {fileID: 0}
   _inventoryPivot: {fileID: 0}
   _mustBuy: 1

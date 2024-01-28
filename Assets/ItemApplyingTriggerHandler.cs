@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemApplyingTriggerHandler : MonoBehaviour
 {
-    [SerializeField] private stri
+    [SerializeField] private ItemType _applyableItem;
     [SerializeField] private Collider _collider;
 
     private void Awake()
@@ -10,15 +10,15 @@ public class ItemApplyingTriggerHandler : MonoBehaviour
         _collider ??= GetComponent<Collider>();
     }
 
-    public static System.Action<bool> OnEnterTrigger;
+    public static System.Action<bool, ItemType> OnEnterTrigger;
 
     private void OnMouseEnter()
     {
-        OnEnterTrigger?.Invoke(true);
+        OnEnterTrigger?.Invoke(true, _applyableItem);
     }
     private void OnMouseExit()
     {
-        OnEnterTrigger?.Invoke(false);
+        OnEnterTrigger?.Invoke(false, _applyableItem);
     }
 
 }

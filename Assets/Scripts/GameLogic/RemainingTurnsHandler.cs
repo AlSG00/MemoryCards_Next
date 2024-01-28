@@ -10,7 +10,7 @@ public class RemainingTurnsHandler : MonoBehaviour
     private void OnEnable()
     {
         TurnCounter.OnActivateTurnCounter += SetTurnHandlerActive;
-        ScrewdriverUseLogic.OnUseScrewdriver += Deactivate;
+        //ScrewdriverUseLogic.OnUseScrewdriver += Deactivate;
         NEW_GameProgression.OnTurnsChanged += ChangeRemainingTurns;
         NEW_CardLayoutHandler.OnSetRemainingTurns += SetRemainingTurns;
     }
@@ -18,7 +18,7 @@ public class RemainingTurnsHandler : MonoBehaviour
     private void OnDisable()
     {
         TurnCounter.OnActivateTurnCounter -= SetTurnHandlerActive;
-        ScrewdriverUseLogic.OnUseScrewdriver -= Deactivate;
+        //ScrewdriverUseLogic.OnUseScrewdriver -= Deactivate;
         NEW_GameProgression.OnTurnsChanged -= ChangeRemainingTurns;
         NEW_CardLayoutHandler.OnSetRemainingTurns -= SetRemainingTurns;
     }
