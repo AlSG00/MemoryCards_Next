@@ -5171,25 +5171,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731627a280644574a8f67b699e1cd956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiElementsCollection:
-  - {fileID: 1314706896}
-  - {fileID: 1213903797}
-  - {fileID: 1564686483}
-  - {fileID: 664294903}
-  - {fileID: 1894562824}
-  - {fileID: 588624201}
-  - {fileID: 1728451756}
-  - {fileID: 1275609370}
-  - {fileID: 1138816741}
-  - {fileID: 1231833870}
-  - {fileID: 644161633}
-  - {fileID: 688397622}
-  - {fileID: 447654152}
-  - {fileID: 1010191498}
-  - {fileID: 122570217}
-  - {fileID: 341151169}
-  - {fileID: 1790397687}
-  - {fileID: 1794978678}
+  _gameProgressiong: {fileID: 1451625278}
+  _inventory: {fileID: 1825969693}
+  _playerMoney: {fileID: 2053558694}
+  TextObjectArray:
+  - {fileID: 1314706894}
+  - {fileID: 755527856}
+  - {fileID: 688478152}
+  - {fileID: 765142204}
+  - {fileID: 1729578942}
+  - {fileID: 551820968}
+  - {fileID: 674851804}
+  - {fileID: 1379337330}
+  - {fileID: 122570212}
+  - {fileID: 341151164}
   _scoreText: {fileID: 1564686483}
   _roundsSurvivedText: {fileID: 1894562824}
   _buttonsRemainingText: {fileID: 1728451756}
@@ -55709,22 +55704,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemSlots:
-  - isAvailable: 1
+  - isUnlocked: 1
     itemSlotPivots:
     - {fileID: 1952109542}
     - {fileID: 622881843}
     item: {fileID: 0}
-  - isAvailable: 1
+  - isUnlocked: 1
     itemSlotPivots:
     - {fileID: 496114193}
     - {fileID: 1767605381}
     item: {fileID: 0}
-  - isAvailable: 1
+  - isUnlocked: 1
     itemSlotPivots:
     - {fileID: 1899155715}
     - {fileID: 960465760}
     item: {fileID: 0}
-  - isAvailable: 1
+  - isUnlocked: 1
     itemSlotPivots:
     - {fileID: 1696210001}
     - {fileID: 1006377143}
@@ -62897,7 +62892,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainMoney: 0
-  _currentGameMoney: 20
 --- !u!1 &2053609161
 GameObject:
   m_ObjectHideFlags: 0

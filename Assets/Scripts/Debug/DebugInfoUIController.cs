@@ -22,7 +22,7 @@ public class DebugInfoUIController : MonoBehaviour
     private void FixedUpdate()
     {
         _currentRound.text = $"Current round: {_gameProgression.currentRound.ToString()}";
-        _currentMoney.text = $"Current money: {_playerMoney._currentGameMoney}";
+        _currentMoney.text = $"Current money: {_playerMoney.CurrentGameMoney}";
         _isTutorial.text = $"Is tutorial going on: {_gameProgression.playingTutorial.ToString()}";
         _tutorialProgress.text = $"Tutorial progress: {_gameProgression._tutorialProgress}";
         _currentDifficulty.text = $"Current difficulty: {NEW_GameProgression.stage.ToString()}";

@@ -18,6 +18,7 @@ public class InventoryItem : InteractiveItem
     [SerializeField] private bool _isReadyToSell;
 
     public static event System.Action<InventoryItem, Transform, string> OnAddToInventory;
+    public static event System.Action<InventoryItem, Transform> OnRemoveFromInventory;
     public static event System.Action<int> OnReadyToSell;
     public static event System.Action<InventoryItem, Transform, int> OnSellingItem;
     public static event System.Action<InventoryItem, Transform, string, int> OnBuyItem;
@@ -29,7 +30,7 @@ public class InventoryItem : InteractiveItem
         ScaleColliderHandler.OnEnterCollider += SetReadyToSell;
         Inventory.OnBoughtItemAdd += Buy;
         ShopHandler.OnItemGenerated += InitializeForShop;
-        ShopHandler.OnItemRemove += Remove;
+        ShopHandler.OnItemRemove += RemoveAsShopGood;
         ItemApplyingTriggerHandler.OnEnterTrigger += SetReadyToUse;
     }
 
@@ -39,7 +40,7 @@ public class InventoryItem : InteractiveItem
         ScaleColliderHandler.OnEnterCollider -= SetReadyToSell;
         Inventory.OnBoughtItemAdd -= Buy;
         ShopHandler.OnItemGenerated -= InitializeForShop;
-        ShopHandler.OnItemRemove -= Remove;
+        ShopHandler.OnItemRemove -= RemoveAsShopGood;
         ItemApplyingTriggerHandler.OnEnterTrigger -= SetReadyToUse;
     }
 
@@ -100,7 +101,7 @@ public class InventoryItem : InteractiveItem
         OnAddToInventory?.Invoke(this, gameObject.transform, itemName);
     }
 
-    private void Remove(InventoryItem item, Transform pivot)
+    private void RemoveAsShopGood(InventoryItem item, Transform pivot)
     {
         if (item != this)
         {
@@ -116,6 +117,12 @@ public class InventoryItem : InteractiveItem
         _currentPivot = pivot;
         MoveToPivot(_currentPivot, 1);
         Destroy(gameObject, 3f);
+    }
+
+    private void RemoveAsUsed()
+    {
+        OnRemoveFromInventory?.Invoke(this, _inventoryPivot);
+        Destroy(gameObject);
     }
 
     #region INITIALIZATION
@@ -197,6 +204,7 @@ public class InventoryItem : InteractiveItem
         if (_isReadyToUse)
         {
             GetComponent<IUsable>().Use();
+            RemoveAsUsed();
             return;
         }
 

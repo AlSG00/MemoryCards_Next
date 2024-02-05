@@ -14,11 +14,13 @@ public class Inventory : MonoBehaviour
     private void OnEnable()
     {
         InventoryItem.OnAddToInventory += AddItem;
+        InventoryItem.OnRemoveFromInventory += RemoveItem;
     }
 
     private void OnDisable()
     {
         InventoryItem.OnAddToInventory -= AddItem;
+        InventoryItem.OnRemoveFromInventory -= RemoveItem;
     }
 
     public void AddItem(InventoryItem item, Transform itemPivot, string itemName)
@@ -62,7 +64,7 @@ public class Inventory : MonoBehaviour
     {
         foreach (var slot in _itemSlots)
         {
-            if (slot.IsAvailable() && slot.item == null)
+            if (slot.IsUnlocked() && slot.item == null)
             {
                 Transform inventorySlotPivot = slot.itemSlotPivots.First(pivot => pivot.name == itemName);
                 slot.item = itemPivot;
@@ -78,7 +80,7 @@ public class Inventory : MonoBehaviour
     {
         foreach (var slot in _itemSlots)
         {
-            if (slot.IsAvailable() && slot.item == null)
+            if (slot.IsUnlocked() && slot.item == null)
             {
                 return true;
             }
@@ -89,13 +91,13 @@ public class Inventory : MonoBehaviour
     [System.Serializable]
     public sealed class InventorySlot
     {
-        public bool isAvailable;
+        public bool isUnlocked;
         public Transform[] itemSlotPivots;
         public Transform item;
 
-        public bool IsAvailable()
+        public bool IsUnlocked()
         {
-            if (isAvailable == false)
+            if (isUnlocked == false)
             {
                 return false;
             }

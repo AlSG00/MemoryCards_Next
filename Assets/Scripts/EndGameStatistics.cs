@@ -5,11 +5,13 @@ using TMPro;
 
 public class EndGameStatistics : MonoBehaviour
 {
-    NEW_GameProgression _gameProgressiong;
-    Inventory _inventory;
-    PlayerMoney _playerMoney;
+    [SerializeField] private NEW_GameProgression _gameProgressiong;
+    [SerializeField] private Inventory _inventory;
+    [SerializeField] private PlayerMoney _playerMoney;
 
-    [SerializeField] private TextMeshProUGUI[] _uiElementsCollection;
+    [SerializeField] private GameObject[] TextObjectArray;
+
+    //[SerializeField] private TextMeshProUGUI[] _uiElementsCollection;
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private TextMeshProUGUI _roundsSurvivedText;
     [SerializeField] private TextMeshProUGUI _buttonsRemainingText;
@@ -39,27 +41,40 @@ public class EndGameStatistics : MonoBehaviour
 
     private void Show()
     {
-        ResetTextValues();
+        //ResetTextValues();
         SetVisibilityLevel(1);
+
+        foreach (var textMesh in TextObjectArray)
+        {
+            textMesh.SetActive(true);
+        }
+
         SetTextValues();
     }
 
     private void Hide()
     {
         SetVisibilityLevel(0);
+
+        foreach (var textMesh in TextObjectArray)
+        {
+            textMesh.SetActive(false);
+        }
     }
 
     private void SetVisibilityLevel(float level)
     {
-        foreach (var element in _uiElementsCollection)
-        {
-            element.color = new Color(
-                element.color.r,
-                element.color.g,
-                element.color.b,
-                level
-                );
-        }
+        //foreach (var textMesh in _uiElementsCollection)
+        //{
+        //    element.color = new Color(
+        //        element.color.r,
+        //        element.color.g,
+        //        element.color.b,
+        //        level
+        //        );
+        //}
+
+        
     }
 
     private void ResetTextValues()
@@ -75,10 +90,10 @@ public class EndGameStatistics : MonoBehaviour
 
     private void SetTextValues()
     {
-        _scoreText.text = "";
-        _roundsSurvivedText.text = "";
-        _buttonsRemainingText.text = "";
-        _timeText.text = "";
+        _scoreText.text = _gameProgressiong.score.ToString(); // TODO: move score to separate script
+        _roundsSurvivedText.text = _gameProgressiong.currentRound.ToString();
+        _buttonsRemainingText.text = _playerMoney.CurrentGameMoney.ToString();
+        _timeText.text = "-not_implemented-";
         _itemsText.text = "";
         _rewardText.text = "";
         _rewardMultiplierText.text = "";

@@ -16,15 +16,12 @@ public class ShopHandler : MonoBehaviour
     [SerializeField] private InventoryItem[] _earlyGameGoods;
     [SerializeField] private InventoryItem[] goods;
 
-
-
     public static event System.Action<Transform, Transform, string, int> OnEnoughMoney;
     public static event System.Action<bool> OnShowScale;
     public static event System.Action<bool> OnShowScaleItems;
     public static event System.Action<InventoryItem> OnBoughtItemAdd;
     public static event System.Action<InventoryItem, Transform> OnItemGenerated;
     public static event System.Action<InventoryItem, Transform> OnItemRemove;
-    //public static event System.Action<InventoryItem, Transform> OnItemSold;
 
     private void OnEnable()
     {
