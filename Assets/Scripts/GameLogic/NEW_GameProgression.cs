@@ -328,7 +328,6 @@ public class NEW_GameProgression : MonoBehaviour
             EnableMoneyRope(MoneyRopeHandler.Visibility.PartiallyVisible);
             tempCardLayoutHandler.PrepareNewLayout();
             OnNextRound?.Invoke(currentRound);
-            
         }
     }
 

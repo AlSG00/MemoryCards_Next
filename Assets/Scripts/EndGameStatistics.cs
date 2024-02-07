@@ -92,6 +92,8 @@ public class EndGameStatistics : MonoBehaviour
     {
         _scoreText.text = _gameProgressiong.score.ToString(); // TODO: move score to separate script
         _roundsSurvivedText.text = _gameProgressiong.currentRound.ToString();
+        _gameProgressiong.currentRound = 0;
+
         _buttonsRemainingText.text = _playerMoney.CurrentGameMoney.ToString();
         _timeText.text = "-not_implemented-";
         _itemsText.text = "";

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ScoreListHandler : TableItem
 {
+    private bool _isFullyVisible;
+
     private void OnEnable()
     {
         NEW_GameProgression.OnActivateScoreList += ChangeVisibility;
@@ -19,14 +21,15 @@ public class ScoreListHandler : TableItem
 
     private void Awake()
     {
-       // _isEnabled = false;
         isVisible = false;
+        _isFullyVisible = false;
     }
 
     private void OnMouseDown()
     {
-        isVisible = !isVisible;
-        ChangeFullListVisibility(isVisible);
+        //isVisible = !isVisible;
+        _isFullyVisible = !_isFullyVisible;
+        ChangeFullListVisibility(_isFullyVisible);
     }
 
     private void ActivateList(bool setActive)
@@ -42,6 +45,6 @@ public class ScoreListHandler : TableItem
             _animator.SetBool("ShowFull", isFullyVisible);
         }
 
-        isVisible = isFullyVisible; // Needed for syncing values when invoking metod from other scripts;
+        _isFullyVisible = isFullyVisible;
     }
 }

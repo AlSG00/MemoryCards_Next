@@ -15,14 +15,20 @@ public class Inventory : MonoBehaviour
     {
         InventoryItem.OnAddToInventory += AddItem;
         InventoryItem.OnRemoveFromInventory += RemoveItem;
+        NEW_GameProgression.OnGameStartConfirm += DestroyAllItems;
+        RejectStartButton.OnGameStartReject += DestroyAllItems;
     }
 
     private void OnDisable()
     {
         InventoryItem.OnAddToInventory -= AddItem;
         InventoryItem.OnRemoveFromInventory -= RemoveItem;
+        NEW_GameProgression.OnGameStartConfirm -= DestroyAllItems;
+        RejectStartButton.OnGameStartReject -= DestroyAllItems;
     }
 
+
+    // TODO: Rework. Convoluted
     public void AddItem(InventoryItem item, Transform itemPivot, string itemName)
     {
         if (FoundAvailableSlot(item, itemPivot, itemName))
@@ -45,6 +51,18 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void DestroyAllItems()
+    {
+        foreach (var slot in _itemSlots)
+        {
+            if (slot.item != null)
+            {
+                Destroy(slot.item.gameObject);
+                slot.item = null;
+            }
+        }
+    }
+
     public bool AddBoughtItem(InventoryItem item, Transform itemPivot, string itemName/*, int itemPrice*/)
     {
         if (FoundAvailableSlot(item, itemPivot, itemName))
@@ -59,7 +77,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    // TODO: Revork and simplify
+    // TODO: Rework. Too convoluted
     private bool FoundAvailableSlot(InventoryItem item, Transform itemPivot, string itemName)
     {
         foreach (var slot in _itemSlots)
