@@ -25,7 +25,7 @@ public class DebugInfoUIController : MonoBehaviour
         _currentMoney.text = $"Current money: {_playerMoney.CurrentGameMoney}";
         _isTutorial.text = $"Is tutorial going on: {_gameProgression.playingTutorial.ToString()}";
         _tutorialProgress.text = $"Tutorial progress: {_gameProgression._tutorialProgress}";
-        _currentDifficulty.text = $"Current difficulty: {NEW_GameProgression.stage.ToString()}";
+        //_currentDifficulty.text = $"Current difficulty: {NEW_GameProgression.stage.ToString()}";
         _isFirstTimePlaying.text = $"Is playing first time: {_gameProgression.firstTimePlaying.ToString()}";
         _isBuyRoundGoingOn.text = $"Is buy round going on: {_gameProgression.isBuyRoundGoing}";
         _currentScore.text = $"Score: {_gameProgression.score}";

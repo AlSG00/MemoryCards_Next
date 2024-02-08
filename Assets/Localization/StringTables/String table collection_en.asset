@@ -142,6 +142,36 @@ MonoBehaviour:
     m_Localized: RESTART
     m_Metadata:
       m_Items: []
+  - m_Id: 31973258113097728
+    m_Localized: Score
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31973348378714112
+    m_Localized: Rounds survived
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31973629288030208
+    m_Localized: 'Buttons left
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31973696195567616
+    m_Localized: Time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31973888781230080
+    m_Localized: Items
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31973925103902720
+    m_Localized: Reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31974151487266816
+    m_Localized: Final score
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

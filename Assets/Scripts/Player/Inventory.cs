@@ -17,6 +17,7 @@ public class Inventory : MonoBehaviour
         InventoryItem.OnRemoveFromInventory += RemoveItem;
         NEW_GameProgression.OnGameStartConfirm += DestroyAllItems;
         RejectStartButton.OnGameStartReject += DestroyAllItems;
+        ScaleSuspend.OnSuspendGame += SaveAndClear;
     }
 
     private void OnDisable()
@@ -25,6 +26,7 @@ public class Inventory : MonoBehaviour
         InventoryItem.OnRemoveFromInventory -= RemoveItem;
         NEW_GameProgression.OnGameStartConfirm -= DestroyAllItems;
         RejectStartButton.OnGameStartReject -= DestroyAllItems;
+        ScaleSuspend.OnSuspendGame -= SaveAndClear;
     }
 
 
@@ -94,7 +96,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public bool HasFreeSlotDebug()
+    public bool HasFreeSlotDebug() // TODO: Check if still needed
     {
         foreach (var slot in _itemSlots)
         {
@@ -104,6 +106,12 @@ public class Inventory : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void SaveAndClear()
+    {
+        // TODO: Save items
+        DestroyAllItems();
     }
 
     [System.Serializable]

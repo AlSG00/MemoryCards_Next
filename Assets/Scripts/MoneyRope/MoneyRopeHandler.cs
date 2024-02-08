@@ -28,12 +28,14 @@ public class MoneyRopeHandler : MonoBehaviour
     {
         PlayerMoney.OnMoneyAmountChanged += SetButtonsAmount;
         NEW_GameProgression.OnActivateMoneyRope += ChangeVisibility;
+        ScaleSuspend.OnSuspendGame += SaveAndClear;
     }
 
     private void OnDisable()
     {
         PlayerMoney.OnMoneyAmountChanged -= SetButtonsAmount;
         NEW_GameProgression.OnActivateMoneyRope -= ChangeVisibility;
+        ScaleSuspend.OnSuspendGame -= SaveAndClear;
     }
 
     private void SetButtonsAmount(int amount)
@@ -223,6 +225,17 @@ public class MoneyRopeHandler : MonoBehaviour
     }
 
     #endregion
+
+    private void SaveAndClear()
+    {
+        // TODO: Save amount of money
+        SetButtonsAmount(0);
+    }
+
+    private void Load()
+    {
+        // TODO
+    }
 
     [System.Serializable]
     public sealed class MoneySlot

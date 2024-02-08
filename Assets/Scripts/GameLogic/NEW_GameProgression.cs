@@ -9,7 +9,11 @@ public class NEW_GameProgression : MonoBehaviour
     // Will specify current set of layouts, random events and cards
 
     [Header("Game stage parameters")]
-    public static GameStage stage;
+    //public static GameStage stage;
+
+    public static Difficulty CardDifficulty;
+    public static Difficulty LayoutDifficulty;
+
     public bool firstTimePlaying; // TODO: Save this parameter to JSON
     public int easyDifficultyRound;
     public int mediumDifficultyRound;
@@ -55,7 +59,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<int> onScoreChanged;
     public static event System.Action OnCurrentProgressReset;
 
-    public enum GameStage
+    public enum Difficulty
     {
         VeryEasy,
         Easy,
@@ -100,7 +104,11 @@ public class NEW_GameProgression : MonoBehaviour
         {
             playingTutorial = true;
         }
-        stage = GameStage.VeryEasy;
+        //stage = GameStage.VeryEasy;
+
+        LayoutDifficulty = Difficulty.Easy;
+        CardDifficulty = Difficulty.Easy;
+
         if (firstTimePlaying)
         {
             FirstTimePlaying?.Invoke();
@@ -279,29 +287,35 @@ public class NEW_GameProgression : MonoBehaviour
         }
     }
 
+    // TODO: Redo
     private void UpdateDifficulty()
     {
         if (currentRound < easyDifficultyRound)
         {
-            stage = GameStage.Easy;
+            LayoutDifficulty = Difficulty.Easy;
+            CardDifficulty = Difficulty.Easy;
         }
         else if (currentRound < mediumDifficultyRound)
         {
-            stage = GameStage.Medium;
+            LayoutDifficulty = Difficulty.Medium;
+            CardDifficulty = Difficulty.Medium;
         }
         else if (currentRound < hardDifficultyRound)
         {
-            stage = GameStage.Hard;
+            LayoutDifficulty = Difficulty.Hard;
+            CardDifficulty = Difficulty.Hard;
         }
         else if (currentRound < veryHardDifficultyRound)
         {
-            stage = GameStage.VeryHard;
+            LayoutDifficulty = Difficulty.VeryHard;
+            CardDifficulty = Difficulty.VeryHard;
         }
         else
         {
-            stage = GameStage.FullRandom;
+            LayoutDifficulty = Difficulty.FullRandom;
+            CardDifficulty = Difficulty.FullRandom;
         }
-        Debug.Log($"Stage: {stage}");
+        //Debug.Log($"Stage: {stage}");
     }
 
     #region START GAME
@@ -366,9 +380,15 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void ResetCurrentProgress()
     {
-        OnCurrentProgressReset?.Invoke(); // TODO: Reset money, inventory, rounds, local statistics, score
+        OnCurrentProgressReset?.Invoke(); 
         currentRound = 0;
         score = 0;
 
+        // TODO: Reset money, inventory, rounds, score, difficulty
+    }
+
+    private void SaveAndClear()
+    {
+        // TODO: save progress - score, current round, current difficulty
     }
 }

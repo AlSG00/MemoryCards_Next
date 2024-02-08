@@ -65,25 +65,25 @@ public class NEW_CardGenerator : MonoBehaviour
 
     private void SetCardsToGenerate()
     {
-        switch (NEW_GameProgression.stage)
+        switch (NEW_GameProgression.CardDifficulty)
         {
-            case NEW_GameProgression.GameStage.Easy:
+            case NEW_GameProgression.Difficulty.Easy:
                 _activeCardData = _easyCardsCollection;
                 break;
 
-            case NEW_GameProgression.GameStage.Medium:
+            case NEW_GameProgression.Difficulty.Medium:
                 _activeCardData = _mediumCardsCollection;
                 break;
 
-            case NEW_GameProgression.GameStage.Hard:
+            case NEW_GameProgression.Difficulty.Hard:
                 _activeCardData = _hardCardsCollection;
                 break;
 
-            case NEW_GameProgression.GameStage.VeryEasy:
+            case NEW_GameProgression.Difficulty.VeryEasy:
                 _activeCardData = _veryHardCardsCollection;
                 break;
 
-            case NEW_GameProgression.GameStage.FullRandom:
+            case NEW_GameProgression.Difficulty.FullRandom:
                 _activeCardData = _veryHardCardsCollection; // TODO: Temp
                 break;
         }

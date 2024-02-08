@@ -140,25 +140,25 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     #region SET LAYOUT
     private void SetCurrentLayout()
     {
-        switch (NEW_GameProgression.stage)
+        switch (NEW_GameProgression.LayoutDifficulty)
         {
-            case NEW_GameProgression.GameStage.VeryEasy:
+            case NEW_GameProgression.Difficulty.VeryEasy:
                 SetRandomLayout(_easyLayoutSet);
                 break;
 
-            case NEW_GameProgression.GameStage.Easy:
+            case NEW_GameProgression.Difficulty.Easy:
                 SetRandomLayout(_easyLayoutSet);
                 break;
 
-            case NEW_GameProgression.GameStage.Medium:
+            case NEW_GameProgression.Difficulty.Medium:
                 SetRandomLayout(_mediumLayoutSet);
                 break;
 
-            case NEW_GameProgression.GameStage.Hard:
+            case NEW_GameProgression.Difficulty.Hard:
                 SetRandomLayout(_hardLayoutSet);
                 break;
 
-            case NEW_GameProgression.GameStage.VeryHard:
+            case NEW_GameProgression.Difficulty.VeryHard:
                 SetRandomLayout(_veryHardLayoutSet);
                 break;
         }
