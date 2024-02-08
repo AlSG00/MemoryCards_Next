@@ -40,6 +40,7 @@ public class ScaleItem : InteractiveItem
         _isPicked = false;
         if (_isReadyToUse)
         {
+            _isReadyToUse = false;
             GetComponent<IUsable>().Use();
         }
 
