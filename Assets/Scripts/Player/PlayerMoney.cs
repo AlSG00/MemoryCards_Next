@@ -15,11 +15,13 @@ public class PlayerMoney : MonoBehaviour
     private void OnEnable()
     {
         NEW_GameProgression.OnAddMoney += AddCurrentGameMoney;
+        ScaleSuspend.OnSuspendGame += SaveAndClear;
     }
 
     private void OnDisable()
     {
         NEW_GameProgression.OnAddMoney -= AddCurrentGameMoney;
+        ScaleSuspend.OnSuspendGame -= SaveAndClear;
     }
 
     internal bool IsEnoughtMainMoney(int value)
@@ -51,7 +53,12 @@ public class PlayerMoney : MonoBehaviour
     internal void GetCurrentGameMoney(int itemPrice)
     {
         _currentGameMoney -= itemPrice;
-        Debug.Log($"Remaining money: {_currentGameMoney}");
         OnMoneyAmountChanged?.Invoke(_currentGameMoney);
+    }
+
+    private void SaveAndClear()
+    {
+
+        _currentGameMoney = 0;
     }
 }

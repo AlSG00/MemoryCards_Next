@@ -83,6 +83,7 @@ public class NEW_GameProgression : MonoBehaviour
         CardComparator.OnPickConfirm += CheckRoundProgression;
         ScaleContinue.OnContinueGame += NextRound;
         ScaleExit.OnFinishGame += FinishGameTest;
+        ScaleSuspend.OnSuspendGame += SaveAndClear;
     }
 
     private void OnDisable()
@@ -92,6 +93,7 @@ public class NEW_GameProgression : MonoBehaviour
         CardComparator.OnPickConfirm -= CheckRoundProgression;
         ScaleContinue.OnContinueGame -= NextRound;
         ScaleExit.OnFinishGame -= FinishGameTest;
+        ScaleSuspend.OnSuspendGame -= SaveAndClear;
     }
 
     private void Start()
@@ -201,11 +203,6 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void NextRound()
     {
-        //if (isBuyRoundGoing == false)
-        //{
-        //    EnableTurnCounter(true);
-        //}
-
         if (isScoreListActive == false)
         {
             EnableScoreList(true);
@@ -380,7 +377,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void ResetCurrentProgress()
     {
-        OnCurrentProgressReset?.Invoke(); 
+        OnCurrentProgressReset?.Invoke(); // Not using
         currentRound = 0;
         score = 0;
 
@@ -390,5 +387,12 @@ public class NEW_GameProgression : MonoBehaviour
     private void SaveAndClear()
     {
         // TODO: save progress - score, current round, current difficulty
+        currentRound = 0;
+        score = 0;
+        OnStartBuyRound?.Invoke(false);
+        EnableScoreList(false);
+        //EnableTurnCounter(false);
+        EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
+        
     }
 }
