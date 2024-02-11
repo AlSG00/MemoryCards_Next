@@ -36,8 +36,8 @@ public class NEW_CardGenerator : MonoBehaviour
         int dataIndex = 0;
         while (index < countToGenerate)
         {
-            generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
-            generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.cardsStartPosition.position, Quaternion.identity, _cardsParent));
+            generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.CardsStartPosition.position, Quaternion.identity, _cardsParent));
+            generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.CardsStartPosition.position, Quaternion.identity, _cardsParent));
 
             generatedCardPack[index].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);
             generatedCardPack[index + 1].GetComponentInChildren<NEW_Card>().Initialize(_dataToUse[dataIndex]);

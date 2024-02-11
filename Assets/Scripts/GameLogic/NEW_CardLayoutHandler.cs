@@ -8,8 +8,8 @@ public class NEW_CardLayoutHandler : MonoBehaviour
    // public GameObject TEMP_testTripleLayout;
 
     [Header("Main parameters")]
-    public Transform cardsStartPosition;
-    [SerializeField] private float _cardPlacingSpeed = 1f;
+    public Transform CardsStartPosition;
+    [SerializeField] private float _cardPlacingSpeed = 1f; 
     [SerializeField] private float _cardPlacementDelay = 0.1f;
 
     [Header("References")]
@@ -33,16 +33,17 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     public static event System.Action CancelAllPicks;
     public static event System.Action<int> OnSetRemainingTurns;
-    public static event System.Action OnHideHints;
 
     private void OnEnable()
     {
         NEW_GameProgression.OnPlayTutorial += PlayTutorialRound;
+        RemainingTurnsHandler.OnOutOfTurns += TakeCardsBack;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnPlayTutorial += PlayTutorialRound;
+        NEW_GameProgression.OnPlayTutorial -= PlayTutorialRound;
+        RemainingTurnsHandler.OnOutOfTurns -= TakeCardsBack;
     }
 
     public void ReceiveNewCardPack(List<GameObject> newCardPack)
@@ -181,6 +182,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     public void TakeCardsBack()
     {
         StopAllCoroutines();
+        ActivateCardColliders(false);
         CancelAllPicks?.Invoke();
         StartCoroutine(MoveCardsBackRoutine());
     }
@@ -217,18 +219,23 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         _isPlacing = true;
         for (int i = 0; i < _cardsInLayout.Count; i++)
         {
-            StartCoroutine(MoveCardToPositionRoutine(_cardsInLayout[i].gameObject, cardsStartPosition));
-            yield return new WaitForSecondsRealtime(_cardPlacementDelay);
+            StartCoroutine(MoveCardToPositionRoutine(_cardsInLayout[i].gameObject, CardsStartPosition));
+
+            if (i % 5 == 0)
+            {
+                yield return new WaitForSecondsRealtime(_cardPlacementDelay);
+            }
+
             if (i == _cardsInLayout.Count - 1)
             {
                 _isPlacing = false;
             }
         }
 
-        while (_isPlacing)
-        {
-            yield return new WaitForSecondsRealtime(0.1f);
-        }
+        //while (_isPlacing)
+        //{
+        //    yield return new WaitForSecondsRealtime(0.1f);
+        //}
 
         //ActivateCardColliders(true);
         RemoveAllCards();
@@ -237,15 +244,16 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     private IEnumerator MoveCardToPositionRoutine(GameObject card, Transform positionToPlace)
     {
-        float speed = Random.Range(_cardPlacingSpeed - 0.02f, _cardPlacingSpeed + 0.02f);
+        //float speed = Random.Range(_cardPlacingSpeed - 0.02f, _cardPlacingSpeed + 0.02f);
         NEW_Card tempCard = card.GetComponentInChildren<NEW_Card>();
         tempCard.cardAudioSource.PlayOneShot(tempCard.PlaceSound);
+        tempCard.cardAudioSource.pitch = Random.Range(0.95f, 1.05f);
         float elapsedTime = 0f;
 
-        while (elapsedTime < speed)
+        while (elapsedTime < _cardPlacingSpeed)
         {
             elapsedTime += Time.deltaTime;
-            card.transform.position = Vector3.Lerp(card.transform.position, positionToPlace.position, elapsedTime / speed);
+            card.transform.position = Vector3.Lerp(card.transform.position, positionToPlace.position, elapsedTime / _cardPlacingSpeed);
             yield return null;
         }
 

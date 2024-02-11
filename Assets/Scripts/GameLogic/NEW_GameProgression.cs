@@ -84,6 +84,7 @@ public class NEW_GameProgression : MonoBehaviour
         ScaleContinue.OnContinueGame += NextRound;
         ScaleExit.OnFinishGame += FinishGameTest;
         ScaleSuspend.OnSuspendGame += SaveAndClear;
+        RemainingTurnsHandler.OnOutOfTurns += LooseGame;
     }
 
     private void OnDisable()
@@ -94,6 +95,7 @@ public class NEW_GameProgression : MonoBehaviour
         ScaleContinue.OnContinueGame -= NextRound;
         ScaleExit.OnFinishGame -= FinishGameTest;
         ScaleSuspend.OnSuspendGame -= SaveAndClear;
+        RemainingTurnsHandler.OnOutOfTurns -= LooseGame;
     }
 
     private void Start()
@@ -115,6 +117,9 @@ public class NEW_GameProgression : MonoBehaviour
         {
             FirstTimePlaying?.Invoke();
         }
+
+        score = 0;
+        onScoreChanged?.Invoke(score);
     }
 
     private void CheckRoundProgression(List<GameObject> confirmedCards)
@@ -375,13 +380,18 @@ public class NEW_GameProgression : MonoBehaviour
 
     }
 
-    private void ResetCurrentProgress()
-    {
-        OnCurrentProgressReset?.Invoke(); // Not using
-        currentRound = 0;
-        score = 0;
+    //private void ResetCurrentProgress()
+    //{
+    //    OnCurrentProgressReset?.Invoke(); // Not using
+    //    currentRound = 0;
+    //    score = 0;
+    //    onScoreChanged?.Invoke(score);
+    //    // TODO: Reset money, inventory, rounds, score, difficulty
+    //}
 
-        // TODO: Reset money, inventory, rounds, score, difficulty
+    private void LooseGame()
+    {
+
     }
 
     private void SaveAndClear()
@@ -389,6 +399,7 @@ public class NEW_GameProgression : MonoBehaviour
         // TODO: save progress - score, current round, current difficulty
         currentRound = 0;
         score = 0;
+        onScoreChanged?.Invoke(score);
         OnStartBuyRound?.Invoke(false);
         EnableScoreList(false);
         //EnableTurnCounter(false);

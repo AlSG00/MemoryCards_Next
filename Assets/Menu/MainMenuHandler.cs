@@ -18,6 +18,7 @@ public class MainMenuHandler : MonoBehaviour
         RejectStartButton.OnGameStartReject += ShowMenu;
         SetLocaleButton.OnChooseLocale += ShowMenu;
         NEW_GameProgression.FirstTimePlaying += HideMenu;
+        ScaleSuspend.OnSuspendGame += ShowMenu;
     }
 
     private void OnDisable()
@@ -26,6 +27,7 @@ public class MainMenuHandler : MonoBehaviour
         RejectStartButton.OnGameStartReject -= ShowMenu;
         SetLocaleButton.OnChooseLocale -= ShowMenu;
         NEW_GameProgression.FirstTimePlaying -= HideMenu;
+        ScaleSuspend.OnSuspendGame -= ShowMenu;
     }
 
     // TODO: Make menu ui change it's visibility smoothly

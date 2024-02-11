@@ -6,6 +6,7 @@ public class RemainingTurnsHandler : MonoBehaviour
     [SerializeField] private int remainingTurns;
 
     public static event System.Action<int> OnGUIUpdate;
+    public static event System.Action OnOutOfTurns;
 
     private void OnEnable()
     {
@@ -46,21 +47,18 @@ public class RemainingTurnsHandler : MonoBehaviour
 
         if (decreased)
         {
-            remainingTurns -= changeValue;
+            remainingTurns = (int)Mathf.Clamp((float)remainingTurns - 1, 0, 999);
         }
         else
         {
             remainingTurns += changeValue;
         }
-
-        if (remainingTurns <= 0)
-        {
-            remainingTurns = 0; // So without negatives on turn counter
-            Debug.Log("<color=orange>No turns left</color>");
-            throw new System.Exception("No game loose event"); // TODO: Add lose event
-        }
-
         OnGUIUpdate?.Invoke(remainingTurns);
+
+        if (remainingTurns == 0)
+        {
+            OnOutOfTurns?.Invoke();
+        }
     }
 
     private void SetRemainingTurns(int cardsInLayout)
@@ -71,7 +69,7 @@ public class RemainingTurnsHandler : MonoBehaviour
         }
 
         // TODO: Make complex formula for calculating turns depending on buffs, bebuffs and current round
-        remainingTurns = cardsInLayout * 2;
+        remainingTurns = cardsInLayout;
         OnGUIUpdate?.Invoke(remainingTurns);
     }
 }

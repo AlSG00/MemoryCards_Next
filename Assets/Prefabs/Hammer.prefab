@@ -220,8 +220,9 @@ MonoBehaviour:
   _currentPivot: {fileID: 0}
   _previousPivot: {fileID: 0}
   _cursorPivot: {fileID: 0}
-  _buyPrice: 2
+  _buyPrice: 20
   itemName: Hammer
+  _type: 0
   _shopPivot: {fileID: 0}
   _inventoryPivot: {fileID: 0}
   _mustBuy: 1
@@ -267,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8d6d99838007b4e87bd1cee2ca55a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
 --- !u!1 &8994096697318918826
 GameObject:
   m_ObjectHideFlags: 0

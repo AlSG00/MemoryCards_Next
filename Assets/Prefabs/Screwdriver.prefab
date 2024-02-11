@@ -522,14 +522,14 @@ MonoBehaviour:
   _currentPivot: {fileID: 0}
   _previousPivot: {fileID: 0}
   _cursorPivot: {fileID: 0}
-  _buyPrice: 5
+  _buyPrice: 25
   itemName: Screwdriver
   _type: 1
   _shopPivot: {fileID: 0}
   _inventoryPivot: {fileID: 0}
   _mustBuy: 1
   _priceTag: {fileID: 6648945853095225211}
-  _sellPrice: 2
+  _sellPrice: 5
   _isReadyToSell: 0
 --- !u!114 &7744336605189472244
 MonoBehaviour:
