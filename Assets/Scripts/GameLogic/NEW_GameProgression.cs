@@ -391,7 +391,9 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void LooseGame()
     {
-
+        EnableScoreList(false);
+        EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
+        EnableTurnCounter(false);
     }
 
     private void SaveAndClear()
@@ -402,7 +404,7 @@ public class NEW_GameProgression : MonoBehaviour
         onScoreChanged?.Invoke(score);
         OnStartBuyRound?.Invoke(false);
         EnableScoreList(false);
-        //EnableTurnCounter(false);
+        EnableTurnCounter(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
         
     }
