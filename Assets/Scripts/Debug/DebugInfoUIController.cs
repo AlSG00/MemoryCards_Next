@@ -18,6 +18,7 @@ public class DebugInfoUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _isFirstTimePlaying;
     [SerializeField] private TextMeshProUGUI _isBuyRoundGoingOn;
     [SerializeField] private TextMeshProUGUI _currentScore;
+    [SerializeField] private TextMeshProUGUI _elapsedTime;
 
     private void FixedUpdate()
     {
@@ -29,6 +30,8 @@ public class DebugInfoUIController : MonoBehaviour
         _isFirstTimePlaying.text = $"Is playing first time: {_gameProgression.firstTimePlaying.ToString()}";
         _isBuyRoundGoingOn.text = $"Is buy round going on: {_gameProgression.isBuyRoundGoing}";
         _currentScore.text = $"Score: {_gameProgression.score}";
+        _elapsedTime.text = $"Elapsed time: {_gameProgression.ElapsedPlayTime}";
+
     }
 
     public void AddHammer()

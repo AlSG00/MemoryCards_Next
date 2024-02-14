@@ -23,8 +23,6 @@ public class NEW_GameProgression : MonoBehaviour
     public NEW_CardGenerator tempCardGenerator;
     public NEW_CardLayoutHandler tempCardLayoutHandler;
 
-
-    
     public bool tutorialComplete;
     public bool playingTutorial;
     public int _tutorialProgress;
@@ -38,8 +36,12 @@ public class NEW_GameProgression : MonoBehaviour
 
     public int currentRound = 0;
     public int score = 0;
-    public int mainMoney = 0; // can be used in upgrade store
-    [Tooltip("Each round dividible by this digit will be a buy round")] public int buyRound;
+    //public int mainMoney = 0; // can be used in upgrade store
+    [Tooltip("Each round dividible by this digit will be a buy round")]
+    public int buyRound;
+
+    public float ElapsedPlayTime;
+    private bool _isElapsedPlayTimeActive;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
 
@@ -51,7 +53,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<int> OnNextRound;
     public static event System.Action FirstTimePlaying;
     public static event System.Action OnGameFinished;
-    public static event System.Action<bool> OnStartBuyRound; 
+    public static event System.Action<bool> OnStartBuyRound;
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
     public static event System.Action<MoneyRopeHandler.Visibility> OnActivateMoneyRope;
@@ -119,11 +121,21 @@ public class NEW_GameProgression : MonoBehaviour
         }
 
         score = 0;
+        _isElapsedPlayTimeActive = false;
+        ElapsedPlayTime = 0;
         onScoreChanged?.Invoke(score);
     }
 
+    private void Update()
+    {
+        if (_isElapsedPlayTimeActive)
+        {
+            ElapsedPlayTime += Time.deltaTime;
+        }
+    }
+
     private void CheckRoundProgression(List<GameObject> confirmedCards)
-     {
+    {
         OnShowHint?.Invoke(0);
         // decrease remaining turns
         if (currentRound == 0 && confirmedCards != null)
@@ -174,7 +186,7 @@ public class NEW_GameProgression : MonoBehaviour
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
-                
+
                 NextRound();
             }
         }
@@ -182,7 +194,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void UpdateTutorialProgression()
     {
-        switch(_tutorialProgress)
+        switch (_tutorialProgress)
         {
             case 0:
                 // Hints only
@@ -193,7 +205,7 @@ public class NEW_GameProgression : MonoBehaviour
                 EnableScoreList(true);
                 OnShowHint?.Invoke(2);
                 break;
-                // TODO: Add new tutorial phase here
+            // TODO: Add new tutorial phase here
             case 6:
                 EnableTurnCounter(true);
                 OnShowHint?.Invoke(3);
@@ -264,6 +276,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetStandartRound()
     {
+        _isElapsedPlayTimeActive = true;
         EnableTurnCounter(true);
         if (isBuyRoundGoing)
         {
@@ -278,6 +291,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetBuyRound()
     {
+        _isElapsedPlayTimeActive = false;
         isBuyRoundGoing = true;
         EnableTurnCounter(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Visible);
@@ -329,6 +343,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void ConfirmGameStart()
     {
+        _isElapsedPlayTimeActive = true;
         OnGameStartConfirm?.Invoke();
         currentRound++;
 
@@ -406,6 +421,6 @@ public class NEW_GameProgression : MonoBehaviour
         EnableScoreList(false);
         EnableTurnCounter(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
-        
+
     }
 }
