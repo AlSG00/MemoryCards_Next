@@ -40,8 +40,10 @@ public class NEW_GameProgression : MonoBehaviour
     [Tooltip("Each round dividible by this digit will be a buy round")]
     public int buyRound;
 
-    public float ElapsedPlayTime;
-    private bool _isElapsedPlayTimeActive;
+    //public float ElapsedPlayTime;
+    public System.Diagnostics.Stopwatch ElapsedPlayTime;
+
+   //private bool _isElapsedPlayTimeActive;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
 
@@ -121,18 +123,22 @@ public class NEW_GameProgression : MonoBehaviour
         }
 
         score = 0;
-        _isElapsedPlayTimeActive = false;
-        ElapsedPlayTime = 0;
+        //_isElapsedPlayTimeActive = false;
+        //ElapsedPlayTime = 0;
+        ElapsedPlayTime = new System.Diagnostics.Stopwatch();
+
+        ElapsedPlayTime.Reset();
+
         onScoreChanged?.Invoke(score);
     }
 
-    private void Update()
-    {
-        if (_isElapsedPlayTimeActive)
-        {
-            ElapsedPlayTime += Time.deltaTime;
-        }
-    }
+    //private void Update()
+    //{
+    //    if (_isElapsedPlayTimeActive)
+    //    {
+    //        ElapsedPlayTime += Time.deltaTime;
+    //    }
+    //}
 
     private void CheckRoundProgression(List<GameObject> confirmedCards)
     {
@@ -276,7 +282,10 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetStandartRound()
     {
-        _isElapsedPlayTimeActive = true;
+       // _isElapsedPlayTimeActive = true;
+
+        ElapsedPlayTime.Start();
+
         EnableTurnCounter(true);
         if (isBuyRoundGoing)
         {
@@ -291,7 +300,10 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetBuyRound()
     {
-        _isElapsedPlayTimeActive = false;
+        //_isElapsedPlayTimeActive = false;
+
+        ElapsedPlayTime.Stop();
+
         isBuyRoundGoing = true;
         EnableTurnCounter(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Visible);
@@ -343,7 +355,10 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void ConfirmGameStart()
     {
-        _isElapsedPlayTimeActive = true;
+        //_isElapsedPlayTimeActive = true;
+
+        ElapsedPlayTime.Start();
+
         OnGameStartConfirm?.Invoke();
         currentRound++;
 

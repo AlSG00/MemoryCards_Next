@@ -65,6 +65,20 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public int GetItemsInInventoryCount()
+    {
+        int itemsCount = 0;
+        foreach (var slot in _itemSlots)
+        {
+            if (slot.isUnlocked && slot.item != null)
+            {
+                itemsCount++;
+            }
+        }
+
+        return itemsCount;
+    }
+
     public bool AddBoughtItem(InventoryItem item, Transform itemPivot, string itemName/*, int itemPrice*/)
     {
         if (FoundAvailableSlot(item, itemPivot, itemName))

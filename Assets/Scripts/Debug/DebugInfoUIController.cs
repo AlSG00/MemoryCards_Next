@@ -30,7 +30,7 @@ public class DebugInfoUIController : MonoBehaviour
         _isFirstTimePlaying.text = $"Is playing first time: {_gameProgression.firstTimePlaying.ToString()}";
         _isBuyRoundGoingOn.text = $"Is buy round going on: {_gameProgression.isBuyRoundGoing}";
         _currentScore.text = $"Score: {_gameProgression.score}";
-        _elapsedTime.text = $"Elapsed time: {_gameProgression.ElapsedPlayTime}";
+        _elapsedTime.text = $"Elapsed time: {Mathf.Floor((float)_gameProgression.ElapsedPlayTime.Elapsed.TotalMinutes)} : {_gameProgression.ElapsedPlayTime.Elapsed.Seconds}";
 
     }
 
