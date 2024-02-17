@@ -62,12 +62,11 @@ public class EndGameScreen : MonoBehaviour
         };
 
         HideImmediately();
-        //_restartButton.SetActive(false);
-        //_toMenuButton.SetActive(false);
     }
 
     private void OnEnable()
     {
+        RemainingTurnsHandler.OutOfTurns += DisplayFullStatisticsDelayed;
         NEW_GameProgression.OnGameFinished += DisplayFullStatistics;
         StartButton.OnGameStart += Hide;
         RejectStartButton.OnGameStartReject += Hide;
@@ -75,23 +74,29 @@ public class EndGameScreen : MonoBehaviour
 
     private void OnDisable()
     {
+        RemainingTurnsHandler.OutOfTurns -= DisplayFullStatisticsDelayed;
         NEW_GameProgression.OnGameFinished -= DisplayFullStatistics;
         StartButton.OnGameStart -= Hide;
         RejectStartButton.OnGameStartReject -= Hide;
     }
 
-    private void Start()
+    private async void DisplayFullStatisticsDelayed()
     {
-        
+        await Task.Delay(5000);
+
+        DisplayFullStatistics();
     }
 
     private async void DisplayFullStatistics()
     {
-        //_resultCalculator.CalculateResults();
+        _resultCalculator.CalculateResults();
 
         ChangeTextElementVisibility(_scoreLogo, true, true);
         ChangeTextElementVisibility(_scoreValueText, true, true);
-        SetTextElementValue(_scoreValueText, _gameProgressiong.score, true);
+        ChangeTextElementVisibility(_finalScoreLogo, true, true);
+        ChangeTextElementVisibility(_finalScoreValueText, true, true);
+        SetTextElementValue(_scoreValueText, _resultCalculator.Score, true);
+        SetTextElementValue(_finalScoreValueText, _resultCalculator.Score, true);
         await Task.Delay(_nextElementShowDelay);
 
         ChangeTextElementVisibility(_roundsSurvivedLogo, true, true);
@@ -111,13 +116,13 @@ public class EndGameScreen : MonoBehaviour
 
         ChangeTextElementVisibility(_itemsRemainingLogo, true, true);
         ChangeTextElementVisibility(_itemsRemainingValueText, true, true);
-        //
+        SetTextElementValue(_itemsRemainingValueText, _resultCalculator.ItemsRemaining, true);
+        SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScore, true);
         await Task.Delay(_nextElementShowDelay);
 
-        ChangeTextElementVisibility(_finalScoreLogo, true, true);
-        ChangeTextElementVisibility(_finalScoreValueText, true, true);
+        
 
-        await Task.Delay(_nextElementShowDelay);
+        //await Task.Delay(_nextElementShowDelay);
 
         ChangeTextElementVisibility(_rewardMultiplierLogo, true, true);
         ChangeTextElementVisibility(_rewardValueText, true, true);
@@ -133,11 +138,11 @@ public class EndGameScreen : MonoBehaviour
         SetTextElementVisibilityLevel(_toMenuButton.GetComponent<TextMeshProUGUI>(), 1);
     }
 
-    private void SetTextElementValue(TextMeshProUGUI textElement, int value, bool counterEffect, int startValue = 0)
+    private void SetTextElementValue(TextMeshProUGUI textElement, int value, bool counterEffect = false, int startValue = 0, int valueChangeStep = 1)
     {
         if (counterEffect)
         {
-            StartCoroutine(TextElementCounterEffectRoutine(textElement, startValue, value));
+            StartCoroutine(TextElementCounterEffectRoutine(textElement, startValue, value, valueChangeStep));
         }
         else
         {
@@ -149,11 +154,22 @@ public class EndGameScreen : MonoBehaviour
 
     private void SetTimeValueText()
     {
-        string hours = Mathf.Floor((float)_gameProgressiong.ElapsedPlayTime.Elapsed.TotalHours).ToString();
-        string minutes = _gameProgressiong.ElapsedPlayTime.Elapsed.Minutes.ToString("D2");
-        string seconds = _gameProgressiong.ElapsedPlayTime.Elapsed.Seconds.ToString("D2");
+        //string hours = Mathf.Floor((float)_gameProgressiong.ElapsedPlayTime.Elapsed.TotalHours).ToString();
+        //string minutes = _gameProgressiong.ElapsedPlayTime.Elapsed.Minutes.ToString("D2");
+        //string seconds = _gameProgressiong.ElapsedPlayTime.Elapsed.Seconds.ToString("D2");
 
-        _timeValueText.text = $"{hours}:{minutes}:{seconds}";
+        string hours = _resultCalculator.HoursElapsed.ToString();
+        string minutes = _resultCalculator.MinutesElapsed.ToString("D2");
+        string seconds = _resultCalculator.SecondsElapsed.ToString("D2");
+
+        if (_resultCalculator.HoursElapsed == 0)
+        {
+            _timeValueText.text = $"{minutes}:{seconds}";
+        }
+        else
+        {
+            _timeValueText.text = $"{hours}:{minutes}:{seconds}";
+        }
     }
 
     private void ChangeTextElementVisibility(TextMeshProUGUI textElement, bool enableElement, bool enableFlickering)
@@ -182,7 +198,7 @@ public class EndGameScreen : MonoBehaviour
         //{
         //    textMesh.SetActive(false);
         //}
-
+        HideImmediately();
     }
 
     private void HideImmediately()
@@ -219,29 +235,43 @@ public class EndGameScreen : MonoBehaviour
         while (elapsedTime <= _flickerEffectDuration)
         {
             elapsedTime += 0.05f;
-            Debug.Log($"{elapsedTime} : {_flickerEffectDuration}");
             SetTextElementVisibilityLevel(textElement, GenerateRandomFloat(0f, 1f));
             yield return new WaitForSeconds(0.05f);
         }
 
         SetTextElementVisibilityLevel(textElement, resultValue);
-        //yield return null;
     }
 
-    private IEnumerator TextElementCounterEffectRoutine(TextMeshProUGUI textElement, int startValue, int finalValue)
+    private IEnumerator TextElementCounterEffectRoutine(TextMeshProUGUI textElement, int startValue, int finalValue, int valueChangeStep)
     {
+        int step = 0;
+        int stepsCount = (finalValue - startValue) / valueChangeStep;
+        float nextStepDelay = _counterEffectDuration / stepsCount; 
+
+
+
         int currentValue = startValue;
         int valueIncreaseStep = (int)((finalValue - startValue) / (_counterEffectDuration * 20));
-        while (currentValue < finalValue)
+        //while (currentValue < finalValue)
+        //{
+        //    textElement.text = currentValue.ToString();
+        //    currentValue += valueIncreaseStep;
+        //    yield return new WaitForSeconds(nextStepDelay);   
+        //    \вписать шаг увеличения
+        //    \вписать рассчет времени ожидания для yield return
+
+        //}
+
+        while (step < stepsCount)
         {
-            //effectCurrentValue += effectStep;
+            step++;
             textElement.text = currentValue.ToString();
-            currentValue += valueIncreaseStep;
-            yield return new WaitForSeconds(0.05f);   
+            currentValue += valueChangeStep;
+            yield return new WaitForSeconds(nextStepDelay);   
+
         }
 
         textElement.text = finalValue.ToString();
-        //yield return null;
     }
 
     private void SetTextElementVisibilityLevel(TextMeshProUGUI textElement, float level)

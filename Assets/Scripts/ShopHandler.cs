@@ -7,7 +7,7 @@ public class ShopHandler : MonoBehaviour
 {
     [SerializeField] private PlayerMoney _money;
     [SerializeField] private Inventory _inventory;
-    [SerializeField] private int _shopLevel;
+    [SerializeField][Range(0, 3)] private int _shopLevel;
     [SerializeField] private ShopSlots[] _shopSlots;
 
     [SerializeField] private Transform _generatedItemPivot;

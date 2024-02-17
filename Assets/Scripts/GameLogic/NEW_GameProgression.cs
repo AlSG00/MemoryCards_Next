@@ -33,12 +33,15 @@ public class NEW_GameProgression : MonoBehaviour
     public bool isStopwatchActive;
     public bool isMoneyRopeActive;
     public bool isBuyRoundGoing;
+    public bool IsGameLost;
+    public bool IsGamePaused;
 
     public int currentRound = 0;
     public int score = 0;
     //public int mainMoney = 0; // can be used in upgrade store
     [Tooltip("Each round dividible by this digit will be a buy round")]
     public int buyRound;
+    
 
     //public float ElapsedPlayTime;
     public System.Diagnostics.Stopwatch ElapsedPlayTime;
@@ -62,6 +65,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<int> OnAddMoney;
     public static event System.Action<int> onScoreChanged;
     public static event System.Action OnCurrentProgressReset;
+    public static event System.Action<bool> PauseGame;
 
     public enum Difficulty
     {
@@ -88,7 +92,8 @@ public class NEW_GameProgression : MonoBehaviour
         ScaleContinue.OnContinueGame += NextRound;
         ScaleExit.OnFinishGame += FinishGameTest;
         ScaleSuspend.OnSuspendGame += SaveAndClear;
-        RemainingTurnsHandler.OnOutOfTurns += LooseGame;
+        RemainingTurnsHandler.OutOfTurns += LooseGame;
+        PlayerInput.EscapeButtonPressed += PlayerInput_EscapeButtonPressed;
     }
 
     private void OnDisable()
@@ -99,7 +104,8 @@ public class NEW_GameProgression : MonoBehaviour
         ScaleContinue.OnContinueGame -= NextRound;
         ScaleExit.OnFinishGame -= FinishGameTest;
         ScaleSuspend.OnSuspendGame -= SaveAndClear;
-        RemainingTurnsHandler.OnOutOfTurns -= LooseGame;
+        RemainingTurnsHandler.OutOfTurns -= LooseGame;
+        PlayerInput.EscapeButtonPressed -= PlayerInput_EscapeButtonPressed;
     }
 
     private void Start()
@@ -107,12 +113,13 @@ public class NEW_GameProgression : MonoBehaviour
         isTurnCounterActive = false;
         isScoreListActive = false;
         isStopwatchActive = false;
+        IsGameLost = false;
+        IsGamePaused = false;
 
         if (tutorialComplete == false)
         {
             playingTutorial = true;
         }
-        //stage = GameStage.VeryEasy;
 
         LayoutDifficulty = Difficulty.Easy;
         CardDifficulty = Difficulty.Easy;
@@ -123,22 +130,13 @@ public class NEW_GameProgression : MonoBehaviour
         }
 
         score = 0;
-        //_isElapsedPlayTimeActive = false;
-        //ElapsedPlayTime = 0;
+
         ElapsedPlayTime = new System.Diagnostics.Stopwatch();
 
         ElapsedPlayTime.Reset();
 
         onScoreChanged?.Invoke(score);
     }
-
-    //private void Update()
-    //{
-    //    if (_isElapsedPlayTimeActive)
-    //    {
-    //        ElapsedPlayTime += Time.deltaTime;
-    //    }
-    //}
 
     private void CheckRoundProgression(List<GameObject> confirmedCards)
     {
@@ -151,6 +149,11 @@ public class NEW_GameProgression : MonoBehaviour
             return;
         }
 
+        if (confirmedCards == null)
+        {
+            return;
+        }
+
         if (isTurnCounterActive)
         {
             OnTurnsChanged?.Invoke(true);
@@ -158,10 +161,10 @@ public class NEW_GameProgression : MonoBehaviour
 
         if (playingTutorial)
         {
-            if (confirmedCards == null)
-            {
-                return;
-            }
+            //if (confirmedCards == null)
+            //{
+            //    return;
+            //}
 
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
@@ -170,7 +173,6 @@ public class NEW_GameProgression : MonoBehaviour
                 Debug.Log(_tutorialProgress);
                 UpdateTutorialProgression();
                 OnPlayTutorial?.Invoke(_tutorialProgress);
-
                 if (_tutorialProgress == 9) // TODO: is it ok? No it's not
                 {
                     playingTutorial = false;
@@ -179,10 +181,10 @@ public class NEW_GameProgression : MonoBehaviour
         }
         else
         {
-            if (confirmedCards == null) // it's null if wrong pair or card was unpicked
-            {
-                return;
-            }
+            //if (confirmedCards == null) // it's null if wrong pair or card was unpicked
+            //{
+            //    return;
+            //}
 
             score += 10; //TODO: TEMP. Move to score script
 
@@ -192,10 +194,15 @@ public class NEW_GameProgression : MonoBehaviour
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
-
                 NextRound();
             }
         }
+    }
+
+    private void PlayerInput_EscapeButtonPressed()
+    {
+        IsGamePaused = !IsGamePaused;
+        PauseGame?.Invoke(IsGamePaused);
     }
 
     private void UpdateTutorialProgression()
@@ -343,12 +350,12 @@ public class NEW_GameProgression : MonoBehaviour
             LayoutDifficulty = Difficulty.FullRandom;
             CardDifficulty = Difficulty.FullRandom;
         }
-        //Debug.Log($"Stage: {stage}");
     }
 
     #region START GAME
     private void StartGame()
     {
+        IsGameLost = false;
         tempCardLayoutHandler.PrepareStartLayout();
         OnPressStart?.Invoke();
     }
@@ -421,6 +428,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void LooseGame()
     {
+        IsGameLost = false;
         EnableScoreList(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
         EnableTurnCounter(false);
@@ -436,6 +444,5 @@ public class NEW_GameProgression : MonoBehaviour
         EnableScoreList(false);
         EnableTurnCounter(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
-
     }
 }

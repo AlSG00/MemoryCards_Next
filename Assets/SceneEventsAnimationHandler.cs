@@ -8,16 +8,28 @@ public class SceneEventsAnimationHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        RemainingTurnsHandler.OnOutOfTurns += PlayLoseGameEvent;
+        RemainingTurnsHandler.OutOfTurns += LoseGame;
+        NEW_GameProgression.PauseGame += GameProgression_PauseGame;
     }
 
     private void OnDisable()
     {
-        RemainingTurnsHandler.OnOutOfTurns -= PlayLoseGameEvent;
+        RemainingTurnsHandler.OutOfTurns -= LoseGame;
+        NEW_GameProgression.PauseGame -= GameProgression_PauseGame;
     }
 
-    private void PlayLoseGameEvent()
+    private void LoseGame()
     {
         _animator.Play("SceneEvent_Lose");
+    }
+
+    private void GameProgression_PauseGame(bool isPaused)
+    {
+        _animator.SetBool("IsGamePaused", isPaused);
+    }
+
+    private void ReturnToMenu()
+    {
+        //_animator.SetTrigger();
     }
 }

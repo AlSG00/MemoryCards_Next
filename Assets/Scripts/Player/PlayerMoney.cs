@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMoney : MonoBehaviour
 {
     [SerializeField] private int _mainMoney;
-    private int _currentGameMoney;
+    [SerializeField] private int _currentGameMoney;
 
     public int CurrentGameMoney { get => _currentGameMoney; }
 

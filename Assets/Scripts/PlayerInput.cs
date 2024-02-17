@@ -5,28 +5,18 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-   // [SerializeField] private SessionProgressHandler session;
-  //  [SerializeField] private PauseMenuHandler pauseMenuHandler;
-
-    // TODO: Rework this menu
+    public static event System.Action EscapeButtonPressed;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            HandlePauseMenu();
+            OnEscapeButtonPressed();
         }
     }
 
-    private void HandlePauseMenu()
+    private void OnEscapeButtonPressed()
     {
-        //if (!session.isGamePaused)
-        //{
-        //    pauseMenuHandler.EnterPauseMenu();
-        //}
-        //else
-        //{
-        //    pauseMenuHandler.ExitPauseMenu();
-        //}
+        EscapeButtonPressed?.Invoke();
     }
 }

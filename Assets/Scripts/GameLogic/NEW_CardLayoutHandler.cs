@@ -37,13 +37,13 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     private void OnEnable()
     {
         NEW_GameProgression.OnPlayTutorial += PlayTutorialRound;
-        RemainingTurnsHandler.OnOutOfTurns += TakeCardsBack;
+        RemainingTurnsHandler.OutOfTurns += TakeCardsBack;
     }
 
     private void OnDisable()
     {
         NEW_GameProgression.OnPlayTutorial -= PlayTutorialRound;
-        RemainingTurnsHandler.OnOutOfTurns -= TakeCardsBack;
+        RemainingTurnsHandler.OutOfTurns -= TakeCardsBack;
     }
 
     public void ReceiveNewCardPack(List<GameObject> newCardPack)

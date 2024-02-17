@@ -6,7 +6,7 @@ public class RemainingTurnsHandler : MonoBehaviour
     [SerializeField] private int remainingTurns;
 
     public static event System.Action<int> OnGUIUpdate;
-    public static event System.Action OnOutOfTurns;
+    public static event System.Action OutOfTurns;
 
     private void OnEnable()
     {
@@ -57,7 +57,7 @@ public class RemainingTurnsHandler : MonoBehaviour
 
         if (remainingTurns == 0)
         {
-            OnOutOfTurns?.Invoke();
+            OutOfTurns?.Invoke();
         }
     }
 
