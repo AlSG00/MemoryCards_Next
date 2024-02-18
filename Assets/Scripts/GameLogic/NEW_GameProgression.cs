@@ -41,12 +41,12 @@ public class NEW_GameProgression : MonoBehaviour
     //public int mainMoney = 0; // can be used in upgrade store
     [Tooltip("Each round dividible by this digit will be a buy round")]
     public int buyRound;
-    
+
 
     //public float ElapsedPlayTime;
     public System.Diagnostics.Stopwatch ElapsedPlayTime;
 
-   //private bool _isElapsedPlayTimeActive;
+    //private bool _isElapsedPlayTimeActive;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
 
@@ -151,21 +151,13 @@ public class NEW_GameProgression : MonoBehaviour
 
         if (confirmedCards == null)
         {
+            OnTurnsChanged?.Invoke(true);
             return;
         }
 
-        if (isTurnCounterActive)
-        {
-            OnTurnsChanged?.Invoke(true);
-        }
-
+        // TODO: Rework this block
         if (playingTutorial)
         {
-            //if (confirmedCards == null)
-            //{
-            //    return;
-            //}
-
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
@@ -178,23 +170,31 @@ public class NEW_GameProgression : MonoBehaviour
                     playingTutorial = false;
                 }
             }
+            else
+            {
+                if (isTurnCounterActive)
+                {
+                    OnTurnsChanged?.Invoke(true);
+                }
+            }
         }
         else
         {
-            //if (confirmedCards == null) // it's null if wrong pair or card was unpicked
-            //{
-            //    return;
-            //}
-
             score += 10; //TODO: TEMP. Move to score script
 
-            OnAddMoney?.Invoke(1); // TODO: Rework
             onScoreChanged?.Invoke(score);
-
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
+                OnAddMoney?.Invoke(1); // TODO: Rework
                 NextRound();
+            }
+            else
+            {
+                if (isTurnCounterActive)
+                {
+                    OnTurnsChanged?.Invoke(true);
+                }
             }
         }
     }
@@ -255,8 +255,8 @@ public class NEW_GameProgression : MonoBehaviour
     {
         isBuyRoundGoing = false;
         OnStartBuyRound?.Invoke(false);
-        EnableTurnCounter(true);
-        EnableScoreList(true);
+        EnableTurnCounter(false);
+        EnableScoreList(false);
         OnGameFinished?.Invoke();
     }
 
@@ -289,7 +289,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetStandartRound()
     {
-       // _isElapsedPlayTimeActive = true;
+        // _isElapsedPlayTimeActive = true;
 
         ElapsedPlayTime.Start();
 
@@ -367,7 +367,7 @@ public class NEW_GameProgression : MonoBehaviour
         ElapsedPlayTime.Start();
 
         OnGameStartConfirm?.Invoke();
-        currentRound++;
+        currentRound = 1;
 
         if (firstTimePlaying && tutorialComplete == false)
         {

@@ -15,9 +15,14 @@ public class EndGameResultsCalculator : MonoBehaviour
     public int MinutesElapsed;
     public int SecondsElapsed;
     public int ItemsRemaining;
-    public int FinalScore;
+    //public int FinalScoreBasic;
+    //public int FinalScorePlusRounds;
+    //public int FinalScore_;
+    //public int FinalScore;
     public float Reward;
     public float RewardMultplier;
+
+    public int[] FinalScoreValuesArray = new int[5];
 
     //public int Score { get => _score; }
     //public int Score { get; private set; }
@@ -26,7 +31,7 @@ public class EndGameResultsCalculator : MonoBehaviour
     public void CalculateResults()
     {
         Score = _gameProgressiong.score;
-        RoundsSurvived = _gameProgressiong.currentRound;
+        RoundsSurvived = _gameProgressiong.currentRound - 1;
         ButtonsRemaining = _playerMoney.CurrentGameMoney;
         HoursElapsed = Mathf.Floor((float)_gameProgressiong.ElapsedPlayTime.Elapsed.TotalHours);
         MinutesElapsed = _gameProgressiong.ElapsedPlayTime.Elapsed.Minutes;
@@ -35,11 +40,23 @@ public class EndGameResultsCalculator : MonoBehaviour
         CalculateFinalScoreValue();
         CalculateRewardMultiplierValue();
         CalculateRewardValue();
+        _playerMoney.CurrentGameMoney = -5;
     }
 
     private void CalculateFinalScoreValue()
     {
-        FinalScore += Score + RoundsSurvived * 100 + ButtonsRemaining + ItemsRemaining * 100;
+        FinalScoreValuesArray[0] = Score;
+        FinalScoreValuesArray[1] = FinalScoreValuesArray[0] + RoundsSurvived * 100;
+        FinalScoreValuesArray[2] = FinalScoreValuesArray[1] + ButtonsRemaining;
+        FinalScoreValuesArray[3] = FinalScoreValuesArray[2] + ItemsRemaining * 100;
+        FinalScoreValuesArray
+
+
+        //FinalScoreBasic = Score;
+
+        //FinalScoreWithRounds = RoundsSurvived * 100;
+        //FinalScoreWithButtons = 
+        //FinalScore += Score + RoundsSurvived * 100 + ButtonsRemaining + ItemsRemaining * 100;
     }
 
     private void CalculateRewardValue()

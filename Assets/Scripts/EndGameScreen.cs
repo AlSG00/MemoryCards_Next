@@ -117,28 +117,26 @@ public class EndGameScreen : MonoBehaviour
         ChangeTextElementVisibility(_itemsRemainingLogo, true, true);
         ChangeTextElementVisibility(_itemsRemainingValueText, true, true);
         SetTextElementValue(_itemsRemainingValueText, _resultCalculator.ItemsRemaining, true);
-        SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScore, true);
+        //SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScore, true);
         await Task.Delay(_nextElementShowDelay);
 
-        
-
-        //await Task.Delay(_nextElementShowDelay);
-
         ChangeTextElementVisibility(_rewardMultiplierLogo, true, true);
-        ChangeTextElementVisibility(_rewardValueText, true, true);
+        ChangeTextElementVisibility(_rewardMultiplierValueText, true, true);
+        SetTextElementValue(_rewardMultiplierValueText, _resultCalculator.RewardMultplier, false);
         await Task.Delay(_nextElementShowDelay);
 
         ChangeTextElementVisibility(_rewardLogo, true, true);
         ChangeTextElementVisibility(_rewardValueText, true, true);
+        SetTextElementValue(_rewardValueText, _resultCalculator.Reward, true);
         await Task.Delay(_nextElementShowDelay);
 
         _restartButton.SetActive(true);
         _toMenuButton.SetActive(true);
-        SetTextElementVisibilityLevel(_restartButton.GetComponent<TextMeshProUGUI>(), 1);
-        SetTextElementVisibilityLevel(_toMenuButton.GetComponent<TextMeshProUGUI>(), 1);
+        ChangeTextElementVisibility(_restartButton.GetComponent<TextMeshProUGUI>(), true, true);
+        ChangeTextElementVisibility(_toMenuButton.GetComponent<TextMeshProUGUI>(), true, true);
     }
 
-    private void SetTextElementValue(TextMeshProUGUI textElement, int value, bool counterEffect = false, int startValue = 0, int valueChangeStep = 1)
+    private void SetTextElementValue(TextMeshProUGUI textElement, float value, bool counterEffect = false, float startValue = 0, float valueChangeStep = 1)
     {
         if (counterEffect)
         {
@@ -150,7 +148,10 @@ public class EndGameScreen : MonoBehaviour
         }
     }
 
-
+    private void SetRewardMultiplierValueText()
+    {
+        textElement.text = value.ToString();
+    }
 
     private void SetTimeValueText()
     {
@@ -242,16 +243,16 @@ public class EndGameScreen : MonoBehaviour
         SetTextElementVisibilityLevel(textElement, resultValue);
     }
 
-    private IEnumerator TextElementCounterEffectRoutine(TextMeshProUGUI textElement, int startValue, int finalValue, int valueChangeStep)
+    private IEnumerator TextElementCounterEffectRoutine(TextMeshProUGUI textElement, float startValue, float finalValue, float valueChangeStep)
     {
         int step = 0;
-        int stepsCount = (finalValue - startValue) / valueChangeStep;
+        int stepsCount = (int)((finalValue - startValue) / valueChangeStep);
         float nextStepDelay = _counterEffectDuration / stepsCount; 
 
 
 
-        int currentValue = startValue;
-        int valueIncreaseStep = (int)((finalValue - startValue) / (_counterEffectDuration * 20));
+        int currentValue = (int)startValue;
+        //int valueIncreaseStep = (int)((finalValue - startValue) / (_counterEffectDuration * 20));
         //while (currentValue < finalValue)
         //{
         //    textElement.text = currentValue.ToString();
@@ -261,12 +262,13 @@ public class EndGameScreen : MonoBehaviour
         //    \вписать рассчет времени ожидания для yield return
 
         //}
+        int valueChangeStepInt = (int)valueChangeStep;
 
         while (step < stepsCount)
         {
             step++;
             textElement.text = currentValue.ToString();
-            currentValue += valueChangeStep;
+            currentValue += valueChangeStepInt;
             yield return new WaitForSeconds(nextStepDelay);   
 
         }

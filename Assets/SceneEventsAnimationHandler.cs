@@ -10,12 +10,16 @@ public class SceneEventsAnimationHandler : MonoBehaviour
     {
         RemainingTurnsHandler.OutOfTurns += LoseGame;
         NEW_GameProgression.PauseGame += GameProgression_PauseGame;
+        RejectStartButton.OnGameStartReject += LeaveEndGameScreen;
+        StartButton.OnGameStart += LeaveEndGameScreen;
     }
 
     private void OnDisable()
     {
         RemainingTurnsHandler.OutOfTurns -= LoseGame;
         NEW_GameProgression.PauseGame -= GameProgression_PauseGame;
+        RejectStartButton.OnGameStartReject -= LeaveEndGameScreen;
+        StartButton.OnGameStart -= LeaveEndGameScreen;
     }
 
     private void LoseGame()
@@ -28,8 +32,16 @@ public class SceneEventsAnimationHandler : MonoBehaviour
         _animator.SetBool("IsGamePaused", isPaused);
     }
 
-    private void ReturnToMenu()
+    private void LeaveEndGameScreen()
     {
-        //_animator.SetTrigger();
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("SceneEvent_Lose"))
+        {
+            _animator.SetTrigger("LeaveEndGameScreen");
+        }
+    }
+
+    private void PlayAnimationAudio()
+    {
+        // WIPw
     }
 }
