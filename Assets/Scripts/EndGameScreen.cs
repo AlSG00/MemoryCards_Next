@@ -66,7 +66,7 @@ public class EndGameScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        RemainingTurnsHandler.OutOfTurns += DisplayFullStatisticsDelayed;
+        NEW_GameProgression.LoseGame += DisplayFullStatisticsDelayed;
         NEW_GameProgression.OnGameFinished += DisplayFullStatistics;
         StartButton.OnGameStart += Hide;
         RejectStartButton.OnGameStartReject += Hide;
@@ -74,7 +74,7 @@ public class EndGameScreen : MonoBehaviour
 
     private void OnDisable()
     {
-        RemainingTurnsHandler.OutOfTurns -= DisplayFullStatisticsDelayed;
+        NEW_GameProgression.LoseGame -= DisplayFullStatisticsDelayed;
         NEW_GameProgression.OnGameFinished -= DisplayFullStatistics;
         StartButton.OnGameStart -= Hide;
         RejectStartButton.OnGameStartReject -= Hide;
@@ -96,17 +96,19 @@ public class EndGameScreen : MonoBehaviour
         ChangeTextElementVisibility(_finalScoreLogo, true, true);
         ChangeTextElementVisibility(_finalScoreValueText, true, true);
         SetTextElementValue(_scoreValueText, _resultCalculator.Score, true);
-        SetTextElementValue(_finalScoreValueText, _resultCalculator.Score, true);
+        SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[0], true);
         await Task.Delay(_nextElementShowDelay);
 
         ChangeTextElementVisibility(_roundsSurvivedLogo, true, true);
         ChangeTextElementVisibility(_roundsSurvivedValueText, true, true);
         SetTextElementValue(_roundsSurvivedValueText, _gameProgressiong.currentRound, true);
+        SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[1], true, _resultCalculator.FinalScoreValuesArray[0]);
         await Task.Delay(_nextElementShowDelay);
 
         ChangeTextElementVisibility(_buttonsRemainingLogo, true, true);
         ChangeTextElementVisibility(_buttonsRemainingValueText, true, true);
         SetTextElementValue(_buttonsRemainingValueText, _playerMoney.CurrentGameMoney, true);
+        SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[2], true, _resultCalculator.FinalScoreValuesArray[1]);
         await Task.Delay(_nextElementShowDelay);
 
         ChangeTextElementVisibility(_timeLogo, true, true);
@@ -117,17 +119,18 @@ public class EndGameScreen : MonoBehaviour
         ChangeTextElementVisibility(_itemsRemainingLogo, true, true);
         ChangeTextElementVisibility(_itemsRemainingValueText, true, true);
         SetTextElementValue(_itemsRemainingValueText, _resultCalculator.ItemsRemaining, true);
-        //SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScore, true);
-        await Task.Delay(_nextElementShowDelay);
-
-        ChangeTextElementVisibility(_rewardMultiplierLogo, true, true);
-        ChangeTextElementVisibility(_rewardMultiplierValueText, true, true);
-        SetTextElementValue(_rewardMultiplierValueText, _resultCalculator.RewardMultplier, false);
+        SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[3], true, _resultCalculator.FinalScoreValuesArray[2]);
         await Task.Delay(_nextElementShowDelay);
 
         ChangeTextElementVisibility(_rewardLogo, true, true);
         ChangeTextElementVisibility(_rewardValueText, true, true);
         SetTextElementValue(_rewardValueText, _resultCalculator.Reward, true);
+        await Task.Delay(_nextElementShowDelay);
+
+        ChangeTextElementVisibility(_rewardMultiplierLogo, true, true);
+        ChangeTextElementVisibility(_rewardMultiplierValueText, true, true);
+        SetRewardMultiplierValueText();
+        SetTextElementValue(_rewardValueText, _resultCalculator.MultipliedReward, true, _resultCalculator.Reward);
         await Task.Delay(_nextElementShowDelay);
 
         _restartButton.SetActive(true);
@@ -150,7 +153,7 @@ public class EndGameScreen : MonoBehaviour
 
     private void SetRewardMultiplierValueText()
     {
-        textElement.text = value.ToString();
+        _rewardMultiplierValueText.text = _resultCalculator.RewardMultplier.ToString("F2");
     }
 
     private void SetTimeValueText()
@@ -263,6 +266,10 @@ public class EndGameScreen : MonoBehaviour
 
         //}
         int valueChangeStepInt = (int)valueChangeStep;
+        if (finalValue < startValue)
+        {
+            valueChangeStepInt *= (-1);
+        }
 
         while (step < stepsCount)
         {

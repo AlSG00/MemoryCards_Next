@@ -27,7 +27,6 @@ public class NEW_GameProgression : MonoBehaviour
     public bool playingTutorial;
     public int _tutorialProgress;
 
-
     public bool isTurnCounterActive;
     public bool isScoreListActive;
     public bool isStopwatchActive;
@@ -44,7 +43,7 @@ public class NEW_GameProgression : MonoBehaviour
 
 
     //public float ElapsedPlayTime;
-    public System.Diagnostics.Stopwatch ElapsedPlayTime;
+    public System.Diagnostics.Stopwatch ElapsedPlayTime = new System.Diagnostics.Stopwatch();
 
     //private bool _isElapsedPlayTimeActive;
 
@@ -57,7 +56,6 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<int> OnShowHint; // 0 -  hide all
     public static event System.Action<int> OnNextRound;
     public static event System.Action FirstTimePlaying;
-    public static event System.Action OnGameFinished;
     public static event System.Action<bool> OnStartBuyRound;
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
@@ -66,6 +64,8 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<int> onScoreChanged;
     public static event System.Action OnCurrentProgressReset;
     public static event System.Action<bool> PauseGame;
+    public static event System.Action OnGameFinished;
+    public static event System.Action LoseGame;
 
     public enum Difficulty
     {
@@ -90,9 +90,9 @@ public class NEW_GameProgression : MonoBehaviour
         RejectStartButton.OnGameStartReject += RejectGameStart;
         CardComparator.OnPickConfirm += CheckRoundProgression;
         ScaleContinue.OnContinueGame += NextRound;
-        ScaleExit.OnFinishGame += FinishGameTest;
-        ScaleSuspend.OnSuspendGame += SaveAndClear;
-        RemainingTurnsHandler.OutOfTurns += LooseGame;
+        ScaleExit.OnFinishGame += FinishGameOnBuyRound;
+        ScaleSuspend.OnSuspendGame += SaveAndClearData;
+        RemainingTurnsHandler.OutOfTurns += OnLoseGame;
         PlayerInput.EscapeButtonPressed += PlayerInput_EscapeButtonPressed;
     }
 
@@ -102,9 +102,9 @@ public class NEW_GameProgression : MonoBehaviour
         RejectStartButton.OnGameStartReject -= RejectGameStart;
         CardComparator.OnPickConfirm -= CheckRoundProgression;
         ScaleContinue.OnContinueGame -= NextRound;
-        ScaleExit.OnFinishGame -= FinishGameTest;
-        ScaleSuspend.OnSuspendGame -= SaveAndClear;
-        RemainingTurnsHandler.OutOfTurns -= LooseGame;
+        ScaleExit.OnFinishGame -= FinishGameOnBuyRound;
+        ScaleSuspend.OnSuspendGame -= SaveAndClearData;
+        RemainingTurnsHandler.OutOfTurns -= OnLoseGame;
         PlayerInput.EscapeButtonPressed -= PlayerInput_EscapeButtonPressed;
     }
 
@@ -131,7 +131,7 @@ public class NEW_GameProgression : MonoBehaviour
 
         score = 0;
 
-        ElapsedPlayTime = new System.Diagnostics.Stopwatch();
+        //ElapsedPlayTime = new System.Diagnostics.Stopwatch();
 
         ElapsedPlayTime.Reset();
 
@@ -251,15 +251,6 @@ public class NEW_GameProgression : MonoBehaviour
         }
     }
 
-    private void FinishGameTest()
-    {
-        isBuyRoundGoing = false;
-        OnStartBuyRound?.Invoke(false);
-        EnableTurnCounter(false);
-        EnableScoreList(false);
-        OnGameFinished?.Invoke();
-    }
-
     private void EnableTurnCounter(bool isEnabled)
     {
         isTurnCounterActive = isEnabled;
@@ -356,18 +347,22 @@ public class NEW_GameProgression : MonoBehaviour
     private void StartGame()
     {
         IsGameLost = false;
+        currentRound = 0;
         tempCardLayoutHandler.PrepareStartLayout();
         OnPressStart?.Invoke();
     }
 
+    private void RestartGame()
+    {
+
+    }
+
     private void ConfirmGameStart()
     {
-        //_isElapsedPlayTimeActive = true;
-
         ElapsedPlayTime.Start();
 
         OnGameStartConfirm?.Invoke();
-        currentRound = 1;
+        currentRound++;
 
         if (firstTimePlaying && tutorialComplete == false)
         {
@@ -412,31 +407,29 @@ public class NEW_GameProgression : MonoBehaviour
     }
     #endregion
 
-    private void FinishGame()
+    private void FinishGameOnBuyRound()
     {
-
+        isBuyRoundGoing = false;
+        OnStartBuyRound?.Invoke(false);
+        EnableTurnCounter(false);
+        EnableScoreList(false);
+        EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
+        OnGameFinished?.Invoke();
     }
 
-    //private void ResetCurrentProgress()
-    //{
-    //    OnCurrentProgressReset?.Invoke(); // Not using
-    //    currentRound = 0;
-    //    score = 0;
-    //    onScoreChanged?.Invoke(score);
-    //    // TODO: Reset money, inventory, rounds, score, difficulty
-    //}
-
-    private void LooseGame()
+    private void OnLoseGame()
     {
-        IsGameLost = false;
+        IsGameLost = true;
+        LoseGame?.Invoke();
+
         EnableScoreList(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
         EnableTurnCounter(false);
+        ClearData();
     }
 
-    private void SaveAndClear()
+    private void ClearData()
     {
-        // TODO: save progress - score, current round, current difficulty
         currentRound = 0;
         score = 0;
         onScoreChanged?.Invoke(score);
@@ -444,5 +437,11 @@ public class NEW_GameProgression : MonoBehaviour
         EnableScoreList(false);
         EnableTurnCounter(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
+    }
+
+    private void SaveAndClearData()
+    {
+        // TODO: save progress - score, current round, current difficulty
+        ClearData();
     }
 }

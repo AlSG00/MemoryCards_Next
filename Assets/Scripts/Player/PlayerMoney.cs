@@ -8,18 +8,8 @@ public class PlayerMoney : MonoBehaviour
     [SerializeField] private int _mainMoney;
     [SerializeField] private int _currentGameMoney;
 
-    public int MainMoney дописать
-
-    public int CurrentGameMoney { 
-        get => _currentGameMoney;
-        set
-        {
-            if (value >= 0)
-            {
-                _currentGameMoney = value;
-            }
-        }
-    }
+    public int MainMoney { get => _currentGameMoney; }
+    public int CurrentGameMoney { get => _currentGameMoney; }
 
     public static event Action<int> OnMoneyAmountChanged;
 

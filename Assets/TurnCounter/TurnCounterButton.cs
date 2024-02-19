@@ -16,4 +16,9 @@ public class TurnCounterButton : MonoBehaviour
 
         GetComponent<IButtonAction>().OnClickAction();
     }
+
+    private void OnMouseEnter()
+    {
+        Debug.Log("bebra");
+    }
 }

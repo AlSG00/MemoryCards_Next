@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class MainScreen : MonoBehaviour
+public class TurnCounterMainScreen : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _roundCounter;
     [SerializeField] private TextMeshProUGUI[] _GUIElements;

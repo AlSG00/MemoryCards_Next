@@ -15,18 +15,11 @@ public class EndGameResultsCalculator : MonoBehaviour
     public int MinutesElapsed;
     public int SecondsElapsed;
     public int ItemsRemaining;
-    //public int FinalScoreBasic;
-    //public int FinalScorePlusRounds;
-    //public int FinalScore_;
-    //public int FinalScore;
     public float Reward;
+    public float MultipliedReward;
     public float RewardMultplier;
 
     public int[] FinalScoreValuesArray = new int[5];
-
-    //public int Score { get => _score; }
-    //public int Score { get; private set; }
-    //public 
 
     public void CalculateResults()
     {
@@ -40,7 +33,6 @@ public class EndGameResultsCalculator : MonoBehaviour
         CalculateFinalScoreValue();
         CalculateRewardMultiplierValue();
         CalculateRewardValue();
-        _playerMoney.CurrentGameMoney = -5;
     }
 
     private void CalculateFinalScoreValue()
@@ -49,19 +41,14 @@ public class EndGameResultsCalculator : MonoBehaviour
         FinalScoreValuesArray[1] = FinalScoreValuesArray[0] + RoundsSurvived * 100;
         FinalScoreValuesArray[2] = FinalScoreValuesArray[1] + ButtonsRemaining;
         FinalScoreValuesArray[3] = FinalScoreValuesArray[2] + ItemsRemaining * 100;
-        FinalScoreValuesArray
-
-
-        //FinalScoreBasic = Score;
-
-        //FinalScoreWithRounds = RoundsSurvived * 100;
-        //FinalScoreWithButtons = 
-        //FinalScore += Score + RoundsSurvived * 100 + ButtonsRemaining + ItemsRemaining * 100;
+        
+        // FinalScore is score + RoundsSurvived * bonus + buttonsRemaining + ItemsRemaining * bonus;
     }
 
     private void CalculateRewardValue()
     {
-        Reward =  Mathf.Ceil((FinalScore / 10) * RewardMultplier);
+        Reward =  Mathf.Ceil((FinalScoreValuesArray[3] / 10));
+        MultipliedReward = Mathf.Ceil(Reward * RewardMultplier);
     }
 
     private void CalculateRewardMultiplierValue()

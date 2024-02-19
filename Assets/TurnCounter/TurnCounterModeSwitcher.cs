@@ -9,12 +9,12 @@ public class TurnCounterModeSwitcher : MonoBehaviour, IButtonAction
 
     private void Start()
     {
-        OnClickAction();
+        OnSwitchMode?.Invoke(showClock);
     }
 
     public void OnClickAction()
     {
-        OnSwitchMode?.Invoke(showClock);
         showClock = !showClock;
+        OnSwitchMode?.Invoke(showClock);
     }
 }
