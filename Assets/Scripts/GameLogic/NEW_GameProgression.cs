@@ -60,7 +60,8 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
     public static event System.Action<MoneyRopeHandler.Visibility> OnActivateMoneyRope;
-    public static event System.Action<int> OnAddMoney;
+    public static event System.Action<int> AddCurrentMoney;
+    public static event System.Action ResetCurrentMoney;
     public static event System.Action<int> onScoreChanged;
     public static event System.Action OnCurrentProgressReset;
     public static event System.Action<bool> PauseGame;
@@ -87,7 +88,9 @@ public class NEW_GameProgression : MonoBehaviour
     private void OnEnable()
     {
         StartButton.OnGameStart += StartGame;
+        StartButton.OnGameStart += ClearData;
         RejectStartButton.OnGameStartReject += RejectGameStart;
+        RejectStartButton.OnGameStartReject += ClearData;
         CardComparator.OnPickConfirm += CheckRoundProgression;
         ScaleContinue.OnContinueGame += NextRound;
         ScaleExit.OnFinishGame += FinishGameOnBuyRound;
@@ -99,7 +102,9 @@ public class NEW_GameProgression : MonoBehaviour
     private void OnDisable()
     {
         StartButton.OnGameStart -= StartGame;
+        StartButton.OnGameStart += ClearData;
         RejectStartButton.OnGameStartReject -= RejectGameStart;
+        RejectStartButton.OnGameStartReject += ClearData;
         CardComparator.OnPickConfirm -= CheckRoundProgression;
         ScaleContinue.OnContinueGame -= NextRound;
         ScaleExit.OnFinishGame -= FinishGameOnBuyRound;
@@ -186,7 +191,7 @@ public class NEW_GameProgression : MonoBehaviour
             tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
-                OnAddMoney?.Invoke(1); // TODO: Rework
+                AddCurrentMoney?.Invoke(1); // TODO: Rework
                 NextRound();
             }
             else
@@ -421,19 +426,21 @@ public class NEW_GameProgression : MonoBehaviour
     {
         IsGameLost = true;
         LoseGame?.Invoke();
-
+        ElapsedPlayTime.Stop();
         EnableScoreList(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
         EnableTurnCounter(false);
-        ClearData();
     }
 
     private void ClearData()
     {
+
         currentRound = 0;
         score = 0;
+        ElapsedPlayTime.Reset();
         onScoreChanged?.Invoke(score);
         OnStartBuyRound?.Invoke(false);
+        ResetCurrentMoney?.Invoke();
         EnableScoreList(false);
         EnableTurnCounter(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);

@@ -23,6 +23,7 @@ public class InventoryItem : InteractiveItem
     public static event System.Action<InventoryItem, Transform, int> OnSellingItem;
     public static event System.Action<InventoryItem, Transform, string, int> OnBuyItem;
     public static event System.Action OnInitializeForShop;
+    public static event System.Action<bool> OnPick;
 
     private void OnEnable()
     {
@@ -183,11 +184,13 @@ public class InventoryItem : InteractiveItem
         GetComponent<Collider>().enabled = false;
         MoveToPivot(_currentPivot, _moveToCursorTime);
         _isPicked = true;
+        OnPick?.Invoke(_isPicked);
     }
 
     private protected override void OnMouseUp()
     {
         _isPicked = false;
+        OnPick?.Invoke(_isPicked);
         if (_mustBuy)
         {
             OnBuyItem?.Invoke(this, gameObject.transform, itemName, _buyPrice);

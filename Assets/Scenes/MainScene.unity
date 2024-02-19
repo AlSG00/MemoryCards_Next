@@ -4719,9 +4719,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731627a280644574a8f67b699e1cd956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameProgressiong: {fileID: 1451625278}
-  _inventory: {fileID: 1825969693}
-  _playerMoney: {fileID: 2053558694}
   _resultCalculator: {fileID: 410234455}
   _scoreValueText: {fileID: 1564686483}
   _scoreLogo: {fileID: 1213903797}
@@ -40916,9 +40913,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731627a280644574a8f67b699e1cd956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameProgressiong: {fileID: 1451625278}
-  _inventory: {fileID: 1825969693}
-  _playerMoney: {fileID: 2053558694}
   _resultCalculator: {fileID: 410234455}
   _scoreValueText: {fileID: 1564686483}
   _scoreLogo: {fileID: 1213903797}
@@ -44759,7 +44753,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 543450652901001046}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1632174515
 MonoBehaviour:
@@ -60603,8 +60597,8 @@ Transform:
   m_LocalScale: {x: 0.2459306, y: 0.2459306, z: 0.24593058}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1348721585179045265}
   - {fileID: 1632174514}
+  - {fileID: 1348721585179045265}
   - {fileID: 5430627807048526329}
   - {fileID: 4745250623458789926}
   - {fileID: 3226641592118883239}
@@ -60958,7 +60952,7 @@ Transform:
   m_Children:
   - {fileID: 8665025679480364827}
   m_Father: {fileID: 543450652901001046}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!4 &1465446486672911254
 Transform:

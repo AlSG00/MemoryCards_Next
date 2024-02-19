@@ -7,9 +7,9 @@ using System;
 
 public class EndGameScreen : MonoBehaviour
 {
-    [SerializeField] private NEW_GameProgression _gameProgressiong;
-    [SerializeField] private Inventory _inventory;
-    [SerializeField] private PlayerMoney _playerMoney;
+    //[SerializeField] private NEW_GameProgression _gameProgressiong;
+    //[SerializeField] private Inventory _inventory;
+    //[SerializeField] private PlayerMoney _playerMoney;
     [SerializeField] private EndGameResultsCalculator _resultCalculator;
 
     [SerializeField] private TextMeshProUGUI _scoreValueText;
@@ -101,13 +101,13 @@ public class EndGameScreen : MonoBehaviour
 
         ChangeTextElementVisibility(_roundsSurvivedLogo, true, true);
         ChangeTextElementVisibility(_roundsSurvivedValueText, true, true);
-        SetTextElementValue(_roundsSurvivedValueText, _gameProgressiong.currentRound, true);
+        SetTextElementValue(_roundsSurvivedValueText, _resultCalculator.RoundsSurvived, true);
         SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[1], true, _resultCalculator.FinalScoreValuesArray[0]);
         await Task.Delay(_nextElementShowDelay);
 
         ChangeTextElementVisibility(_buttonsRemainingLogo, true, true);
         ChangeTextElementVisibility(_buttonsRemainingValueText, true, true);
-        SetTextElementValue(_buttonsRemainingValueText, _playerMoney.CurrentGameMoney, true);
+        SetTextElementValue(_buttonsRemainingValueText,_resultCalculator.ButtonsRemaining, true);
         SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[2], true, _resultCalculator.FinalScoreValuesArray[1]);
         await Task.Delay(_nextElementShowDelay);
 
@@ -141,7 +141,7 @@ public class EndGameScreen : MonoBehaviour
 
     private void SetTextElementValue(TextMeshProUGUI textElement, float value, bool counterEffect = false, float startValue = 0, float valueChangeStep = 1)
     {
-        if (counterEffect)
+        if (counterEffect && value != startValue)
         {
             StartCoroutine(TextElementCounterEffectRoutine(textElement, startValue, value, valueChangeStep));
         }
@@ -249,23 +249,10 @@ public class EndGameScreen : MonoBehaviour
     private IEnumerator TextElementCounterEffectRoutine(TextMeshProUGUI textElement, float startValue, float finalValue, float valueChangeStep)
     {
         int step = 0;
-        int stepsCount = (int)((finalValue - startValue) / valueChangeStep);
+        int stepsCount = Mathf.Abs((int)((finalValue - startValue) / valueChangeStep));
         float nextStepDelay = _counterEffectDuration / stepsCount; 
-
-
-
         int currentValue = (int)startValue;
-        //int valueIncreaseStep = (int)((finalValue - startValue) / (_counterEffectDuration * 20));
-        //while (currentValue < finalValue)
-        //{
-        //    textElement.text = currentValue.ToString();
-        //    currentValue += valueIncreaseStep;
-        //    yield return new WaitForSeconds(nextStepDelay);   
-        //    \вписать шаг увеличения
-        //    \вписать рассчет времени ожидания для yield return
-
-        //}
-        int valueChangeStepInt = (int)valueChangeStep;
+        int valueChangeStepInt = Mathf.Abs((int)valueChangeStep);
         if (finalValue < startValue)
         {
             valueChangeStepInt *= (-1);
@@ -277,7 +264,6 @@ public class EndGameScreen : MonoBehaviour
             textElement.text = currentValue.ToString();
             currentValue += valueChangeStepInt;
             yield return new WaitForSeconds(nextStepDelay);   
-
         }
 
         textElement.text = finalValue.ToString();

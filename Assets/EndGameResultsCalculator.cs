@@ -24,7 +24,12 @@ public class EndGameResultsCalculator : MonoBehaviour
     public void CalculateResults()
     {
         Score = _gameProgressiong.score;
-        RoundsSurvived = _gameProgressiong.currentRound - 1;
+        RoundsSurvived = _gameProgressiong.currentRound;
+        if (_gameProgressiong.IsGameLost)
+        {
+            RoundsSurvived--;
+        }
+
         ButtonsRemaining = _playerMoney.CurrentGameMoney;
         HoursElapsed = Mathf.Floor((float)_gameProgressiong.ElapsedPlayTime.Elapsed.TotalHours);
         MinutesElapsed = _gameProgressiong.ElapsedPlayTime.Elapsed.Minutes;
@@ -57,7 +62,7 @@ public class EndGameResultsCalculator : MonoBehaviour
 
         if (_gameProgressiong.IsGameLost)
         {
-            RewardMultplier = (RewardMultplier / 2) + (RewardMultplier % 2);
+            RewardMultplier /= 2;
         }
     }
 }
