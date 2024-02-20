@@ -32,7 +32,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     private bool _isPlacing = false;
 
     public static event System.Action CancelAllPicks;
-    public static event System.Action<int> OnSetRemainingTurns;
+    public static event System.Action<int, int> OnSetRemainingTurns;
 
     private void OnEnable()
     {
@@ -61,7 +61,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
     }
 
-    private void PlayTutorialRound(int tutorialIndex)
+    private void PlayTutorialRound(int tutorialIndex, int currentRound)
     {
         if (_isPreparing == false)
         {
@@ -70,7 +70,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             MixPlacePoints();
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
-            OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count);
+            OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count, currentRound);
         }
     }
 
@@ -87,7 +87,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
     }
 
-    public void PrepareNewLayout()
+    public void PrepareNewLayout(int currentRound)
     {
         if (_isPreparing == false)
         {
@@ -95,7 +95,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             SetPlasePoints();
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
-            OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count);
+            OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count, currentRound);
         }
     }
 

@@ -52,7 +52,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event TurnAction OnTurnsChanged;
     public static event System.Action OnPressStart;
     public static event System.Action OnGameStartConfirm;
-    public static event System.Action<int> OnPlayTutorial;
+    public static event System.Action<int, int> OnPlayTutorial;
     public static event System.Action<int> OnShowHint; // 0 -  hide all
     public static event System.Action<int> OnNextRound;
     public static event System.Action FirstTimePlaying;
@@ -169,7 +169,7 @@ public class NEW_GameProgression : MonoBehaviour
                 _tutorialProgress++;
                 Debug.Log(_tutorialProgress);
                 UpdateTutorialProgression();
-                OnPlayTutorial?.Invoke(_tutorialProgress);
+                OnPlayTutorial?.Invoke(_tutorialProgress, currentRound);
                 if (_tutorialProgress == 9) // TODO: is it ok? No it's not
                 {
                     playingTutorial = false;
@@ -298,7 +298,7 @@ public class NEW_GameProgression : MonoBehaviour
         }
 
         UpdateDifficulty();
-        tempCardLayoutHandler.PrepareNewLayout();
+        tempCardLayoutHandler.PrepareNewLayout(currentRound);
     }
 
     private void SetBuyRound()
@@ -379,7 +379,7 @@ public class NEW_GameProgression : MonoBehaviour
             EnableScoreList(true);
             EnableTurnCounter(true);
             EnableMoneyRope(MoneyRopeHandler.Visibility.PartiallyVisible);
-            tempCardLayoutHandler.PrepareNewLayout();
+            tempCardLayoutHandler.PrepareNewLayout(currentRound);
             OnNextRound?.Invoke(currentRound);
         }
     }
@@ -388,7 +388,7 @@ public class NEW_GameProgression : MonoBehaviour
     {
         _tutorialProgress = 0;
         UpdateTutorialProgression();
-        OnPlayTutorial?.Invoke(_tutorialProgress);
+        OnPlayTutorial?.Invoke(_tutorialProgress, currentRound);
     }
 
     private void RejectGameStart()

@@ -61,15 +61,25 @@ public class RemainingTurnsHandler : MonoBehaviour
         }
     }
 
-    private void SetRemainingTurns(int cardsInLayout)
+    private void SetRemainingTurns(int cardsInLayout, int currentRound)
     {
         if (_isActive == false)
         {
             return;
         }
 
-        // TODO: Make complex formula for calculating turns depending on buffs, bebuffs and current round
-        remainingTurns = cardsInLayout;
+        // TODO: Finish
+        if (currentRound < 30)
+        {
+            remainingTurns = cardsInLayout * 2 - currentRound / 5;
+        }
+        else 
+        {
+            remainingTurns = cardsInLayout * 2 - currentRound / 7;
+        }
+
+
+        remainingTurns = cardsInLayout; 
         OnGUIUpdate?.Invoke(remainingTurns);
     }
 }
