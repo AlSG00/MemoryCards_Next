@@ -53,6 +53,13 @@ public class PlayerMoney : MonoBehaviour
         OnMoneyAmountChanged?.Invoke(_currentGameMoney);
     }
 
+    internal void AddMainMoney(int amount)
+    {
+        _currentGameMoney += amount;
+        OnMoneyAmountChanged?.Invoke(_currentGameMoney);
+        sdfiku;
+    }
+
     internal void GetCurrentGameMoney(int itemPrice)
     {
         _currentGameMoney -= itemPrice;

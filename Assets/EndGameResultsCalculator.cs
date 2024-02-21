@@ -38,6 +38,8 @@ public class EndGameResultsCalculator : MonoBehaviour
         CalculateFinalScoreValue();
         CalculateRewardMultiplierValue();
         CalculateRewardValue();
+
+        _playerMoney.
     }
 
     private void CalculateFinalScoreValue()
