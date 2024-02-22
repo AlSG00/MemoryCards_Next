@@ -65,6 +65,9 @@ public class NEW_CardGenerator : MonoBehaviour
 
     private void SetCardsToGenerate()
     {
+        _activeCardData = 
+
+
         switch (NEW_GameProgression.CardDifficulty)
         {
             case NEW_GameProgression.Difficulty.Easy:

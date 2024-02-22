@@ -8,7 +8,19 @@ public class PlayerMoney : MonoBehaviour
     [SerializeField] private int _mainMoney;
     [SerializeField] private int _currentGameMoney;
 
-    public int MainMoney { get => _currentGameMoney; }
+    public int MainMoney { 
+        get => _mainMoney; 
+        set
+        {
+            if (value < 0 || (_mainMoney - value) < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            _mainMoney = value;
+        }
+    }
+
     public int CurrentGameMoney { get => _currentGameMoney; }
 
     public static event Action<int> OnMoneyAmountChanged;
@@ -53,12 +65,12 @@ public class PlayerMoney : MonoBehaviour
         OnMoneyAmountChanged?.Invoke(_currentGameMoney);
     }
 
-    internal void AddMainMoney(int amount)
-    {
-        _currentGameMoney += amount;
-        OnMoneyAmountChanged?.Invoke(_currentGameMoney);
-        sdfiku;
-    }
+    //internal void AddMainMoney(int amount)
+    //{
+    //    _currentGameMoney += amount;
+    //    OnMoneyAmountChanged?.Invoke(_currentGameMoney);
+    //    sdfiku;
+    //}
 
     internal void GetCurrentGameMoney(int itemPrice)
     {

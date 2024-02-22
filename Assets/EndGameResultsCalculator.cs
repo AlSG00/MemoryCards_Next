@@ -39,7 +39,7 @@ public class EndGameResultsCalculator : MonoBehaviour
         CalculateRewardMultiplierValue();
         CalculateRewardValue();
 
-        _playerMoney.
+        _playerMoney.MainMoney += (int)Reward;
     }
 
     private void CalculateFinalScoreValue()

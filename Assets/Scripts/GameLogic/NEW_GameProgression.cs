@@ -11,14 +11,18 @@ public class NEW_GameProgression : MonoBehaviour
     [Header("Game stage parameters")]
     //public static GameStage stage;
 
+    public static Difficulty StartCardDifficulty;
+    public static Difficulty StartLayoutDifficulty;
     public static Difficulty CardDifficulty;
     public static Difficulty LayoutDifficulty;
 
+    //[SerializeField] private List<int> _roundToSwitchDifficultyList;
+
     public bool firstTimePlaying; // TODO: Save this parameter to JSON
-    public int easyDifficultyRound;
-    public int mediumDifficultyRound;
-    public int hardDifficultyRound;
-    public int veryHardDifficultyRound;
+    //public int easyDifficultyRound;
+    //public int mediumDifficultyRound;
+    //public int hardDifficultyRound;
+    //public int veryHardDifficultyRound;
 
     public NEW_CardGenerator tempCardGenerator;
     public NEW_CardLayoutHandler tempCardLayoutHandler;
@@ -40,6 +44,7 @@ public class NEW_GameProgression : MonoBehaviour
     //public int mainMoney = 0; // can be used in upgrade store
     [Tooltip("Each round dividible by this digit will be a buy round")]
     public int buyRound;
+    public int switchDifficultyRound;
 
 
     //public float ElapsedPlayTime;
@@ -126,8 +131,8 @@ public class NEW_GameProgression : MonoBehaviour
             playingTutorial = true;
         }
 
-        LayoutDifficulty = Difficulty.Easy;
-        CardDifficulty = Difficulty.Easy;
+        LayoutDifficulty = StartLayoutDifficulty;
+        CardDifficulty = StartCardDifficulty;
 
         if (firstTimePlaying)
         {
@@ -321,30 +326,22 @@ public class NEW_GameProgression : MonoBehaviour
     // TODO: Redo
     private void UpdateDifficulty()
     {
-        if (currentRound < easyDifficultyRound)
+        if (currentRound % switchDifficultyRound != 0)
         {
-            LayoutDifficulty = Difficulty.Easy;
-            CardDifficulty = Difficulty.Easy;
+            return;
         }
-        else if (currentRound < mediumDifficultyRound)
+
+        if (LayoutDifficulty == Difficulty.FullRandom &&
+            CardDifficulty == Difficulty.FullRandom)
         {
-            LayoutDifficulty = Difficulty.Medium;
-            CardDifficulty = Difficulty.Medium;
+            return;
         }
-        else if (currentRound < hardDifficultyRound)
+
+        LayoutDifficulty++;
+        if (LayoutDifficulty == Difficulty.FullRandom)
         {
-            LayoutDifficulty = Difficulty.Hard;
-            CardDifficulty = Difficulty.Hard;
-        }
-        else if (currentRound < veryHardDifficultyRound)
-        {
-            LayoutDifficulty = Difficulty.VeryHard;
-            CardDifficulty = Difficulty.VeryHard;
-        }
-        else
-        {
-            LayoutDifficulty = Difficulty.FullRandom;
-            CardDifficulty = Difficulty.FullRandom;
+            LayoutDifficulty = StartLayoutDifficulty;
+            CardDifficulty++;
         }
     }
 

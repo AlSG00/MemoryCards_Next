@@ -8,10 +8,10 @@ public class CardComparator : MonoBehaviour
 {
     private List<NEW_Card> pickedCardList = null;
 
-    public bool mimicOnTable;
-    public bool extraOnTable;
+    public bool mimicOnTable; // TODO: Implement
+    public bool extraOnTable; // TODO: Implement
 
-    public delegate void CardMatch(List<GameObject> matchedCards/*, NEW_GameProgression.RoundType roundType*/);
+    public delegate void CardMatch(List<GameObject> matchedCards);
     public static event CardMatch OnPickConfirm;
 
     private void OnEnable()
