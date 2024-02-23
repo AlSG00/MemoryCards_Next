@@ -80,7 +80,7 @@ public class NEW_GameProgression : MonoBehaviour
         Medium,
         Hard,
         VeryHard,
-        FullRandom
+        Random
     }
 
     public enum RoundType
@@ -331,14 +331,14 @@ public class NEW_GameProgression : MonoBehaviour
             return;
         }
 
-        if (LayoutDifficulty == Difficulty.FullRandom &&
-            CardDifficulty == Difficulty.FullRandom)
+        if (LayoutDifficulty == Difficulty.Random &&
+            CardDifficulty == Difficulty.Random)
         {
             return;
         }
 
         LayoutDifficulty++;
-        if (LayoutDifficulty == Difficulty.FullRandom)
+        if (LayoutDifficulty == Difficulty.Random)
         {
             LayoutDifficulty = StartLayoutDifficulty;
             CardDifficulty++;

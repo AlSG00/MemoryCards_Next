@@ -5,11 +5,11 @@ using System.Linq;
 
 public class NEW_CardLayoutHandler : MonoBehaviour
 {
-   // public GameObject TEMP_testTripleLayout;
+    // public GameObject TEMP_testTripleLayout;
 
     [Header("Main parameters")]
     public Transform CardsStartPosition;
-    [SerializeField] private float _cardPlacingSpeed = 1f; 
+    [SerializeField] private float _cardPlacingSpeed = 1f;
     [SerializeField] private float _cardPlacementDelay = 0.1f;
 
     [Header("References")]
@@ -20,12 +20,17 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     [SerializeField] private GameObject _currentLayout;
     [SerializeField] private GameObject _twoCardLayout;
     [SerializeField] private List<GameObject> _tutorialLayouts;
-    [SerializeField] private List<GameObject> _veryEasyLayoutSet = new List<GameObject>();
-    [SerializeField] private List<GameObject> _easyLayoutSet = new List<GameObject>();
-    [SerializeField] private List<GameObject> _mediumLayoutSet = new List<GameObject>();
-    [SerializeField] private List<GameObject> _hardLayoutSet = new List<GameObject>();
-    [SerializeField] private List<GameObject> _veryHardLayoutSet = new List<GameObject>();
-    
+
+    private List<GameObject> _availableLayouts;
+    private NEW_GameProgression.Difficulty _currentLayoutDifficulty;
+    //[SerializeField] private List<GameObject> _veryEasyLayoutSet = new List<GameObject>();
+    //[SerializeField] private List<GameObject> _easyLayoutSet = new List<GameObject>();
+    //[SerializeField] private List<GameObject> _mediumLayoutSet = new List<GameObject>();
+    //[SerializeField] private List<GameObject> _hardLayoutSet = new List<GameObject>();
+    //[SerializeField] private List<GameObject> _veryHardLayoutSet = new List<GameObject>();
+
+    [SerializeField] private Layout[] _layoutDifficultyVariantSet;
+
     private List<Transform> _cardPlacePoints = new List<Transform>();
     private List<GameObject> _cardsInLayout;
     private bool _isPreparing = false;
@@ -45,6 +50,11 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         NEW_GameProgression.OnPlayTutorial -= PlayTutorialRound;
         RemainingTurnsHandler.OutOfTurns -= TakeCardsBack;
     }
+
+    //private void Start()
+    //{
+    //    SetAvailableLayouts();
+    //}
 
     public void ReceiveNewCardPack(List<GameObject> newCardPack)
     {
@@ -67,7 +77,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         {
             _isPreparing = true;
             SetPlacePointsList(_tutorialLayouts[tutorialIndex]);
-            MixPlacePoints();
+            MixPlacePointsOrder();
             cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
             OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count, currentRound);
@@ -89,14 +99,17 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     public void PrepareNewLayout(int currentRound)
     {
-        if (_isPreparing == false)
+        if (_isPreparing)
         {
-            _isPreparing = true;
-            SetPlasePoints();
-            cardGenerator.GeneratePack(_cardPlacePoints.Count);
-            PlaceCards();
-            OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count, currentRound);
+            return;
         }
+
+        _isPreparing = true;
+        InitializeLayout();
+        cardGenerator.GeneratePack(_cardPlacePoints.Count);
+        PlaceCards();
+
+        OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count, currentRound);
     }
 
     public void ActivateCardColliders(bool activate)
@@ -107,7 +120,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
     }
 
-    public void SetPlasePoints(GameObject layout = null)
+    public void InitializeLayout(GameObject layout = null)
     {
         if (layout == null)
         {
@@ -119,9 +132,10 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             _currentLayout.SetActive(false);
         }
 
-        SetCurrentLayout();
+        SetAvailableLayouts();
+        GetRandomAvailableLayout();
         SetPlacePointsList(_currentLayout);
-        MixPlacePoints();
+        MixPlacePointsOrder();
     }
 
     private void SetPlacePointsList(GameObject layout)
@@ -139,38 +153,44 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     }
 
     #region SET LAYOUT
-    private void SetCurrentLayout()
+    private void CheckAvailableLayouts()
     {
-        доделать
-        switch (NEW_GameProgression.LayoutDifficulty)
+        //TODO: БАГ: сложность будет меняться каждую раскладку
+        //плюс надо написать проверку, чтобы коллекция не пересобиралась каждый раз, если сложность не поменялась
+
+
+        if (_currentLayoutDifficulty == NEW_GameProgression.LayoutDifficulty)
         {
-            case NEW_GameProgression.Difficulty.VeryEasy:
-                SetRandomLayout(_easyLayoutSet);
-                break;
-
-            case NEW_GameProgression.Difficulty.Easy:
-                SetRandomLayout(_easyLayoutSet);
-                break;
-
-            case NEW_GameProgression.Difficulty.Medium:
-                SetRandomLayout(_mediumLayoutSet);
-                break;
-
-            case NEW_GameProgression.Difficulty.Hard:
-                SetRandomLayout(_hardLayoutSet);
-                break;
-
-            case NEW_GameProgression.Difficulty.VeryHard:
-                SetRandomLayout(_veryHardLayoutSet);
-                break;
+            return;
         }
 
-        _currentLayout.SetActive(true);
+        if (NEW_GameProgression.LayoutDifficulty == NEW_GameProgression.Difficulty.Random)
+        {
+            if (NEW_GameProgression.CardDifficulty == NEW_GameProgression.Difficulty.Random)
+            {
+                return;
+            }
+
+            NEW_GameProgression.LayoutDifficulty = NEW_GameProgression.StartLayoutDifficulty;
+        }
+
+        SetAvailableLayouts();
     }
 
-    private void SetRandomLayout(List<GameObject> list)
+    private void SetAvailableLayouts()
     {
-        _currentLayout = list[Random.Range(0, list.Count)];
+        _currentLayoutDifficulty = NEW_GameProgression.StartLayoutDifficulty;
+        _availableLayouts = new List<GameObject>();
+        for (int i = 0; i < (int)_currentLayoutDifficulty; i++)
+        {
+            _availableLayouts.AddRange(_layoutDifficultyVariantSet[i].ArrayOfSets);
+        }
+    }
+
+    private void GetRandomAvailableLayout()
+    {
+        _currentLayout = _availableLayouts[Random.Range(0, _availableLayouts.Count)];
+        _currentLayout.SetActive(true);
     }
     #endregion
 
@@ -261,7 +281,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         card.transform.position = positionToPlace.position;
     }
 
-    private void MixPlacePoints()
+    private void MixPlacePointsOrder()
     {
         for (int i = 0; i < _cardPlacePoints.Count; i++)
         {
@@ -280,5 +300,12 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
 
         _cardsInLayout.Clear();
+    }
+
+    [System.Serializable]
+    public struct Layout
+    {
+        public string Name;
+        public GameObject[] ArrayOfSets;
     }
 }

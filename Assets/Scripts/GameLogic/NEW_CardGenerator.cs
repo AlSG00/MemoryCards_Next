@@ -22,11 +22,12 @@ public class NEW_CardGenerator : MonoBehaviour
     //[SerializeField] private CardData[] _veryHardCardsCollection;
     [SerializeField] private List<CardData> _dataToUse;
     private List<CardData> _activeCardData; // Stores data for cards that are used for generating at current game stage
+    NEW_GameProgression.Difficulty _currentCardDifficulty;
 
     public void GeneratePack(int countToGenerate)
     {
-        SetAvailableCardsToGenerate();
-        _dataToUse = GetCollectionToGenerate(countToGenerate);
+        CheckAvailableCards();
+        _dataToUse = GetCardsToGenerate(countToGenerate);
 
         int index = 0;
         int dataIndex = 0;
@@ -46,7 +47,29 @@ public class NEW_CardGenerator : MonoBehaviour
         _cardLayoutHandler.ReceiveNewCardPack(generatedCardPack);
     }
 
-    public List<CardData> GetCollectionToGenerate(int countToGenerate)
+    private void CheckAvailableCards()
+    {
+        if (_currentCardDifficulty == NEW_GameProgression.CardDifficulty)
+        {
+            return;
+        }
+
+        SetAvailableCards();
+    }
+
+    private void SetAvailableCards()
+    {
+        _currentCardDifficulty = NEW_GameProgression.CardDifficulty;
+
+        // TODO: Check if here would be problems with empty elements
+        _activeCardData = new List<CardData>();
+        for (int i = 0; i <= (int)_currentCardDifficulty; i++)
+        {
+            _activeCardData.AddRange(cardDataSetArray[i].Set);
+        }
+    }
+
+    private List<CardData> GetCardsToGenerate(int countToGenerate)
     {
         int count = countToGenerate / 2;
 
@@ -57,16 +80,6 @@ public class NEW_CardGenerator : MonoBehaviour
         }
 
         return resultData;
-    }
-
-    private void SetAvailableCardsToGenerate()
-    {
-        // TODO: Check if here would be problems with empty elements
-        _activeCardData.Clear();
-        for (int i = 0; i <= (int)NEW_GameProgression.CardDifficulty; i++)
-        {
-            _activeCardData.AddRange(cardDataSetArray[i].Set);
-        }
     }
 
     private void MixCardPack()
@@ -80,7 +93,7 @@ public class NEW_CardGenerator : MonoBehaviour
         }
     }
 
-    public bool CheckRemainingCards()
+    internal bool CheckRemainingCards()
     {
         if (generatedCardPack.Count == 0)
         {
@@ -90,18 +103,19 @@ public class NEW_CardGenerator : MonoBehaviour
         return true;
     }
 
-    public void RemoveAllCards()
-    {
-        for (int i = generatedCardPack.Count - 1; i >= 0; i--)
-        {
-            Destroy(generatedCardPack[i].gameObject);
-            generatedCardPack.Remove(generatedCardPack[i]);
-        }
-    }
+    //public void RemoveAllCards()
+    //{
+    //    for (int i = generatedCardPack.Count - 1; i >= 0; i--)
+    //    {
+    //        Destroy(generatedCardPack[i].gameObject);
+    //        generatedCardPack.Remove(generatedCardPack[i]);
+    //    }
+    //}
 
     [System.Serializable]
     public struct CardDataSet
     {
+        public string Name;
         public CardData[] Set;
     }
 }

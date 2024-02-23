@@ -14567,16 +14567,17 @@ MonoBehaviour:
   - {fileID: 1747679394}
   - {fileID: 60197369}
   - {fileID: 308010534}
-  _veryEasyLayoutSet:
-  - {fileID: 709250200}
-  _easyLayoutSet:
-  - {fileID: 1556868306}
-  _mediumLayoutSet:
-  - {fileID: 1080683899}
-  _hardLayoutSet:
-  - {fileID: 1559989484}
-  _veryHardLayoutSet:
-  - {fileID: 1639010541}
+  _layoutDifficultyVariantSet:
+  - Name: Very easy
+    ArrayOfSets: []
+  - Name: Easy
+    ArrayOfSets: []
+  - Name: Medium
+    ArrayOfSets: []
+  - Name: Hard
+    ArrayOfSets: []
+  - Name: Very hard
+    ArrayOfSets: []
 --- !u!1 &509779314
 GameObject:
   m_ObjectHideFlags: 0
@@ -53805,15 +53806,20 @@ MonoBehaviour:
   _cardLayoutHandler: {fileID: 509114671}
   _sessionProgress: {fileID: 1451625278}
   cardDataSetArray:
-  - Set:
+  - Name: Very easy
+    Set:
     - {fileID: 11400000, guid: f1b2411bac68def499b806e99d05d1cc, type: 2}
-  - Set:
+  - Name: Easy
+    Set:
     - {fileID: 11400000, guid: 10e0727d521dff64b8d15c52e8c2961a, type: 2}
-  - Set:
+  - Name: Medium
+    Set:
     - {fileID: 11400000, guid: 440c352fd2b72ea4bb96fd8d651eb214, type: 2}
-  - Set:
+  - Name: Hard
+    Set:
     - {fileID: 11400000, guid: 02ce947541e968d4ab1a0ef56d136547, type: 2}
-  - Set:
+  - Name: Very hard
+    Set:
     - {fileID: 11400000, guid: 340f13c6115e32146b28ae54e1665088, type: 2}
   generatedCardPack: []
   _tutorialCardsCollection: []
