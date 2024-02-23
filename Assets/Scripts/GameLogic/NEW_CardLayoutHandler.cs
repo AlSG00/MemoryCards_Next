@@ -141,6 +141,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     #region SET LAYOUT
     private void SetCurrentLayout()
     {
+        доделать
         switch (NEW_GameProgression.LayoutDifficulty)
         {
             case NEW_GameProgression.Difficulty.VeryEasy:
