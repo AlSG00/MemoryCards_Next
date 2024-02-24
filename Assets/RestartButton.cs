@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class RestartButton : MonoBehaviour, IButtonAction
+public class RestartButton : MenuButton
 {
     public static event System.Action OnGameRestart;
-    public void OnClickAction()
+
+    protected override void OnClickAction()
     {
         OnGameRestart?.Invoke();
     }

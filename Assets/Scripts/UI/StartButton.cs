@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-[RequireComponent(typeof(MenuButton))]
-public class StartButton : MonoBehaviour, IButtonAction
+public class StartButton : MenuButton
 {
     public static event System.Action OnGameStart;
-    public void OnClickAction()
+
+    protected override void OnClickAction()
     {
         OnGameStart?.Invoke();
     }

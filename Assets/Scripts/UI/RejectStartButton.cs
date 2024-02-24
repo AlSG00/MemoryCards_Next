@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-[RequireComponent(typeof(MenuButton))]
-public class RejectStartButton : MonoBehaviour, IButtonAction
+public class RejectStartButton : MenuButton
 {
     public static event System.Action OnGameStartReject;
-    public void OnClickAction()
+    protected override void OnClickAction()
     {
         OnGameStartReject?.Invoke();
     }

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class MainMenuHandler : MonoBehaviour
 {
     [SerializeField] private GameObject[] TextObjectArray;
+    [SerializeField] private GraphicRaycaster _canvasRaycaster;
 
     private void Awake()
     {
@@ -33,11 +35,13 @@ public class MainMenuHandler : MonoBehaviour
     // TODO: Make menu ui change it's visibility smoothly
     private void HideMenu()
     {
+        _canvasRaycaster.enabled = false;
         SetMenuVisibility(false);
     }
 
     private void ShowMenu()
     {
+        _canvasRaycaster.enabled = true;
         SetMenuVisibility(true);
     }
 

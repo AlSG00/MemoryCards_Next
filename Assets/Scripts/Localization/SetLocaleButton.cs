@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
-[RequireComponent(typeof(MenuButton))]
-public class SetLocaleButton : MonoBehaviour, IButtonAction
+public class SetLocaleButton : MenuButton
 {
+    [SerializeField] private Locale _locale;
+
+    public static event System.Action OnChooseLocale;
+
     private enum Locale
     {
         rus,
         eng
     }
 
-    [SerializeField] private Locale _locale;
-
-    public static event System.Action OnChooseLocale;
-
-    public void OnClickAction()
+    // Rework
+    protected override void OnClickAction()
     {
         switch (_locale)
         {

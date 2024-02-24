@@ -1,35 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Animator))]
-public class MenuButton : MonoBehaviour
+public abstract class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     private Animator _animator;
 
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-    }
-
-    private void OnMouseDown()
-    {
-        GetComponent<IButtonAction>().OnClickAction();
-    }
-
-    private void OnMouseEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
         SetAnimatorValue(true);
     }
 
-    private void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
         SetAnimatorValue(false);
+    }
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        
+        if (_animator is null)
+        {
+            throw new MissingComponentException("Animator component not found");
+        }
     }
 
     private void SetAnimatorValue(bool value)
     {
         _animator.SetBool("MouseEnter", value);
     }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        OnClickAction();
+    }
+
+    protected abstract void OnClickAction();
 }
