@@ -132,7 +132,8 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             _currentLayout.SetActive(false);
         }
 
-        SetAvailableLayouts();
+        CheckAvailableLayouts();
+        //SetAvailableLayouts();
         GetRandomAvailableLayout();
         SetPlacePointsList(_currentLayout);
         MixPlacePointsOrder();
@@ -159,7 +160,8 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         //плюс надо написать проверку, чтобы коллекция не пересобиралась каждый раз, если сложность не поменялась
 
 
-        if (_currentLayoutDifficulty == NEW_GameProgression.LayoutDifficulty)
+        if (_currentLayoutDifficulty == NEW_GameProgression.LayoutDifficulty &&
+            _availableLayouts != null)
         {
             return;
         }
@@ -179,9 +181,9 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     private void SetAvailableLayouts()
     {
-        _currentLayoutDifficulty = NEW_GameProgression.StartLayoutDifficulty;
+        _currentLayoutDifficulty = NEW_GameProgression.LayoutDifficulty;
         _availableLayouts = new List<GameObject>();
-        for (int i = 0; i < (int)_currentLayoutDifficulty; i++)
+        for (int i = 0; i <= (int)_currentLayoutDifficulty; i++)
         {
             _availableLayouts.AddRange(_layoutDifficultyVariantSet[i].ArrayOfSets);
         }

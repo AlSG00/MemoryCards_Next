@@ -43,8 +43,8 @@ public class NEW_GameProgression : MonoBehaviour
     public int score = 0;
     //public int mainMoney = 0; // can be used in upgrade store
     [Tooltip("Each round dividible by this digit will be a buy round")]
-    public int buyRound;
-    public int switchDifficultyRound;
+    [Range(1f, 1000f)] public int buyRound;
+    [Range(1f, 1000f)] public int switchDifficultyRound;
 
 
     //public float ElapsedPlayTime;

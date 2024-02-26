@@ -1,11 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class LocalizationMenuHandler : MonoBehaviour
+public class LocalizationMenuHandler : MenuHandler
 {
-    [SerializeField] private GameObject[] TextObjectArray;
-
     private void OnEnable()
     {
         NEW_GameProgression.FirstTimePlaying += ShowMenu;
@@ -16,23 +10,5 @@ public class LocalizationMenuHandler : MonoBehaviour
     {
         NEW_GameProgression.FirstTimePlaying -= ShowMenu;
         SetLocaleButton.OnChooseLocale += HideMenu;
-    }
-
-    private void HideMenu()
-    {
-        SetMenuVisibility(false);
-    }
-
-    private void ShowMenu()
-    {
-        SetMenuVisibility(true);
-    }
-
-    private void SetMenuVisibility(bool isVisible)
-    {
-        foreach (var textMesh in TextObjectArray)
-        {
-            textMesh.SetActive(isVisible);
-        }
     }
 }

@@ -49,7 +49,8 @@ public class NEW_CardGenerator : MonoBehaviour
 
     private void CheckAvailableCards()
     {
-        if (_currentCardDifficulty == NEW_GameProgression.CardDifficulty)
+        if (_currentCardDifficulty == NEW_GameProgression.CardDifficulty &&
+            _activeCardData != null)
         {
             return;
         }

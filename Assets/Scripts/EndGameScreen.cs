@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System.Threading.Tasks;
 using System;
 
 public class EndGameScreen : MonoBehaviour
 {
-    //[SerializeField] private NEW_GameProgression _gameProgressiong;
-    //[SerializeField] private Inventory _inventory;
-    //[SerializeField] private PlayerMoney _playerMoney;
     [SerializeField] private EndGameResultsCalculator _resultCalculator;
 
     [SerializeField] private TextMeshProUGUI _scoreValueText;
@@ -38,6 +36,8 @@ public class EndGameScreen : MonoBehaviour
     [SerializeField] private GameObject _toMenuButton;
 
     [SerializeField] private TextMeshProUGUI[] _textElementsArray;
+
+    [SerializeField] private GraphicRaycaster _canvasRaycaster;
 
     private void Awake()
     {
@@ -89,6 +89,8 @@ public class EndGameScreen : MonoBehaviour
 
     private async void DisplayFullStatistics()
     {
+        _canvasRaycaster.enabled = true;
+
         _resultCalculator.CalculateResults();
 
         ChangeTextElementVisibility(_scoreLogo, true, true);
@@ -158,10 +160,6 @@ public class EndGameScreen : MonoBehaviour
 
     private void SetTimeValueText()
     {
-        //string hours = Mathf.Floor((float)_gameProgressiong.ElapsedPlayTime.Elapsed.TotalHours).ToString();
-        //string minutes = _gameProgressiong.ElapsedPlayTime.Elapsed.Minutes.ToString("D2");
-        //string seconds = _gameProgressiong.ElapsedPlayTime.Elapsed.Seconds.ToString("D2");
-
         string hours = _resultCalculator.HoursElapsed.ToString();
         string minutes = _resultCalculator.MinutesElapsed.ToString("D2");
         string seconds = _resultCalculator.SecondsElapsed.ToString("D2");
@@ -207,6 +205,7 @@ public class EndGameScreen : MonoBehaviour
 
     private void HideImmediately()
     {
+        _canvasRaycaster.enabled = false;
         foreach (var textElement in _textElementsArray)
         {
             SetTextElementVisibilityLevel(textElement, 0);
@@ -232,6 +231,7 @@ public class EndGameScreen : MonoBehaviour
         _rewardMultiplierValueText.text = "";
     }
 
+    // TODO: Probabaly dedicate to class
     private IEnumerator TextElementFlickeringEffectRoutine(TextMeshProUGUI textElement, float resultValue)
     {
         float elapsedTime = 0;
@@ -246,6 +246,7 @@ public class EndGameScreen : MonoBehaviour
         SetTextElementVisibilityLevel(textElement, resultValue);
     }
 
+    // TODO: Probabaly dedicate to class
     private IEnumerator TextElementCounterEffectRoutine(TextMeshProUGUI textElement, float startValue, float finalValue, float valueChangeStep)
     {
         int step = 0;
@@ -279,6 +280,7 @@ public class EndGameScreen : MonoBehaviour
             );
     }
 
+    // TODO: Probabaly dedicate to class
     private float GenerateRandomFloat(float min, float max)
     {
         System.Random random = new System.Random();
