@@ -4986,11 +4986,9 @@ GameObject:
   - component: {fileID: 186983088}
   - component: {fileID: 186983087}
   - component: {fileID: 186983086}
-  - component: {fileID: 186983085}
   - component: {fileID: 186983084}
-  - component: {fileID: 186983083}
   m_Layer: 0
-  m_Name: PlayButton_3
+  m_Name: SetDifficultyButton_Easy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5016,18 +5014,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.302}
   m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &186983083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 186983081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839c8a70ea6fc6747b176505f00cb8f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &186983084
 Animator:
   serializedVersion: 4
@@ -5048,46 +5034,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &186983085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 186983081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjects:
-  - rid: 6386016592461299761
-  references:
-    version: 2
-    RefIds:
-    - rid: 6386016592461299761
-      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects,
-        asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 186983086}
-        m_TrackedProperties:
-          items:
-          - rid: 6386016592461299762
-        m_UpdateType: 0
-    - rid: 6386016592461299762
-      type: {class: LocalizedStringProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
-        asm: Unity.Localization}
-      data:
-        m_Localized:
-          m_TableReference:
-            m_TableCollectionName: GUID:04e3602b5c04d6542aa41d025ff533c7
-          m_TableEntryReference:
-            m_KeyId: 601058746368
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        m_PropertyPath: m_text
 --- !u!114 &186983086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5620,11 +5566,9 @@ GameObject:
   - component: {fileID: 200669526}
   - component: {fileID: 200669525}
   - component: {fileID: 200669524}
-  - component: {fileID: 200669523}
   - component: {fileID: 200669522}
-  - component: {fileID: 200669521}
   m_Layer: 0
-  m_Name: PlayButton_6
+  m_Name: SetDifficultyButton_VeryHard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5650,18 +5594,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.65200007}
   m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &200669521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 200669519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839c8a70ea6fc6747b176505f00cb8f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &200669522
 Animator:
   serializedVersion: 4
@@ -5682,46 +5614,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &200669523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 200669519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjects:
-  - rid: 6386016592461299761
-  references:
-    version: 2
-    RefIds:
-    - rid: 6386016592461299761
-      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects,
-        asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 200669524}
-        m_TrackedProperties:
-          items:
-          - rid: 6386016592461299762
-        m_UpdateType: 0
-    - rid: 6386016592461299762
-      type: {class: LocalizedStringProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
-        asm: Unity.Localization}
-      data:
-        m_Localized:
-          m_TableReference:
-            m_TableCollectionName: GUID:04e3602b5c04d6542aa41d025ff533c7
-          m_TableEntryReference:
-            m_KeyId: 601058746368
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        m_PropertyPath: m_text
 --- !u!114 &200669524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21985,11 +21877,10 @@ GameObject:
   - component: {fileID: 792632586}
   - component: {fileID: 792632585}
   - component: {fileID: 792632584}
-  - component: {fileID: 792632583}
   - component: {fileID: 792632582}
-  - component: {fileID: 792632581}
+  - component: {fileID: 792632587}
   m_Layer: 0
-  m_Name: PlayButton_2
+  m_Name: SetDifficultyButton_VeryEasy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22015,18 +21906,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.62899995}
   m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &792632581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792632579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839c8a70ea6fc6747b176505f00cb8f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &792632582
 Animator:
   serializedVersion: 4
@@ -22047,46 +21926,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &792632583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792632579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjects:
-  - rid: 6386016592461299761
-  references:
-    version: 2
-    RefIds:
-    - rid: 6386016592461299761
-      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects,
-        asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 792632584}
-        m_TrackedProperties:
-          items:
-          - rid: 6386016592461299762
-        m_UpdateType: 0
-    - rid: 6386016592461299762
-      type: {class: LocalizedStringProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
-        asm: Unity.Localization}
-      data:
-        m_Localized:
-          m_TableReference:
-            m_TableCollectionName: GUID:04e3602b5c04d6542aa41d025ff533c7
-          m_TableEntryReference:
-            m_KeyId: 601058746368
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        m_PropertyPath: m_text
 --- !u!114 &792632584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22198,6 +22037,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &792632587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792632579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4f961362879ac045ac45797cb5f00e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &792646259
 GameObject:
   m_ObjectHideFlags: 0
@@ -56909,11 +56760,9 @@ GameObject:
   - component: {fileID: 1966363015}
   - component: {fileID: 1966363014}
   - component: {fileID: 1966363013}
-  - component: {fileID: 1966363012}
   - component: {fileID: 1966363011}
-  - component: {fileID: 1966363010}
   m_Layer: 0
-  m_Name: PlayButton_4
+  m_Name: SetDifficultyButton_Medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56939,18 +56788,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1966363010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1966363008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839c8a70ea6fc6747b176505f00cb8f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1966363011
 Animator:
   serializedVersion: 4
@@ -56971,46 +56808,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1966363012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1966363008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjects:
-  - rid: 6386016592461299761
-  references:
-    version: 2
-    RefIds:
-    - rid: 6386016592461299761
-      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects,
-        asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 1966363013}
-        m_TrackedProperties:
-          items:
-          - rid: 6386016592461299762
-        m_UpdateType: 0
-    - rid: 6386016592461299762
-      type: {class: LocalizedStringProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
-        asm: Unity.Localization}
-      data:
-        m_Localized:
-          m_TableReference:
-            m_TableCollectionName: GUID:04e3602b5c04d6542aa41d025ff533c7
-          m_TableEntryReference:
-            m_KeyId: 601058746368
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        m_PropertyPath: m_text
 --- !u!114 &1966363013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60941,11 +60738,9 @@ GameObject:
   - component: {fileID: 2119920919}
   - component: {fileID: 2119920918}
   - component: {fileID: 2119920917}
-  - component: {fileID: 2119920916}
   - component: {fileID: 2119920915}
-  - component: {fileID: 2119920914}
   m_Layer: 0
-  m_Name: PlayButton_5
+  m_Name: SetDifficultyButton_Hard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60971,18 +60766,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.324}
   m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2119920914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119920912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839c8a70ea6fc6747b176505f00cb8f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &2119920915
 Animator:
   serializedVersion: 4
@@ -61003,46 +60786,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2119920916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119920912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjects:
-  - rid: 6386016592461299761
-  references:
-    version: 2
-    RefIds:
-    - rid: 6386016592461299761
-      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects,
-        asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 2119920917}
-        m_TrackedProperties:
-          items:
-          - rid: 6386016592461299762
-        m_UpdateType: 0
-    - rid: 6386016592461299762
-      type: {class: LocalizedStringProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties,
-        asm: Unity.Localization}
-      data:
-        m_Localized:
-          m_TableReference:
-            m_TableCollectionName: GUID:04e3602b5c04d6542aa41d025ff533c7
-          m_TableEntryReference:
-            m_KeyId: 601058746368
-            m_Key: 
-          m_FallbackState: 0
-          m_WaitForCompletion: 0
-          m_LocalVariables: []
-        m_PropertyPath: m_text
 --- !u!114 &2119920917
 MonoBehaviour:
   m_ObjectHideFlags: 0
