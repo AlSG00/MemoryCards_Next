@@ -6,11 +6,13 @@ public class DifficultyLevelMenuHandler : MenuHandler
 {
     private void OnEnable()
     {
-        ;'ojf'
+        StartButton.OnGameStart += ShowMenu;
+        RejectStartButton.OnGameStartReject += HideMenu;
     }
 
     private void OnDisable()
     {
-        asdf
+        StartButton.OnGameStart -= ShowMenu;
+        RejectStartButton.OnGameStartReject -= HideMenu;
     }
 }

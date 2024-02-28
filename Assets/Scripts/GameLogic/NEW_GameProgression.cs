@@ -55,7 +55,7 @@ public class NEW_GameProgression : MonoBehaviour
     public delegate void TurnAction(bool decreased, int changeValue = 1);
 
     public static event TurnAction OnTurnsChanged;
-    public static event System.Action OnPressStart;
+    //public static event System.Action OnPressStart;
     public static event System.Action OnGameStartConfirm;
     public static event System.Action<int, int> OnPlayTutorial;
     public static event System.Action<int> OnShowHint; // 0 -  hide all
@@ -431,7 +431,6 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void ClearData()
     {
-
         currentRound = 0;
         score = 0;
         ElapsedPlayTime.Reset();
