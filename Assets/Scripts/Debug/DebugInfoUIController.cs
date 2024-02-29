@@ -19,6 +19,10 @@ public class DebugInfoUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _isBuyRoundGoingOn;
     [SerializeField] private TextMeshProUGUI _currentScore;
     [SerializeField] private TextMeshProUGUI _elapsedTime;
+    [SerializeField] private TextMeshProUGUI _startCardDifficulty;
+    [SerializeField] private TextMeshProUGUI _startLayoutDifficulty;
+    [SerializeField] private TextMeshProUGUI _currentCardDifficulty;
+    [SerializeField] private TextMeshProUGUI _currentLayoutDifficulty;
 
     private void FixedUpdate()
     {
@@ -31,7 +35,10 @@ public class DebugInfoUIController : MonoBehaviour
         _isBuyRoundGoingOn.text = $"Is buy round going on: {_gameProgression.isBuyRoundGoing}";
         _currentScore.text = $"Score: {_gameProgression.score}";
         _elapsedTime.text = $"Elapsed time: {Mathf.Floor((float)_gameProgression.ElapsedPlayTime.Elapsed.TotalMinutes)} : {_gameProgression.ElapsedPlayTime.Elapsed.Seconds}";
-
+        _startCardDifficulty.text = $"Start card difficulty: {NEW_GameProgression.StartCardDifficulty}";
+        _startLayoutDifficulty.text = $"Start layout difficulty: {NEW_GameProgression.StartLayoutDifficulty}";
+        _currentCardDifficulty.text = $"Current card difficulty: {NEW_GameProgression.CardDifficulty}";
+        _currentLayoutDifficulty.text = $"Current layout difficulty: {NEW_GameProgression.LayoutDifficulty}";
     }
 
     public void AddHammer()

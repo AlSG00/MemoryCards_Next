@@ -7,7 +7,8 @@ public class MainMenuHandler : MenuHandler
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnPressStart += HideMenu;
+        LeaveDifficultyMenuButton.LeavedDifficultyMenu += ShowMenu;
+        StartButton.StartPressed += HideMenu;
         RejectStartButton.OnGameStartReject += ShowMenu;
         SetLocaleButton.OnChooseLocale += ShowMenu;
         NEW_GameProgression.FirstTimePlaying += HideMenu;
@@ -16,7 +17,8 @@ public class MainMenuHandler : MenuHandler
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnPressStart -= HideMenu;
+        LeaveDifficultyMenuButton.LeavedDifficultyMenu -= ShowMenu;
+        StartButton.StartPressed -= HideMenu;
         RejectStartButton.OnGameStartReject -= ShowMenu;
         SetLocaleButton.OnChooseLocale -= ShowMenu;
         NEW_GameProgression.FirstTimePlaying -= HideMenu;

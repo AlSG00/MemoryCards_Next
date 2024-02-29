@@ -68,7 +68,7 @@ public class EndGameScreen : MonoBehaviour
     {
         NEW_GameProgression.LoseGame += DisplayFullStatisticsDelayed;
         NEW_GameProgression.OnGameFinished += DisplayFullStatistics;
-        StartButton.OnGameStart += Hide;
+        StartButton.StartPressed += Hide;
         RejectStartButton.OnGameStartReject += Hide;
     }
 
@@ -76,7 +76,7 @@ public class EndGameScreen : MonoBehaviour
     {
         NEW_GameProgression.LoseGame -= DisplayFullStatisticsDelayed;
         NEW_GameProgression.OnGameFinished -= DisplayFullStatistics;
-        StartButton.OnGameStart -= Hide;
+        StartButton.StartPressed -= Hide;
         RejectStartButton.OnGameStartReject -= Hide;
     }
 

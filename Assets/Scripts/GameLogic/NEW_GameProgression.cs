@@ -9,20 +9,12 @@ public class NEW_GameProgression : MonoBehaviour
     // Will specify current set of layouts, random events and cards
 
     [Header("Game stage parameters")]
-    //public static GameStage stage;
-
     public static Difficulty StartCardDifficulty;
     public static Difficulty StartLayoutDifficulty;
     public static Difficulty CardDifficulty;
     public static Difficulty LayoutDifficulty;
 
-    //[SerializeField] private List<int> _roundToSwitchDifficultyList;
-
     public bool firstTimePlaying; // TODO: Save this parameter to JSON
-    //public int easyDifficultyRound;
-    //public int mediumDifficultyRound;
-    //public int hardDifficultyRound;
-    //public int veryHardDifficultyRound;
 
     public NEW_CardGenerator tempCardGenerator;
     public NEW_CardLayoutHandler tempCardLayoutHandler;
@@ -41,22 +33,15 @@ public class NEW_GameProgression : MonoBehaviour
 
     public int currentRound = 0;
     public int score = 0;
-    //public int mainMoney = 0; // can be used in upgrade store
     [Tooltip("Each round dividible by this digit will be a buy round")]
     [Range(1f, 1000f)] public int buyRound;
     [Range(1f, 1000f)] public int switchDifficultyRound;
 
-
-    //public float ElapsedPlayTime;
     public System.Diagnostics.Stopwatch ElapsedPlayTime = new System.Diagnostics.Stopwatch();
-
-    //private bool _isElapsedPlayTimeActive;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
 
     public static event TurnAction OnTurnsChanged;
-    //public static event System.Action OnPressStart;
-    public static event System.Action OnGameStartConfirm;
     public static event System.Action<int, int> OnPlayTutorial;
     public static event System.Action<int> OnShowHint; // 0 -  hide all
     public static event System.Action<int> OnNextRound;
@@ -68,7 +53,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<int> AddCurrentMoney;
     public static event System.Action ResetCurrentMoney;
     public static event System.Action<int> onScoreChanged;
-    public static event System.Action OnCurrentProgressReset;
+//public static event System.Action OnCurrentProgressReset;
     public static event System.Action<bool> PauseGame;
     public static event System.Action OnGameFinished;
     public static event System.Action LoseGame;
@@ -92,8 +77,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void OnEnable()
     {
-        StartButton.OnGameStart += StartGame;
-        StartButton.OnGameStart += ClearData;
+        SetDifficultyButton.DifficultyPicked += StartGame;
         RejectStartButton.OnGameStartReject += RejectGameStart;
         RejectStartButton.OnGameStartReject += ClearData;
         CardComparator.OnPickConfirm += CheckRoundProgression;
@@ -106,10 +90,9 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void OnDisable()
     {
-        StartButton.OnGameStart -= StartGame;
-        StartButton.OnGameStart += ClearData;
+        SetDifficultyButton.DifficultyPicked -= StartGame;
         RejectStartButton.OnGameStartReject -= RejectGameStart;
-        RejectStartButton.OnGameStartReject += ClearData;
+        RejectStartButton.OnGameStartReject -= ClearData;
         CardComparator.OnPickConfirm -= CheckRoundProgression;
         ScaleContinue.OnContinueGame -= NextRound;
         ScaleExit.OnFinishGame -= FinishGameOnBuyRound;
@@ -152,12 +135,12 @@ public class NEW_GameProgression : MonoBehaviour
     {
         OnShowHint?.Invoke(0);
         // decrease remaining turns
-        if (currentRound == 0 && confirmedCards != null)
-        {
-            tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
-            ConfirmGameStart();
-            return;
-        }
+        //if (currentRound == 0 && confirmedCards != null)
+        //{
+        //    tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
+        //    ConfirmGameStart();
+        //    return;
+        //}
 
         if (confirmedCards == null)
         {
@@ -348,10 +331,11 @@ public class NEW_GameProgression : MonoBehaviour
     #region START GAME
     private void StartGame()
     {
-        IsGameLost = false;
-        currentRound = 0;
-        tempCardLayoutHandler.PrepareStartLayout();
-        OnPressStart?.Invoke();
+        ClearData();
+        //tempCardLayoutHandler.PrepareStartLayout();
+        //OnPressStart?.Invoke();
+
+        ConfirmGameStart();
     }
 
     private void RestartGame()
@@ -363,7 +347,7 @@ public class NEW_GameProgression : MonoBehaviour
     {
         ElapsedPlayTime.Start();
 
-        OnGameStartConfirm?.Invoke();
+        //OnGameStartConfirm?.Invoke();
         currentRound++;
 
         if (firstTimePlaying && tutorialComplete == false)
@@ -390,7 +374,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void RejectGameStart()
     {
-        tempCardLayoutHandler.TakeCardsBack();
+        //tempCardLayoutHandler.TakeCardsBack();
 
         if (isScoreListActive)
         {
@@ -431,6 +415,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void ClearData()
     {
+        IsGameLost = false;
         currentRound = 0;
         score = 0;
         ElapsedPlayTime.Reset();

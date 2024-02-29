@@ -12,7 +12,7 @@ public class PlayerMoney : MonoBehaviour
         get => _mainMoney; 
         set
         {
-            if (value < 0 || (_mainMoney - value) < 0)
+            if (value < 0)
             {
                 throw new ArgumentOutOfRangeException();
             }

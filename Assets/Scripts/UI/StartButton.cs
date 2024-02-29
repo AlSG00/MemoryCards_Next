@@ -1,9 +1,9 @@
 public class StartButton : MenuButton
 {
-    public static event System.Action OnGameStart;
+    public static event System.Action StartPressed;
 
     protected override void OnClickAction()
     {
-        OnGameStart?.Invoke();
+        StartPressed?.Invoke();
     }
 }

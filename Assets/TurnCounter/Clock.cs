@@ -67,7 +67,6 @@ public class Clock : MonoBehaviour
                  $"{ConvertTimeValue(DateTime.Today.Year)}";
 
         _date.text = result;
-
     }
 
     private string ConvertTimeValue(int time)
@@ -104,6 +103,5 @@ public class Clock : MonoBehaviour
         {
             SetDayValue();
         }
-        Debug.Log($"clock is visible {isVisible}");
     }
 }

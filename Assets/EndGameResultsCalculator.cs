@@ -60,7 +60,7 @@ public class EndGameResultsCalculator : MonoBehaviour
 
     private void CalculateRewardMultiplierValue()
     {
-        RewardMultplier = 1 + 0.01f * RoundsSurvived;
+        RewardMultplier = 1 + 0.01f * RoundsSurvived + 0.05f * (int)NEW_GameProgression.StartLayoutDifficulty;
 
         if (_gameProgressiong.IsGameLost)
         {

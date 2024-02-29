@@ -11,7 +11,7 @@ public class SceneEventsAnimationHandler : MonoBehaviour
         RemainingTurnsHandler.OutOfTurns += LoseGame;
         NEW_GameProgression.PauseGame += GameProgression_PauseGame;
         RejectStartButton.OnGameStartReject += LeaveEndGameScreen;
-        StartButton.OnGameStart += LeaveEndGameScreen;
+        StartButton.StartPressed += LeaveEndGameScreen;
     }
 
     private void OnDisable()
@@ -19,7 +19,7 @@ public class SceneEventsAnimationHandler : MonoBehaviour
         RemainingTurnsHandler.OutOfTurns -= LoseGame;
         NEW_GameProgression.PauseGame -= GameProgression_PauseGame;
         RejectStartButton.OnGameStartReject -= LeaveEndGameScreen;
-        StartButton.OnGameStart -= LeaveEndGameScreen;
+        StartButton.StartPressed -= LeaveEndGameScreen;
     }
 
     private void LoseGame()

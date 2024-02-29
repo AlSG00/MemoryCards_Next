@@ -15,18 +15,20 @@ public class Inventory : MonoBehaviour
     {
         InventoryItem.OnAddToInventory += AddItem;
         InventoryItem.OnRemoveFromInventory += RemoveItem;
-        NEW_GameProgression.OnGameStartConfirm += DestroyAllItems;
+        //NEW_GameProgression.ga += DestroyAllItems;
         RejectStartButton.OnGameStartReject += DestroyAllItems;
         ScaleSuspend.OnSuspendGame += SaveAndClear;
+        StartButton.StartPressed += DestroyAllItems;
     }
 
     private void OnDisable()
     {
         InventoryItem.OnAddToInventory -= AddItem;
         InventoryItem.OnRemoveFromInventory -= RemoveItem;
-        NEW_GameProgression.OnGameStartConfirm -= DestroyAllItems;
+        //NEW_GameProgression.OnGameStartConfirm -= DestroyAllItems;
         RejectStartButton.OnGameStartReject -= DestroyAllItems;
         ScaleSuspend.OnSuspendGame -= SaveAndClear;
+        StartButton.StartPressed += DestroyAllItems;
     }
 
 

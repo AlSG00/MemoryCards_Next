@@ -8,16 +8,6 @@ public class SetDifficultyButton : MenuButton
 
     public static event System.Action DifficultyPicked;
 
-    private void OnEnable()
-    {
-        
-    }
-
-    private void OnDisable()
-    {
-        
-    }
-
     protected override void OnClickAction()
     {
         NEW_GameProgression.StartLayoutDifficulty = _difficulty;

@@ -6,13 +6,17 @@ public class DifficultyLevelMenuHandler : MenuHandler
 {
     private void OnEnable()
     {
-        StartButton.OnGameStart += ShowMenu;
-        RejectStartButton.OnGameStartReject += HideMenu;
+        LeaveDifficultyMenuButton.LeavedDifficultyMenu += HideMenu;
+        SetDifficultyButton.DifficultyPicked += HideMenu;
+        StartButton.StartPressed += ShowMenu;
+        //RejectStartButton.OnGameStartReject += HideMenu;
     }
 
     private void OnDisable()
     {
-        StartButton.OnGameStart -= ShowMenu;
-        RejectStartButton.OnGameStartReject -= HideMenu;
+        LeaveDifficultyMenuButton.LeavedDifficultyMenu -= HideMenu;
+        SetDifficultyButton.DifficultyPicked -= HideMenu;
+        StartButton.StartPressed -= ShowMenu;
+        //RejectStartButton.OnGameStartReject -= HideMenu;
     }
 }
