@@ -16,6 +16,7 @@ public class InventoryItem : InteractiveItem
     [SerializeField] private GameObject _priceTag;
     [SerializeField] private int _sellPrice;
     [SerializeField] private bool _isReadyToSell;
+    [SerializeField] private Vector3 _shopPivotOffset;
 
     public static event System.Action<InventoryItem, Transform, string> OnAddToInventory;
     public static event System.Action<InventoryItem, Transform> OnRemoveFromInventory;
