@@ -13,14 +13,14 @@ public class ShopHandler : MonoBehaviour
     [SerializeField] private Transform _generatedItemPivot;
     [SerializeField] private Transform _soldItemPivot;
     [SerializeField] private Transform[] _sellPivots; // Pivot to move sold item off-screen
-    [SerializeField] private InventoryItem[] _earlyGameGoods;
+    [SerializeField] private InventoryItem[] _earlyGameGoods; // TODO: Rework 
     [SerializeField] private InventoryItem[] goods;
 
     public static event System.Action<Transform, Transform, string, int> OnEnoughMoney;
     public static event System.Action<bool> OnShowScale;
     public static event System.Action<bool> OnShowScaleItems;
     public static event System.Action<InventoryItem> OnBoughtItemAdd;
-    public static event System.Action<InventoryItem, Transform> OnItemGenerated;
+    //public static event System.Action<InventoryItem, Transform> GeneratedForShop;
     public static event System.Action<InventoryItem, Transform> OnItemRemove;
 
     private void OnEnable()
@@ -74,7 +74,8 @@ public class ShopHandler : MonoBehaviour
             var itemToGenerate = _earlyGameGoods[Random.Range(0, _earlyGameGoods.Length)];
             var item = Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
             shopSlots.items[i] = item;
-            OnItemGenerated?.Invoke(item, shopSlots.slots[i]);
+            item.InitializeForShop(shopSlots.slots[i]);
+            //GeneratedForShop?.Invoke(item, shopSlots.slots[i]);
         }
     }
 
@@ -84,8 +85,6 @@ public class ShopHandler : MonoBehaviour
 
         for (int i = 0; i < shopSlots.slots.Length; i++)
         {
-            //var itemToGenerate = _earlyGameGoods[Random.Range(0, _earlyGameGoods.Length)];
-            //var item = Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
             if (shopSlots.items[i] != null)
             {
                 OnItemRemove?.Invoke(shopSlots.items[i], _generatedItemPivot);

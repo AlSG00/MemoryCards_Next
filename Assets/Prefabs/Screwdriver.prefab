@@ -525,12 +525,12 @@ MonoBehaviour:
   _buyPrice: 25
   itemName: Screwdriver
   _type: 1
-  _shopPivot: {fileID: 0}
   _inventoryPivot: {fileID: 0}
   _mustBuy: 1
   _priceTag: {fileID: 6648945853095225211}
   _sellPrice: 5
   _isReadyToSell: 0
+  _shopPivotOffset: {x: 0, y: 0.1, z: 0}
 --- !u!114 &7744336605189472244
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,11 +26,18 @@ public abstract class InteractiveItem : MonoBehaviour
             return;
         }
 
-        if (_currentPivot != null)
+        if (_isPicked == false)
         {
-            transform.position = _currentPivot.position;
-            transform.rotation = _currentPivot.rotation;
+            return;
         }
+
+        if (_currentPivot == null)
+        {
+            return;
+        }
+
+        transform.position = _currentPivot.position;
+        transform.rotation = _currentPivot.rotation;
     }
 
     private protected void SetReadyToUse(bool isReady)
@@ -41,10 +48,16 @@ public abstract class InteractiveItem : MonoBehaviour
     private protected virtual void MoveToPivot(Transform target, float timeToMove)
     {
         StopAllCoroutines();
-        StartCoroutine(MoveToPivotRoutine(_currentPivot, timeToMove));
+        StartCoroutine(MoveToPivotRoutine(target, timeToMove));
     }
 
-    private protected virtual IEnumerator MoveToPivotRoutine(Transform targetTransform, float time = 0.2f)
+    private protected virtual void MoveToPositionWithOffset(Transform target, Vector3 offset, float timeToMove)
+    {
+        StopAllCoroutines();
+        StartCoroutine(MoveToPositionWithOffsetRoutine(target, offset, timeToMove));
+    }
+
+    private protected IEnumerator MoveToPivotRoutine(Transform targetTransform, float time = 0.2f)
     {
         Vector3 startPosition = transform.position;
         Quaternion startRotation = transform.rotation;
@@ -57,10 +70,34 @@ public abstract class InteractiveItem : MonoBehaviour
             yield return null;
         }
 
+        transform.position = targetTransform.position;
+        transform.rotation = targetTransform.rotation;
+
         _isChangingPosition = false;
     }
 
-    private protected virtual void OnMouseEnter() 
+    private protected IEnumerator MoveToPositionWithOffsetRoutine(Transform targetTransform, Vector3 offset, float time = 0.2f)
+    {
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = new Vector3(
+            targetTransform.position.x + offset.x,
+            targetTransform.position.y + offset.y,
+            targetTransform.position.z + offset.z
+            );
+
+        float elapsedTime = 0f;
+        while (elapsedTime < time)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, (elapsedTime / time));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+        _isChangingPosition = false;
+    }
+
+    private protected virtual void OnMouseEnter()
     {
         if (_animator == null)
         {
@@ -70,7 +107,7 @@ public abstract class InteractiveItem : MonoBehaviour
         _animator.SetBool("MouseOver", true);
     }
 
-    private protected virtual void OnMouseExit() 
+    private protected virtual void OnMouseExit()
     {
         if (_animator == null)
         {

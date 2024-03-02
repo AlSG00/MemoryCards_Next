@@ -8,7 +8,7 @@ public class InventoryItem : InteractiveItem
     public int _buyPrice;
     [SerializeField] private string itemName;
     [SerializeField] private ItemType _type;
-    [SerializeField] private Transform _shopPivot;
+    //[SerializeField] private Transform _shopPivot;
     [SerializeField] private Transform _inventoryPivot;
 
     [Header("Shop info")]
@@ -31,7 +31,7 @@ public class InventoryItem : InteractiveItem
         Inventory.OnReceiveItem += InitializeForInventory;
         ScaleColliderHandler.OnEnterCollider += SetReadyToSell;
         Inventory.OnBoughtItemAdd += Buy;
-        ShopHandler.OnItemGenerated += InitializeForShop;
+        //ShopHandler.GeneratedForShop += InitializeForShop;
         ShopHandler.OnItemRemove += RemoveAsShopGood;
         ItemApplyingTriggerHandler.OnEnterTrigger += SetReadyToUse;
     }
@@ -41,7 +41,7 @@ public class InventoryItem : InteractiveItem
         Inventory.OnReceiveItem -= InitializeForInventory;
         ScaleColliderHandler.OnEnterCollider -= SetReadyToSell;
         Inventory.OnBoughtItemAdd -= Buy;
-        ShopHandler.OnItemGenerated -= InitializeForShop;
+        //ShopHandler.GeneratedForShop -= InitializeForShop;
         ShopHandler.OnItemRemove -= RemoveAsShopGood;
         ItemApplyingTriggerHandler.OnEnterTrigger -= SetReadyToUse;
     }
@@ -152,13 +152,8 @@ public class InventoryItem : InteractiveItem
         MoveToPivot(_inventoryPivot, _moveToStandartPositionTime);
     }
 
-    private void InitializeForShop(InventoryItem item, Transform shopPivot)
+    internal void InitializeForShop(Transform shopPivot)
     {
-        if (item != this)
-        {
-            return;
-        }
-
         if (shopPivot == null)
         {
             throw new System.Exception("Shop pivot not found");
@@ -166,11 +161,13 @@ public class InventoryItem : InteractiveItem
 
         _isChangingPosition = true;
         _mustBuy = true;
-        _currentPivot = shopPivot;
-        OnInitializeForShop?.Invoke();
-        MoveToPivot(_currentPivot, 1);
-    }
 
+       // _currentPivot.position = shopPivot.position + _shopPivotOffset;
+        
+        OnInitializeForShop?.Invoke();
+       MoveToPositionWithOffset(shopPivot, _shopPivotOffset, 1);
+        //MoveToPivot(_currentPivot, 1);
+    }
     #endregion
 
     private protected override void OnMouseDown()
