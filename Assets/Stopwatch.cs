@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stopwatch : TableItem
 {
     [SerializeField] private Transform _secondArrow;
-    [SerializeField] private GameObject _minuteArrow;
+    [SerializeField] private Transform _minuteArrow;
 
     private int _secondArrowStep = 6;
     private int _minuteArrowStep = 45;
@@ -14,8 +14,21 @@ public class Stopwatch : TableItem
     private float _elapsedTime = 0;
     private int _tempTime;
 
+    private bool _isActive;
+
+    private void Start()
+    {
+        isVisible = false;
+        _isActive = false;
+    }
+
     private void Update()
     {
+        if (_isActive == false)
+        {
+            return;
+        }
+
         _elapsedTime += Time.deltaTime;
         if (_elapsedTime >= 1)
         {
@@ -25,6 +38,17 @@ public class Stopwatch : TableItem
         }
     }
 
+    private void Initialize(int timeInSeconds)
+    {
+        int minutes = timeInSeconds / 60;
+        int seconds = timeInSeconds - minutes * 60;
+
+        SetMinuteArrow(minutes);
+        SetSecondArrow(seconds);
+
+        //_isActive = true;
+    }
+
     private void SetTime(int timeInSeconds)
     {
         int minutes = timeInSeconds / 60;
@@ -32,15 +56,28 @@ public class Stopwatch : TableItem
 
         //SetMinuteArrow();
         //SetSecondArrow();
+
+        тут контролятся обе стрелки
+    }
+
+    private void SetArrowRotation()
+    {
+        тут надо обобщить методы для минутной и секундной стрелок
     }
 
     private void SetMinuteArrow(int value)
     {
-
+        тут косяк
+        _minuteArrow.localEulerAngles = new Vector3(
+            _minuteArrow.localEulerAngles.x,
+            _minuteArrow.localEulerAngles.y,
+            _minuteArrow.localEulerAngles.z - _minuteArrowStep
+            );
     }
 
     private void SetSecondArrow(int value)
     {
+        и тут косяк
         _secondArrow.localEulerAngles = new Vector3(
             _secondArrow.localEulerAngles.x,
             _secondArrow.localEulerAngles.y,
@@ -51,6 +88,11 @@ public class Stopwatch : TableItem
 
     private void DeactivateByHammer()
     {
+        if (isVisible == false)
+        {
+            return;
+        }
 
+        //TODO
     }
 }
