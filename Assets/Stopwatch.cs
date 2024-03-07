@@ -14,60 +14,81 @@ public class Stopwatch : TableItem
     private float _elapsedTime = 0;
     private int _tempTime;
 
-    private bool _isActive;
+    [SerializeField] private bool _isActive;
+    int _seconds;
+    int _minutes;
+    int _remainingTime;
 
     private void Start()
     {
         isVisible = false;
         _isActive = false;
+        _remainingTime = 75;
+        Initialize(_remainingTime);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_isActive == false)
         {
             return;
         }
 
-        _elapsedTime += Time.deltaTime;
+        _elapsedTime += Time.fixedDeltaTime;
         if (_elapsedTime >= 1)
         {
             _elapsedTime = 0;
-            SetSecondArrow(_tempTime);
-            _tempTime--;
+            _remainingTime = DecreaseTime(_remainingTime);
+            if (_remainingTime <= 0)
+            {
+                _isActive = false;
+                // TODO: Invoke lose event
+            }
         }
     }
 
     private void Initialize(int timeInSeconds)
     {
-        int minutes = timeInSeconds / 60;
-        int seconds = timeInSeconds - minutes * 60;
+        _minutes = timeInSeconds / 60;
+        _seconds = timeInSeconds - _minutes * 60;
 
-        SetMinuteArrow(minutes);
-        SetSecondArrow(seconds);
-
-        //_isActive = true;
+        SetArrowStartRotation(_minuteArrow, _minutes, _minuteArrowStep);
+        SetArrowStartRotation(_secondArrow, _seconds, _secondArrowStep);
     }
 
-    private void SetTime(int timeInSeconds)
+    private int DecreaseTime(int timeInSeconds)
     {
-        int minutes = timeInSeconds / 60;
-        int seconds = timeInSeconds - minutes * 60;
+        RotateArrow(_secondArrow, _secondArrowStep);
+        timeInSeconds--;
+        if (timeInSeconds % 60 == 0 && timeInSeconds > 0)
+        {
+            RotateArrow(_minuteArrow, _minuteArrowStep);
+        }
 
-        //SetMinuteArrow();
-        //SetSecondArrow();
-
-        тут контролятся обе стрелки
+        return timeInSeconds;
     }
 
-    private void SetArrowRotation()
+    private void SetArrowStartRotation(Transform arrow, int arrowValue, int rotationStep)
     {
-        тут надо обобщить методы для минутной и секундной стрелок
+        arrow.localEulerAngles = new Vector3(
+            arrow.localEulerAngles.x,
+            arrow.localEulerAngles.y,
+            arrowValue * rotationStep
+            );
+    }
+
+    private void RotateArrow(Transform arrow, int rotationStep)
+    {
+        arrow.localEulerAngles = new Vector3(
+            arrow.localEulerAngles.x,
+            arrow.localEulerAngles.y,
+            arrow.localEulerAngles.z - rotationStep
+            );
     }
 
     private void SetMinuteArrow(int value)
     {
-        тут косяк
+        //тут косяк
         _minuteArrow.localEulerAngles = new Vector3(
             _minuteArrow.localEulerAngles.x,
             _minuteArrow.localEulerAngles.y,
@@ -75,16 +96,16 @@ public class Stopwatch : TableItem
             );
     }
 
-    private void SetSecondArrow(int value)
-    {
-        и тут косяк
-        _secondArrow.localEulerAngles = new Vector3(
-            _secondArrow.localEulerAngles.x,
-            _secondArrow.localEulerAngles.y,
-            _secondArrow.localEulerAngles.z - _secondArrowStep
-            );
+    //private void SetSecondArrow(int value)
+    //{
+    //    _secondArrow.localEulerAngles = new Vector3(
+    //        _secondArrow.localEulerAngles.x,
+    //        _secondArrow.localEulerAngles.y,
+    //        value * _secondArrowStep
+    //        );
 
-    }
+    //    Debug.Log($"o: {value * _secondArrowStep}. s: {value}");
+    //}
 
     private void DeactivateByHammer()
     {
