@@ -218,19 +218,6 @@ public class EndGameScreen : MonoBehaviour
         _toMenuButton.SetActive(false);
     }
 
-
-
-    private void ResetTextElementsValues()
-    {
-        _scoreValueText.text = "";
-        _roundsSurvivedValueText.text = "";
-        _buttonsRemainingValueText.text = "";
-        _timeValueText.text = "";
-        _itemsRemainingValueText.text = "";
-        _rewardValueText.text = "";
-        _rewardMultiplierValueText.text = "";
-    }
-
     // TODO: Probabaly dedicate to class
     private IEnumerator TextElementFlickeringEffectRoutine(TextMeshProUGUI textElement, float resultValue)
     {
@@ -270,6 +257,7 @@ public class EndGameScreen : MonoBehaviour
         textElement.text = finalValue.ToString();
     }
 
+    // TODO: Probabaly dedicate to class
     private void SetTextElementVisibilityLevel(TextMeshProUGUI textElement, float level)
     {
         textElement.color = new Color(

@@ -7,27 +7,55 @@ public class Stopwatch : TableItem
     [SerializeField] private Transform _secondArrow;
     [SerializeField] private Transform _minuteArrow;
 
+    [SerializeField] private MeshRenderer _minuteWarning;
+    [SerializeField] private MeshRenderer _secondWarning;
+    [SerializeField] private float _minuteOneFlickedDuration;
+    [SerializeField] private int _minuteFlickerCount;
+    [SerializeField] private float _secondOneFlickedDuration;
+    [SerializeField] private int _secondFlickerCount;
+
+
     private int _secondArrowStep = 6;
     private int _minuteArrowStep = 45;
 
     // TEMP
     private float _elapsedTime = 0;
-    private int _tempTime;
+    //private int _tempTime;
 
     [SerializeField] private bool _isActive;
     int _seconds;
     int _minutes;
     int _remainingTime;
 
+    public static event System.Action OutOfTime;
+
+    private void OnEnable()
+    {
+        NEW_GameProgression.ActivateStopwatch += Initialize;
+    }
+
+    private void OnDisable()
+    {
+        NEW_GameProgression.ActivateStopwatch -= Initialize;
+    }
+
     private void Start()
     {
         isVisible = false;
         _isActive = false;
-        _remainingTime = 75;
-        Initialize(_remainingTime);
+        //_remainingTime = ;
+        //Initialize(_remainingTime);
+
+        _minuteWarning.enabled = false;
+        _secondWarning.enabled = false;
     }
 
     private void FixedUpdate()
+    {
+        UpdateRemainingTime();
+    }
+
+    private void UpdateRemainingTime()
     {
         if (_isActive == false)
         {
@@ -41,19 +69,29 @@ public class Stopwatch : TableItem
             _remainingTime = DecreaseTime(_remainingTime);
             if (_remainingTime <= 0)
             {
+                //StopAllCoroutines();
+                //StartCoroutine(LoseGameRoutine());
                 _isActive = false;
-                // TODO: Invoke lose event
+                _secondWarning.enabled = true;
+                OutOfTime?.Invoke();
             }
         }
     }
 
     private void Initialize(int timeInSeconds)
     {
+        _remainingTime = timeInSeconds;
+        _elapsedTime = 0;
+        _minuteWarning.enabled = false;
+        _secondWarning.enabled = false;
+
         _minutes = timeInSeconds / 60;
         _seconds = timeInSeconds - _minutes * 60;
 
         SetArrowStartRotation(_minuteArrow, _minutes, _minuteArrowStep);
         SetArrowStartRotation(_secondArrow, _seconds, _secondArrowStep);
+
+        _isActive = true;
     }
 
     private int DecreaseTime(int timeInSeconds)
@@ -63,6 +101,16 @@ public class Stopwatch : TableItem
         if (timeInSeconds % 60 == 0 && timeInSeconds > 0)
         {
             RotateArrow(_minuteArrow, _minuteArrowStep);
+        }
+
+        if (timeInSeconds == 60)
+        {
+            StartCoroutine(WarnPlayerRoutine(_minuteWarning, _minuteOneFlickedDuration, _minuteFlickerCount));
+        }
+
+        if (timeInSeconds == 15)
+        {
+            StartCoroutine(WarnPlayerRoutine(_secondWarning, _secondOneFlickedDuration, _secondFlickerCount));
         }
 
         return timeInSeconds;
@@ -86,25 +134,24 @@ public class Stopwatch : TableItem
             );
     }
 
-    private void SetMinuteArrow(int value)
+    float oneFlickerDuration;
+ 
+    private IEnumerator WarnPlayerRoutine(MeshRenderer warningObject, float oneFlickerDuration, int flickerCount)
     {
-        //тут косяк
-        _minuteArrow.localEulerAngles = new Vector3(
-            _minuteArrow.localEulerAngles.x,
-            _minuteArrow.localEulerAngles.y,
-            _minuteArrow.localEulerAngles.z - _minuteArrowStep
-            );
+        for (int i = 0; i < flickerCount; i++)
+        {
+            warningObject.enabled = true;
+            yield return new WaitForSeconds(oneFlickerDuration);
+            warningObject.enabled = false;
+            yield return new WaitForSeconds(oneFlickerDuration);
+        }
     }
 
-    //private void SetSecondArrow(int value)
+    //private IEnumerator LoseGameRoutine()
     //{
-    //    _secondArrow.localEulerAngles = new Vector3(
-    //        _secondArrow.localEulerAngles.x,
-    //        _secondArrow.localEulerAngles.y,
-    //        value * _secondArrowStep
-    //        );
-
-    //    Debug.Log($"o: {value * _secondArrowStep}. s: {value}");
+    //    _isActive = false;
+    //    _secondWarning.enabled = true;
+    //    OutOfTime?.Invoke();
     //}
 
     private void DeactivateByHammer()

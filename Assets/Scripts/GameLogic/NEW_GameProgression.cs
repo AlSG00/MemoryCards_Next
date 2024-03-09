@@ -49,6 +49,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<bool> OnStartBuyRound;
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
+    public static event System.Action<int> ActivateStopwatch;
     public static event System.Action<MoneyRopeHandler.Visibility> OnActivateMoneyRope;
     public static event System.Action<int> AddCurrentMoney;
     public static event System.Action ResetCurrentMoney;
@@ -85,6 +86,7 @@ public class NEW_GameProgression : MonoBehaviour
         ScaleExit.OnFinishGame += FinishGameOnBuyRound;
         ScaleSuspend.OnSuspendGame += SaveAndClearData;
         RemainingTurnsHandler.OutOfTurns += OnLoseGame;
+        Stopwatch.OutOfTime += OnLoseGame;
         PlayerInput.EscapeButtonPressed += PlayerInput_EscapeButtonPressed;
     }
 
@@ -98,6 +100,7 @@ public class NEW_GameProgression : MonoBehaviour
         ScaleExit.OnFinishGame -= FinishGameOnBuyRound;
         ScaleSuspend.OnSuspendGame -= SaveAndClearData;
         RemainingTurnsHandler.OutOfTurns -= OnLoseGame;
+        Stopwatch.OutOfTime += OnLoseGame;
         PlayerInput.EscapeButtonPressed -= PlayerInput_EscapeButtonPressed;
     }
 
@@ -241,19 +244,26 @@ public class NEW_GameProgression : MonoBehaviour
             currentRound++;
             OnNextRound?.Invoke(currentRound);
             SetStandartRound();
+            EnableStopwatch(true, 30);
         }
     }
 
-    private void EnableTurnCounter(bool isEnabled)
+    private void EnableTurnCounter(bool setEnabled)
     {
-        isTurnCounterActive = isEnabled;
-        OnActivateTurnCounter?.Invoke(isEnabled);
+        isTurnCounterActive = setEnabled;
+        OnActivateTurnCounter?.Invoke(setEnabled);
     }
 
-    private void EnableScoreList(bool isEnabled)
+    private void EnableScoreList(bool setEnabled)
     {
-        isScoreListActive = isEnabled;
-        OnActivateScoreList?.Invoke(isEnabled);
+        isScoreListActive = setEnabled;
+        OnActivateScoreList?.Invoke(setEnabled);
+    }
+
+    private void EnableStopwatch(bool setEnabled, int timeInSeconds = 0)
+    {
+        isStopwatchActive = setEnabled;
+        ActivateStopwatch?.Invoke(timeInSeconds);
     }
 
     private void EnableMoneyRope(MoneyRopeHandler.Visibility visibility)
@@ -411,6 +421,7 @@ public class NEW_GameProgression : MonoBehaviour
         EnableScoreList(false);
         EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
         EnableTurnCounter(false);
+        EnableStopwatch(false);
     }
 
     private void ClearData()
