@@ -14,6 +14,8 @@ public class Stopwatch : TableItem
     [SerializeField] private float _secondOneFlickedDuration;
     [SerializeField] private int _secondFlickerCount;
 
+    [SerializeField] private GameObject _lowTimeZone;
+
 
     private int _secondArrowStep = 6;
     private int _minuteArrowStep = 45;
@@ -43,11 +45,9 @@ public class Stopwatch : TableItem
     {
         isVisible = false;
         _isActive = false;
-        //_remainingTime = ;
-        //Initialize(_remainingTime);
-
         _minuteWarning.enabled = false;
         _secondWarning.enabled = false;
+        _lowTimeZone.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -67,13 +67,12 @@ public class Stopwatch : TableItem
         {
             _elapsedTime = 0;
             _remainingTime = DecreaseTime(_remainingTime);
+            Debug.Log(_remainingTime);
             if (_remainingTime <= 0)
             {
-                //StopAllCoroutines();
-                //StartCoroutine(LoseGameRoutine());
+                OutOfTime?.Invoke();
                 _isActive = false;
                 _secondWarning.enabled = true;
-                OutOfTime?.Invoke();
             }
         }
     }
@@ -84,9 +83,15 @@ public class Stopwatch : TableItem
         _elapsedTime = 0;
         _minuteWarning.enabled = false;
         _secondWarning.enabled = false;
+        _lowTimeZone.SetActive(false);
 
         _minutes = timeInSeconds / 60;
         _seconds = timeInSeconds - _minutes * 60;
+
+        if (_remainingTime <= 60)
+        {
+            _lowTimeZone.SetActive(true);
+        }
 
         SetArrowStartRotation(_minuteArrow, _minutes, _minuteArrowStep);
         SetArrowStartRotation(_secondArrow, _seconds, _secondArrowStep);
@@ -105,6 +110,7 @@ public class Stopwatch : TableItem
 
         if (timeInSeconds == 60)
         {
+            _lowTimeZone.SetActive(true);
             StartCoroutine(WarnPlayerRoutine(_minuteWarning, _minuteOneFlickedDuration, _minuteFlickerCount));
         }
 
@@ -133,8 +139,6 @@ public class Stopwatch : TableItem
             arrow.localEulerAngles.z - rotationStep
             );
     }
-
-    float oneFlickerDuration;
  
     private IEnumerator WarnPlayerRoutine(MeshRenderer warningObject, float oneFlickerDuration, int flickerCount)
     {
@@ -146,13 +150,6 @@ public class Stopwatch : TableItem
             yield return new WaitForSeconds(oneFlickerDuration);
         }
     }
-
-    //private IEnumerator LoseGameRoutine()
-    //{
-    //    _isActive = false;
-    //    _secondWarning.enabled = true;
-    //    OutOfTime?.Invoke();
-    //}
 
     private void DeactivateByHammer()
     {

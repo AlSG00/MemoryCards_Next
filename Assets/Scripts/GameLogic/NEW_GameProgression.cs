@@ -244,7 +244,7 @@ public class NEW_GameProgression : MonoBehaviour
             currentRound++;
             OnNextRound?.Invoke(currentRound);
             SetStandartRound();
-            EnableStopwatch(true, 30);
+            EnableStopwatch(true, 10);
         }
     }
 
