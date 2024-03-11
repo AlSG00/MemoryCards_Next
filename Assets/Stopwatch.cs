@@ -33,12 +33,12 @@ public class Stopwatch : TableItem
 
     private void OnEnable()
     {
-        NEW_GameProgression.ActivateStopwatch += Initialize;
+        NEW_GameProgression.ActivateStopwatch += ChangeVisibility;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.ActivateStopwatch -= Initialize;
+        NEW_GameProgression.ActivateStopwatch -= ChangeVisibility;
     }
 
     private void Start()
@@ -67,7 +67,6 @@ public class Stopwatch : TableItem
         {
             _elapsedTime = 0;
             _remainingTime = DecreaseTime(_remainingTime);
-            Debug.Log(_remainingTime);
             if (_remainingTime <= 0)
             {
                 OutOfTime?.Invoke();
@@ -97,6 +96,7 @@ public class Stopwatch : TableItem
         SetArrowStartRotation(_secondArrow, _seconds, _secondArrowStep);
 
         _isActive = true;
+        Debug.Log($"{_remainingTime}");
     }
 
     private int DecreaseTime(int timeInSeconds)
@@ -126,9 +126,16 @@ public class Stopwatch : TableItem
     {
         arrow.localEulerAngles = new Vector3(
             arrow.localEulerAngles.x,
-            arrow.localEulerAngles.y,
+            0, //arrow.localEulerAngles.y,
             arrowValue * rotationStep
             );
+
+        //arrow.localEulerAngles = new Vector3(
+        //    arrow.localEulerAngles.x,
+        //     arrowValue * rotationStep,
+        //    arrow.localEulerAngles.z
+
+        //    );
     }
 
     private void RotateArrow(Transform arrow, int rotationStep)
@@ -138,6 +145,12 @@ public class Stopwatch : TableItem
             arrow.localEulerAngles.y,
             arrow.localEulerAngles.z - rotationStep
             );
+
+        //arrow.localEulerAngles = new Vector3(
+        //    arrow.localEulerAngles.x,
+        //    arrow.localEulerAngles.y - rotationStep,
+        //    arrow.localEulerAngles.z
+        //    );
     }
  
     private IEnumerator WarnPlayerRoutine(MeshRenderer warningObject, float oneFlickerDuration, int flickerCount)
@@ -146,6 +159,7 @@ public class Stopwatch : TableItem
         {
             warningObject.enabled = true;
             yield return new WaitForSeconds(oneFlickerDuration);
+
             warningObject.enabled = false;
             yield return new WaitForSeconds(oneFlickerDuration);
         }
@@ -159,5 +173,19 @@ public class Stopwatch : TableItem
         }
 
         //TODO
+    }
+
+    private void ChangeVisibility(bool setActive, int timeInSeconds = 0)
+    {
+        base.ChangeVisibility(setActive);
+
+        if (timeInSeconds != 0)
+        {
+            Initialize(timeInSeconds);
+        }
+        else
+        {
+            _isActive = false;
+        }
     }
 }

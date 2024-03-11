@@ -49,7 +49,8 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<bool> OnStartBuyRound;
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
-    public static event System.Action<int> ActivateStopwatch;
+    public static event System.Action<bool, int> ActivateStopwatch;
+    public static event System.Action DeactivateStopwatch;
     public static event System.Action<MoneyRopeHandler.Visibility> OnActivateMoneyRope;
     public static event System.Action<int> AddCurrentMoney;
     public static event System.Action ResetCurrentMoney;
@@ -82,7 +83,7 @@ public class NEW_GameProgression : MonoBehaviour
         RejectStartButton.OnGameStartReject += RejectGameStart;
         RejectStartButton.OnGameStartReject += ClearData;
         CardComparator.OnPickConfirm += CheckRoundProgression;
-        ScaleContinue.OnContinueGame += NextRound;
+        ScaleContinue.OnContinueGame += SetNextRound;
         ScaleExit.OnFinishGame += FinishGameOnBuyRound;
         ScaleSuspend.OnSuspendGame += SaveAndClearData;
         RemainingTurnsHandler.OutOfTurns += OnLoseGame;
@@ -96,7 +97,7 @@ public class NEW_GameProgression : MonoBehaviour
         RejectStartButton.OnGameStartReject -= RejectGameStart;
         RejectStartButton.OnGameStartReject -= ClearData;
         CardComparator.OnPickConfirm -= CheckRoundProgression;
-        ScaleContinue.OnContinueGame -= NextRound;
+        ScaleContinue.OnContinueGame -= SetNextRound;
         ScaleExit.OnFinishGame -= FinishGameOnBuyRound;
         ScaleSuspend.OnSuspendGame -= SaveAndClearData;
         RemainingTurnsHandler.OutOfTurns -= OnLoseGame;
@@ -183,7 +184,7 @@ public class NEW_GameProgression : MonoBehaviour
             if (tempCardGenerator.CheckRemainingCards() == false)
             {
                 AddCurrentMoney?.Invoke(1); // TODO: Rework
-                NextRound();
+                SetNextRound();
             }
             else
             {
@@ -227,26 +228,7 @@ public class NEW_GameProgression : MonoBehaviour
         }
     }
 
-    private void NextRound()
-    {
-        if (isScoreListActive == false)
-        {
-            EnableScoreList(true);
-        }
 
-        if (currentRound % buyRound == 0 &&
-            isBuyRoundGoing == false)
-        {
-            SetBuyRound();
-        }
-        else
-        {
-            currentRound++;
-            OnNextRound?.Invoke(currentRound);
-            SetStandartRound();
-            EnableStopwatch(true, 10);
-        }
-    }
 
     private void EnableTurnCounter(bool setEnabled)
     {
@@ -263,7 +245,7 @@ public class NEW_GameProgression : MonoBehaviour
     private void EnableStopwatch(bool setEnabled, int timeInSeconds = 0)
     {
         isStopwatchActive = setEnabled;
-        ActivateStopwatch?.Invoke(timeInSeconds);
+        ActivateStopwatch?.Invoke(setEnabled, timeInSeconds);
     }
 
     private void EnableMoneyRope(MoneyRopeHandler.Visibility visibility)
@@ -281,12 +263,34 @@ public class NEW_GameProgression : MonoBehaviour
         OnActivateMoneyRope?.Invoke(visibility);
     }
 
+    #region ROUND INITIALIZATION METHODS
+
+    private void SetNextRound()
+    {
+        EnableStopwatch(false);
+
+        if (isScoreListActive == false)
+        {
+            EnableScoreList(true);
+        }
+
+        if (currentRound % buyRound == 0 &&
+            isBuyRoundGoing == false)
+        {
+            SetBuyRound();
+        }
+        else
+        {
+            currentRound++;
+            OnNextRound?.Invoke(currentRound);
+            SetStandartRound();
+            //EnableStopwatch(true, 30);
+        }
+    }
+
     private void SetStandartRound()
     {
-        // _isElapsedPlayTimeActive = true;
-
         ElapsedPlayTime.Start();
-
         EnableTurnCounter(true);
         if (isBuyRoundGoing)
         {
@@ -294,15 +298,13 @@ public class NEW_GameProgression : MonoBehaviour
             OnStartBuyRound?.Invoke(false);
             EnableMoneyRope(MoneyRopeHandler.Visibility.PartiallyVisible);
         }
-
+        SetRoundMods();
         UpdateDifficulty();
         tempCardLayoutHandler.PrepareNewLayout(currentRound);
     }
 
     private void SetBuyRound()
     {
-        //_isElapsedPlayTimeActive = false;
-
         ElapsedPlayTime.Stop();
 
         isBuyRoundGoing = true;
@@ -313,6 +315,20 @@ public class NEW_GameProgression : MonoBehaviour
         if (firstTimePlaying)
         {
             OnShowHint?.Invoke(5);
+        }
+    }
+
+    private void SetRoundMods()
+    {
+        int modAddChance = UnityEngine.Random.Range(0, 101);
+        Debug.Log($" Mod add chance: {modAddChance}");
+        if (modAddChance < 90)
+        {
+            ActivateStopwatch(true, 240);
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -337,6 +353,8 @@ public class NEW_GameProgression : MonoBehaviour
             CardDifficulty++;
         }
     }
+
+    #endregion
 
     #region START GAME
     private void StartGame()
