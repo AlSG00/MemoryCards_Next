@@ -36,8 +36,8 @@ public class NEW_GameProgression : MonoBehaviour
     [Tooltip("Each round dividible by this digit will be a buy round")]
     [Range(1f, 1000f)] public int buyRound;
     [Range(1f, 1000f)] public int switchDifficultyRound;
-
     public System.Diagnostics.Stopwatch ElapsedPlayTime = new System.Diagnostics.Stopwatch();
+    [SerializeField] private int _stopwatchActivationChance;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
 
@@ -55,7 +55,6 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<int> AddCurrentMoney;
     public static event System.Action ResetCurrentMoney;
     public static event System.Action<int> onScoreChanged;
-//public static event System.Action OnCurrentProgressReset;
     public static event System.Action<bool> PauseGame;
     public static event System.Action OnGameFinished;
     public static event System.Action LoseGame;
@@ -322,9 +321,9 @@ public class NEW_GameProgression : MonoBehaviour
     {
         int modAddChance = UnityEngine.Random.Range(0, 101);
         Debug.Log($" Mod add chance: {modAddChance}");
-        if (modAddChance < 90)
+        if (modAddChance < _stopwatchActivationChance)
         {
-            ActivateStopwatch(true, 240);
+            ActivateStopwatch(true, 5); // TODO: Calculate remaining time
         }
         else
         {

@@ -43,12 +43,14 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     {
         NEW_GameProgression.OnPlayTutorial += PlayTutorialRound;
         RemainingTurnsHandler.OutOfTurns += TakeCardsBack;
+        Stopwatch.OutOfTime += TakeCardsBack;
     }
 
     private void OnDisable()
     {
         NEW_GameProgression.OnPlayTutorial -= PlayTutorialRound;
         RemainingTurnsHandler.OutOfTurns -= TakeCardsBack;
+        Stopwatch.OutOfTime -= TakeCardsBack;
     }
 
     //private void Start()

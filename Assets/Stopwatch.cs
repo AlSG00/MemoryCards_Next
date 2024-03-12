@@ -126,16 +126,9 @@ public class Stopwatch : TableItem
     {
         arrow.localEulerAngles = new Vector3(
             arrow.localEulerAngles.x,
-            0, //arrow.localEulerAngles.y,
+            0,
             arrowValue * rotationStep
             );
-
-        //arrow.localEulerAngles = new Vector3(
-        //    arrow.localEulerAngles.x,
-        //     arrowValue * rotationStep,
-        //    arrow.localEulerAngles.z
-
-        //    );
     }
 
     private void RotateArrow(Transform arrow, int rotationStep)
@@ -145,12 +138,6 @@ public class Stopwatch : TableItem
             arrow.localEulerAngles.y,
             arrow.localEulerAngles.z - rotationStep
             );
-
-        //arrow.localEulerAngles = new Vector3(
-        //    arrow.localEulerAngles.x,
-        //    arrow.localEulerAngles.y - rotationStep,
-        //    arrow.localEulerAngles.z
-        //    );
     }
  
     private IEnumerator WarnPlayerRoutine(MeshRenderer warningObject, float oneFlickerDuration, int flickerCount)

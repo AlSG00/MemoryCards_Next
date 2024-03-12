@@ -73,7 +73,7 @@ public class RemainingTurnsHandler : MonoBehaviour
         {
             remainingTurns = cardsInLayout * 2 - currentRound / 5;
         }
-        else 
+        else לקהזכל‎
         {
             remainingTurns = cardsInLayout * 2 - currentRound / 7;
         }
