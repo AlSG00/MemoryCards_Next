@@ -71,12 +71,14 @@ public class RemainingTurnsHandler : MonoBehaviour
         // TODO: Finish
         if (currentRound < 30)
         {
-            remainingTurns = cardsInLayout * 2 - currentRound / 5;
+            remainingTurns = cardsInLayout * 2 - currentRound / 5 - (int)NEW_GameProgression.StartLayoutDifficulty;
         }
-        else לקהזכל‎
+        else 
         {
-            remainingTurns = cardsInLayout * 2 - currentRound / 7;
+            remainingTurns = cardsInLayout * 2 - currentRound / 7 - (int)NEW_GameProgression.StartLayoutDifficulty;
         }
+
+        remainingTurns = Mathf.Clamp(remainingTurns, cardsInLayout, int.MaxValue);
 
 
         remainingTurns = cardsInLayout; 
