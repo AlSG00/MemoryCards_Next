@@ -34,11 +34,13 @@ public class Stopwatch : TableItem
     private void OnEnable()
     {
         NEW_GameProgression.ActivateStopwatch += ChangeVisibility;
+        HammerUseLogic.OnUseHammer += DeactivateByHammer;
     }
 
     private void OnDisable()
     {
         NEW_GameProgression.ActivateStopwatch -= ChangeVisibility;
+        HammerUseLogic.OnUseHammer -= DeactivateByHammer;
     }
 
     private void Start()

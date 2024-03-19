@@ -16,7 +16,7 @@ public class HammerUseLogic : MonoBehaviour, IUsable
 
     public void Use()
     {
-        _animator.SetTrigger("Use");
-        OnUseHammer?.Invoke(); // TODO: Finish logic after scriupting the stopwatch
+        //_animator.SetTrigger("Use");
+        OnUseHammer?.Invoke();
     }
 }

@@ -8,14 +8,13 @@ public class InventoryItem : InteractiveItem
     public int _buyPrice;
     [SerializeField] private string itemName;
     [SerializeField] private ItemType _type;
-    //[SerializeField] private Transform _shopPivot;
-    [SerializeField] private Transform _inventoryPivot;
+    private Transform _inventoryPivot;
 
     [Header("Shop info")]
     [SerializeField] private bool _mustBuy;
     [SerializeField] private GameObject _priceTag;
     [SerializeField] private int _sellPrice;
-    [SerializeField] private bool _isReadyToSell;
+    private bool _isReadyToSell;
     [SerializeField] private Vector3 _shopPivotOffset;
 
     public static event System.Action<InventoryItem, Transform, string> OnAddToInventory;
