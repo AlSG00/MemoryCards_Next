@@ -16,7 +16,6 @@ public class Stopwatch : TableItem
 
     [SerializeField] private GameObject _lowTimeZone;
 
-
     private int _secondArrowStep = 6;
     private int _minuteArrowStep = 45;
 
@@ -30,6 +29,7 @@ public class Stopwatch : TableItem
     int _remainingTime;
 
     public static event System.Action OutOfTime;
+    public static event System.Action<bool> StopwatchActivated;
 
     private void OnEnable()
     {
@@ -159,7 +159,10 @@ public class Stopwatch : TableItem
             return;
         }
 
-        //TODO
+        isVisible = false;
+        _isActive = false;
+        _animator.SetTrigger("Deactivate");
+        StopwatchActivated?.Invoke(false); 
     }
 
     private void ChangeVisibility(bool setActive, int timeInSeconds = 0)
