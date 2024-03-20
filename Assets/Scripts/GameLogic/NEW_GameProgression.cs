@@ -22,7 +22,7 @@ public class NEW_GameProgression : MonoBehaviour
     public bool tutorialComplete;
     public bool playingTutorial;
     public int _tutorialProgress;
-
+    private bool _isGameGoing;
     public bool isTurnCounterActive;
     public bool isScoreListActive;
     public bool isStopwatchActive;
@@ -197,6 +197,11 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void PlayerInput_EscapeButtonPressed()
     {
+        if (_isGameGoing == false)
+        {
+            return;
+        }
+
         IsGamePaused = !IsGamePaused;
         PauseGame?.Invoke(IsGamePaused);
     }
@@ -323,7 +328,7 @@ public class NEW_GameProgression : MonoBehaviour
         Debug.Log($" Mod add chance: {modAddChance}");
         if (modAddChance < _stopwatchActivationChance)
         {
-            ActivateStopwatch(true, 5); // TODO: Calculate remaining time
+            ActivateStopwatch(true, 30); // TODO: Calculate remaining time
         }
         else
         {
@@ -372,6 +377,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void ConfirmGameStart()
     {
+        _isGameGoing = true;
         ElapsedPlayTime.Start();
 
         //OnGameStartConfirm?.Invoke();
@@ -422,6 +428,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void FinishGameOnBuyRound()
     {
+        _isGameGoing = false;
         isBuyRoundGoing = false;
         OnStartBuyRound?.Invoke(false);
         EnableTurnCounter(false);
@@ -432,6 +439,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void OnLoseGame()
     {
+        _isGameGoing = false;
         IsGameLost = true;
         LoseGame?.Invoke();
         ElapsedPlayTime.Stop();
@@ -457,6 +465,7 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SaveAndClearData()
     {
+        _isGameGoing = false;
         // TODO: save progress - score, current round, current difficulty
         ClearData();
     }

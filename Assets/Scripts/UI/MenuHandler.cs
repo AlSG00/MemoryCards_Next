@@ -13,20 +13,32 @@ public abstract class MenuHandler : MonoBehaviour
         HideMenu();
     }
 
+    private protected void SetMenuVisibility(bool setVisible)
+    {
+        if (setVisible)
+        {
+            ShowMenu();
+        }
+        else
+        {
+            HideMenu();
+        }
+    }
+
     protected void HideMenu()
     {
         _canvasRaycaster.enabled = false;
-        SetMenuVisibility(false);
+        SetMenuElementsVisibility(false);
     }
 
     protected void ShowMenu()
     {
         _canvasRaycaster.enabled = true;
-        SetMenuVisibility(true);
+        SetMenuElementsVisibility(true);
     }
 
     // TODO: Make menu ui change it's visibility smoothly
-    private void SetMenuVisibility(bool isVisible)
+    private void SetMenuElementsVisibility(bool isVisible)
     {
         foreach (var textElement in _textElementArray)
         {

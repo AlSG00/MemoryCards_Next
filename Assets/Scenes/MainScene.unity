@@ -36282,7 +36282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1254632568
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36316,8 +36316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9ebc9a5f761d24285cc417b821bd58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textElementArray: []
-  _canvasRaycaster: {fileID: 0}
+  _textElementArray:
+  - {fileID: 328495171}
+  _canvasRaycaster: {fileID: 1254632570}
 --- !u!114 &1254632570
 MonoBehaviour:
   m_ObjectHideFlags: 0

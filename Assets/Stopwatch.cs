@@ -34,12 +34,14 @@ public class Stopwatch : TableItem
     private void OnEnable()
     {
         NEW_GameProgression.ActivateStopwatch += ChangeVisibility;
+        NEW_GameProgression.PauseGame += Pause;
         HammerUseLogic.OnUseHammer += DeactivateByHammer;
     }
 
     private void OnDisable()
     {
         NEW_GameProgression.ActivateStopwatch -= ChangeVisibility;
+        NEW_GameProgression.PauseGame += Pause;
         HammerUseLogic.OnUseHammer -= DeactivateByHammer;
     }
 
@@ -76,6 +78,16 @@ public class Stopwatch : TableItem
                 _secondWarning.enabled = true;
             }
         }
+    }
+
+    private void Pause(bool setPause)
+    {
+        _isActive = !setPause;
+    }
+
+    private void SetActive(bool setActive)
+    {
+        _isActive = setActive;
     }
 
     private void Initialize(int timeInSeconds)
