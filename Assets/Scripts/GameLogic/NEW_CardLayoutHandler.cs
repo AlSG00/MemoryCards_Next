@@ -53,11 +53,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         Stopwatch.OutOfTime -= TakeCardsBack;
     }
 
-    //private void Start()
-    //{
-    //    SetAvailableLayouts();
-    //}
-
     public void ReceiveNewCardPack(List<GameObject> newCardPack)
     {
         _cardsInLayout = newCardPack;
@@ -158,10 +153,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     #region SET LAYOUT
     private void CheckAvailableLayouts()
     {
-        //TODO: БАГ: сложность будет меняться каждую раскладку
-        //плюс надо написать проверку, чтобы коллекция не пересобиралась каждый раз, если сложность не поменялась
-
-
         if (_currentLayoutDifficulty == NEW_GameProgression.LayoutDifficulty &&
             _availableLayouts != null)
         {
@@ -185,9 +176,17 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     {
         _currentLayoutDifficulty = NEW_GameProgression.LayoutDifficulty;
         _availableLayouts = new List<GameObject>();
-        for (int i = 0; i <= (int)_currentLayoutDifficulty; i++)
+
+        if (_currentLayoutDifficulty == NEW_GameProgression.Difficulty.Random)
         {
-            _availableLayouts.AddRange(_layoutDifficultyVariantSet[i].ArrayOfSets);
+            for (int i = 0; i <= (int)_currentLayoutDifficulty; i++)
+            {
+                _availableLayouts.AddRange(_layoutDifficultyVariantSet[i].ArrayOfSets);
+            }
+        }
+        else
+        {
+            _availableLayouts.AddRange(_layoutDifficultyVariantSet[(int)_currentLayoutDifficulty].ArrayOfSets);
         }
     }
 
@@ -257,19 +256,12 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             }
         }
 
-        //while (_isPlacing)
-        //{
-        //    yield return new WaitForSecondsRealtime(0.1f);
-        //}
-
-        //ActivateCardColliders(true);
         RemoveAllCards();
         _isPreparing = false;
     }
 
     private IEnumerator MoveCardToPositionRoutine(GameObject card, Transform positionToPlace)
     {
-        //float speed = Random.Range(_cardPlacingSpeed - 0.02f, _cardPlacingSpeed + 0.02f);
         NEW_Card tempCard = card.GetComponentInChildren<NEW_Card>();
         tempCard.cardAudioSource.PlayOneShot(tempCard.PlaceSound);
         tempCard.cardAudioSource.pitch = Random.Range(0.95f, 1.05f);

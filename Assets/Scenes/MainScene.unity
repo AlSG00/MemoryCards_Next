@@ -3536,7 +3536,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 2.15125, y: -1.533}
-  m_SizeDelta: {x: 1.04, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!95 &122570215
 Animator:
@@ -6229,7 +6229,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 1.36, y: 0.198}
-  m_SizeDelta: {x: 1.23, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!95 &186983084
 Animator:
@@ -6823,7 +6823,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 1.3600001, y: -0.792}
-  m_SizeDelta: {x: 2.81, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!95 &200669522
 Animator:
@@ -8933,7 +8933,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -1.196}
-  m_SizeDelta: {x: 1.05, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &268105549
 MonoBehaviour:
@@ -11608,7 +11608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &329049983
 Transform:
   m_ObjectHideFlags: 0
@@ -12298,7 +12298,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -3.5102499, y: -1.536}
-  m_SizeDelta: {x: 1.02, y: 0.2}
+  m_SizeDelta: {x: 0, y: 0.2}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!95 &341151167
 Animator:
@@ -13559,7 +13559,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.0141, y: -0.0002}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0.79, y: 0.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &376239450
 MonoBehaviour:
@@ -17677,18 +17677,109 @@ MonoBehaviour:
   - Name: Very easy
     ArrayOfSets:
     - {fileID: 1117308539}
+    - {fileID: 60197369}
+    - {fileID: 709250200}
+    - {fileID: 1556868306}
+    - {fileID: 1747679394}
+    - {fileID: 644157188}
+    - {fileID: 587343369}
+    - {fileID: 264829029}
+    - {fileID: 1371277780}
+    - {fileID: 1095022296}
+    - {fileID: 1565124486}
+    - {fileID: 44168987}
+    - {fileID: 629482733}
+    - {fileID: 1342824016}
+    - {fileID: 1845610585}
+    - {fileID: 1868876380}
+    - {fileID: 1096893737}
+    - {fileID: 1241460744}
+    - {fileID: 1072045778}
+    - {fileID: 180661649}
+    - {fileID: 948705942}
+    - {fileID: 1600377613}
+    - {fileID: 1793352718}
+    - {fileID: 1954117329}
+    - {fileID: 734800411}
+    - {fileID: 1475479808}
+    - {fileID: 1028876640}
+    - {fileID: 1332355279}
   - Name: Easy
     ArrayOfSets:
-    - {fileID: 587343369}
+    - {fileID: 308010534}
+    - {fileID: 1879308068}
+    - {fileID: 6116339}
+    - {fileID: 22789528}
+    - {fileID: 2130125812}
+    - {fileID: 918733245}
+    - {fileID: 344583157}
+    - {fileID: 119759972}
+    - {fileID: 1291859926}
+    - {fileID: 880496906}
+    - {fileID: 1947391687}
+    - {fileID: 1080683899}
+    - {fileID: 1857185655}
+    - {fileID: 1504041895}
+    - {fileID: 486425338}
+    - {fileID: 1013603333}
+    - {fileID: 1378943050}
+    - {fileID: 504163740}
+    - {fileID: 896801813}
+    - {fileID: 1828259909}
+    - {fileID: 17395851}
+    - {fileID: 1224011414}
   - Name: Medium
     ArrayOfSets:
-    - {fileID: 1072045778}
+    - {fileID: 768562848}
+    - {fileID: 597934068}
+    - {fileID: 2078511540}
+    - {fileID: 1590555418}
+    - {fileID: 493232832}
+    - {fileID: 308176427}
+    - {fileID: 659840611}
+    - {fileID: 218262315}
+    - {fileID: 1176211339}
+    - {fileID: 868117340}
+    - {fileID: 1878217714}
+    - {fileID: 1941865964}
+    - {fileID: 831752093}
+    - {fileID: 625170752}
+    - {fileID: 5729884}
+    - {fileID: 757784929}
+    - {fileID: 1719618180}
+    - {fileID: 1895204278}
+    - {fileID: 1409887645}
+    - {fileID: 1735552111}
+    - {fileID: 1961672597}
+    - {fileID: 429858962}
+    - {fileID: 1093413472}
+    - {fileID: 202851568}
+    - {fileID: 2095276433}
+    - {fileID: 1459351520}
+    - {fileID: 656895251}
+    - {fileID: 432910983}
+    - {fileID: 1934432971}
+    - {fileID: 1991437482}
   - Name: Hard
     ArrayOfSets:
     - {fileID: 308010534}
+    - {fileID: 859259051}
+    - {fileID: 89708355}
+    - {fileID: 860068107}
+    - {fileID: 1559989484}
+    - {fileID: 1121088793}
+    - {fileID: 1767563778}
+    - {fileID: 1056846797}
+    - {fileID: 458413207}
+    - {fileID: 525646214}
+    - {fileID: 2086809919}
+    - {fileID: 1787565171}
+    - {fileID: 1703016416}
+    - {fileID: 1102373532}
   - Name: Very hard
     ArrayOfSets:
-    - {fileID: 1947391687}
+    - {fileID: 1568345268}
+    - {fileID: 1639010541}
 --- !u!1 &509779314
 GameObject:
   m_ObjectHideFlags: 0
@@ -20137,7 +20228,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.529}
-  m_SizeDelta: {x: 1.4, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &582057700
 MonoBehaviour:
@@ -27127,7 +27218,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 1.354, y: 0.219}
-  m_SizeDelta: {x: 1.74, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &785470264
 MonoBehaviour:
@@ -27505,7 +27596,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 1.3600001, y: 0.528}
-  m_SizeDelta: {x: 2.54, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!95 &792632582
 Animator:
@@ -30398,7 +30489,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 868117340}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35714,7 +35805,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -4.449, y: 0.528}
-  m_SizeDelta: {x: 0.94, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!95 &1031237528
 Animator:
@@ -40612,7 +40703,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0.35199994}
-  m_SizeDelta: {x: 1.64, y: 0.3594}
+  m_SizeDelta: {x: 0, y: 0.3594}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1169828404
 MonoBehaviour:
@@ -46766,7 +46857,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0.3}
-  m_SizeDelta: {x: 2.24, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1321374674
 MonoBehaviour:
@@ -51209,8 +51300,8 @@ MonoBehaviour:
   IsGamePaused: 0
   currentRound: 0
   score: 0
-  buyRound: 1
-  switchDifficultyRound: 2
+  buyRound: 10
+  switchDifficultyRound: 5
   _stopwatchActivationChance: 0
 --- !u!95 &1451625279
 Animator:
@@ -51506,7 +51597,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.08, y: 1.215}
-  m_SizeDelta: {x: 5.39, y: 0.6253}
+  m_SizeDelta: {x: 0, y: 0.6253}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1457707743
 MonoBehaviour:
@@ -54134,7 +54225,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.13730003}
-  m_SizeDelta: {x: 1.77, y: 0.381}
+  m_SizeDelta: {x: 0, y: 0.381}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540842013
 MonoBehaviour:
@@ -57954,7 +58045,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0.641}
-  m_SizeDelta: {x: 2.35, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1648029685
 MonoBehaviour:
@@ -60532,7 +60623,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1715584169}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -60664,7 +60755,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1717194253
 Transform:
   m_ObjectHideFlags: 0
@@ -68919,18 +69010,33 @@ MonoBehaviour:
   - Name: Very easy
     Set:
     - {fileID: 11400000, guid: f1b2411bac68def499b806e99d05d1cc, type: 2}
+    - {fileID: 11400000, guid: 07795e4d71f0ce9488f9a92986f45b0e, type: 2}
+    - {fileID: 11400000, guid: 3a6df9036d402ea43babf13a38d38828, type: 2}
+    - {fileID: 11400000, guid: 10e0727d521dff64b8d15c52e8c2961a, type: 2}
   - Name: Easy
     Set:
-    - {fileID: 11400000, guid: 10e0727d521dff64b8d15c52e8c2961a, type: 2}
+    - {fileID: 11400000, guid: 0ce5016a9be8796458766a76c1db2f77, type: 2}
+    - {fileID: 11400000, guid: 514743190eb21f940b2b5b9db77ea588, type: 2}
+    - {fileID: 11400000, guid: f615bb60e43df3340a63094c8377340d, type: 2}
   - Name: Medium
     Set:
     - {fileID: 11400000, guid: 440c352fd2b72ea4bb96fd8d651eb214, type: 2}
+    - {fileID: 11400000, guid: 3c8ab7bdb13e3e943b61c308d9eeb3cb, type: 2}
+    - {fileID: 11400000, guid: 02ce947541e968d4ab1a0ef56d136547, type: 2}
+    - {fileID: 11400000, guid: e3d8bf413c522444e8331c82fd841420, type: 2}
+    - {fileID: 11400000, guid: 6d19a549bb5a919479ba4c698e2abd63, type: 2}
   - Name: Hard
     Set:
-    - {fileID: 11400000, guid: 02ce947541e968d4ab1a0ef56d136547, type: 2}
+    - {fileID: 11400000, guid: 75cf6847036d7f84f923815f1989da86, type: 2}
+    - {fileID: 11400000, guid: 340f13c6115e32146b28ae54e1665088, type: 2}
+    - {fileID: 11400000, guid: 4ad65737ecb551f49aa5de2fcba6e3e6, type: 2}
   - Name: Very hard
     Set:
-    - {fileID: 11400000, guid: 340f13c6115e32146b28ae54e1665088, type: 2}
+    - {fileID: 11400000, guid: cc6cd377e57ad224194b8629f0ed67f5, type: 2}
+    - {fileID: 11400000, guid: 7159eec6516bb47489edaea1ae93471a, type: 2}
+    - {fileID: 11400000, guid: 9777984af670c224ead0a2c5cccaf659, type: 2}
+    - {fileID: 11400000, guid: b9a9cf1909395df4dbc3d025959ddb1e, type: 2}
+    - {fileID: 11400000, guid: ef3ad81c6bbc1244d9288264addcd3aa, type: 2}
   generatedCardPack: []
   _tutorialCardsCollection: []
   _dataToUse: []
@@ -70817,7 +70923,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 1.3600001, y: -0.132}
-  m_SizeDelta: {x: 1.54, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!95 &1966363011
 Animator:
@@ -71518,7 +71624,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.22}
-  m_SizeDelta: {x: 1.32, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1989021028
 MonoBehaviour:
@@ -75654,7 +75760,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 1.3600001, y: -0.462}
-  m_SizeDelta: {x: 1.51, y: 0.3}
+  m_SizeDelta: {x: 0, y: 0.3}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!95 &2119920915
 Animator:

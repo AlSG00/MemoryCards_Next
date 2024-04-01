@@ -127,8 +127,6 @@ public class NEW_GameProgression : MonoBehaviour
 
         score = 0;
 
-        //ElapsedPlayTime = new System.Diagnostics.Stopwatch();
-
         ElapsedPlayTime.Reset();
 
         onScoreChanged?.Invoke(score);
@@ -231,8 +229,6 @@ public class NEW_GameProgression : MonoBehaviour
                 break;
         }
     }
-
-
 
     private void EnableTurnCounter(bool setEnabled)
     {
@@ -363,10 +359,9 @@ public class NEW_GameProgression : MonoBehaviour
     #region START GAME
     private void StartGame()
     {
+        LayoutDifficulty = StartLayoutDifficulty;
+        CardDifficulty = StartCardDifficulty;
         ClearData();
-        //tempCardLayoutHandler.PrepareStartLayout();
-        //OnPressStart?.Invoke();
-
         ConfirmGameStart();
     }
 

@@ -12,6 +12,7 @@ public class ScaleItem : InteractiveItem
         _isPicked = false;
         _isReadyToUse = false;
         _isVisible = false;
+        GetComponent<Collider>().enabled = false;
     }
 
     private void OnEnable()
@@ -76,6 +77,8 @@ public class ScaleItem : InteractiveItem
             _isVisible = true;
             _animator.SetTrigger("Show");
         }
+
+        GetComponent<Collider>().enabled = true;
     }
 
     private void Hide()
@@ -85,5 +88,7 @@ public class ScaleItem : InteractiveItem
             _isVisible = false;
             _animator.SetTrigger("Hide");
         }
+
+        GetComponent<Collider>().enabled = false;
     }
 }
