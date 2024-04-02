@@ -365,19 +365,11 @@ public class NEW_GameProgression : MonoBehaviour
         ConfirmGameStart();
     }
 
-    private void RestartGame()
-    {
-
-    }
-
     private void ConfirmGameStart()
     {
         _isGameGoing = true;
         ElapsedPlayTime.Start();
-
-        //OnGameStartConfirm?.Invoke();
         currentRound++;
-
         if (firstTimePlaying && tutorialComplete == false)
         {
             StartTutorial();
@@ -402,8 +394,6 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void RejectGameStart()
     {
-        //tempCardLayoutHandler.TakeCardsBack();
-
         if (isScoreListActive)
         {
             EnableScoreList(false);

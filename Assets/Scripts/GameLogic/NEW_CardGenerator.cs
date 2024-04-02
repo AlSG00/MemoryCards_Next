@@ -16,10 +16,6 @@ public class NEW_CardGenerator : MonoBehaviour
 
     [HideInInspector] public List<GameObject> generatedCardPack = new List<GameObject>();
     [SerializeField] private CardData[] _tutorialCardsCollection;
-    //[SerializeField] private CardData[] _easyCardsCollection;
-    //[SerializeField] private CardData[] _mediumCardsCollection;
-    //[SerializeField] private CardData[] _hardCardsCollection;
-    //[SerializeField] private CardData[] _veryHardCardsCollection;
     [SerializeField] private List<CardData> _dataToUse;
     private List<CardData> _activeCardData; // Stores data for cards that are used for generating at current game stage
     NEW_GameProgression.Difficulty _currentCardDifficulty;
@@ -31,6 +27,8 @@ public class NEW_CardGenerator : MonoBehaviour
 
         int index = 0;
         int dataIndex = 0;
+
+        // TODO: Rework this function for handling more than two cards
         while (index < countToGenerate)
         {
             generatedCardPack.Add(Instantiate(_cardPrefab.gameObject, _cardLayoutHandler.CardsStartPosition.position, Quaternion.identity, _cardsParent));
@@ -44,7 +42,7 @@ public class NEW_CardGenerator : MonoBehaviour
         }
 
         MixCardPack();
-        _cardLayoutHandler.ReceiveNewCardPack(generatedCardPack);
+        _cardLayoutHandler.ReceiveNewCardPack(generatedCardPack); // TODO: Rename method
     }
 
     private void CheckAvailableCards()
@@ -77,6 +75,11 @@ public class NEW_CardGenerator : MonoBehaviour
         List<CardData> resultData = new List<CardData>();
         for (int i = 0; i < count; i++)
         {
+            var test = Random.Range(0, _activeCardData.Count);
+            int test_2;
+
+            while (test_2)
+
             resultData.Add(_activeCardData[Random.Range(0, _activeCardData.Count)]);
         }
 
