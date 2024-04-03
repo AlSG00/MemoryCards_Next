@@ -10,7 +10,7 @@ public class SetDifficultyButton : MenuButton
 
     protected override void OnClickAction()
     {
-        NEW_GameProgression.StartLayoutDifficulty = _difficulty;
+        NEW_GameProgression.StartCardDifficulty = _difficulty;
         DifficultyPicked?.Invoke();
     }
 }

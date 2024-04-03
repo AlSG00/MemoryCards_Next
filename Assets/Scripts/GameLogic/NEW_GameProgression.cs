@@ -117,7 +117,7 @@ public class NEW_GameProgression : MonoBehaviour
             playingTutorial = true;
         }
 
-        LayoutDifficulty = StartLayoutDifficulty;
+        LayoutDifficulty = Difficulty.VeryEasy;
         CardDifficulty = StartCardDifficulty;
 
         if (firstTimePlaying)
@@ -359,7 +359,7 @@ public class NEW_GameProgression : MonoBehaviour
     #region START GAME
     private void StartGame()
     {
-        LayoutDifficulty = StartLayoutDifficulty;
+        LayoutDifficulty = Difficulty.VeryEasy;
         CardDifficulty = StartCardDifficulty;
         ClearData();
         ConfirmGameStart();

@@ -21,9 +21,9 @@ public class Stopwatch : TableItem
 
     // TEMP
     private float _elapsedTime = 0;
-    //private int _tempTime;
 
     [SerializeField] private bool _isActive;
+    private bool _isDeactivatedByDebuff;
     int _seconds;
     int _minutes;
     int _remainingTime;
@@ -49,6 +49,7 @@ public class Stopwatch : TableItem
     {
         isVisible = false;
         _isActive = false;
+        _isDeactivatedByDebuff = false;
         _minuteWarning.enabled = false;
         _secondWarning.enabled = false;
         _lowTimeZone.SetActive(false);
@@ -61,7 +62,8 @@ public class Stopwatch : TableItem
 
     private void UpdateRemainingTime()
     {
-        if (_isActive == false)
+        if (_isActive == false ||
+            _isDeactivatedByDebuff)
         {
             return;
         }
@@ -82,6 +84,12 @@ public class Stopwatch : TableItem
 
     private void Pause(bool setPause)
     {
+        if (isVisible == false ||
+            _isDeactivatedByDebuff)
+        {
+            return;
+        }
+        
         _isActive = !setPause;
     }
 

@@ -14,7 +14,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private NEW_CardGenerator cardGenerator;
-    //[SerializeField] private NEW_GameProgression sessionProgress;
 
     [Header("Layouts collections")]
     [SerializeField] private GameObject _currentLayout;
@@ -22,14 +21,8 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     [SerializeField] private List<GameObject> _tutorialLayouts;
 
     private List<GameObject> _availableLayouts;
-    private NEW_GameProgression.Difficulty _currentLayoutDifficulty;
-    //[SerializeField] private List<GameObject> _veryEasyLayoutSet = new List<GameObject>();
-    //[SerializeField] private List<GameObject> _easyLayoutSet = new List<GameObject>();
-    //[SerializeField] private List<GameObject> _mediumLayoutSet = new List<GameObject>();
-    //[SerializeField] private List<GameObject> _hardLayoutSet = new List<GameObject>();
-    //[SerializeField] private List<GameObject> _veryHardLayoutSet = new List<GameObject>();
-
     [SerializeField] private Layout[] _layoutDifficultyVariantSet;
+    private NEW_GameProgression.Difficulty _currentLayoutDifficulty;
 
     private List<Transform> _cardPlacePoints = new List<Transform>();
     private List<GameObject> _cardsInLayout;
@@ -44,6 +37,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         NEW_GameProgression.OnPlayTutorial += PlayTutorialRound;
         RemainingTurnsHandler.OutOfTurns += TakeCardsBack;
         Stopwatch.OutOfTime += TakeCardsBack;
+        NEW_GameProgression.PauseGame += DeactivateCardCollidersWithPause;
     }
 
     private void OnDisable()
@@ -51,6 +45,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         NEW_GameProgression.OnPlayTutorial -= PlayTutorialRound;
         RemainingTurnsHandler.OutOfTurns -= TakeCardsBack;
         Stopwatch.OutOfTime -= TakeCardsBack;
+        NEW_GameProgression.PauseGame -= DeactivateCardCollidersWithPause;
     }
 
     public void ReceiveNewCardPack(List<GameObject> newCardPack)
@@ -115,6 +110,11 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         {
             _cardsInLayout[i].GetComponentInChildren<BoxCollider>().enabled = activate;
         }
+    }
+
+    private void DeactivateCardCollidersWithPause(bool activate)
+    {
+        ActivateCardColliders(!activate);
     }
 
     public void InitializeLayout(GameObject layout = null)

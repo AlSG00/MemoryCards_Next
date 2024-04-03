@@ -71,16 +71,22 @@ public class NEW_CardGenerator : MonoBehaviour
     private List<CardData> GetCardsToGenerate(int countToGenerate)
     {
         int count = countToGenerate / 2;
+        int cardDataIndex = Random.Range(0, _activeCardData.Count);
+        int cardDataIndexStep = 0;
 
-        List<CardData> resultData = new List<CardData>();
+        int debugAttempt = 0;
+        while (cardDataIndexStep == 0 || _activeCardData.Count % cardDataIndexStep == 0)
+        {
+            cardDataIndexStep = Random.Range(0, _activeCardData.Count);
+            
+            Debug.Log($"<color=orange>Attempt: {debugAttempt++}</color>");
+        }
+
+        List <CardData> resultData = new List<CardData>();
         for (int i = 0; i < count; i++)
         {
-            var test = Random.Range(0, _activeCardData.Count);
-            int test_2;
-
-            while (test_2)
-
-            resultData.Add(_activeCardData[Random.Range(0, _activeCardData.Count)]);
+            resultData.Add(_activeCardData[cardDataIndex]);
+            cardDataIndex = (cardDataIndex + cardDataIndexStep) % _activeCardData.Count;
         }
 
         return resultData;
