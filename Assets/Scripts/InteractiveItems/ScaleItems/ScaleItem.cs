@@ -19,19 +19,21 @@ public class ScaleItem : InteractiveItem
     {
         ScaleColliderHandler.OnEnterCollider += SetReadyToUse;
         ShopHandler.OnShowScaleItems += ChangeVisibility;
+        NEW_GameProgression.PauseGame += SetColliderEnabled;
     }
 
     private void OnDisable()
     {
         ScaleColliderHandler.OnEnterCollider -= SetReadyToUse;
         ShopHandler.OnShowScaleItems -= ChangeVisibility;
+        NEW_GameProgression.PauseGame -= SetColliderEnabled;
     }
 
     private protected override void OnMouseDown()
     {
         _isChangingPosition = true;
         _currentPivot = _cursorPivot;
-        GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Collider>().enabled = false;
         MoveToPivot(_currentPivot, _moveToCursorTime);
         _isPicked = true;
     }
@@ -42,13 +44,13 @@ public class ScaleItem : InteractiveItem
         if (_isReadyToUse)
         {
             _isReadyToUse = false;
-            GetComponent<IUsable>().Use();
+            gameObject.GetComponent<IUsable>().Use();
         }
 
         _isChangingPosition = true;
         Cursor.visible = true;
         _currentPivot = _selfPivot;
-        GetComponent<Collider>().enabled = true;
+        gameObject.GetComponent<Collider>().enabled = true;
         MoveToPivot(_currentPivot, _moveToStandartPositionTime);
         _isPicked = false;
     }
@@ -78,7 +80,7 @@ public class ScaleItem : InteractiveItem
             _animator.SetTrigger("Show");
         }
 
-        GetComponent<Collider>().enabled = true;
+        gameObject.GetComponent<Collider>().enabled = true;
     }
 
     private void Hide()
@@ -89,6 +91,11 @@ public class ScaleItem : InteractiveItem
             _animator.SetTrigger("Hide");
         }
 
-        GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Collider>().enabled = false;
+    }
+
+    private void SetColliderEnabled(bool enabled)
+    {
+        gameObject.GetComponent<Collider>().enabled = enabled;
     }
 }

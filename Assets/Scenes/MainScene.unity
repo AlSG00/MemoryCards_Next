@@ -7237,7 +7237,7 @@ GameObject:
   - component: {fileID: 216774138}
   - component: {fileID: 216774137}
   - component: {fileID: 216774139}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: ScoreHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41129,7 +41129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1182457021}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ScoreList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43499,7 +43499,7 @@ GameObject:
   - component: {fileID: 1246080522}
   - component: {fileID: 1246080524}
   - component: {fileID: 1246080523}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Highscore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49387,7 +49387,7 @@ GameObject:
   - component: {fileID: 1396621514}
   - component: {fileID: 1396621513}
   - component: {fileID: 1396621512}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64582,7 +64582,7 @@ GameObject:
   - component: {fileID: 1798928265}
   - component: {fileID: 1798928264}
   - component: {fileID: 1798928263}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65251,7 +65251,7 @@ GameObject:
   - component: {fileID: 1812899634}
   - component: {fileID: 1812899633}
   - component: {fileID: 1812899635}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HighscoreHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77331,7 +77331,8 @@ GameObject:
   - component: {fileID: 1684503992}
   - component: {fileID: 1684503991}
   - component: {fileID: 3469287836635822034}
-  m_Layer: 0
+  - component: {fileID: 3469287836635822035}
+  m_Layer: 7
   m_Name: Paper_Crumpled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78942,6 +78943,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVisible: 0
   _animator: {fileID: 1684503991}
+--- !u!114 &3469287836635822035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149003428558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c375bcbe04c15a54cade0ef5a6810766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &3469287837569222430
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -79406,6 +79419,7 @@ GameObject:
   - component: {fileID: 7993359440884296515}
   - component: {fileID: 7993359440884296516}
   - component: {fileID: 7993359440884296517}
+  - component: {fileID: 7993359440884296518}
   m_Layer: 0
   m_Name: BigButton
   m_TagString: Untagged
@@ -82036,6 +82050,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showClock: 0
+--- !u!114 &7993359440884296518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790454242260723559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c375bcbe04c15a54cade0ef5a6810766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &8038588542655008977
 MeshFilter:
   m_ObjectHideFlags: 0

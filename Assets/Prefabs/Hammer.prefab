@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 8510616438774062110}
   - component: {fileID: 8074983383094902979}
   - component: {fileID: 5109085121840420484}
+  - component: {fileID: -3582441992746984056}
   m_Layer: 0
   m_Name: Hammer
   m_TagString: Untagged
@@ -223,11 +224,9 @@ MonoBehaviour:
   _buyPrice: 20
   itemName: Hammer
   _type: 0
-  _inventoryPivot: {fileID: 0}
   _mustBuy: 1
   _priceTag: {fileID: 8696426243378598769}
   _sellPrice: 1
-  _isReadyToSell: 0
   _shopPivotOffset: {x: -0.4, y: -0.115, z: 0.235}
 --- !u!114 &8510616438774062110
 MonoBehaviour:
@@ -269,6 +268,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 0}
+--- !u!114 &-3582441992746984056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8074983383094902981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c375bcbe04c15a54cade0ef5a6810766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8994096697318918826
 GameObject:
   m_ObjectHideFlags: 0
