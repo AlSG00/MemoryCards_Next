@@ -87,7 +87,8 @@ public class NEW_GameProgression : MonoBehaviour
         ScaleSuspend.OnSuspendGame += SaveAndClearData;
         RemainingTurnsHandler.OutOfTurns += OnLoseGame;
         Stopwatch.OutOfTime += OnLoseGame;
-        PlayerInput.EscapeButtonPressed += PlayerInput_EscapeButtonPressed;
+        PlayerInput.EscapeButtonPressed += SetGamePause;
+        ContinueGameButton.ContinueButtonClicked += SetGamePause;
     }
 
     private void OnDisable()
@@ -101,7 +102,8 @@ public class NEW_GameProgression : MonoBehaviour
         ScaleSuspend.OnSuspendGame -= SaveAndClearData;
         RemainingTurnsHandler.OutOfTurns -= OnLoseGame;
         Stopwatch.OutOfTime += OnLoseGame;
-        PlayerInput.EscapeButtonPressed -= PlayerInput_EscapeButtonPressed;
+        PlayerInput.EscapeButtonPressed -= SetGamePause;
+        ContinueGameButton.ContinueButtonClicked -= SetGamePause;
     }
 
     private void Start()
@@ -193,7 +195,7 @@ public class NEW_GameProgression : MonoBehaviour
         }
     }
 
-    private void PlayerInput_EscapeButtonPressed()
+    private void SetGamePause()
     {
         if (_isGameGoing == false)
         {

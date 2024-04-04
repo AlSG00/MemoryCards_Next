@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6965947328334013187}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NEW_Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7003034348047991413}
   - component: {fileID: 1754714178281935957}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CardAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 8974184001398587025}
   - component: {fileID: 5824910436848138764}
   - component: {fileID: 8300271517165775403}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 7760042603015792004}
   - component: {fileID: 7760042603015792006}
   - component: {fileID: 7760042603015792007}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Drawing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 7760042603504073877}
   - component: {fileID: 7760042603504073874}
   - component: {fileID: 7760042603504073875}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
