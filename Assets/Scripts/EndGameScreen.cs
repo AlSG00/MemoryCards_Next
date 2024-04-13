@@ -39,6 +39,8 @@ public class EndGameScreen : MonoBehaviour
 
     [SerializeField] private GraphicRaycaster _canvasRaycaster;
 
+    public static event Action<int> GiveReward;
+
     private void Awake()
     {
         _textElementsArray = new[] {
@@ -124,6 +126,7 @@ public class EndGameScreen : MonoBehaviour
         SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[3], true, _resultCalculator.FinalScoreValuesArray[2]);
         await Task.Delay(_nextElementShowDelay);
 
+        GiveReward?.Invoke(_resultCalculator.MultipliedReward);
         ChangeTextElementVisibility(_rewardLogo, true, true);
         ChangeTextElementVisibility(_rewardValueText, true, true);
         SetTextElementValue(_rewardValueText, _resultCalculator.Reward, true);

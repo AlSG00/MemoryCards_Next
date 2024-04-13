@@ -16,7 +16,7 @@ public class EndGameResultsCalculator : MonoBehaviour
     public int SecondsElapsed;
     public int ItemsRemaining;
     public float Reward;
-    public float MultipliedReward;
+    public int MultipliedReward;
     public float RewardMultplier;
 
     public int[] FinalScoreValuesArray = new int[5];
@@ -55,7 +55,7 @@ public class EndGameResultsCalculator : MonoBehaviour
     private void CalculateRewardValue()
     {
         Reward =  Mathf.Ceil((FinalScoreValuesArray[3] / 10));
-        MultipliedReward = Mathf.Ceil(Reward * RewardMultplier);
+        MultipliedReward = (int)Mathf.Ceil(Reward * RewardMultplier);
     }
 
     private void CalculateRewardMultiplierValue()

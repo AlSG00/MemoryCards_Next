@@ -14,10 +14,12 @@ public class Scale : TableItem
     private void OnEnable()
     {
         ShopHandler.OnShowScale += ChangeVisibility;
+        MainMoneyView.OnMainMoneyViewUpdate += Show;
     }
 
     private void OnDisable()
     {
         ShopHandler.OnShowScale -= ChangeVisibility;
+        MainMoneyView.OnMainMoneyViewUpdate -= Show;
     }
 }

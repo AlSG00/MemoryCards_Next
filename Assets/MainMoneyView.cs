@@ -9,29 +9,79 @@ public class MainMoneyView : MonoBehaviour
     [SerializeField] private List<MeshRenderer> _coinMeshList;
     private int _currentValue;
 
-    public static System.Action<int> OnMainMoneyViewUpdate;
+    public static System.Action OnMainMoneyViewUpdate;
+    public static System.Action<bool> UpdatingMoneyView;
 
-    private bool TestDebugIsReady = true;
+    //private bool TestDebugIsReady = true;
 
     private void OnEnable()
     {
-        
+        EndGameScreen.GiveReward += VisualizeRewardAccrual;
     }
 
     private void OnDisable()
     {
-
+        EndGameScreen.GiveReward -= VisualizeRewardAccrual;
     }
 
-    private async void Increase(int newValue)
+    private void Start()
     {
-        for (int i = _currentValue - 1; i < Mathf.Clamp(newValue, 0, _coinMeshList.Count); i++)
+        _currentValue = 0; // TODO: Save value somewhere
+        HideAll();
+    }
+
+    //private async void Test() // TODO: Remove
+    //{
+    //    foreach (var mesh in _coinMeshList)
+    //    {
+    //        mesh.enabled = false;
+    //    }
+
+    //    while (true)
+    //    {
+    //        foreach (var mesh in _coinMeshList)
+    //        {
+    //            mesh.enabled = true;
+    //            await System.Threading.Tasks.Task.Delay(50);
+    //        }
+
+    //        await System.Threading.Tasks.Task.Delay(2000);
+
+    //        for (int i = _coinMeshList.Count - 1; i >= 0; i--)
+    //        {
+    //            _coinMeshList[i].enabled = false;
+    //            await System.Threading.Tasks.Task.Delay(50);
+    //        }
+    //    }
+    //}
+
+    private void HideAll()
+    {
+        foreach (var mesh in _coinMeshList)
+        {
+            mesh.enabled = false;
+        }
+    }
+
+    private void Show()
+    {
+        for (int i = 0; i < _currentValue; i++)
+        {
+            _coinMeshList[i].enabled = true;
+        }
+    }
+
+    private async void Increase(int valueToIncrease)
+    {
+        int newValue = _currentValue + valueToIncrease;
+        for (int i = Mathf.Clamp(_currentValue - 1, 0, _coinMeshList.Count); i < Mathf.Clamp(newValue, 0, _coinMeshList.Count); i++)
         {
             await System.Threading.Tasks.Task.Delay(singleCoinAppearanceDelay);
+            UpdatingMoneyView?.Invoke(true);
             _coinMeshList[i].enabled = true;
         }
 
-        _currentValue += newValue;
+        _currentValue = newValue;
         // TODO: Change visual amount of coins
     }
 
@@ -45,5 +95,13 @@ public class MainMoneyView : MonoBehaviour
 
         _currentValue -= newValue;
         // TODO: Change visual amount of coins
+    }
+
+    private async void VisualizeRewardAccrual(int reward)
+    {
+        OnMainMoneyViewUpdate?.Invoke();
+        await System.Threading.Tasks.Task.Delay(2500); // TODO: Calibrate
+        Show();
+        Increase(reward);
     }
 }
