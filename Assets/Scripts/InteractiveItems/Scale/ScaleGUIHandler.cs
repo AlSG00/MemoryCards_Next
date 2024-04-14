@@ -10,11 +10,13 @@ public class ScaleGUIHandler : MonoBehaviour
     private void OnEnable()
     {
         InventoryItem.OnReadyToSell += UpdateText;
+        MainMoneyView.UpdatingMainMoneyCounter += UpdateText;
     }
 
     private void OnDisable()
     {
         InventoryItem.OnReadyToSell -= UpdateText;
+        MainMoneyView.UpdatingMainMoneyCounter += UpdateText;
     }
 
     private void Start()
@@ -24,7 +26,7 @@ public class ScaleGUIHandler : MonoBehaviour
 
     private void UpdateText(int value)
     {
-        string result = value.ToString();
+        string result = value.ToString(); //TODO: Rewrite it with f2
         result += ".0";
         _scaleText.text = result;
     }

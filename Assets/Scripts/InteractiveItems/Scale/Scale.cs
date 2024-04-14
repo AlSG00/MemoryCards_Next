@@ -6,6 +6,8 @@ using TMPro;
 [RequireComponent(typeof(Animator))]
 public class Scale : TableItem
 {
+
+
     private void Awake()
     {
         isVisible = false;
@@ -14,12 +16,14 @@ public class Scale : TableItem
     private void OnEnable()
     {
         ShopHandler.OnShowScale += ChangeVisibility;
-        MainMoneyView.OnMainMoneyViewUpdate += Show;
+        MainMoneyView.UpdatingMainMoneyView += Show;
+        StartButton.StartPressed += Hide;
     }
 
     private void OnDisable()
     {
         ShopHandler.OnShowScale -= ChangeVisibility;
-        MainMoneyView.OnMainMoneyViewUpdate -= Show;
+        MainMoneyView.UpdatingMainMoneyView -= Show;
+        StartButton.StartPressed -= Hide;
     }
 }

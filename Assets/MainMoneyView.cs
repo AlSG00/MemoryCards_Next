@@ -9,19 +9,23 @@ public class MainMoneyView : MonoBehaviour
     [SerializeField] private List<MeshRenderer> _coinMeshList;
     private int _currentValue;
 
-    public static System.Action OnMainMoneyViewUpdate;
-    public static System.Action<bool> UpdatingMoneyView;
+    public static System.Action/*<int>*/ UpdatingMainMoneyView;
+    public static System.Action<int> UpdatingMainMoneyCounter;
 
     //private bool TestDebugIsReady = true;
 
     private void OnEnable()
     {
         EndGameScreen.GiveReward += VisualizeRewardAccrual;
+        RejectStartButton.OnGameStartReject += HideAllDelayed;
+        StartButton.StartPressed += HideAllDelayed;
     }
 
     private void OnDisable()
     {
         EndGameScreen.GiveReward -= VisualizeRewardAccrual;
+        RejectStartButton.OnGameStartReject -= HideAllDelayed;
+        StartButton.StartPressed -= HideAllDelayed;
     }
 
     private void Start()
@@ -55,6 +59,12 @@ public class MainMoneyView : MonoBehaviour
     //    }
     //}
 
+    private async void HideAllDelayed()
+    {
+        await System.Threading.Tasks.Task.Delay(1500);
+        HideAll();
+    }
+
     private void HideAll()
     {
         foreach (var mesh in _coinMeshList)
@@ -77,7 +87,7 @@ public class MainMoneyView : MonoBehaviour
         for (int i = Mathf.Clamp(_currentValue - 1, 0, _coinMeshList.Count); i < Mathf.Clamp(newValue, 0, _coinMeshList.Count); i++)
         {
             await System.Threading.Tasks.Task.Delay(singleCoinAppearanceDelay);
-            UpdatingMoneyView?.Invoke(true);
+            UpdatingMainMoneyCounter?.Invoke(i + 1);
             _coinMeshList[i].enabled = true;
         }
 
@@ -99,9 +109,10 @@ public class MainMoneyView : MonoBehaviour
 
     private async void VisualizeRewardAccrual(int reward)
     {
-        OnMainMoneyViewUpdate?.Invoke();
-        await System.Threading.Tasks.Task.Delay(2500); // TODO: Calibrate
+        UpdatingMainMoneyView?.Invoke();
         Show();
+        await System.Threading.Tasks.Task.Delay(2500); // TODO: Calibrate
+        
         Increase(reward);
     }
 }
