@@ -172,6 +172,34 @@ MonoBehaviour:
     m_Localized: Final score
     m_Metadata:
       m_Items: []
+  - m_Id: 56246778535911424
+    m_Localized: Multiplier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247204148715520
+    m_Localized: VERY EASY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247251435298816
+    m_Localized: EASY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247262923497472
+    m_Localized: MEDIUM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247276315910144
+    m_Localized: HARD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247287795720192
+    m_Localized: VERY HARD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247308146483200
+    m_Localized: BACK
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

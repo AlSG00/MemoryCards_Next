@@ -167,6 +167,34 @@ MonoBehaviour:
     m_Key: MainScene/--- UI/Canvas/- EndGameStatistics/FinalScore_1/Text
     m_Metadata:
       m_Items: []
+  - m_Id: 56246778535911424
+    m_Key: MainScene/--- UI/- EndGameScreenUICanvas/RewardMultiplier/Logo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247204148715520
+    m_Key: MainScene/--- UI/- DifficultyLevelMenuUICanvas/SetDifficultyButton_VeryEasy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247251435298816
+    m_Key: MainScene/--- UI/- DifficultyLevelMenuUICanvas/SetDifficultyButton_Easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247262923497472
+    m_Key: MainScene/--- UI/- DifficultyLevelMenuUICanvas/SetDifficultyButton_Medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247276315910144
+    m_Key: MainScene/--- UI/- DifficultyLevelMenuUICanvas/SetDifficultyButton_Hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247287795720192
+    m_Key: MainScene/--- UI/- DifficultyLevelMenuUICanvas/SetDifficultyButton_VeryHard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 56247308146483200
+    m_Key: MainScene/--- UI/- DifficultyLevelMenuUICanvas/LeaveDifficultyMenuButton
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
