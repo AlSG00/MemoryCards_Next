@@ -13,6 +13,7 @@ public class SceneEventsAnimationHandler : MonoBehaviour
         NEW_GameProgression.PauseGame += GameProgression_PauseGame;
         RejectStartButton.OnGameStartReject += LeaveEndGameScreen;
         StartButton.StartPressed += LeaveEndGameScreen;
+        BackToMenuButton.ReturningToMainMenu += LeaveGame;
     }
 
     private void OnDisable()
@@ -22,6 +23,7 @@ public class SceneEventsAnimationHandler : MonoBehaviour
         NEW_GameProgression.PauseGame -= GameProgression_PauseGame;
         RejectStartButton.OnGameStartReject -= LeaveEndGameScreen;
         StartButton.StartPressed -= LeaveEndGameScreen;
+        BackToMenuButton.ReturningToMainMenu -= LeaveGame;
     }
 
     private void LoseGame()
@@ -40,6 +42,11 @@ public class SceneEventsAnimationHandler : MonoBehaviour
         {
             _animator.SetTrigger("LeaveEndGameScreen");
         }
+    }
+
+    private void LeaveGame()
+    {
+        _animator.SetTrigger("LeaveGame");
     }
 
     private void PlayAnimationAudio()
