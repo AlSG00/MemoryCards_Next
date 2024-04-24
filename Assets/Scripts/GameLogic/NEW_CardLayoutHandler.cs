@@ -37,6 +37,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         NEW_GameProgression.OnPlayTutorial += PlayTutorialRound;
         RemainingTurnsHandler.OutOfTurns += TakeCardsBack;
         Stopwatch.OutOfTime += TakeCardsBack;
+        BackToMenuButton.ReturningToMainMenu += TakeCardsBack;
         NEW_GameProgression.PauseGame += DeactivateCardCollidersWithPause;
     }
 
@@ -45,6 +46,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         NEW_GameProgression.OnPlayTutorial -= PlayTutorialRound;
         RemainingTurnsHandler.OutOfTurns -= TakeCardsBack;
         Stopwatch.OutOfTime -= TakeCardsBack;
+        BackToMenuButton.ReturningToMainMenu -= TakeCardsBack;
         NEW_GameProgression.PauseGame -= DeactivateCardCollidersWithPause;
     }
 
@@ -256,6 +258,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             }
         }
 
+        //yield return new WaitForSecondsRealtime(_cardPlacementDelay);
         RemoveAllCards();
         _isPreparing = false;
     }

@@ -13,6 +13,7 @@ public class MainMenuHandler : MenuHandler
         SetLocaleButton.OnChooseLocale += ShowMenu;
         NEW_GameProgression.FirstTimePlaying += HideMenu;
         ScaleSuspend.OnSuspendGame += ShowMenu;
+        BackToMenuButton.ReturningToMainMenu += ShowMenuDelayed;
     }
 
     private void OnDisable()
@@ -23,5 +24,12 @@ public class MainMenuHandler : MenuHandler
         SetLocaleButton.OnChooseLocale -= ShowMenu;
         NEW_GameProgression.FirstTimePlaying -= HideMenu;
         ScaleSuspend.OnSuspendGame -= ShowMenu;
+        BackToMenuButton.ReturningToMainMenu -= ShowMenuDelayed;
+    }
+
+    private async void ShowMenuDelayed()
+    {
+        await System.Threading.Tasks.Task.Delay(2000);
+        ShowMenu();
     }
 }

@@ -44,9 +44,12 @@ public class SceneEventsAnimationHandler : MonoBehaviour
         }
     }
 
-    private void LeaveGame()
+    private async void LeaveGame()
     {
         _animator.SetTrigger("LeaveGame");
+        await System.Threading.Tasks.Task.Delay(1000);
+
+        _animator.SetBool("IsGamePaused", false);
     }
 
     private void PlayAnimationAudio()

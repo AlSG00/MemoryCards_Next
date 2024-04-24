@@ -85,6 +85,7 @@ public class NEW_GameProgression : MonoBehaviour
         ScaleContinue.OnContinueGame += SetNextRound;
         ScaleExit.OnFinishGame += FinishGameOnBuyRound;
         ScaleSuspend.OnSuspendGame += SaveAndClearData;
+        BackToMenuButton.ReturningToMainMenu += ClearData;
         RemainingTurnsHandler.OutOfTurns += OnLoseGame;
         Stopwatch.OutOfTime += OnLoseGame;
         PlayerInput.EscapeButtonPressed += SetGamePause;
@@ -100,6 +101,7 @@ public class NEW_GameProgression : MonoBehaviour
         ScaleContinue.OnContinueGame -= SetNextRound;
         ScaleExit.OnFinishGame -= FinishGameOnBuyRound;
         ScaleSuspend.OnSuspendGame -= SaveAndClearData;
+        BackToMenuButton.ReturningToMainMenu -= ClearData;
         RemainingTurnsHandler.OutOfTurns -= OnLoseGame;
         Stopwatch.OutOfTime += OnLoseGame;
         PlayerInput.EscapeButtonPressed -= SetGamePause;
@@ -438,7 +440,9 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void ClearData()
     {
+        _isGameGoing = false;
         IsGameLost = false;
+        IsGamePaused = false;
         currentRound = 0;
         score = 0;
         ElapsedPlayTime.Reset();
