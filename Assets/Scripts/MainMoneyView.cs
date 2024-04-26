@@ -10,7 +10,7 @@ public class MainMoneyView : MonoBehaviour
     private int _currentValue;
 
     public static System.Action/*<int>*/ UpdatingMainMoneyView;
-    public static System.Action<int> UpdatingMainMoneyCounter;
+    public static System.Action<int> UpdatingMainMoneyCounter; // TODO: Rename event
 
     //private bool TestDebugIsReady = true;
 

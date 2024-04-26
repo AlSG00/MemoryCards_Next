@@ -126,7 +126,7 @@ public class EndGameScreen : MonoBehaviour
         SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[3], true, _resultCalculator.FinalScoreValuesArray[2]);
         await Task.Delay(_nextElementShowDelay);
 
-        GiveReward?.Invoke(_resultCalculator.MultipliedReward);
+        GiveReward?.Invoke(_resultCalculator.MultipliedReward); // TODO: Maybe move this to another script
         ChangeTextElementVisibility(_rewardLogo, true, true);
         ChangeTextElementVisibility(_rewardValueText, true, true);
         SetTextElementValue(_rewardValueText, _resultCalculator.Reward, true);
