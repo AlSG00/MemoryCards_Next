@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class InteractiveItem : MonoBehaviour
 {
+    [SerializeField] private protected InteractiveItemAudioPlayer _audioPlayer;
     [SerializeField] private protected Animator _animator;
     [SerializeField] private protected float _moveToStandartPositionTime;
     [SerializeField] private protected float _moveToCursorTime;
@@ -103,7 +104,7 @@ public abstract class InteractiveItem : MonoBehaviour
         {
             return;
         }
-
+        _audioPlayer?.MouseEnter();
         _animator.SetBool("MouseOver", true);
     }
 
@@ -113,7 +114,7 @@ public abstract class InteractiveItem : MonoBehaviour
         {
             return;
         }
-
+        _audioPlayer?.MouseExit();
         _animator.SetBool("MouseOver", false);
     }
 

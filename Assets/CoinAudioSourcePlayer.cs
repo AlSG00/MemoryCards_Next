@@ -8,7 +8,6 @@ public class CoinAudioSourcePlayer : MonoBehaviour
     [SerializeField] private float _minAudioPitch;
     [SerializeField] private float _maxAudioPitch;
     [SerializeField] private AudioClip[] coinAudioClipArray;
-    //private CoinAudioSet _currentCoinAudioSet;
 
     private void OnEnable()
     {
@@ -20,24 +19,11 @@ public class CoinAudioSourcePlayer : MonoBehaviour
         MainMoneyView.UpdatingMainMoneyCounter -= Play;
     }
 
-    //private void Awake()
-    //{
-    //    _currentCoinAudioSet = CoinAudioSetCollection[0];
-    //}
-
     int count = 0;
     private void Play(int foo = 0)
     {
-        //AudioClip clipToPlay = _currentCoinAudioSet.coinAudioClipArray[Random.Range(0, _currentCoinAudioSet.coinAudioClipArray.Length)];
         _audioSource.pitch = Random.Range(_minAudioPitch, _maxAudioPitch);
         AudioClip clipToPlay = coinAudioClipArray[Random.Range(0, coinAudioClipArray.Length)];
         _audioSource.PlayOneShot(clipToPlay);
     }
-
-    //[System.Serializable]
-    //private class CoinAudioSet
-    //{
-    //    [SerializeField] private string _name;
-    //    [SerializeField] protected internal AudioClip[] coinAudioClipArray;
-    //}
 }

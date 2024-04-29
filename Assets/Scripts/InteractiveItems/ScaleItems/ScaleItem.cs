@@ -35,6 +35,7 @@ public class ScaleItem : InteractiveItem
         _currentPivot = _cursorPivot;
         gameObject.GetComponent<Collider>().enabled = false;
         MoveToPivot(_currentPivot, _moveToCursorTime);
+        _audioPlayer.MouseDown();
         _isPicked = true;
     }
 
@@ -45,6 +46,10 @@ public class ScaleItem : InteractiveItem
         {
             _isReadyToUse = false;
             gameObject.GetComponent<IUsable>().Use();
+            if (_audioPlayer is ScaleItemAudioPlayer scaleItemAudioPlayer)
+            {
+                scaleItemAudioPlayer.OnPlaceOnScale();
+            }
         }
 
         _isChangingPosition = true;
@@ -52,6 +57,7 @@ public class ScaleItem : InteractiveItem
         _currentPivot = _selfPivot;
         gameObject.GetComponent<Collider>().enabled = true;
         MoveToPivot(_currentPivot, _moveToStandartPositionTime);
+        _audioPlayer.MouseUp();
         _isPicked = false;
     }
 
