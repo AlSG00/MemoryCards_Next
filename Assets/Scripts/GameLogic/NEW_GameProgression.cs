@@ -278,7 +278,8 @@ public class NEW_GameProgression : MonoBehaviour
             EnableScoreList(true);
         }
 
-        if (currentRound % buyRound == 0 &&
+        if (currentRound != 0 &&
+            currentRound % buyRound == 0 &&
             isBuyRoundGoing == false)
         {
             SetBuyRound();
@@ -339,7 +340,12 @@ public class NEW_GameProgression : MonoBehaviour
     // TODO: Redo
     private void UpdateDifficulty()
     {
-        if (currentRound % switchDifficultyRound != 0)
+        if ((currentRound - 1) == 0)
+        {
+            return;
+        }
+
+        if ((currentRound - 1) % switchDifficultyRound != 0)
         {
             return;
         }

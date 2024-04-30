@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScaleItem : InteractiveItem
 {
     [SerializeField] private Transform _selfPivot;
     [SerializeField] private bool _isVisible;
+    private Collider _collider;
 
     private void Awake()
-    { 
+    {
+        _collider = gameObject.GetComponent<Collider>();
+
         _isPicked = false;
         _isReadyToUse = false;
         _isVisible = false;
-        GetComponent<Collider>().enabled = false;
+        _collider.enabled = false;
     }
 
     private void OnEnable()
@@ -33,7 +34,7 @@ public class ScaleItem : InteractiveItem
     {
         _isChangingPosition = true;
         _currentPivot = _cursorPivot;
-        gameObject.GetComponent<Collider>().enabled = false;
+        _collider.enabled = false;
         MoveToPivot(_currentPivot, _moveToCursorTime);
         _audioPlayer.MouseDown();
         _isPicked = true;
@@ -51,11 +52,14 @@ public class ScaleItem : InteractiveItem
                 scaleItemAudioPlayer.OnPlaceOnScale();
             }
         }
+        else
+        {
+            _collider.enabled = true;
+        }
 
         _isChangingPosition = true;
         Cursor.visible = true;
         _currentPivot = _selfPivot;
-        gameObject.GetComponent<Collider>().enabled = true;
         MoveToPivot(_currentPivot, _moveToStandartPositionTime);
         _audioPlayer.MouseUp();
         _isPicked = false;
@@ -86,7 +90,7 @@ public class ScaleItem : InteractiveItem
             _animator.SetTrigger("Show");
         }
 
-        gameObject.GetComponent<Collider>().enabled = true;
+        _collider.enabled = true;
     }
 
     private void Hide()
@@ -97,11 +101,11 @@ public class ScaleItem : InteractiveItem
             _animator.SetTrigger("Hide");
         }
 
-        gameObject.GetComponent<Collider>().enabled = false;
+        _collider.enabled = false;
     }
 
     private void SetColliderEnabled(bool enabled)
     {
-        gameObject.GetComponent<Collider>().enabled = enabled;
+        _collider.enabled = enabled;
     }
 }

@@ -9,25 +9,32 @@ public class ScaleGUIHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        NEW_GameProgression.OnStartBuyRound += ResetText;
         InventoryItem.OnReadyToSell += UpdateText;
         MainMoneyView.UpdatingMainMoneyCounter += UpdateText;
     }
 
     private void OnDisable()
     {
+        NEW_GameProgression.OnStartBuyRound -= ResetText;
         InventoryItem.OnReadyToSell -= UpdateText;
-        MainMoneyView.UpdatingMainMoneyCounter += UpdateText;
+        MainMoneyView.UpdatingMainMoneyCounter -= UpdateText;
     }
 
     private void Start()
+    {
+        ResetText();
+    }
+
+    private void ResetText(bool isBuyRoundStarted = true)
     {
         UpdateText(0);
     }
 
     private void UpdateText(int value)
     {
-        string result = value.ToString(); //TODO: Rewrite it with f2
-        result += ".0";
+        string result = value.ToString("f1", System.Globalization.CultureInfo.InvariantCulture); //So float digit showed up with dot instead of comma
+        //result += ".0";
         _scaleText.text = result;
     }
 }

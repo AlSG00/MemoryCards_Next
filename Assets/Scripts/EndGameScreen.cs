@@ -244,6 +244,7 @@ public class EndGameScreen : MonoBehaviour
         float nextStepDelay = _counterEffectDuration / stepsCount; 
         int currentValue = (int)startValue;
         int valueChangeStepInt = Mathf.Abs((int)valueChangeStep);
+
         if (finalValue < startValue)
         {
             valueChangeStepInt *= (-1);
@@ -275,7 +276,7 @@ public class EndGameScreen : MonoBehaviour
     private float GenerateRandomFloat(float min, float max)
     {
         System.Random random = new System.Random();
-        double val = (random.NextDouble() * (max - min) + min);
+        double val = random.NextDouble() * (max - min) + min;
         return (float)val;
     }
 }

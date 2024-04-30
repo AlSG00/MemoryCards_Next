@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour
         RejectStartButton.OnGameStartReject += DestroyAllItems;
         ScaleSuspend.OnSuspendGame += SaveAndClear;
         StartButton.StartPressed += DestroyAllItems;
+        BackToMenuButton.ReturningToMainMenu += DestroyAllItems;
     }
 
     private void OnDisable()
@@ -28,7 +29,8 @@ public class Inventory : MonoBehaviour
         //NEW_GameProgression.OnGameStartConfirm -= DestroyAllItems;
         RejectStartButton.OnGameStartReject -= DestroyAllItems;
         ScaleSuspend.OnSuspendGame -= SaveAndClear;
-        StartButton.StartPressed += DestroyAllItems;
+        StartButton.StartPressed -= DestroyAllItems;
+        BackToMenuButton.ReturningToMainMenu -= DestroyAllItems;
     }
 
 

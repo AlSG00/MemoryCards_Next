@@ -20,7 +20,6 @@ public class ShopHandler : MonoBehaviour
     public static event System.Action<bool> OnShowScale;
     public static event System.Action<bool> OnShowScaleItems;
     public static event System.Action<InventoryItem> OnBoughtItemAdd;
-    //public static event System.Action<InventoryItem, Transform> GeneratedForShop;
     public static event System.Action<InventoryItem, Transform> OnItemRemove;
 
     private void OnEnable()

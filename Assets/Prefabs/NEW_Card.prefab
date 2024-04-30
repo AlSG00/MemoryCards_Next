@@ -302,9 +302,9 @@ MonoBehaviour:
   cardAnimator: {fileID: 5824910436848138764}
   requiredMatchesCount: 2
   cardAudioSource: {fileID: 1754714178281935957}
-  PickSound: {fileID: 8300000, guid: 11b8ad8a8f345cc4bbf2ffee86028905, type: 3}
-  CancelSound: {fileID: 8300000, guid: 930e7509d7c5e6148ab6789fb22800e8, type: 3}
-  PlaceSound: {fileID: 8300000, guid: 0f5814f7c5828d647a5e6e01b629d00d, type: 3}
+  PickSound: {fileID: 8300000, guid: b371b5d0fce680049a1deae1fbc234a9, type: 3}
+  CancelSound: {fileID: 8300000, guid: 77a908aab7dd4624f897708671dac47b, type: 3}
+  PlaceSound: {fileID: 8300000, guid: c70c126f690377644a9e5bc2289c2d7e, type: 3}
 --- !u!1 &7760042603015792005
 GameObject:
   m_ObjectHideFlags: 0
