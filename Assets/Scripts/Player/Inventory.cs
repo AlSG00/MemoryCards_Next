@@ -63,7 +63,8 @@ public class Inventory : MonoBehaviour
         {
             if (slot.item != null)
             {
-                Destroy(slot.item.gameObject);
+                slot.item.gameObject.GetComponent<InventoryItem>().RemoveOnGameEnd();
+                //Destroy(slot.item.gameObject);
                 slot.item = null;
             }
         }

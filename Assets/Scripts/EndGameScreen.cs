@@ -1,10 +1,9 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Threading.Tasks;
-using System;
 
 public class EndGameScreen : MonoBehaviour
 {
@@ -50,7 +49,7 @@ public class EndGameScreen : MonoBehaviour
             _roundsSurvivedLogo,
             _buttonsRemainingValueText,
             _buttonsRemainingLogo,
-            _timeValueText, 
+            _timeValueText,
             _timeLogo,
             _itemsRemainingValueText,
             _itemsRemainingLogo,
@@ -99,8 +98,8 @@ public class EndGameScreen : MonoBehaviour
         ChangeTextElementVisibility(_scoreValueText, true, true);
         ChangeTextElementVisibility(_finalScoreLogo, true, true);
         ChangeTextElementVisibility(_finalScoreValueText, true, true);
-        SetTextElementValue(_scoreValueText, _resultCalculator.Score, true);
-        SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[0], true);
+        SetTextElementValue(_scoreValueText, _resultCalculator.Score, true, 0, 5);
+        SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[0], true, 0, 5);
         await Task.Delay(_nextElementShowDelay);
 
         ChangeTextElementVisibility(_roundsSurvivedLogo, true, true);
@@ -111,7 +110,7 @@ public class EndGameScreen : MonoBehaviour
 
         ChangeTextElementVisibility(_buttonsRemainingLogo, true, true);
         ChangeTextElementVisibility(_buttonsRemainingValueText, true, true);
-        SetTextElementValue(_buttonsRemainingValueText,_resultCalculator.ButtonsRemaining, true);
+        SetTextElementValue(_buttonsRemainingValueText, _resultCalculator.ButtonsRemaining, true);
         SetTextElementValue(_finalScoreValueText, _resultCalculator.FinalScoreValuesArray[2], true, _resultCalculator.FinalScoreValuesArray[1]);
         await Task.Delay(_nextElementShowDelay);
 
@@ -146,14 +145,30 @@ public class EndGameScreen : MonoBehaviour
 
     private void SetTextElementValue(TextMeshProUGUI textElement, float value, bool counterEffect = false, float startValue = 0, float valueChangeStep = 1)
     {
-        if (counterEffect && value != startValue)
+        if (counterEffect == false || value == startValue)
         {
-            StartCoroutine(TextElementCounterEffectRoutine(textElement, startValue, value, valueChangeStep));
+            textElement.text = value.ToString();
+            return;
+        }
+
+        if (value - startValue < 200)
+        {
+            valueChangeStep = 1;
         }
         else
         {
-            textElement.text = value.ToString();
+            valueChangeStep = (value / 200) + (value % 20);
         }
+
+        //if (value - startValue < valueChangeStep && value - startValue != 0)
+        //{
+        //    //valueChangeStep %= value - startValue;
+        //}
+
+        //valueChangeStep = (value / 100) + (value % 10);
+        Debug.Log(valueChangeStep);
+
+        StartCoroutine(TextElementDigitCounterEffectRoutine(textElement, startValue, value, valueChangeStep));
     }
 
     private void SetRewardMultiplierValueText()
@@ -237,13 +252,14 @@ public class EndGameScreen : MonoBehaviour
     }
 
     // TODO: Probabaly dedicate to class
-    private IEnumerator TextElementCounterEffectRoutine(TextMeshProUGUI textElement, float startValue, float finalValue, float valueChangeStep)
+    private IEnumerator TextElementDigitCounterEffectRoutine(TextMeshProUGUI textElement, float startValue, float finalValue, float valueChangeStep)
     {
         int step = 0;
-        int stepsCount = Mathf.Abs((int)((finalValue - startValue) / valueChangeStep));
-        float nextStepDelay = _counterEffectDuration / stepsCount; 
+        int valueChangeStepInt = Mathf.Abs(Mathf.CeilToInt(valueChangeStep));
+        int stepsCount = Mathf.Abs(Mathf.FloorToInt((finalValue - startValue) / valueChangeStepInt));
+        float nextStepDelay = _counterEffectDuration / stepsCount;
         int currentValue = (int)startValue;
-        int valueChangeStepInt = Mathf.Abs((int)valueChangeStep);
+        
 
         if (finalValue < startValue)
         {
@@ -255,7 +271,7 @@ public class EndGameScreen : MonoBehaviour
             step++;
             textElement.text = currentValue.ToString();
             currentValue += valueChangeStepInt;
-            yield return new WaitForSeconds(nextStepDelay);   
+            yield return new WaitForSeconds(nextStepDelay);
         }
 
         textElement.text = finalValue.ToString();

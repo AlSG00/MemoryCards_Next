@@ -116,12 +116,20 @@ public class InventoryItem : InteractiveItem
 
         _isChangingPosition = true;
         _currentPivot = pivot;
-        MoveToPivot(_currentPivot, 1);
-        Destroy(gameObject, 3f);
+        MoveToPivot(_currentPivot, 0.4f);
+        Destroy(gameObject, 3);
     }
 
     private void RemoveAsUsed()
     {
+        OnRemoveFromInventory?.Invoke(this, _inventoryPivot);
+        Destroy(gameObject);
+    }
+
+    internal async void RemoveOnGameEnd()
+    {
+        MoveToPivot(_removeOnEndGamePivot, _moveToStandartPositionTime);
+        await System.Threading.Tasks.Task.Delay(3000);
         OnRemoveFromInventory?.Invoke(this, _inventoryPivot);
         Destroy(gameObject);
     }
