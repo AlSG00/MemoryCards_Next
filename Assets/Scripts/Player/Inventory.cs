@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField] private InventorySlot[] _itemSlots;
     [SerializeField] private Transform[] _cursorPivots;
+    [SerializeField] private Transform _removeOnEndGamePivot;
 
     public static event System.Action<InventoryItem, Transform, Transform> OnReceiveItem;
     public static event System.Action<InventoryItem> OnBoughtItemAdd;
@@ -63,12 +64,40 @@ public class Inventory : MonoBehaviour
         {
             if (slot.item != null)
             {
-                slot.item.gameObject.GetComponent<InventoryItem>().RemoveOnGameEnd();
+                slot.item.gameObject.GetComponent<InventoryItem>().MoveToPivot(_removeOnEndGamePivot, 0.2f); // TODO: move to var
                 //Destroy(slot.item.gameObject);
                 slot.item = null;
             }
         }
+
+        DestroyAllItemsImmediately();
     }
+
+    public void DestroyAllItemsImmediately()
+    {
+        foreach (var slot in _itemSlots)
+        {
+            if (slot.item != null)
+            {
+                //slot.item.gameObject.
+                Destroy(slot.item.gameObject);
+                slot.item = null;
+            }
+        }
+    }
+
+    //public void DestroyAllItems()
+    //{
+    //    foreach (var slot in _itemSlots)
+    //    {
+    //        if (slot.item != null)
+    //        {
+    //            //slot.item.gameObject.GetComponent<InventoryItem>().RemoveOnGameEnd();
+    //            Destroy(slot.item.gameObject);
+    //            slot.item = null;
+    //        }
+    //    }
+    //}
 
     public int GetItemsInInventoryCount()
     {

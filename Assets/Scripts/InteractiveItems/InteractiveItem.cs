@@ -46,7 +46,7 @@ public abstract class InteractiveItem : MonoBehaviour
         _isReadyToUse = isReady;
     }
 
-    private protected virtual void MoveToPivot(Transform target, float timeToMove)
+    protected internal virtual void MoveToPivot(Transform target, float timeToMove)
     {
         StopAllCoroutines();
         StartCoroutine(MoveToPivotRoutine(target, timeToMove));

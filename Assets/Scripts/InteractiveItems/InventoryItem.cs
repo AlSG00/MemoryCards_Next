@@ -30,7 +30,6 @@ public class InventoryItem : InteractiveItem
         Inventory.OnReceiveItem += InitializeForInventory;
         ScaleColliderHandler.OnEnterCollider += SetReadyToSell;
         Inventory.OnBoughtItemAdd += Buy;
-        //ShopHandler.GeneratedForShop += InitializeForShop;
         ShopHandler.OnItemRemove += RemoveAsShopGood;
         ItemApplyingTriggerHandler.OnEnterTrigger += SetReadyToUse;
     }
@@ -40,7 +39,6 @@ public class InventoryItem : InteractiveItem
         Inventory.OnReceiveItem -= InitializeForInventory;
         ScaleColliderHandler.OnEnterCollider -= SetReadyToSell;
         Inventory.OnBoughtItemAdd -= Buy;
-        //ShopHandler.GeneratedForShop -= InitializeForShop;
         ShopHandler.OnItemRemove -= RemoveAsShopGood;
         ItemApplyingTriggerHandler.OnEnterTrigger -= SetReadyToUse;
     }
@@ -126,13 +124,13 @@ public class InventoryItem : InteractiveItem
         Destroy(gameObject);
     }
 
-    internal async void RemoveOnGameEnd()
-    {
-        MoveToPivot(_removeOnEndGamePivot, _moveToStandartPositionTime);
-        await System.Threading.Tasks.Task.Delay(3000);
-        OnRemoveFromInventory?.Invoke(this, _inventoryPivot);
-        Destroy(gameObject);
-    }
+    //internal async void RemoveOnGameEnd()
+    //{
+    //    MoveToPivot(_removeOnEndGamePivot, _moveToStandartPositionTime);
+    //    await System.Threading.Tasks.Task.Delay(3000);
+    //    OnRemoveFromInventory?.Invoke(this, _inventoryPivot);
+    //    Destroy(gameObject);
+    //}
 
     #region INITIALIZATION
 
