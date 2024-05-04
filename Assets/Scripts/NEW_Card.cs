@@ -23,7 +23,7 @@ public class NEW_Card : MonoBehaviour
     public delegate void ClickAction(NEW_Card card);
     public static event ClickAction OnCardPicked;
     public static event ClickAction OnCardUnpicked;
-    public static event System.Action<bool> OnHideFullList;
+    public static event System.Action<bool> OnHideFullList; //TODO: Rename
 
     private bool _wasPicked;
 

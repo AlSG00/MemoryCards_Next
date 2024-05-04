@@ -19,7 +19,7 @@ public class CoinAudioSourcePlayer : MonoBehaviour
         MainMoneyView.UpdatingMainMoneyCounter -= Play;
     }
 
-    int count = 0;
+    //int count = 0;
     private void Play(int foo = 0)
     {
         _audioSource.pitch = Random.Range(_minAudioPitch, _maxAudioPitch);
