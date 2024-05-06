@@ -8,7 +8,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     // public GameObject TEMP_testTripleLayout;
 
     [Header("Main parameters")]
-    public Transform CardsStartPosition;
+    public static readonly Transform CardsStartPosition;
     [SerializeField] private float _cardPlacingSpeed = 1f;
     [SerializeField] private float _cardPlacementDelay = 0.1f;
 
