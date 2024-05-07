@@ -8,7 +8,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
     // public GameObject TEMP_testTripleLayout;
 
     [Header("Main parameters")]
-    public static readonly Transform CardsStartPosition;
+    [SerializeField] internal Transform CardsStartPosition;
     [SerializeField] private float _cardPlacingSpeed = 1f;
     [SerializeField] private float _cardPlacementDelay = 0.1f;
 
@@ -50,10 +50,11 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         NEW_GameProgression.PauseGame -= DeactivateCardCollidersWithPause;
     }
 
-    public void ReceiveNewCardPack(List<GameObject> newCardPack)
-    {
-        _cardsInLayout = newCardPack;
-    }
+    //public void ReceiveNewCardPack(List<GameObject> newCardPack)
+    //{
+    //    cardGenerator.GeneratePack(_cardPlacePoints.Count);
+    //    _cardsInLayout = newCardPack;
+    //}
 
     public void RemoveCertainCards(List<GameObject> cardsToRemove)
     {
@@ -72,7 +73,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             _isPreparing = true;
             SetPlacePointsList(_tutorialLayouts[tutorialIndex]);
             MixPlacePointsOrder();
-            cardGenerator.GeneratePack(_cardPlacePoints.Count);
+            _cardsInLayout = cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
             OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count, currentRound);
         }
@@ -86,7 +87,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             _isPreparing = true;
             _cardPlacePoints.Add(_twoCardLayout.transform.GetChild(0));
             _cardPlacePoints.Add(_twoCardLayout.transform.GetChild(1));
-            cardGenerator.GeneratePack(_cardPlacePoints.Count);
+            _cardsInLayout = cardGenerator.GeneratePack(_cardPlacePoints.Count);
             PlaceCards();
         }
     }
@@ -100,7 +101,7 @@ public class NEW_CardLayoutHandler : MonoBehaviour
 
         _isPreparing = true;
         InitializeLayout();
-        cardGenerator.GeneratePack(_cardPlacePoints.Count);
+        _cardsInLayout = cardGenerator.GeneratePack(_cardPlacePoints.Count);
         PlaceCards();
 
         OnSetRemainingTurns?.Invoke(_cardPlacePoints.Count, currentRound);
