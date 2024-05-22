@@ -19,7 +19,7 @@ public abstract class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointer
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        
+
         if (_animator is null)
         {
             throw new MissingComponentException("Animator component not found");

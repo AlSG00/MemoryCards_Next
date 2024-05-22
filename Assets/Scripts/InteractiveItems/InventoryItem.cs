@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryItem : InteractiveItem
@@ -124,14 +122,6 @@ public class InventoryItem : InteractiveItem
         Destroy(gameObject);
     }
 
-    //internal async void RemoveOnGameEnd()
-    //{
-    //    MoveToPivot(_removeOnEndGamePivot, _moveToStandartPositionTime);
-    //    await System.Threading.Tasks.Task.Delay(3000);
-    //    OnRemoveFromInventory?.Invoke(this, _inventoryPivot);
-    //    Destroy(gameObject);
-    //}
-
     #region INITIALIZATION
 
     private void InitializeForInventory(InventoryItem item, Transform inventoryPivot, Transform cursorPivot)
@@ -166,12 +156,8 @@ public class InventoryItem : InteractiveItem
 
         _isChangingPosition = true;
         _mustBuy = true;
-
-       // _currentPivot.position = shopPivot.position + _shopPivotOffset;
-        
         OnInitializeForShop?.Invoke();
-       MoveToPositionWithOffset(shopPivot, _shopPivotOffset, 1);
-        //MoveToPivot(_currentPivot, 1);
+        MoveToPositionWithOffset(shopPivot, _shopPivotOffset, 1);
     }
     #endregion
 

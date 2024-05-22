@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ public class CardGenerator : MonoBehaviour
         int tempCardsToMatch = 2; // TODO: TEMP
 
         _currentCardFactory = _standartCardFactory;
-        _currentCardFactory.Initialize(countToGenerate, tempCardsToMatch); 
+        _currentCardFactory.Initialize(countToGenerate, tempCardsToMatch);
 
         while (index < countToGenerate)
         {

@@ -16,8 +16,8 @@ public class NEW_GameProgression : MonoBehaviour
 
     public bool firstTimePlaying; // TODO: Save this parameter to JSON
 
-    public CardGenerator tempCardGenerator;
-    public CardLayoutHandler tempCardLayoutHandler;
+    [SerializeField] private CardGenerator _cardGenerator;
+    [SerializeField] private CardLayoutHandler _cardLayoutHandler;
 
     public bool tutorialComplete;
     public bool playingTutorial;
@@ -142,7 +142,7 @@ public class NEW_GameProgression : MonoBehaviour
         // decrease remaining turns
         //if (currentRound == 0 && confirmedCards != null)
         //{
-        //    tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
+        //    _cardLayoutHandler.RemoveCertainCards(confirmedCards);
         //    ConfirmGameStart();
         //    return;
         //}
@@ -156,8 +156,8 @@ public class NEW_GameProgression : MonoBehaviour
         // TODO: Rework this block
         if (playingTutorial)
         {
-            tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
-            if (tempCardGenerator.CheckRemainingCards() == false)
+            _cardLayoutHandler.RemoveCertainCards(confirmedCards);
+            if (_cardGenerator.CheckRemainingCards() == false)
             {
                 _tutorialProgress++;
                 Debug.Log(_tutorialProgress);
@@ -181,8 +181,8 @@ public class NEW_GameProgression : MonoBehaviour
             score += 10; //TODO: TEMP. Move to score script
 
             onScoreChanged?.Invoke(score);
-            tempCardLayoutHandler.RemoveCertainCards(confirmedCards);
-            if (tempCardGenerator.CheckRemainingCards() == false)
+            _cardLayoutHandler.RemoveCertainCards(confirmedCards);
+            if (_cardGenerator.CheckRemainingCards() == false)
             {
                 AddCurrentMoney?.Invoke(1); // TODO: Rework
                 SetNextRound();
@@ -305,7 +305,7 @@ public class NEW_GameProgression : MonoBehaviour
         }
         SetRoundMods();
         UpdateDifficulty();
-        tempCardLayoutHandler.PrepareNewLayout(currentRound);
+        _cardLayoutHandler.PrepareNewLayout(currentRound);
     }
 
     private void SetBuyRound()
@@ -390,7 +390,7 @@ public class NEW_GameProgression : MonoBehaviour
             EnableScoreList(true);
             EnableTurnCounter(true);
             EnableMoneyRope(MoneyRopeHandler.Visibility.PartiallyVisible);
-            tempCardLayoutHandler.PrepareNewLayout(currentRound);
+            _cardLayoutHandler.PrepareNewLayout(currentRound);
             OnNextRound?.Invoke(currentRound);
         }
     }

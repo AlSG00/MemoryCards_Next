@@ -4,7 +4,7 @@ using UnityEngine;
 public class CardData : ScriptableObject
 {
     public enum Type
-    { 
+    {
         StandartDot,
         StandartStick,
         StandartCircle,
@@ -17,7 +17,7 @@ public class CardData : ScriptableObject
         StandartEarth,
         StandartSun,
         StandartDark,
-        StandartMoon, 
+        StandartMoon,
         StandartEye,
         StandartDevil,
         StandartGod,

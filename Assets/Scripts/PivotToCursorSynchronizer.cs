@@ -17,20 +17,20 @@ public class PivotToCursorSynchronizer : MonoBehaviour
             //    raycastHit.point.z + _positionOffset.z
             //    );
 
-            transform.position += _positionOffset;
-            transform.rotation = Quaternion.Euler(
-                _rotationOffset.x,
-                _rotationOffset.y,
-                _rotationOffset.z
-                );
-
-
-            //transform.rotation = new Quaternion(
+            transform.position = raycastHit.point + _positionOffset;
+            //transform.rotation = Quaternion.Euler(
             //    _rotationOffset.x,
             //    _rotationOffset.y,
-            //    _rotationOffset.z,
-            //    _rotationOffset.w
+            //    _rotationOffset.z
             //    );
+
+
+            transform.rotation = new Quaternion(
+                _rotationOffset.x,
+                _rotationOffset.y,
+                _rotationOffset.z,
+                _rotationOffset.w
+                );
         }
     }
 }
