@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NEW_CardGenerator : MonoBehaviour
+public class CardGenerator : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private StandartCardFactory _standartCardFactory;
-    [SerializeField] private NEW_CardLayoutHandler _cardLayoutHandler;
+    [SerializeField] private CardLayoutHandler _cardLayoutHandler;
     [SerializeField] private NEW_GameProgression _sessionProgress;
 
     [Header("Card collections")]

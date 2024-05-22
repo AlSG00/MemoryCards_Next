@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -24,9 +22,9 @@ public class TurnCounterMainScreen : MonoBehaviour
     private void ChangeScreenVisiblity(bool isVisible)
     {
         isVisible = !isVisible;
-        foreach (var gui in _GUIElements)
+        foreach (var element in _GUIElements)
         {
-            gui.enabled = isVisible;
+            element.enabled = isVisible;
         }
     }
 

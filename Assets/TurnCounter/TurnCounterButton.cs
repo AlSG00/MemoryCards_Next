@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public class TurnCounterButton : MonoBehaviour
 {
@@ -15,10 +12,5 @@ public class TurnCounterButton : MonoBehaviour
         }
 
         GetComponent<IButtonAction>().OnClickAction();
-    }
-
-    private void OnMouseEnter()
-    {
-        Debug.Log("bebra");
     }
 }

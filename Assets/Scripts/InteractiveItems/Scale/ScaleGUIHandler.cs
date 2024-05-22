@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -34,7 +32,6 @@ public class ScaleGUIHandler : MonoBehaviour
     private void UpdateText(int value)
     {
         string result = value.ToString("f1", System.Globalization.CultureInfo.InvariantCulture); //So float digit showed up with dot instead of comma
-        //result += ".0";
         _scaleText.text = result;
     }
 }

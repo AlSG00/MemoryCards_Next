@@ -12,14 +12,14 @@ public class RemainingTurnsHandler : MonoBehaviour
     {
         TurnCounter.OnActivateTurnCounter += SetTurnHandlerActive;
         NEW_GameProgression.OnTurnsChanged += ChangeRemainingTurns;
-        NEW_CardLayoutHandler.OnSetRemainingTurns += SetRemainingTurns;
+        CardLayoutHandler.OnSetRemainingTurns += SetRemainingTurns;
     }
 
     private void OnDisable()
     {
         TurnCounter.OnActivateTurnCounter -= SetTurnHandlerActive;
         NEW_GameProgression.OnTurnsChanged -= ChangeRemainingTurns;
-        NEW_CardLayoutHandler.OnSetRemainingTurns -= SetRemainingTurns;
+        CardLayoutHandler.OnSetRemainingTurns -= SetRemainingTurns;
     }
 
     private void Start()

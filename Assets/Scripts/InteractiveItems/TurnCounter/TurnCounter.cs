@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class TurnCounter : TableItem
 {
     public static System.Action<bool> OnActivateTurnCounter;

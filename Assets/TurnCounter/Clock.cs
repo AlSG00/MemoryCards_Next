@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
-using System.Text;
 
 public class Clock : MonoBehaviour
 {
@@ -14,8 +11,7 @@ public class Clock : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _hours;
     [SerializeField] private TextMeshProUGUI _minutes;
     [SerializeField] private TextMeshProUGUI _seconds;
-
-    private bool isActive = true;
+    private bool _isActive = true;
 
     private void OnEnable()
     {
@@ -45,7 +41,7 @@ public class Clock : MonoBehaviour
 
     private void SetDayValue()
     {
-        if (isActive == false)
+        if (_isActive == false)
         {
             return;
         }
@@ -93,7 +89,7 @@ public class Clock : MonoBehaviour
 
     private void ChangeClockVisiblity(bool isVisible)
     {
-        isActive = isVisible;
+        _isActive = isVisible;
         foreach (var gui in _GUIElements)
         {
             gui.enabled = isVisible;

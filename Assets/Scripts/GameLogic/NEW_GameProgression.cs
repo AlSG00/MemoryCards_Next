@@ -16,8 +16,8 @@ public class NEW_GameProgression : MonoBehaviour
 
     public bool firstTimePlaying; // TODO: Save this parameter to JSON
 
-    public NEW_CardGenerator tempCardGenerator;
-    public NEW_CardLayoutHandler tempCardLayoutHandler;
+    public CardGenerator tempCardGenerator;
+    public CardLayoutHandler tempCardLayoutHandler;
 
     public bool tutorialComplete;
     public bool playingTutorial;

@@ -29,12 +29,12 @@ public class NEW_Card : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_CardLayoutHandler.CancelAllPicks += CancelPick;
+        CardLayoutHandler.CancelAllPicks += CancelPick;
     }
 
     private void OnDisable()
     {
-        NEW_CardLayoutHandler.CancelAllPicks -= CancelPick;
+        CardLayoutHandler.CancelAllPicks -= CancelPick;
     }
 
     public void Initialize(CardData cardData)

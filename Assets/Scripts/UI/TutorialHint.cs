@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -7,7 +5,7 @@ public class TutorialHint : MonoBehaviour
 {
     [SerializeField] private int _hintIndex;
     [SerializeField] private TextMeshProUGUI _hintTextMesh;
-    private bool isVisible;
+    private bool _isVisible;
 
     private void OnEnable()
     {
@@ -21,7 +19,7 @@ public class TutorialHint : MonoBehaviour
 
     private void Start()
     {
-        isVisible = false;
+        _isVisible = false;
         _hintTextMesh.enabled = false;
     }
 
@@ -39,22 +37,23 @@ public class TutorialHint : MonoBehaviour
 
     private void Show()
     {
-        if (isVisible)
+        if (_isVisible)
         {
             return;
         }
-        isVisible = true;
+
+        _isVisible = true;
         _hintTextMesh.enabled = true;
-        //Debug.Log($"Hint: {_hintIndex} shown");
     }
 
     private void Hide()
     {
-        if (isVisible == false)
+        if (_isVisible == false)
         {
             return;
         }
-        isVisible = false;
+
+        _isVisible = false;
         _hintTextMesh.enabled = false;
     }
 }

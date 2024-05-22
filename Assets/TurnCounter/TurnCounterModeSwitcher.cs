@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnCounterModeSwitcher : MonoBehaviour, IButtonAction
 {
-    public bool showClock;
+    private bool _showClock = false;
+
     public static event System.Action<bool> OnSwitchMode;
 
     private void Start()
     {
-        OnSwitchMode?.Invoke(showClock);
+        OnSwitchMode?.Invoke(_showClock);
     }
 
     public void OnClickAction()
     {
-        showClock = !showClock;
-        OnSwitchMode?.Invoke(showClock);
+        _showClock = !_showClock;
+        OnSwitchMode?.Invoke(_showClock);
     }
 }

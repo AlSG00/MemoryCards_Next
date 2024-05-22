@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StandartCardFactory : CardFactory
 {
-    [SerializeField] private NEW_CardLayoutHandler _cardLayoutHandler;
+    [SerializeField] private CardLayoutHandler _cardLayoutHandler;
     [SerializeField] private CardDataSet[] cardDataSetArray;
 
     private int _dataIndex = 0;

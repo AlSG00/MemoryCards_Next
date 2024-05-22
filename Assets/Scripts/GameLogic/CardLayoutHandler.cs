@@ -3,27 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class NEW_CardLayoutHandler : MonoBehaviour
+public class CardLayoutHandler : MonoBehaviour
 {
-    // public GameObject TEMP_testTripleLayout;
-
     [Header("Main parameters")]
     [SerializeField] internal Transform CardsStartPosition;
     [SerializeField] private float _cardPlacingSpeed = 1f;
     [SerializeField] private float _cardPlacementDelay = 0.1f;
 
     [Header("References")]
-    [SerializeField] private NEW_CardGenerator cardGenerator;
+    [SerializeField] private CardGenerator cardGenerator;
 
     [Header("Layouts collections")]
     [SerializeField] private GameObject _currentLayout;
     [SerializeField] private GameObject _twoCardLayout;
     [SerializeField] private List<GameObject> _tutorialLayouts;
-
-    private List<GameObject> _availableLayouts;
     [SerializeField] private Layout[] _layoutDifficultyVariantSet;
+    private List<GameObject> _availableLayouts;
     private NEW_GameProgression.Difficulty _currentLayoutDifficulty;
-
     private List<Transform> _cardPlacePoints = new List<Transform>();
     private List<GameObject> _cardsInLayout;
     private bool _isPreparing = false;
@@ -49,12 +45,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         BackToMenuButton.ReturningToMainMenu -= TakeCardsBack;
         NEW_GameProgression.PauseGame -= DeactivateCardCollidersWithPause;
     }
-
-    //public void ReceiveNewCardPack(List<GameObject> newCardPack)
-    //{
-    //    cardGenerator.GeneratePack(_cardPlacePoints.Count);
-    //    _cardsInLayout = newCardPack;
-    //}
 
     public void RemoveCertainCards(List<GameObject> cardsToRemove)
     {
@@ -133,7 +123,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
         }
 
         CheckAvailableLayouts();
-        //SetAvailableLayouts();
         GetRandomAvailableLayout();
         SetPlacePointsList(_currentLayout);
         MixPlacePointsOrder();
@@ -259,7 +248,6 @@ public class NEW_CardLayoutHandler : MonoBehaviour
             }
         }
 
-        //yield return new WaitForSecondsRealtime(_cardPlacementDelay);
         RemoveAllCards();
         _isPreparing = false;
     }
