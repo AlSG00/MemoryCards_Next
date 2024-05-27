@@ -13,7 +13,7 @@ public class CardGenerator : MonoBehaviour
     [SerializeField] private CardData[] _tutorialCardsCollection;
 
     private CardFactory _currentCardFactory;
-    private List<CardData> _activeCardData; // Stores data for cards that are used for generating at current game stage
+    //private List<CardData> _activeCardData; // Stores data for cards that are used for generating at current game stage
 
     public List<GameObject> GeneratePack(int countToGenerate)
     {

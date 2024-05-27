@@ -5,14 +5,14 @@ public abstract class TableItem : MonoBehaviour
     public bool isVisible;
     [SerializeField] private protected Animator _animator;
 
-    private protected virtual void ChangeVisibility(bool isActive)
+    private protected virtual void ChangeVisibility(bool setVisible)
     {
-        if (isActive == isVisible)
+        if (setVisible == isVisible)
         {
             return;
         }
 
-        if (isActive)
+        if (setVisible)
         {
             Show();
         }
@@ -24,19 +24,23 @@ public abstract class TableItem : MonoBehaviour
 
     private protected virtual void Show()
     {
-        if (isVisible == false)
+        if (isVisible)
         {
-            isVisible = true;
-            _animator.SetTrigger("Show");
+            return;
         }
+
+        isVisible = true;
+        _animator.SetTrigger("Show");
     }
 
     private protected virtual void Hide()
     {
-        if (isVisible)
+        if (isVisible == false)
         {
-            isVisible = false;
-            _animator.SetTrigger("Hide");
+            return;
         }
+
+        isVisible = false;
+        _animator.SetTrigger("Hide");
     }
 }
