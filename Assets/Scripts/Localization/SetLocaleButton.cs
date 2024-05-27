@@ -9,23 +9,13 @@ public class SetLocaleButton : MenuButton
 
     private enum Locale
     {
-        rus,
-        eng
+        eng,
+        rus
     }
 
-    // Rework
     protected override void OnClickAction()
     {
-        switch (_locale)
-        {
-            case Locale.rus:
-                LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];
-                break;
-
-            case Locale.eng:
-                LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
-                break;
-        }
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[(int)_locale];
 
         OnChooseLocale?.Invoke();
     }

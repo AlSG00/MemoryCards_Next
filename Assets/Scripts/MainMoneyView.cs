@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,10 +8,8 @@ public class MainMoneyView : MonoBehaviour
     [SerializeField] private List<MeshRenderer> _coinMeshList;
     private int _currentValue;
 
-    public static System.Action/*<int>*/ UpdatingMainMoneyView;
-    public static System.Action<int> UpdatingMainMoneyCounter; // TODO: Rename event
-
-    //private bool TestDebugIsReady = true;
+    public static System.Action UpdatingMainMoneyView;
+    public static System.Action<int> UpdatingMainMoneyScaleCounter; // TODO: Rename event
 
     private void OnEnable()
     {
@@ -33,31 +30,6 @@ public class MainMoneyView : MonoBehaviour
         _currentValue = 0; // TODO: Save value somewhere
         HideAll();
     }
-
-    //private async void Test() // TODO: Remove
-    //{
-    //    foreach (var mesh in _coinMeshList)
-    //    {
-    //        mesh.enabled = false;
-    //    }
-
-    //    while (true)
-    //    {
-    //        foreach (var mesh in _coinMeshList)
-    //        {
-    //            mesh.enabled = true;
-    //            await System.Threading.Tasks.Task.Delay(50);
-    //        }
-
-    //        await System.Threading.Tasks.Task.Delay(2000);
-
-    //        for (int i = _coinMeshList.Count - 1; i >= 0; i--)
-    //        {
-    //            _coinMeshList[i].enabled = false;
-    //            await System.Threading.Tasks.Task.Delay(50);
-    //        }
-    //    }
-    //}
 
     private async void HideAllDelayed()
     {
@@ -87,7 +59,7 @@ public class MainMoneyView : MonoBehaviour
         for (int i = Mathf.Clamp(_currentValue - 1, 0, _coinMeshList.Count); i < Mathf.Clamp(newValue, 0, _coinMeshList.Count); i++)
         {
             await System.Threading.Tasks.Task.Delay(singleCoinAppearanceDelay);
-            UpdatingMainMoneyCounter?.Invoke(i + 1);
+            UpdatingMainMoneyScaleCounter?.Invoke(i + 1);
             _coinMeshList[i].enabled = true;
         }
 
@@ -112,7 +84,7 @@ public class MainMoneyView : MonoBehaviour
         UpdatingMainMoneyView?.Invoke();
         Show();
         await System.Threading.Tasks.Task.Delay(2500); // TODO: Calibrate
-        
+
         Increase(reward);
     }
 }

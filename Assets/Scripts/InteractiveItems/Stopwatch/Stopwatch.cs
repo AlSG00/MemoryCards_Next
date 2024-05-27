@@ -6,7 +6,6 @@ public class Stopwatch : TableItem
 {
     [SerializeField] private Transform _secondArrow;
     [SerializeField] private Transform _minuteArrow;
-
     [SerializeField] private MeshRenderer _minuteWarning;
     [SerializeField] private MeshRenderer _secondWarning;
     [SerializeField] private float _minuteOneFlickedDuration;
@@ -24,9 +23,9 @@ public class Stopwatch : TableItem
 
     [SerializeField] private bool _isActive;
     private bool _isDeactivatedByDebuff;
-    int _seconds;
-    int _minutes;
-    int _remainingTime;
+    private int _seconds;
+    private int _minutes;
+    private int _remainingTime;
 
     public static event System.Action OutOfTime;
     public static event System.Action<bool> StopwatchActivated;
@@ -118,7 +117,6 @@ public class Stopwatch : TableItem
         SetArrowStartRotation(_secondArrow, _seconds, _secondArrowStep);
 
         _isActive = true;
-        Debug.Log($"{_remainingTime}");
     }
 
     private int DecreaseTime(int timeInSeconds)
@@ -144,6 +142,7 @@ public class Stopwatch : TableItem
         return timeInSeconds;
     }
 
+    // TODO: Change to quaternion
     private void SetArrowStartRotation(Transform arrow, int arrowValue, int rotationStep)
     {
         arrow.localEulerAngles = new Vector3(
@@ -153,6 +152,7 @@ public class Stopwatch : TableItem
             );
     }
 
+    // TODO: Change to quaternion
     private void RotateArrow(Transform arrow, int rotationStep)
     {
         arrow.localEulerAngles = new Vector3(

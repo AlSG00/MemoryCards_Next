@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +22,7 @@ public class RandomSoundGenerator : MonoBehaviour
             {
                 RandomAudioSource.PlayOneShot(_currentClipList[Random.Range(0, _currentClipList.Count)]);
             }
-            
+
             _timeRemaining = GetTimeRemaining();
         }
     }
@@ -35,7 +34,7 @@ public class RandomSoundGenerator : MonoBehaviour
 
     public void SetCurrentClipList(int currentRound)
     {
-        switch(currentRound)
+        switch (currentRound)
         {
             case 0:
                 _currentClipList = new List<AudioClip>();

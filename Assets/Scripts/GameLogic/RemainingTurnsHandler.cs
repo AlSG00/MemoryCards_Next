@@ -68,12 +68,12 @@ public class RemainingTurnsHandler : MonoBehaviour
             return;
         }
 
-        // TODO: Finish
+        // TODO: Check
         if (currentRound < 30)
         {
             remainingTurns = cardsInLayout * 2 - currentRound / 5 - (int)NEW_GameProgression.StartCardDifficulty;
         }
-        else 
+        else
         {
             remainingTurns = cardsInLayout * 2 - currentRound / 7 - (int)NEW_GameProgression.StartCardDifficulty;
         }

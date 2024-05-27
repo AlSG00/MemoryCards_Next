@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class ScoreCounter : MonoBehaviour
 {
@@ -19,6 +17,6 @@ public class ScoreCounter : MonoBehaviour
 
     public void UpdateScore(int currentScore)
     {
-        _scoreText.text = $"{currentScore.ToString()}";
+        _scoreText.text = currentScore.ToString();
     }
 }

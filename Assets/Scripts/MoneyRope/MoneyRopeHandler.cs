@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoneyRopeHandler : MonoBehaviour
@@ -11,7 +9,7 @@ public class MoneyRopeHandler : MonoBehaviour
     [SerializeField] private Transform[] _buttonPivots;
     [SerializeField] private GameObject[] _buttonsCollection;
     [SerializeField] private MoneySlot[] _moneySlots;
-    
+
     public enum Visibility
     {
         Visible,
@@ -173,7 +171,7 @@ public class MoneyRopeHandler : MonoBehaviour
         {
             return;
         }
-        
+
         switch (visibility)
         {
             case Visibility.Visible:

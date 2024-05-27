@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class ScaleGUIHandler : MonoBehaviour
 {
@@ -9,14 +9,14 @@ public class ScaleGUIHandler : MonoBehaviour
     {
         NEW_GameProgression.OnStartBuyRound += ResetText;
         InventoryItem.OnReadyToSell += UpdateText;
-        MainMoneyView.UpdatingMainMoneyCounter += UpdateText;
+        MainMoneyView.UpdatingMainMoneyScaleCounter += UpdateText;
     }
 
     private void OnDisable()
     {
         NEW_GameProgression.OnStartBuyRound -= ResetText;
         InventoryItem.OnReadyToSell -= UpdateText;
-        MainMoneyView.UpdatingMainMoneyCounter -= UpdateText;
+        MainMoneyView.UpdatingMainMoneyScaleCounter -= UpdateText;
     }
 
     private void Start()

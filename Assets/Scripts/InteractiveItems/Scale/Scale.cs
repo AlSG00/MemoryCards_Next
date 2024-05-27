@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 [RequireComponent(typeof(Animator))]
 public class Scale : TableItem
 {
-
-
     private void Awake()
     {
         isVisible = false;

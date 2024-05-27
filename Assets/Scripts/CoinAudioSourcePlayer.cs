@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinAudioSourcePlayer : MonoBehaviour
@@ -11,15 +9,14 @@ public class CoinAudioSourcePlayer : MonoBehaviour
 
     private void OnEnable()
     {
-        MainMoneyView.UpdatingMainMoneyCounter += Play;
+        MainMoneyView.UpdatingMainMoneyScaleCounter += Play;
     }
 
     private void OnDisable()
     {
-        MainMoneyView.UpdatingMainMoneyCounter -= Play;
+        MainMoneyView.UpdatingMainMoneyScaleCounter -= Play;
     }
 
-    //int count = 0;
     private void Play(int foo = 0)
     {
         _audioSource.pitch = Random.Range(_minAudioPitch, _maxAudioPitch);

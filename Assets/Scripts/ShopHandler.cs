@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class ShopHandler : MonoBehaviour
 {
     [SerializeField] private PlayerMoney _money;
     [SerializeField] private Inventory _inventory;
-    [SerializeField][Range(0, 3)] private int _shopLevel;
+    [SerializeField] [Range(0, 3)] private int _shopLevel;
     [SerializeField] private ShopSlots[] _shopSlots;
 
     [SerializeField] private Transform _generatedItemPivot;
@@ -67,14 +64,12 @@ public class ShopHandler : MonoBehaviour
     {
         ShopSlots shopSlots = _shopSlots[_shopLevel];
 
-        // TODO: Generated goods must be assigned to its pivots
         for (int i = 0; i < shopSlots.slots.Length; i++)
         {
             var itemToGenerate = _earlyGameGoods[Random.Range(0, _earlyGameGoods.Length)];
             var item = Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
             shopSlots.items[i] = item;
             item.InitializeForShop(shopSlots.slots[i]);
-            //GeneratedForShop?.Invoke(item, shopSlots.slots[i]);
         }
     }
 
