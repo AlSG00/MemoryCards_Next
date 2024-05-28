@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 8974184001398587025}
   - component: {fileID: 5824910436848138764}
   - component: {fileID: 8300271517165775403}
+  - component: {fileID: 3837339768866525808}
   m_Layer: 7
   m_Name: Card
   m_TagString: Untagged
@@ -305,6 +306,20 @@ MonoBehaviour:
   PickSound: {fileID: 8300000, guid: b371b5d0fce680049a1deae1fbc234a9, type: 3}
   CancelSound: {fileID: 8300000, guid: 77a908aab7dd4624f897708671dac47b, type: 3}
   PlaceSound: {fileID: 8300000, guid: c70c126f690377644a9e5bc2289c2d7e, type: 3}
+--- !u!114 &3837339768866525808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7453559035100647053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e157fd001e08364fabcb2469ae4f837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _applyableItem: 2
+  _collider: {fileID: 8974184001398587025}
 --- !u!1 &7760042603015792005
 GameObject:
   m_ObjectHideFlags: 0

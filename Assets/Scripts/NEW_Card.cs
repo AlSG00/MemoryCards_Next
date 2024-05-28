@@ -63,16 +63,13 @@ public class NEW_Card : MonoBehaviour
         if (_wasPicked == false)
         {
             _wasPicked = true;
-            cardAudioSource.pitch = Random.Range(0.9f, 1.1f);
-            cardAudioSource.PlayOneShot(PickSound);
-            cardAnimator.SetTrigger("picked");
+            TurnOver(PickSound, "picked");
             OnCardPicked?.Invoke(this);
         }
         else
         {
             _wasPicked = false;
-            cardAudioSource.PlayOneShot(CancelSound);
-            cardAnimator.SetTrigger("unpicked");
+            TurnOver(CancelSound, "unpicked");
             OnCardUnpicked?.Invoke(this);
         }
 
@@ -94,6 +91,13 @@ public class NEW_Card : MonoBehaviour
     {
         cardCollider.enabled = false;
         StartCoroutine(ConfirmCardRoutine());
+    }
+
+    public void TurnOver(AudioClip sound, string animationTrigger)
+    {
+        cardAudioSource.pitch = Random.Range(0.9f, 1.1f);
+        cardAudioSource.PlayOneShot(PickSound);
+        cardAnimator.SetTrigger(animationTrigger);
     }
 
     public IEnumerator ConfirmCardRoutine()

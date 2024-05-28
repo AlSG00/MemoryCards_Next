@@ -1,5 +1,6 @@
 public enum ItemType
 {
     Hammer,
-    Screwdriver
+    Screwdriver,
+    Test
 }

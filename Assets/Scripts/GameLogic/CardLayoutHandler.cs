@@ -34,6 +34,7 @@ public class CardLayoutHandler : MonoBehaviour
         Stopwatch.OutOfTime += TakeCardsBack;
         BackToMenuButton.ReturningToMainMenu += TakeCardsBack;
         NEW_GameProgression.PauseGame += DeactivateCardCollidersWithPause;
+        TestFindObjectUseLogic.OnUseTestItem += ShowAllSpecificCards;
     }
 
     private void OnDisable()
@@ -43,6 +44,18 @@ public class CardLayoutHandler : MonoBehaviour
         Stopwatch.OutOfTime -= TakeCardsBack;
         BackToMenuButton.ReturningToMainMenu -= TakeCardsBack;
         NEW_GameProgression.PauseGame -= DeactivateCardCollidersWithPause;
+        TestFindObjectUseLogic.OnUseTestItem -= ShowAllSpecificCards;
+    }
+
+    public async void ShowAllSpecificCards(CardData.Type requiredType)
+    {
+        foreach (var card in _cardsInLayout)
+        {
+            if (card.GetComponentInChildren<NEW_Card>().cardType == requiredType)
+            {
+
+            }
+        }
     }
 
     public void RemoveCertainCards(List<GameObject> cardsToRemove)
@@ -100,7 +113,7 @@ public class CardLayoutHandler : MonoBehaviour
     {
         for (int i = 0; i < _cardsInLayout.Count; i++)
         {
-            _cardsInLayout[i].GetComponentInChildren<BoxCollider>().enabled = activate;
+            _cardsInLayout[i].GetComponentInChildren<BoxCollider>().enabled = activate; // TODO: Might cause lag spikes on large layouts
         }
     }
 
@@ -207,6 +220,8 @@ public class CardLayoutHandler : MonoBehaviour
         // TODO: Future random debuff
     }
 
+    #region MOVE CARDS ROUTINES
+
     private IEnumerator MoveCardsRoutine()
     {
         _isPlacing = true;
@@ -267,6 +282,8 @@ public class CardLayoutHandler : MonoBehaviour
 
         card.transform.position = positionToPlace.position;
     }
+
+    #endregion
 
     private void MixPlacePointsOrder()
     {
