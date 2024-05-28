@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMoney : MonoBehaviour
@@ -8,8 +6,9 @@ public class PlayerMoney : MonoBehaviour
     [SerializeField] private int _mainMoney;
     [SerializeField] private int _currentGameMoney;
 
-    public int MainMoney { 
-        get => _mainMoney; 
+    public int MainMoney
+    {
+        get => _mainMoney;
         set
         {
             if (value < 0)
@@ -64,13 +63,6 @@ public class PlayerMoney : MonoBehaviour
         _currentGameMoney += amount;
         OnMoneyAmountChanged?.Invoke(_currentGameMoney);
     }
-
-    //internal void AddMainMoney(int amount)
-    //{
-    //    _currentGameMoney += amount;
-    //    OnMoneyAmountChanged?.Invoke(_currentGameMoney);
-    //    sdfiku;
-    //}
 
     internal void GetCurrentGameMoney(int itemPrice)
     {

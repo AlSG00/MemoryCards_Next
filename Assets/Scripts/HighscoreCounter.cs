@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class HighscoreCounter : MonoBehaviour
 {
@@ -23,10 +21,10 @@ public class HighscoreCounter : MonoBehaviour
         _highscoreData.highscore = PlayerPrefs.GetInt("highscore");
         UpdateHighscore(_highscoreData.highscore);
     }
-    
+
     public void UpdateHighscore(int newScore)
     {
         _highscore.text = $"Highscore: {_highscoreData.highscore.ToString()}";
-        PlayerPrefs.SetInt("highscore", _highscoreData.highscore);
+        PlayerPrefs.SetInt("highscore", _highscoreData.highscore); // TODO: Remove from here
     }
 }

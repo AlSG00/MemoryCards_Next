@@ -30,6 +30,7 @@ public class MainMenuHandler : MenuHandler
     private async void ShowMenuDelayed()
     {
         await System.Threading.Tasks.Task.Delay(2000);
+
         ShowMenu();
     }
 }

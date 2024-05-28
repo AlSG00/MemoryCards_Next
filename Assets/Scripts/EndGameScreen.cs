@@ -9,6 +9,8 @@ public class EndGameScreen : MonoBehaviour
 {
     [SerializeField] private EndGameResultsCalculator _resultCalculator;
 
+    [Space()]
+    [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI _scoreValueText;
     [SerializeField] private TextMeshProUGUI _scoreLogo;
     [SerializeField] private TextMeshProUGUI _roundsSurvivedValueText;
@@ -27,16 +29,18 @@ public class EndGameScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _rewardMultiplierLogo;
     [SerializeField] private TextMeshProUGUI _newItemsAvailableLogo;
 
+    [Space()]
+    [Header("Visual effect parameters")]
     [SerializeField] private float _flickerEffectDuration;
     [SerializeField] private float _counterEffectDuration;
     [SerializeField] private int _nextElementShowDelay;
 
+    [Space()]
+    [Header("Visual effect parameters")]
     [SerializeField] private GameObject _restartButton;
     [SerializeField] private GameObject _toMenuButton;
-
-    [SerializeField] private TextMeshProUGUI[] _textElementsArray;
-
     [SerializeField] private GraphicRaycaster _canvasRaycaster;
+    private TextMeshProUGUI[] _textElementsArray;
 
     public static event Action<int> GiveReward;
 

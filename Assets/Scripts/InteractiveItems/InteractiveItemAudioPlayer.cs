@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class InteractiveItemAudioPlayer : MonoBehaviour
@@ -38,6 +36,7 @@ public abstract class InteractiveItemAudioPlayer : MonoBehaviour
         {
             return;
         }
+
         _audioSource.pitch = Random.Range(minAudioPitch, maxAudioPitch);
         AudioClip soundToPlay = audioClipSet[Random.Range(0, audioClipSet.Length)];
         _audioSource.PlayOneShot(soundToPlay);

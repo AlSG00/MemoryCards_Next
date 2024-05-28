@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
@@ -16,7 +14,6 @@ public class Inventory : MonoBehaviour
     {
         InventoryItem.OnAddToInventory += AddItem;
         InventoryItem.OnRemoveFromInventory += RemoveItem;
-        //NEW_GameProgression.ga += DestroyAllItems;
         RejectStartButton.OnGameStartReject += DestroyAllItems;
         ScaleSuspend.OnSuspendGame += SaveAndClear;
         StartButton.StartPressed += DestroyAllItems;
@@ -27,7 +24,6 @@ public class Inventory : MonoBehaviour
     {
         InventoryItem.OnAddToInventory -= AddItem;
         InventoryItem.OnRemoveFromInventory -= RemoveItem;
-        //NEW_GameProgression.OnGameStartConfirm -= DestroyAllItems;
         RejectStartButton.OnGameStartReject -= DestroyAllItems;
         ScaleSuspend.OnSuspendGame -= SaveAndClear;
         StartButton.StartPressed -= DestroyAllItems;
@@ -64,8 +60,7 @@ public class Inventory : MonoBehaviour
         {
             if (slot.item != null)
             {
-                slot.item.gameObject.GetComponent<InventoryItem>().MoveToPivot(_removeOnEndGamePivot, 0.2f); // TODO: move to var
-                //Destroy(slot.item.gameObject);
+                slot.item.gameObject.GetComponent<InventoryItem>().MoveToPivot(_removeOnEndGamePivot, 0.2f); // TODO: move 0.2f to variable maybe?
                 slot.item = null;
             }
         }
@@ -79,25 +74,11 @@ public class Inventory : MonoBehaviour
         {
             if (slot.item != null)
             {
-                //slot.item.gameObject.
                 Destroy(slot.item.gameObject);
                 slot.item = null;
             }
         }
     }
-
-    //public void DestroyAllItems()
-    //{
-    //    foreach (var slot in _itemSlots)
-    //    {
-    //        if (slot.item != null)
-    //        {
-    //            //slot.item.gameObject.GetComponent<InventoryItem>().RemoveOnGameEnd();
-    //            Destroy(slot.item.gameObject);
-    //            slot.item = null;
-    //        }
-    //    }
-    //}
 
     public int GetItemsInInventoryCount()
     {
