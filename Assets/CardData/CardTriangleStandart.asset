@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e1754364a54f94c810aaf5438ea6c7, type: 3}
   m_Name: CardTriangleStandart
   m_EditorClassIdentifier: 
-  type: 3
+  type: 4
   cardSprite:
   - {fileID: 21300000, guid: 5220687d3c1a5104faa5dbf1e31ec8e7, type: 3}
   - {fileID: 21300000, guid: c61d24621865b46439b9ba3c20c7ed02, type: 3}
   - {fileID: 21300000, guid: 245289914d05c5c41b7bd8f1ec7efe6b, type: 3}
   scoreValue: 5
+  isDarkCard: 0
+  isStrangeCard: 0

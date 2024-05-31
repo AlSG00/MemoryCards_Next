@@ -49,13 +49,16 @@ public class CardLayoutHandler : MonoBehaviour
 
     public async void ShowAllSpecificCards(CardData.Type requiredType)
     {
-        foreach (var card in _cardsInLayout)
+        ActivateCardColliders(false);
+        foreach (var cardObject in _cardsInLayout)
         {
-            if (card.GetComponentInChildren<NEW_Card>().cardType == requiredType)
+            var card = cardObject.GetComponentInChildren<NEW_Card>();
+            if (card.cardType == requiredType)
             {
-
+                card.TurnOverTemporarily();
             }
         }
+        ActivateCardColliders(true);
     }
 
     public void RemoveCertainCards(List<GameObject> cardsToRemove)

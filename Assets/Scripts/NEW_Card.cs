@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class NEW_Card : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class NEW_Card : MonoBehaviour
     public static event ClickAction OnCardPicked;
     public static event ClickAction OnCardUnpicked;
     public static event System.Action<bool> OnHideFullList; //TODO: Rename
+    public static event System.Action<CardData.Type> SetHoveredCardType;
 
     private bool _wasPicked;
 
@@ -51,11 +53,13 @@ public class NEW_Card : MonoBehaviour
     private void OnMouseEnter()
     {
         cardAnimator.SetBool("mouseInArea", true);
+        SetHoveredCardType?.Invoke(cardType);
     }
 
     private void OnMouseExit()
     {
         cardAnimator.SetBool("mouseInArea", false);
+        SetHoveredCardType?.Invoke(cardType);
     }
 
     private void OnMouseDown()
@@ -98,6 +102,13 @@ public class NEW_Card : MonoBehaviour
         cardAudioSource.pitch = Random.Range(0.9f, 1.1f);
         cardAudioSource.PlayOneShot(PickSound);
         cardAnimator.SetTrigger(animationTrigger);
+    }
+
+    public async void TurnOverTemporarily()
+    {
+        TurnOver(PickSound, "picked");
+        await Task.Delay(1000); // TODO: Make as customizable variable;
+        TurnOver(CancelSound, "unpicked");
     }
 
     public IEnumerator ConfirmCardRoutine()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e1754364a54f94c810aaf5438ea6c7, type: 3}
   m_Name: CardGodDark
   m_EditorClassIdentifier: 
-  type: 18
+  type: 19
   cardSprite:
   - {fileID: 21300000, guid: 63cf788d402f5e947992a0a1a549bdcd, type: 3}
   - {fileID: 21300000, guid: 48e9532d20c2ca8408b14316e5ae794f, type: 3}

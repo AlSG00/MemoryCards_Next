@@ -5,6 +5,7 @@ public class CardData : ScriptableObject
 {
     public enum Type
     {
+        None,
         StandartDot,
         StandartStick,
         StandartCircle,

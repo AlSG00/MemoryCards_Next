@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e1754364a54f94c810aaf5438ea6c7, type: 3}
   m_Name: CardSnake
   m_EditorClassIdentifier: 
-  type: 7
+  type: 8
   cardSprite:
   - {fileID: 21300000, guid: 6d59d594229de3f4eb9aed358db2aeb6, type: 3}
   - {fileID: 21300000, guid: bf3b32a4caa527240a40b6d35f21c47d, type: 3}
