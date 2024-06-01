@@ -145,7 +145,7 @@ MonoBehaviour:
   _type: 2
   _mustBuy: 1
   _priceTag: {fileID: 5761858379588184332}
-  _sellPrice: 1
+  _sellPrice: 0
   _shopPivotOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &5392046895359875211
 MonoBehaviour:
@@ -198,6 +198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9670ebcde70284390e7a1f94af0afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cardShowDuration: 1000
+  _hoveredType: 0
 --- !u!1001 &5392046894422679631
 PrefabInstance:
   m_ObjectHideFlags: 0

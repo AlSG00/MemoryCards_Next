@@ -2,38 +2,44 @@ using UnityEngine;
 
 public class ItemApplyingTriggerHandler : MonoBehaviour
 {
-    [SerializeField] private ItemType _applyableItem;
-    [SerializeField] private Collider _collider;
+    [SerializeField] private protected ItemType[] _applyableItem;
+    [SerializeField] private protected Collider _collider;
+    internal bool IsActivated = false;
 
-    public static System.Action<bool, ItemType> OnEnterTrigger;
+    public static System.Action<bool, ItemType[]> OnEnterTrigger;
 
-    private void Awake()
+    private protected void Awake()
     {
         _collider ??= GetComponent<Collider>();
         SetColliderEnabled(false);
     }
 
-    private void OnEnable()
+    private protected void OnEnable()
     {
         InventoryItem.OnPick += SetColliderEnabled;
     }
 
-    private void OnDisable()
+    private protected void OnDisable()
     {
         InventoryItem.OnPick -= SetColliderEnabled;
     }
 
-    private void OnMouseEnter()
+    private protected virtual void OnMouseEnter()
     {
         OnEnterTrigger?.Invoke(true, _applyableItem);
     }
-    private void OnMouseExit()
+    private protected virtual void OnMouseExit()
     {
         OnEnterTrigger?.Invoke(false, _applyableItem);
     }
 
-    private void SetColliderEnabled(bool isEnabled)
+    private protected void SetColliderEnabled(bool isEnabled)
     {
+        if (IsActivated)
+        {
+            return;
+        }
+
         _collider.enabled = isEnabled;
     }
 }

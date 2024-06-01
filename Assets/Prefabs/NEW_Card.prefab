@@ -33,6 +33,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2736659683866704079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3251736007635900224}
+  - component: {fileID: 5649694296396597627}
+  - component: {fileID: 3434922032313394208}
+  m_Layer: 7
+  m_Name: ItemApplyingTriggerHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3251736007635900224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736659683866704079}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7798982070153483319}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5649694296396597627
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736659683866704079}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0142658595, y: 0.019943925, z: 0.0022810737}
+  m_Center: {x: 0.000018871677, y: 0.000001174493, z: 0.00025624613}
+--- !u!114 &3434922032313394208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736659683866704079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d455bc0d3ca07a488bbe77c33be2307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _applyableItem: 0200000003000000
+  _collider: {fileID: 5649694296396597627}
+  _parentCard: {fileID: 8300271517165775403}
 --- !u!1 &4016312344309494160
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +236,6 @@ GameObject:
   - component: {fileID: 8974184001398587025}
   - component: {fileID: 5824910436848138764}
   - component: {fileID: 8300271517165775403}
-  - component: {fileID: 3837339768866525808}
   m_Layer: 7
   m_Name: Card
   m_TagString: Untagged
@@ -196,6 +256,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7760042603504073873}
+  - {fileID: 3251736007635900224}
   m_Father: {fileID: 6965947328334013187}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: -90}
@@ -300,26 +361,13 @@ MonoBehaviour:
   scoreValue: 1
   cardDrawing: {fileID: 7760042603015792007}
   cardCollider: {fileID: 8974184001398587025}
+  _itemApplyingTrigger: {fileID: 3434922032313394208}
   cardAnimator: {fileID: 5824910436848138764}
   requiredMatchesCount: 2
   cardAudioSource: {fileID: 1754714178281935957}
   PickSound: {fileID: 8300000, guid: b371b5d0fce680049a1deae1fbc234a9, type: 3}
   CancelSound: {fileID: 8300000, guid: 77a908aab7dd4624f897708671dac47b, type: 3}
   PlaceSound: {fileID: 8300000, guid: c70c126f690377644a9e5bc2289c2d7e, type: 3}
---- !u!114 &3837339768866525808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7453559035100647053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e157fd001e08364fabcb2469ae4f837, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _applyableItem: 2
-  _collider: {fileID: 8974184001398587025}
 --- !u!1 &7760042603015792005
 GameObject:
   m_ObjectHideFlags: 0

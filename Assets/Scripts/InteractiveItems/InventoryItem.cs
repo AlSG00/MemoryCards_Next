@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Linq;
 
 public class InventoryItem : InteractiveItem
 {
@@ -78,14 +79,14 @@ public class InventoryItem : InteractiveItem
         }
     }
 
-    private protected void SetReadyToUse(bool isReady, ItemType type)
+    private protected void SetReadyToUse(bool isReady, ItemType[] type)
     {
         if (_isPicked == false)
         {
             return;
         }
 
-        if (type.Equals(_type) == false)
+        if (type.Contains(_type) == false)
         {
             return;
         }

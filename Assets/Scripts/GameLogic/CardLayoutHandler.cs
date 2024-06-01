@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class CardLayoutHandler : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class CardLayoutHandler : MonoBehaviour
         BackToMenuButton.ReturningToMainMenu += TakeCardsBack;
         NEW_GameProgression.PauseGame += DeactivateCardCollidersWithPause;
         TestFindObjectUseLogic.OnUseTestItem += ShowAllSpecificCards;
+        TestFindPairUseLogic.OnUseTestItem += ShowGroupOfSpecificCards;
     }
 
     private void OnDisable()
@@ -45,20 +47,37 @@ public class CardLayoutHandler : MonoBehaviour
         BackToMenuButton.ReturningToMainMenu -= TakeCardsBack;
         NEW_GameProgression.PauseGame -= DeactivateCardCollidersWithPause;
         TestFindObjectUseLogic.OnUseTestItem -= ShowAllSpecificCards;
+        TestFindPairUseLogic.OnUseTestItem -= ShowGroupOfSpecificCards;
     }
 
-    public async void ShowAllSpecificCards(CardData.Type requiredType)
+    public void ShowGroupOfSpecificCards(NEW_Card chosenCard)
     {
-        ActivateCardColliders(false);
+        if (chosenCard.IsPicked == false)
+        {
+            chosenCard.Pick();
+        }
+
+        foreach (var cardObject in _cardsInLayout)
+        {
+            var card = cardObject.GetComponentInChildren<NEW_Card>();
+            if (card.cardType == chosenCard.cardType && card != chosenCard)
+            {
+                card.Pick();
+                return;
+            }
+        }
+    }
+
+    public void ShowAllSpecificCards(CardData.Type requiredType, int showDuration)
+    {
         foreach (var cardObject in _cardsInLayout)
         {
             var card = cardObject.GetComponentInChildren<NEW_Card>();
             if (card.cardType == requiredType)
             {
-                card.TurnOverTemporarily();
+                card.TurnOverTemporarily(showDuration);
             }
         }
-        ActivateCardColliders(true);
     }
 
     public void RemoveCertainCards(List<GameObject> cardsToRemove)

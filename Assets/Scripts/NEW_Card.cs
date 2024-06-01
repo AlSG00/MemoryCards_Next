@@ -1,7 +1,7 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Threading.Tasks;
 
 public class NEW_Card : MonoBehaviour
 {
@@ -10,8 +10,10 @@ public class NEW_Card : MonoBehaviour
     public int scoreValue = 1;
     public Image cardDrawing;
     public BoxCollider cardCollider;
+    public ItemOnCardApplyingTriggerHandler _itemApplyingTrigger;
     public Animator cardAnimator;
-
+    private bool isAffectingByItem = false;
+    
     public int requiredMatchesCount = 2;
 
     [Header("Audio")]
@@ -24,9 +26,8 @@ public class NEW_Card : MonoBehaviour
     public static event ClickAction OnCardPicked;
     public static event ClickAction OnCardUnpicked;
     public static event System.Action<bool> OnHideFullList; //TODO: Rename
-    public static event System.Action<CardData.Type> SetHoveredCardType;
-
-    private bool _wasPicked;
+                                                            // public static event System.Action<CardData.Type> SetHoveredCardType
+    protected internal bool IsPicked { get; private set; }
 
     private void OnEnable()
     {
@@ -53,48 +54,76 @@ public class NEW_Card : MonoBehaviour
     private void OnMouseEnter()
     {
         cardAnimator.SetBool("mouseInArea", true);
-        SetHoveredCardType?.Invoke(cardType);
+        //SetHoveredCardType?.Invoke(cardType);
     }
 
     private void OnMouseExit()
     {
         cardAnimator.SetBool("mouseInArea", false);
-        SetHoveredCardType?.Invoke(cardType);
+        //SetHoveredCardType?.Invoke(cardType);
     }
 
     private void OnMouseDown()
     {
-        if (_wasPicked == false)
+        if (IsPicked == false)
         {
-            _wasPicked = true;
-            TurnOver(PickSound, "picked");
-            OnCardPicked?.Invoke(this);
+            //IsPicked = true;
+            //TurnOver(PickSound, "picked");
+            //OnCardPicked?.Invoke(this);
+
+            Pick();
         }
         else
         {
-            _wasPicked = false;
-            TurnOver(CancelSound, "unpicked");
-            OnCardUnpicked?.Invoke(this);
+            //IsPicked = false;
+            //TurnOver(CancelSound, "unpicked");
+            //OnCardUnpicked?.Invoke(this);
+
+            Unpick();
         }
 
         OnHideFullList?.Invoke(false);
     }
 
+    internal void Pick()
+    {
+        if (IsPicked)
+        {
+            return;
+        }
+
+        IsPicked = true;
+        TurnOver(PickSound, "picked");
+        OnCardPicked?.Invoke(this);
+    }
+
+    internal void Unpick()
+    {
+        if (IsPicked == false)
+        {
+            return;
+        }
+
+        IsPicked = false;
+        TurnOver(CancelSound, "unpicked");
+        OnCardUnpicked?.Invoke(this);
+    }
+
     public void CancelPick()
     {
-        if (_wasPicked == false)
+        if (IsPicked == false)
         {
             return;
         }
 
         cardCollider.enabled = false;
-        StartCoroutine(CancelCardRoutine());
+        StartCoroutine(CancelCardPickRoutine());
     }
 
     public void ConfirmPick()
     {
         cardCollider.enabled = false;
-        StartCoroutine(ConfirmCardRoutine());
+        StartCoroutine(ConfirmCardPickRoutine());
     }
 
     public void TurnOver(AudioClip sound, string animationTrigger)
@@ -104,25 +133,40 @@ public class NEW_Card : MonoBehaviour
         cardAnimator.SetTrigger(animationTrigger);
     }
 
-    public async void TurnOverTemporarily()
+    public async void TurnOverTemporarily(int showDuration)
     {
+        if (_itemApplyingTrigger.IsActivated)
+        {
+            return;
+        }
+
+        if (IsPicked)
+        {
+            return;
+        }
+
+        _itemApplyingTrigger.IsActivated = true;
+        cardCollider.enabled = false;
         TurnOver(PickSound, "picked");
-        await Task.Delay(1000); // TODO: Make as customizable variable;
+        await Task.Delay(showDuration);
+
         TurnOver(CancelSound, "unpicked");
+        cardCollider.enabled = true;
+        _itemApplyingTrigger.IsActivated = false;
     }
 
-    public IEnumerator ConfirmCardRoutine()
+    public IEnumerator ConfirmCardPickRoutine()
     {
         yield return new WaitForSecondsRealtime(0.3f);
         cardAnimator.SetTrigger("confirmed");
     }
 
-    public IEnumerator CancelCardRoutine()
+    public IEnumerator CancelCardPickRoutine()
     {
         yield return new WaitForSecondsRealtime(0.5f);
         cardAudioSource.PlayOneShot(CancelSound);
         cardAnimator.SetTrigger("unpicked");
-        _wasPicked = !_wasPicked;
+        IsPicked = !IsPicked;
         cardCollider.enabled = true;
     }
 }
