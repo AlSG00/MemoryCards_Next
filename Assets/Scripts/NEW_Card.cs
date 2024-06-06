@@ -54,31 +54,21 @@ public class NEW_Card : MonoBehaviour
     private void OnMouseEnter()
     {
         cardAnimator.SetBool("mouseInArea", true);
-        //SetHoveredCardType?.Invoke(cardType);
     }
 
     private void OnMouseExit()
     {
         cardAnimator.SetBool("mouseInArea", false);
-        //SetHoveredCardType?.Invoke(cardType);
     }
 
     private void OnMouseDown()
     {
         if (IsPicked == false)
         {
-            //IsPicked = true;
-            //TurnOver(PickSound, "picked");
-            //OnCardPicked?.Invoke(this);
-
             Pick();
         }
         else
         {
-            //IsPicked = false;
-            //TurnOver(CancelSound, "unpicked");
-            //OnCardUnpicked?.Invoke(this);
-
             Unpick();
         }
 
@@ -151,6 +141,11 @@ public class NEW_Card : MonoBehaviour
         await Task.Delay(showDuration);
 
         TurnOver(CancelSound, "unpicked");
+        if (NEW_GameProgression.IsGamePaused)
+        {
+            return;
+        }
+
         cardCollider.enabled = true;
         _itemApplyingTrigger.IsActivated = false;
     }

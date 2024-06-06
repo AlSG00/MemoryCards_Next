@@ -29,7 +29,7 @@ public class NEW_GameProgression : MonoBehaviour
     public bool isMoneyRopeActive;
     public bool isBuyRoundGoing;
     public bool IsGameLost;
-    public bool IsGamePaused;
+    //private bool _isGamePaused;
 
     public int currentRound = 0;
     public int score = 0;
@@ -75,6 +75,8 @@ public class NEW_GameProgression : MonoBehaviour
         Tutorial,
         Standart
     }
+
+    public static bool IsGamePaused { get; private set; }
 
     private void OnEnable()
     {

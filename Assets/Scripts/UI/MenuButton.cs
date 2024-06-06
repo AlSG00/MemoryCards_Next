@@ -6,12 +6,12 @@ public abstract class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointer
 {
     private Animator _animator;
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         SetAnimatorValue(true);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
         SetAnimatorValue(false);
     }
