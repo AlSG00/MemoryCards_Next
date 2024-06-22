@@ -1,7 +1,9 @@
 public enum ItemType
 {
+    None,
     Hammer,
     Screwdriver,
     Test,
-    Test_2
+    Test_2,
+    Key
 }

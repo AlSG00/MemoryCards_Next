@@ -4,13 +4,13 @@ public class TurnCounter : TableItem
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnActivateTurnCounter += ChangeVisibility;
+        GameProgression.OnActivateTurnCounter += ChangeVisibility;
         ScrewdriverUseLogic.OnUseScrewdriver += DeactivateByScrewdriver;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnActivateTurnCounter -= ChangeVisibility;
+        GameProgression.OnActivateTurnCounter -= ChangeVisibility;
         ScrewdriverUseLogic.OnUseScrewdriver += DeactivateByScrewdriver;
     }
 

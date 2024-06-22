@@ -26,15 +26,15 @@ public class PlayerMoney : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.AddCurrentMoney += AddCurrentGameMoney;
-        NEW_GameProgression.ResetCurrentMoney += SaveAndClear;
+        GameProgression.AddCurrentMoney += AddCurrentGameMoney;
+        GameProgression.ResetCurrentMoney += SaveAndClear;
         ScaleSuspend.OnSuspendGame += SaveAndClear;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.AddCurrentMoney -= AddCurrentGameMoney;
-        NEW_GameProgression.ResetCurrentMoney += SaveAndClear;
+        GameProgression.AddCurrentMoney -= AddCurrentGameMoney;
+        GameProgression.ResetCurrentMoney += SaveAndClear;
         ScaleSuspend.OnSuspendGame -= SaveAndClear;
     }
 

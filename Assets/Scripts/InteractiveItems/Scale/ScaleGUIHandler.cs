@@ -7,14 +7,14 @@ public class ScaleGUIHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnStartBuyRound += ResetText;
+        GameProgression.OnStartBuyRound += ResetText;
         InventoryItem.OnReadyToSell += UpdateText;
         MainMoneyView.UpdatingMainMoneyScaleCounter += UpdateText;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnStartBuyRound -= ResetText;
+        GameProgression.OnStartBuyRound -= ResetText;
         InventoryItem.OnReadyToSell -= UpdateText;
         MainMoneyView.UpdatingMainMoneyScaleCounter -= UpdateText;
     }

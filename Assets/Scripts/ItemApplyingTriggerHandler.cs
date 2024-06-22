@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ItemApplyingTriggerHandler : MonoBehaviour
 {
+    [SerializeField] private TableItem _parentTableItem;
     [SerializeField] private protected ItemType[] _applyableItem;
     [SerializeField] private protected Collider _collider;
     internal bool IsActivated = false;
@@ -26,6 +27,11 @@ public class ItemApplyingTriggerHandler : MonoBehaviour
 
     private protected virtual void OnMouseEnter()
     {
+        if (_parentTableItem.isVisible == false)
+        {
+            return;
+        }
+
         OnEnterTrigger?.Invoke(true, _applyableItem);
     }
     private protected virtual void OnMouseExit()

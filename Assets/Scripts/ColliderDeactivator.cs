@@ -6,12 +6,12 @@ public class ColliderDeactivator : MonoBehaviour
 {
     private void OnEnable()
     {
-        NEW_GameProgression.PauseGame += SetColliderEnabled;
+        GameProgression.PauseGame += SetColliderEnabled;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.PauseGame -= SetColliderEnabled;
+        GameProgression.PauseGame -= SetColliderEnabled;
     }
 
     private protected void SetColliderEnabled(bool setEnable)

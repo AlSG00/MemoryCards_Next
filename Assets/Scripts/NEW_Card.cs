@@ -141,7 +141,7 @@ public class NEW_Card : MonoBehaviour
         await Task.Delay(showDuration);
 
         TurnOver(CancelSound, "unpicked");
-        if (NEW_GameProgression.IsGamePaused)
+        if (GameProgression.IsGamePaused)
         {
             return;
         }

@@ -6,7 +6,7 @@ public class DebugInfoUIController : MonoBehaviour
     [SerializeField] private InventoryItem _hammerPrefab;
     [SerializeField] private InventoryItem _screwdriverPrefab;
 
-    [SerializeField] private NEW_GameProgression _gameProgression;
+    [SerializeField] private GameProgression _gameProgression;
     [SerializeField] private PlayerMoney _playerMoney;
     [SerializeField] private Inventory _inventory;
 
@@ -35,10 +35,10 @@ public class DebugInfoUIController : MonoBehaviour
         _isBuyRoundGoingOn.text = $"Is buy round going on: {_gameProgression.isBuyRoundGoing}";
         _currentScore.text = $"Score: {_gameProgression.score}";
         _elapsedTime.text = $"Elapsed time: {Mathf.Floor((float)_gameProgression.ElapsedPlayTime.Elapsed.TotalMinutes)} : {_gameProgression.ElapsedPlayTime.Elapsed.Seconds}";
-        _startCardDifficulty.text = $"Start card difficulty: {NEW_GameProgression.StartCardDifficulty}";
-        _startLayoutDifficulty.text = $"Start layout difficulty: {NEW_GameProgression.StartLayoutDifficulty}";
-        _currentCardDifficulty.text = $"Current card difficulty: {NEW_GameProgression.CardDifficulty}";
-        _currentLayoutDifficulty.text = $"Current layout difficulty: {NEW_GameProgression.LayoutDifficulty}";
+        _startCardDifficulty.text = $"Start card difficulty: {GameProgression.StartCardDifficulty}";
+        _startLayoutDifficulty.text = $"Start layout difficulty: {GameProgression.StartLayoutDifficulty}";
+        _currentCardDifficulty.text = $"Current card difficulty: {GameProgression.CardDifficulty}";
+        _currentLayoutDifficulty.text = $"Current layout difficulty: {GameProgression.LayoutDifficulty}";
     }
 
     public void AddHammer()

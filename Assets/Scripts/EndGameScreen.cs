@@ -71,16 +71,16 @@ public class EndGameScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.LoseGame += DisplayFullStatisticsDelayed;
-        NEW_GameProgression.OnGameFinished += DisplayFullStatistics;
+        GameProgression.LoseGame += DisplayFullStatisticsDelayed;
+        GameProgression.OnGameFinished += DisplayFullStatistics;
         StartButton.StartPressed += Hide;
         RejectStartButton.OnGameStartReject += Hide;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.LoseGame -= DisplayFullStatisticsDelayed;
-        NEW_GameProgression.OnGameFinished -= DisplayFullStatistics;
+        GameProgression.LoseGame -= DisplayFullStatisticsDelayed;
+        GameProgression.OnGameFinished -= DisplayFullStatistics;
         StartButton.StartPressed -= Hide;
         RejectStartButton.OnGameStartReject -= Hide;
     }

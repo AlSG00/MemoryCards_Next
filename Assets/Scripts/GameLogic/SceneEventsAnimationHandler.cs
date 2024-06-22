@@ -8,7 +8,7 @@ public class SceneEventsAnimationHandler : MonoBehaviour
     {
         RemainingTurnsHandler.OutOfTurns += LoseGame;
         Stopwatch.OutOfTime += LoseGame;
-        NEW_GameProgression.PauseGame += GameProgression_PauseGame;
+        GameProgression.PauseGame += GameProgression_PauseGame;
         RejectStartButton.OnGameStartReject += LeaveEndGameScreen;
         StartButton.StartPressed += LeaveEndGameScreen;
         BackToMenuButton.ReturningToMainMenu += LeaveGame;
@@ -18,7 +18,7 @@ public class SceneEventsAnimationHandler : MonoBehaviour
     {
         RemainingTurnsHandler.OutOfTurns -= LoseGame;
         Stopwatch.OutOfTime -= LoseGame;
-        NEW_GameProgression.PauseGame -= GameProgression_PauseGame;
+        GameProgression.PauseGame -= GameProgression_PauseGame;
         RejectStartButton.OnGameStartReject -= LeaveEndGameScreen;
         StartButton.StartPressed -= LeaveEndGameScreen;
         BackToMenuButton.ReturningToMainMenu -= LeaveGame;

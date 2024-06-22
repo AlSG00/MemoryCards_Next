@@ -6,13 +6,13 @@ public class ScoreListHandler : TableItem
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnActivateScoreList += ChangeVisibility;
+        GameProgression.OnActivateScoreList += ChangeVisibility;
         NEW_Card.OnHideFullList += ChangeFullListVisibility;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnActivateScoreList -= ChangeVisibility;
+        GameProgression.OnActivateScoreList -= ChangeVisibility;
         NEW_Card.OnHideFullList -= ChangeFullListVisibility;
     }
 

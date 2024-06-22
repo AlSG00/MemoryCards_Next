@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ShopHandler : MonoBehaviour
@@ -23,14 +24,14 @@ public class ShopHandler : MonoBehaviour
     {
         InventoryItem.OnBuyItem += BuyItem;
         InventoryItem.OnSellingItem += SellItem;
-        NEW_GameProgression.OnStartBuyRound += EnableStore;
+        GameProgression.OnStartBuyRound += EnableStore;
     }
 
     private void OnDisable()
     {
         InventoryItem.OnBuyItem -= BuyItem;
         InventoryItem.OnSellingItem += SellItem;
-        NEW_GameProgression.OnStartBuyRound -= EnableStore;
+        GameProgression.OnStartBuyRound -= EnableStore;
     }
 
     private void BuyItem(InventoryItem item, Transform itemPivot, string itemName, int itemPrice)
@@ -60,7 +61,7 @@ public class ShopHandler : MonoBehaviour
         OnItemRemove?.Invoke(item, _soldItemPivot);
     }
 
-    private void GenerateGoods()
+    private async void GenerateGoods()
     {
         ShopSlots shopSlots = _shopSlots[_shopLevel];
 
@@ -70,6 +71,7 @@ public class ShopHandler : MonoBehaviour
             var item = Instantiate(itemToGenerate, _generatedItemPivot.position, _generatedItemPivot.rotation);
             shopSlots.items[i] = item;
             item.InitializeForShop(shopSlots.slots[i]);
+            await Task.Delay(100);
         }
     }
 

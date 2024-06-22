@@ -662,7 +662,7 @@ MonoBehaviour:
   _cursorPivot: {fileID: 0}
   _buyPrice: 1
   itemName: Item_FindPair_Test
-  _type: 3
+  _type: 4
   _mustBuy: 1
   _priceTag: {fileID: 7067252682874002157}
   _sellPrice: 0
@@ -719,3 +719,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hoveredType: 0
+  _hoveredCard: {fileID: 0}

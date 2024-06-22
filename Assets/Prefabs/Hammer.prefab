@@ -215,6 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05c34f59a12dd74399c0d1bd3cb3cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioPlayer: {fileID: 0}
   _animator: {fileID: 6764570632215755432}
   _moveToStandartPositionTime: 0.1
   _moveToCursorTime: 0.1
@@ -223,7 +224,7 @@ MonoBehaviour:
   _cursorPivot: {fileID: 0}
   _buyPrice: 20
   itemName: Hammer
-  _type: 0
+  _type: 1
   _mustBuy: 1
   _priceTag: {fileID: 8696426243378598769}
   _sellPrice: 1
@@ -267,7 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8d6d99838007b4e87bd1cee2ca55a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
 --- !u!114 &-3582441992746984056
 MonoBehaviour:
   m_ObjectHideFlags: 0

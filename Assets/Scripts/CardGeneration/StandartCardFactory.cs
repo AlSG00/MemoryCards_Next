@@ -10,7 +10,7 @@ public class StandartCardFactory : CardFactory
     private int _cardsToMatch = 0;
     private List<CardData> _dataToUse;
     private List<CardData> _currrentCardData;
-    private NEW_GameProgression.Difficulty _currentCardDifficulty;
+    private GameProgression.Difficulty _currentCardDifficulty;
 
     public override void Initialize(int expectedCardCount, int cardsToMatch)
     {
@@ -19,7 +19,7 @@ public class StandartCardFactory : CardFactory
             return;
         }
 
-        _currentCardDifficulty = NEW_GameProgression.CardDifficulty;
+        _currentCardDifficulty = GameProgression.CardDifficulty;
         SetCurrentCardData();
 
         _cardsToMatch = cardsToMatch;
@@ -43,7 +43,7 @@ public class StandartCardFactory : CardFactory
 
     private void SetCurrentCardData()
     {
-        if (_currentCardDifficulty == NEW_GameProgression.CardDifficulty &&
+        if (_currentCardDifficulty == GameProgression.CardDifficulty &&
             _currrentCardData != null)
         {
             return;

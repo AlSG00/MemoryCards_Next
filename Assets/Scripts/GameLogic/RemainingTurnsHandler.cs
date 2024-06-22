@@ -11,14 +11,14 @@ public class RemainingTurnsHandler : MonoBehaviour
     private void OnEnable()
     {
         TurnCounter.OnActivateTurnCounter += SetTurnHandlerActive;
-        NEW_GameProgression.OnTurnsChanged += ChangeRemainingTurns;
+        GameProgression.OnTurnsChanged += ChangeRemainingTurns;
         CardLayoutHandler.OnSetRemainingTurns += SetRemainingTurns;
     }
 
     private void OnDisable()
     {
         TurnCounter.OnActivateTurnCounter -= SetTurnHandlerActive;
-        NEW_GameProgression.OnTurnsChanged -= ChangeRemainingTurns;
+        GameProgression.OnTurnsChanged -= ChangeRemainingTurns;
         CardLayoutHandler.OnSetRemainingTurns -= SetRemainingTurns;
     }
 
@@ -71,11 +71,11 @@ public class RemainingTurnsHandler : MonoBehaviour
         // TODO: Check
         if (currentRound < 30)
         {
-            remainingTurns = cardsInLayout * 2 - currentRound / 5 - (int)NEW_GameProgression.StartCardDifficulty;
+            remainingTurns = cardsInLayout * 2 - currentRound / 5 - (int)GameProgression.StartCardDifficulty;
         }
         else
         {
-            remainingTurns = cardsInLayout * 2 - currentRound / 7 - (int)NEW_GameProgression.StartCardDifficulty;
+            remainingTurns = cardsInLayout * 2 - currentRound / 7 - (int)GameProgression.StartCardDifficulty;
         }
 
         remainingTurns = Mathf.Clamp(remainingTurns, cardsInLayout, int.MaxValue);

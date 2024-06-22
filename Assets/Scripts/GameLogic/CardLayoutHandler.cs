@@ -19,7 +19,7 @@ public class CardLayoutHandler : MonoBehaviour
     [SerializeField] private List<GameObject> _tutorialLayouts;
     [SerializeField] private Layout[] _layoutDifficultyVariantSet;
     private List<GameObject> _availableLayouts;
-    private NEW_GameProgression.Difficulty _currentLayoutDifficulty;
+    private GameProgression.Difficulty _currentLayoutDifficulty;
     private List<Transform> _cardPlacePoints = new List<Transform>();
     private List<GameObject> _cardsInLayout;
     private bool _isPreparing = false;
@@ -30,22 +30,22 @@ public class CardLayoutHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnPlayTutorial += PlayTutorialRound;
+        GameProgression.OnPlayTutorial += PlayTutorialRound;
         RemainingTurnsHandler.OutOfTurns += TakeCardsBack;
         Stopwatch.OutOfTime += TakeCardsBack;
         BackToMenuButton.ReturningToMainMenu += TakeCardsBack;
-        NEW_GameProgression.PauseGame += DeactivateCardCollidersWithPause;
+        GameProgression.PauseGame += DeactivateCardCollidersWithPause;
         TestFindObjectUseLogic.OnUseTestItem += ShowAllSpecificCards;
         TestFindPairUseLogic.OnUseTestItem += ShowGroupOfSpecificCards;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnPlayTutorial -= PlayTutorialRound;
+        GameProgression.OnPlayTutorial -= PlayTutorialRound;
         RemainingTurnsHandler.OutOfTurns -= TakeCardsBack;
         Stopwatch.OutOfTime -= TakeCardsBack;
         BackToMenuButton.ReturningToMainMenu -= TakeCardsBack;
-        NEW_GameProgression.PauseGame -= DeactivateCardCollidersWithPause;
+        GameProgression.PauseGame -= DeactivateCardCollidersWithPause;
         TestFindObjectUseLogic.OnUseTestItem -= ShowAllSpecificCards;
         TestFindPairUseLogic.OnUseTestItem -= ShowGroupOfSpecificCards;
     }
@@ -179,20 +179,20 @@ public class CardLayoutHandler : MonoBehaviour
     #region SET LAYOUT
     private void CheckAvailableLayouts()
     {
-        if (_currentLayoutDifficulty == NEW_GameProgression.LayoutDifficulty &&
+        if (_currentLayoutDifficulty == GameProgression.LayoutDifficulty &&
             _availableLayouts != null)
         {
             return;
         }
 
-        if (NEW_GameProgression.LayoutDifficulty == NEW_GameProgression.Difficulty.Random)
+        if (GameProgression.LayoutDifficulty == GameProgression.Difficulty.Random)
         {
-            if (NEW_GameProgression.CardDifficulty == NEW_GameProgression.Difficulty.Random)
+            if (GameProgression.CardDifficulty == GameProgression.Difficulty.Random)
             {
                 return;
             }
 
-            NEW_GameProgression.LayoutDifficulty = NEW_GameProgression.StartLayoutDifficulty;
+            GameProgression.LayoutDifficulty = GameProgression.StartLayoutDifficulty;
         }
 
         SetAvailableLayouts();
@@ -200,10 +200,10 @@ public class CardLayoutHandler : MonoBehaviour
 
     private void SetAvailableLayouts()
     {
-        _currentLayoutDifficulty = NEW_GameProgression.LayoutDifficulty;
+        _currentLayoutDifficulty = GameProgression.LayoutDifficulty;
         _availableLayouts = new List<GameObject>();
 
-        if (_currentLayoutDifficulty == NEW_GameProgression.Difficulty.Random)
+        if (_currentLayoutDifficulty == GameProgression.Difficulty.Random)
         {
             for (int i = 0; i <= (int)_currentLayoutDifficulty; i++)
             {

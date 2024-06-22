@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NEW_GameProgression : MonoBehaviour
+public class GameProgression : MonoBehaviour
 {
     // Depends on current round and maybe smth else
     // Will specify current set of layouts, random events and cards
@@ -26,6 +26,7 @@ public class NEW_GameProgression : MonoBehaviour
     public bool isTurnCounterActive;
     public bool isScoreListActive;
     public bool isStopwatchActive;
+    public bool isChestActive;
     public bool isMoneyRopeActive;
     public bool isBuyRoundGoing;
     public bool IsGameLost;
@@ -38,6 +39,7 @@ public class NEW_GameProgression : MonoBehaviour
     [Range(1f, 1000f)] public int switchDifficultyRound;
     public System.Diagnostics.Stopwatch ElapsedPlayTime = new System.Diagnostics.Stopwatch();
     [SerializeField] private int _stopwatchActivationChance;
+    [SerializeField] private int _chestActivateChance;
 
     public delegate void TurnAction(bool decreased, int changeValue = 1);
 
@@ -50,6 +52,7 @@ public class NEW_GameProgression : MonoBehaviour
     public static event System.Action<bool> OnActivateTurnCounter;
     public static event System.Action<bool> OnActivateScoreList;
     public static event System.Action<bool, int> ActivateStopwatch;
+    public static event System.Action<bool> ActivateChest;
     public static event System.Action DeactivateStopwatch;
     public static event System.Action<MoneyRopeHandler.Visibility> OnActivateMoneyRope;
     public static event System.Action<int> AddCurrentMoney;
@@ -254,6 +257,12 @@ public class NEW_GameProgression : MonoBehaviour
         ActivateStopwatch?.Invoke(setEnabled, timeInSeconds);
     }
 
+    private void EnableChest(bool setEnabled)
+    {
+        isChestActive = setEnabled;
+        ActivateChest?.Invoke(setEnabled);
+    }
+
     private void EnableMoneyRope(MoneyRopeHandler.Visibility visibility)
     {
         if (visibility.Equals(MoneyRopeHandler.Visibility.Visible) ||
@@ -274,6 +283,7 @@ public class NEW_GameProgression : MonoBehaviour
     private void SetNextRound()
     {
         EnableStopwatch(false);
+        EnableChest(false);
 
         if (isScoreListActive == false)
         {
@@ -327,12 +337,20 @@ public class NEW_GameProgression : MonoBehaviour
 
     private void SetRoundMods()
     {
-        int modAddChance = UnityEngine.Random.Range(0, 101);
-        Debug.Log($" Mod add chance: {modAddChance}");
-        if (modAddChance < _stopwatchActivationChance)
+        int stopwatchAddChance = UnityEngine.Random.Range(0, 100);
+        int chestAddChance = UnityEngine.Random.Range(0, 100);
+
+        Debug.Log($" stopwatch : chest | {stopwatchAddChance} : {chestAddChance}");
+        if (stopwatchAddChance < _stopwatchActivationChance)
         {
             ActivateStopwatch(true, 30); // TODO: Calculate remaining time
         }
+
+        if (chestAddChance < _chestActivateChance)
+        {
+            ActivateChest(true);
+        }
+
         else
         {
             return;
@@ -444,6 +462,7 @@ public class NEW_GameProgression : MonoBehaviour
         EnableMoneyRope(MoneyRopeHandler.Visibility.Hidden);
         EnableTurnCounter(false);
         EnableStopwatch(false);
+        EnableChest(false);
     }
 
     private void ClearData()

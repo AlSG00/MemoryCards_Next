@@ -11,7 +11,7 @@ public class MainMenuHandler : MenuHandler
         StartButton.StartPressed += HideMenu;
         RejectStartButton.OnGameStartReject += ShowMenu;
         SetLocaleButton.OnChooseLocale += ShowMenu;
-        NEW_GameProgression.FirstTimePlaying += HideMenu;
+        GameProgression.FirstTimePlaying += HideMenu;
         ScaleSuspend.OnSuspendGame += ShowMenu;
         BackToMenuButton.ReturningToMainMenu += ShowMenuDelayed;
     }
@@ -22,7 +22,7 @@ public class MainMenuHandler : MenuHandler
         StartButton.StartPressed -= HideMenu;
         RejectStartButton.OnGameStartReject -= ShowMenu;
         SetLocaleButton.OnChooseLocale -= ShowMenu;
-        NEW_GameProgression.FirstTimePlaying -= HideMenu;
+        GameProgression.FirstTimePlaying -= HideMenu;
         ScaleSuspend.OnSuspendGame -= ShowMenu;
         BackToMenuButton.ReturningToMainMenu -= ShowMenuDelayed;
     }

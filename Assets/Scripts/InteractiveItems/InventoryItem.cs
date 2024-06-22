@@ -158,7 +158,7 @@ public class InventoryItem : InteractiveItem
         _isChangingPosition = true;
         _mustBuy = true;
         OnInitializeForShop?.Invoke();
-        MoveToPositionWithOffset(shopPivot, _shopPivotOffset, 1);
+        MoveToPositionWithOffset(shopPivot, _shopPivotOffset, 5f);
     }
     #endregion
 
@@ -171,7 +171,7 @@ public class InventoryItem : InteractiveItem
 
         _isChangingPosition = true;
         _currentPivot = _cursorPivot;
-        GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Collider>().enabled = false;
         MoveToPivot(_currentPivot, _moveToCursorTime);
         _isPicked = true;
         OnPick?.Invoke(_isPicked);
@@ -196,7 +196,7 @@ public class InventoryItem : InteractiveItem
 
         if (_isReadyToUse)
         {
-            GetComponent<IUsable>().Use();
+            gameObject.GetComponent<IUsable>().Use();
             RemoveAsUsed();
             return;
         }
@@ -204,7 +204,7 @@ public class InventoryItem : InteractiveItem
         _isChangingPosition = true;
         Cursor.visible = true;
         _currentPivot = _inventoryPivot;
-        GetComponent<Collider>().enabled = true;
+        gameObject.GetComponent<Collider>().enabled = true;
         MoveToPivot(_currentPivot, _moveToStandartPositionTime);
     }
 }

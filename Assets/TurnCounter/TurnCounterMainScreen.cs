@@ -10,13 +10,13 @@ public class TurnCounterMainScreen : MonoBehaviour
     private void OnEnable()
     {
         TurnCounterModeSwitcher.OnSwitchMode += ChangeScreenVisiblity;
-        NEW_GameProgression.OnNextRound += SetCurrentRoundGUI;
+        GameProgression.OnNextRound += SetCurrentRoundGUI;
     }
 
     private void OnDisable()
     {
         TurnCounterModeSwitcher.OnSwitchMode -= ChangeScreenVisiblity;
-        NEW_GameProgression.OnNextRound -= SetCurrentRoundGUI;
+        GameProgression.OnNextRound -= SetCurrentRoundGUI;
     }
 
     private void ChangeScreenVisiblity(bool isVisible)

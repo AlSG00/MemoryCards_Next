@@ -7,12 +7,12 @@ public class ScoreCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.onScoreChanged += UpdateScore;
+        GameProgression.onScoreChanged += UpdateScore;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.onScoreChanged -= UpdateScore;
+        GameProgression.onScoreChanged -= UpdateScore;
     }
 
     public void UpdateScore(int currentScore)

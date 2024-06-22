@@ -25,14 +25,14 @@ public class MoneyRopeHandler : MonoBehaviour
     private void OnEnable()
     {
         PlayerMoney.OnMoneyAmountChanged += SetButtonsAmount;
-        NEW_GameProgression.OnActivateMoneyRope += ChangeVisibility;
+        GameProgression.OnActivateMoneyRope += ChangeVisibility;
         ScaleSuspend.OnSuspendGame += SaveAndClear;
     }
 
     private void OnDisable()
     {
         PlayerMoney.OnMoneyAmountChanged -= SetButtonsAmount;
-        NEW_GameProgression.OnActivateMoneyRope -= ChangeVisibility;
+        GameProgression.OnActivateMoneyRope -= ChangeVisibility;
         ScaleSuspend.OnSuspendGame -= SaveAndClear;
     }
 

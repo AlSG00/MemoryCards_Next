@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05c34f59a12dd74399c0d1bd3cb3cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioPlayer: {fileID: 0}
   _animator: {fileID: 8817718234574756795}
   _moveToStandartPositionTime: 0.1
   _moveToCursorTime: 0.1
@@ -525,7 +526,7 @@ MonoBehaviour:
   _cursorPivot: {fileID: 0}
   _buyPrice: 25
   itemName: Screwdriver
-  _type: 1
+  _type: 2
   _mustBuy: 1
   _priceTag: {fileID: 6648945853095225211}
   _sellPrice: 5
@@ -569,7 +570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0406929904541be4fbf79778f92ed033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
 --- !u!114 &-5375745553232797822
 MonoBehaviour:
   m_ObjectHideFlags: 0

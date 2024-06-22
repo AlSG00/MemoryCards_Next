@@ -6,7 +6,7 @@ public class CardGenerator : MonoBehaviour
     [Header("References")]
     [SerializeField] private StandartCardFactory _standartCardFactory;
     [SerializeField] private CardLayoutHandler _cardLayoutHandler;
-    [SerializeField] private NEW_GameProgression _sessionProgress;
+    [SerializeField] private GameProgression _sessionProgress;
 
     [Header("Card collections")]
     [HideInInspector] public List<GameObject> generatedCardPack = new List<GameObject>();

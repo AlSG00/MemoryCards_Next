@@ -9,12 +9,12 @@ public class TutorialHint : MonoBehaviour
 
     private void OnEnable()
     {
-        NEW_GameProgression.OnShowHint += EnableHint;
+        GameProgression.OnShowHint += EnableHint;
     }
 
     private void OnDisable()
     {
-        NEW_GameProgression.OnShowHint += EnableHint;
+        GameProgression.OnShowHint += EnableHint;
     }
 
     private void Start()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EndGameResultsCalculator : MonoBehaviour
 {
-    [SerializeField] private NEW_GameProgression _gameProgressiong;
+    [SerializeField] private GameProgression _gameProgressiong;
     [SerializeField] private Inventory _inventory;
     [SerializeField] private PlayerMoney _playerMoney;
 
@@ -62,7 +62,7 @@ public class EndGameResultsCalculator : MonoBehaviour
 
     private void CalculateRewardMultiplierValue()
     {
-        RewardMultplier = 1 + 0.01f * RoundsSurvived + 0.05f * (int)NEW_GameProgression.StartLayoutDifficulty;
+        RewardMultplier = 1 + 0.01f * RoundsSurvived + 0.05f * (int)GameProgression.StartLayoutDifficulty;
 
         if (_gameProgressiong.IsGameLost)
         {

@@ -88,7 +88,7 @@ public abstract class InteractiveItem : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < time)
         {
-            transform.position = Vector3.Lerp(startPosition, targetPosition, (elapsedTime / time));
+            transform.position = Vector3.Lerp(gameObject.transform.position, targetPosition, (elapsedTime / time));
             elapsedTime += Time.deltaTime;
             yield return null;
         }

@@ -20,14 +20,14 @@ public class ScaleItem : InteractiveItem
     {
         ScaleColliderHandler.OnEnterCollider += SetReadyToUse;
         ShopHandler.OnShowScaleItems += ChangeVisibility;
-        NEW_GameProgression.PauseGame += SetColliderEnabled;
+        GameProgression.PauseGame += SetColliderEnabled;
     }
 
     private void OnDisable()
     {
         ScaleColliderHandler.OnEnterCollider -= SetReadyToUse;
         ShopHandler.OnShowScaleItems -= ChangeVisibility;
-        NEW_GameProgression.PauseGame -= SetColliderEnabled;
+        GameProgression.PauseGame -= SetColliderEnabled;
     }
 
     private protected override void OnMouseDown()
