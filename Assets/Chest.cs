@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Chest : TableItem
 {
-    public static event System.Action OnOpenChest;
+    public static event System.Action<ItemType> OnOpenChest;
 
     private void OnEnable()
     {
@@ -36,7 +36,7 @@ public class Chest : TableItem
         }
     }
 
-    private void OpenWithKey()
+    private void OpenWithKey(ItemType keyType)
     {
         if (isVisible == false)
         {
@@ -45,6 +45,6 @@ public class Chest : TableItem
 
         isVisible = false;
         _animator.SetTrigger("Deactivate");
-        OnOpenChest?.Invoke();
+        OnOpenChest?.Invoke(keyType);
     }
 }

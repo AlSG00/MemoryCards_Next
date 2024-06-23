@@ -15,12 +15,36 @@ public class EndGameResultsCalculator : MonoBehaviour
     public int SecondsElapsed { get; private set; }
     public int ItemsRemaining { get; private set; }
     public float Reward { get; private set; }
+    public float BonusReward { get; private set; }
     public int MultipliedReward { get; private set; }
     public float RewardMultplier { get; private set; }
 
     private void Awake()
     {
         FinalScoreValuesArray = new int[5];
+    }
+
+    private void OnEnable()
+    {
+        SetDifficultyButton.DifficultyPicked += ResetValues;
+        BonusCoins.GiveBonusCoins += GetBonusCoins;
+    }
+
+    private void OnDisable()
+    {
+        SetDifficultyButton.DifficultyPicked -= ResetValues;
+        BonusCoins.GiveBonusCoins -= GetBonusCoins;
+    }
+
+    private void ResetValues()
+    {
+        BonusReward = 0;
+    }
+
+    private void GetBonusCoins(int coins)
+    {
+        BonusReward += coins;
+        Debug.Log($"Bonus reward = {BonusReward}");
     }
 
     public void CalculateResults()
@@ -47,7 +71,6 @@ public class EndGameResultsCalculator : MonoBehaviour
     private void CalculateFinalScoreValue()
     {
         // FinalScore is score + RoundsSurvived * bonus + buttonsRemaining + ItemsRemaining * bonus;
-
         FinalScoreValuesArray[0] = Score;
         FinalScoreValuesArray[1] = FinalScoreValuesArray[0] + RoundsSurvived * 100;
         FinalScoreValuesArray[2] = FinalScoreValuesArray[1] + ButtonsRemaining;
@@ -56,7 +79,7 @@ public class EndGameResultsCalculator : MonoBehaviour
 
     private void CalculateRewardValue()
     {
-        Reward = Mathf.Ceil((FinalScoreValuesArray[3] / 10));
+        Reward = Mathf.Ceil((FinalScoreValuesArray[3] / 10)) + BonusReward;
         MultipliedReward = (int)Mathf.Ceil(Reward * RewardMultplier);
     }
 

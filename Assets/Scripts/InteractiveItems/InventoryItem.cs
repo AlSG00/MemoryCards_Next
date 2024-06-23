@@ -24,6 +24,20 @@ public class InventoryItem : InteractiveItem
     public static event System.Action OnInitializeForShop;
     public static event System.Action<bool> OnPick;
 
+    public ItemType ItemType
+    {
+        get
+        {
+            return _type;
+        }
+
+        private set
+        {
+            _type = value;
+        }
+    }
+    
+
     private void OnEnable()
     {
         Inventory.OnReceiveItem += InitializeForInventory;

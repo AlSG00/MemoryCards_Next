@@ -5,5 +5,6 @@ public enum ItemType
     Screwdriver,
     Test,
     Test_2,
-    Key
+    Key_Standart,
+    Key_GuaranteedStuff_Safe
 }
