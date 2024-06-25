@@ -91,7 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d455bc0d3ca07a488bbe77c33be2307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _applyableItem: 0200000003000000
+  _parentTableItem: {fileID: 0}
+  _applyableItem: 0300000004000000
   _collider: {fileID: 5649694296396597627}
   _parentCard: {fileID: 8300271517165775403}
 --- !u!1 &4016312344309494160

@@ -142,7 +142,7 @@ MonoBehaviour:
   _cursorPivot: {fileID: 0}
   _buyPrice: 1
   itemName: Item_FindAllCards_Test
-  _type: 3
+  _type: 4
   _mustBuy: 1
   _priceTag: {fileID: 5761858379588184332}
   _sellPrice: 0

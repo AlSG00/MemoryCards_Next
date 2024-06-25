@@ -11,9 +11,16 @@ public class ChestStuffGenerator : MonoBehaviour
     [SerializeField] private int _inventoryItemChance;
     [SerializeField] private int _bonusButtonsChance;
     [SerializeField] private int _bonusCoinsChance;
+    [SerializeField] private int _oneItemChance;
+    [SerializeField] private int _twoItemChance;
+    [SerializeField] private int _threeItemChance;
+    [SerializeField] private int _fourItemChance;
 
-    [SerializeField] private GameObject[] CoinsObjects;
-    [SerializeField] private GameObject[] ButtonsObjects;
+
+
+    [SerializeField] private GameObject[] _coinsObject;
+    [SerializeField] private GameObject[] _buttonsObject;
+   // [SerializeField] private StuffSpawnpoint[] _spawnpoint;
 
     private int _stuffToGenerateQuantity;
     private int _currentStuffChance;
@@ -53,11 +60,6 @@ public class ChestStuffGenerator : MonoBehaviour
         GenerateBonusEffect(ref stuffToGenerate);
         GenerateFutureStuffList(ref stuffToGenerate);
         Generate(stuffToGenerate);
-
-        //if (stuffToGenerate.Count > 0)
-        //{
-        //    Generate(stuffToGenerate);
-        //}
     }
 
     private void AddToStuffList(StuffType stuff, ref List<StuffType> stuffList)
@@ -100,7 +102,7 @@ public class ChestStuffGenerator : MonoBehaviour
     {
         int stuffChance = Random.Range(1, 100);
         int chance;
-        int stuffToGenerateQuantity = Random.Range(1, 4);
+        int stuffToGenerateQuantity = 0;
 
         // генерить число предметов - чем больше предметов, тем ниже шанс
         // генерить шанс появления расходника
@@ -110,79 +112,106 @@ public class ChestStuffGenerator : MonoBehaviour
 
         if (stuffChance < _stuffChance)
         {
+            int stuffQuantityChance = Random.Range(1, 100);
+            if (stuffQuantityChance < _fourItemChance)
+            {
+                stuffToGenerateQuantity = 4;
+            }
+            else if (stuffQuantityChance < _threeItemChance)
+            {
+                stuffToGenerateQuantity = 3;
+            }
+            else if (stuffQuantityChance < _twoItemChance)
+            {
+                stuffToGenerateQuantity = 2;
+            }
+            else
+            {
+                stuffToGenerateQuantity = 1;
+            }
+
             while (stuffList.Count < stuffToGenerateQuantity)
             {
                 chance = Random.Range(1, 100);
-                if (chance < _bonusButtonsChance)
+                if (chance < _bonusButtonsChance && stuffList.Count < stuffToGenerateQuantity)
                 {
-                    stuffList.Add(StuffType.Buttons)
-                    AddToStuffList(StuffType.Buttons, ref stuff);
+                    stuffList.Add(StuffType.Buttons);
                 }
 
                 chance = Random.Range(1, 100);
-                if (chance < _bonusCoinsChance)
+                if (chance < _bonusCoinsChance && stuffList.Count < stuffToGenerateQuantity)
                 {
-                    AddToStuffList(StuffType.Coins, ref stuff);
-                }
-
-
-                //else if (chance < _buffChance)
-                //{
-                //    AddToStuffList(StuffType.Buff, ref stuff);
-                //}
-                //else if (chance < _debuffChance)
-                //{
-                //    AddToStuffList(StuffType.Debuff, ref stuff);
-                //}
-                else if (chance < _inventoryItemChance)
-                {
-                    AddToStuffList(StuffType.InventoryItem, ref stuff);
+                    stuffList.Add(StuffType.Buttons);
                 }
 
                 chance = Random.Range(1, 100);
+                if (chance < _inventoryItemChance && stuffList.Count < stuffToGenerateQuantity)
+                {
+                    AddToStuffList(StuffType.InventoryItem, ref stuffList);
+                }
             }
         }
     }
 
     private void Generate(List<StuffType> stuffToGenerate)
     {
-        foreach (var stuff in stuffToGenerate)
+        //foreach (var stuff in stuffToGenerate)
+        //{
+        //    switch (stuff)
+        //    {
+        //        case (StuffType.Coins):
+        //            _coinsObject[stuff].SetActive(true); // Рандомый объект с монетками
+        //            break;
+
+        //        case (StuffType.Buttons):
+        //            ButtonsObject.SetActive(true);
+        //            break;
+
+        //        case (StuffType.Buff):
+        //            break;
+
+        //        case (StuffType.Debuff):
+        //            break;
+
+        //        case (StuffType.InventoryItem):
+        //            break;
+        //    }
+        //}
+
+        for (int i = 0; i < stuffToGenerate.Count; i++)
         {
-            switch (stuff)
+            if (stuffToGenerate[i] == StuffType.Coins)
             {
-                case (StuffType.Coins):
-                    CoinsObject.SetActive(true); // Рандомый объект с монетками
-                    break;
-
-                case (StuffType.Buttons):
-                    ButtonsObject.SetActive(true);
-                    break;
-
-                case (StuffType.Buff):
-                    break;
-
-                case (StuffType.Debuff):
-                    break;
-
-                case (StuffType.InventoryItem):
-                    break;
+                Debug.Log("Generated coin");
+                _coinsObject[i].GetComponent<BonusCoins>().Quantity = 3;
+                _coinsObject[i].SetActive(true);
+            }
+            else if (stuffToGenerate[i] == StuffType.Buttons)
+            {
+                Debug.Log("Generated buttons");
+                _buttonsObject[i].GetComponent<BonusButtons>().Quantity = 2;
+                _buttonsObject[i].SetActive(true);
+            }
+            else if (stuffToGenerate[i] == StuffType.InventoryItem)
+            {
+                // TODO: Place item on spawnpoint transform
             }
         }
     }
 
     private void ResetChestState()
     {
-        foreach (var obj in CoinsObjects)
+        foreach (var obj in _coinsObject)
         {
             obj.SetActive(false);
         }
 
-        foreach (var obj in ButtonsObjects)
+        foreach (var obj in _buttonsObject)
         {
             obj.SetActive(false);
         }
 
-        _stuffToGenerateCount = 1;
+        _stuffToGenerateQuantity = 1;
         _currentStuffChance = _stuffChance;
         _currentBuffChance = _buffChance;
         _currentDebuffChance = _debuffChance;
@@ -191,8 +220,19 @@ public class ChestStuffGenerator : MonoBehaviour
         _currentBonusCoinsChance = _bonusCoinsChance;
     }
 
+
+
     private void ActivateBonusEffect()
     {
 
     }
+
+    //[System.Serializable]
+    //public class StuffSpawnpoint
+    //{
+    //    public Transform Point;
+    //    public bool IsAvailable;
+    //    public GameObject[] PossibleCoins;
+    //    public GameObject[] PossibleButtons;
+    //}
 }
