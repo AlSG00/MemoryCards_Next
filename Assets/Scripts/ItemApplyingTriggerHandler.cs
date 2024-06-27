@@ -27,7 +27,7 @@ public class ItemApplyingTriggerHandler : MonoBehaviour
 
     private protected virtual void OnMouseEnter()
     {
-        if (_parentTableItem.isVisible == false)
+        if (_parentTableItem != null && _parentTableItem.isVisible == false)
         {
             return;
         }
