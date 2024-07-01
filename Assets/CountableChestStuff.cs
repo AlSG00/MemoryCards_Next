@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class CountableChestStuff : MonoBehaviour
 {
     [SerializeField] private GameObject[] _objects;
     [SerializeField] private protected AudioSource _audioSource;
-    /*[SerializeField]*/ private protected int _quantity;
+    private protected int _quantity;
 
-    internal int Quantity {
+    internal int Quantity
+    {
         get => _quantity;
         set
         {

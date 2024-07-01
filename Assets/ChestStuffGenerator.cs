@@ -20,7 +20,11 @@ public class ChestStuffGenerator : MonoBehaviour
 
     [SerializeField] private GameObject[] _coinsObject;
     [SerializeField] private GameObject[] _buttonsObject;
-   // [SerializeField] private StuffSpawnpoint[] _spawnpoint;
+    [SerializeField] private ParticleSystem _particles;
+    [SerializeField] private Color _particleBuffColor;
+    [SerializeField] private Color _particleDebuffColor;
+
+    // [SerializeField] private StuffSpawnpoint[] _spawnpoint;
 
     private int _stuffToGenerateQuantity;
     private int _currentStuffChance;
@@ -29,6 +33,12 @@ public class ChestStuffGenerator : MonoBehaviour
     private int _currentInventoryItemChance;
     private int _currentBonusButtonsChance;
     private int _currentBonusCoinsChance;
+    private bool _hasBonusEffect;
+    private ActivateEffectAction _effect;
+
+    public delegate void ActivateEffectAction();
+    public static event ActivateEffectAction test_1;
+    public static event ActivateEffectAction test_2;
 
     public enum StuffType
     {
@@ -43,11 +53,13 @@ public class ChestStuffGenerator : MonoBehaviour
     private void OnEnable()
     {
         Chest.OnOpenChest += ChooseStuff;
+        ChestOpenEventController.EnableParticleSystem += ActivateParticleSystem;
     }
 
     private void OnDisable()
     {
         Chest.OnOpenChest -= ChooseStuff;
+        ChestOpenEventController.EnableParticleSystem -= ActivateParticleSystem;
     }
 
     private void ChooseStuff(ItemType usedKeyType)
@@ -76,15 +88,22 @@ public class ChestStuffGenerator : MonoBehaviour
     {
         int bonusEffectChance = Random.Range(1, 100);
         int debuffChange = Random.Range(1, 100);
+        Debug.Log($"Bonus effect chance: {bonusEffectChance}");
+
         if (bonusEffectChance <= _bonusEffectChance)
         {
+            Debug.Log($"Debuff chanceL: {debuffChange}");
+            _hasBonusEffect = true;
+            var main = _particles.main;
             if (debuffChange <= _debuffChance)
             {
-                stuffList.Add(StuffType.Debuff);
+                _effect = test_1;
+                main.startColor = _particleDebuffColor;
             }
             else
             {
-                stuffList.Add(StuffType.Buff);
+                _effect = test_2;
+                main.startColor = _particleBuffColor;
             }
         }
     }
@@ -103,7 +122,7 @@ public class ChestStuffGenerator : MonoBehaviour
         int stuffChance = Random.Range(1, 100);
         int chance;
         int stuffToGenerateQuantity = 0;
-
+        Debug.Log($"Stuff chance: {stuffChance}");
         // генерить число предметов - чем больше предметов, тем ниже шанс
         // генерить шанс появления расходника
         // на оставшееся место в цикле генерим либо монеты либо пуговки
@@ -113,6 +132,7 @@ public class ChestStuffGenerator : MonoBehaviour
         if (stuffChance < _stuffChance)
         {
             int stuffQuantityChance = Random.Range(1, 100);
+            Debug.Log($"Stuff qantity chance: {stuffQuantityChance}");
             if (stuffQuantityChance < _fourItemChance)
             {
                 stuffToGenerateQuantity = 4;
@@ -141,7 +161,7 @@ public class ChestStuffGenerator : MonoBehaviour
                 chance = Random.Range(1, 100);
                 if (chance < _bonusCoinsChance && stuffList.Count < stuffToGenerateQuantity)
                 {
-                    stuffList.Add(StuffType.Buttons);
+                    stuffList.Add(StuffType.Coins);
                 }
 
                 chance = Random.Range(1, 100);
@@ -195,6 +215,7 @@ public class ChestStuffGenerator : MonoBehaviour
             else if (stuffToGenerate[i] == StuffType.InventoryItem)
             {
                 // TODO: Place item on spawnpoint transform
+                Debug.Log("Tried to generate InventoryItem");
             }
         }
     }
@@ -218,21 +239,23 @@ public class ChestStuffGenerator : MonoBehaviour
         _currentInventoryItemChance = _inventoryItemChance;
         _currentBonusButtonsChance = _bonusButtonsChance;
         _currentBonusCoinsChance = _bonusCoinsChance;
+        _hasBonusEffect = false;
     }
 
-
+    private void ActivateParticleSystem()
+    {
+        Debug.Log("Activating particle system");
+        if (_hasBonusEffect == false)
+        {
+            return;
+        }
+        Debug.Log("Activated particle system");
+        _particles.Play();
+    }
 
     private void ActivateBonusEffect()
     {
 
     }
 
-    //[System.Serializable]
-    //public class StuffSpawnpoint
-    //{
-    //    public Transform Point;
-    //    public bool IsAvailable;
-    //    public GameObject[] PossibleCoins;
-    //    public GameObject[] PossibleButtons;
-    //}
 }
