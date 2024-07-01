@@ -18,23 +18,23 @@ public class Chest : TableItem
         KeyUseLogic.OnUseKey += OpenWithKey;
     }
 
-    private protected override void Show()
-    {
-        if (isVisible == false)
-        {
-            isVisible = true;
-            _animator.SetTrigger("Show");
-        }
-    }
+    //private protected override void Show()
+    //{
+    //    if (isVisible == false)
+    //    {
+    //        isVisible = true;
+    //        _animator.SetTrigger("Show");
+    //    }
+    //}
 
-    private protected override void Hide()
-    {
-        if (isVisible)
-        {
-            isVisible = false;
-            _animator.SetTrigger("Hide");
-        }
-    }
+    //private protected override void Hide()
+    //{
+    //    if (isVisible)
+    //    {
+    //        isVisible = false;
+    //        _animator.SetTrigger("Hide");
+    //    }
+    //}
 
     private void OpenWithKey(ItemType keyType)
     {
@@ -43,7 +43,7 @@ public class Chest : TableItem
             return;
         }
 
-        isVisible = false;
+        //isVisible = false;
         _animator.SetTrigger("Deactivate");
         OnOpenChest?.Invoke(keyType);
     }
