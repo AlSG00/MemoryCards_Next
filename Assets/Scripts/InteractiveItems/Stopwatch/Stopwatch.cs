@@ -35,6 +35,7 @@ public class Stopwatch : TableItem
         GameProgression.ActivateStopwatch += ChangeVisibility;
         GameProgression.PauseGame += Pause;
         HammerUseLogic.OnUseHammer += DeactivateByHammer;
+        ChestStuffGenerator.ActivateStopwatch += ActivateByDebuff;
     }
 
     private void OnDisable()
@@ -42,6 +43,7 @@ public class Stopwatch : TableItem
         GameProgression.ActivateStopwatch -= ChangeVisibility;
         GameProgression.PauseGame += Pause;
         HammerUseLogic.OnUseHammer -= DeactivateByHammer;
+        ChestStuffGenerator.ActivateStopwatch += ActivateByDebuff;
     }
 
     private void Start()
@@ -199,5 +201,10 @@ public class Stopwatch : TableItem
         {
             _isActive = false;
         }
+    }
+
+    private void ActivateByDebuff()
+    {
+        Initialize(Random.Range(16, 120));
     }
 }

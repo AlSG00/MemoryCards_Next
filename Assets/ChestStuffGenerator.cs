@@ -37,8 +37,16 @@ public class ChestStuffGenerator : MonoBehaviour
     private ActivateEffectAction _effect;
 
     public delegate void ActivateEffectAction();
-    public static event ActivateEffectAction test_1;
-    public static event ActivateEffectAction test_2;
+
+    // Buffs
+    public static event ActivateEffectAction AddBonusTurns;
+    //public static event ActivateEffectAction test_2;
+
+    // Debuffs
+    public static event ActivateEffectAction TakeTurns;
+    public static event ActivateEffectAction MixCards;
+    public static event ActivateEffectAction BreakLight;
+    public static event ActivateEffectAction ActivateStopwatch;
 
     public enum StuffType
     {
@@ -54,12 +62,14 @@ public class ChestStuffGenerator : MonoBehaviour
     {
         Chest.OnOpenChest += ChooseStuff;
         ChestOpenEventController.EnableParticleSystem += ActivateParticleSystem;
+        ChestOpenEventController.ActivateBonusEffect += ActivateBonusEffect;
     }
 
     private void OnDisable()
     {
         Chest.OnOpenChest -= ChooseStuff;
         ChestOpenEventController.EnableParticleSystem -= ActivateParticleSystem;
+        ChestOpenEventController.ActivateBonusEffect -= ActivateBonusEffect;
     }
 
     private void ChooseStuff(ItemType usedKeyType)
@@ -97,12 +107,32 @@ public class ChestStuffGenerator : MonoBehaviour
             var main = _particles.main;
             if (debuffChange <= _debuffChance)
             {
-                _effect = test_1;
+                int currentDebuffChange = Random.Range(1, 100);
+                while (true)
+                {
+                    if (currentDebuffChange < 10)
+                    {
+                        _effect = MixCards;
+                    }
+                    else if (currentDebuffChange < 20)
+                    {
+                        _effect = ActivateStopwatch;
+                    }
+                    else if (currentDebuffChange < 40)
+                    {
+                        _effect = BreakLight;
+                    }
+                    else
+                    {
+                        _effect = TakeTurns;
+                    }
+                }
+
                 main.startColor = _particleDebuffColor;
             }
             else
             {
-                _effect = test_2;
+                _effect = AddBonusTurns;
                 main.startColor = _particleBuffColor;
             }
         }
@@ -175,29 +205,6 @@ public class ChestStuffGenerator : MonoBehaviour
 
     private void Generate(List<StuffType> stuffToGenerate)
     {
-        //foreach (var stuff in stuffToGenerate)
-        //{
-        //    switch (stuff)
-        //    {
-        //        case (StuffType.Coins):
-        //            _coinsObject[stuff].SetActive(true); // Рандомый объект с монетками
-        //            break;
-
-        //        case (StuffType.Buttons):
-        //            ButtonsObject.SetActive(true);
-        //            break;
-
-        //        case (StuffType.Buff):
-        //            break;
-
-        //        case (StuffType.Debuff):
-        //            break;
-
-        //        case (StuffType.InventoryItem):
-        //            break;
-        //    }
-        //}
-
         for (int i = 0; i < stuffToGenerate.Count; i++)
         {
             if (stuffToGenerate[i] == StuffType.Coins)
@@ -255,7 +262,6 @@ public class ChestStuffGenerator : MonoBehaviour
 
     private void ActivateBonusEffect()
     {
-
+        _effect?.Invoke();
     }
-
 }

@@ -13,6 +13,8 @@ public class RemainingTurnsHandler : MonoBehaviour
         TurnCounter.OnActivateTurnCounter += SetTurnHandlerActive;
         GameProgression.OnTurnsChanged += ChangeRemainingTurns;
         CardLayoutHandler.OnSetRemainingTurns += SetRemainingTurns;
+        ChestStuffGenerator.TakeTurns += DecreaseRemainingTurnsByDebuff;
+        ChestStuffGenerator.AddBonusTurns += IncreaseRemainingTurnsByBuff;
     }
 
     private void OnDisable()
@@ -20,6 +22,8 @@ public class RemainingTurnsHandler : MonoBehaviour
         TurnCounter.OnActivateTurnCounter -= SetTurnHandlerActive;
         GameProgression.OnTurnsChanged -= ChangeRemainingTurns;
         CardLayoutHandler.OnSetRemainingTurns -= SetRemainingTurns;
+        ChestStuffGenerator.TakeTurns -= DecreaseRemainingTurnsByDebuff;
+        ChestStuffGenerator.AddBonusTurns += IncreaseRemainingTurnsByBuff;
     }
 
     private void Start()
@@ -79,6 +83,23 @@ public class RemainingTurnsHandler : MonoBehaviour
         }
 
         remainingTurns = Mathf.Clamp(remainingTurns, cardsInLayout, int.MaxValue);
+        OnGUIUpdate?.Invoke(remainingTurns);
+    }
+
+    private void DecreaseRemainingTurnsByDebuff()
+    {
+        remainingTurns = (int)Mathf.Clamp((float)remainingTurns - Random.Range(1, (int)GameProgression.StartCardDifficulty), 0, 999); // TODO: Test
+        OnGUIUpdate?.Invoke(remainingTurns);
+
+        if (remainingTurns == 0)
+        {
+            OutOfTurns?.Invoke();
+        }
+    }
+
+    private void IncreaseRemainingTurnsByBuff()
+    {
+        remainingTurns += Random.Range(1, 5);
         OnGUIUpdate?.Invoke(remainingTurns);
     }
 }

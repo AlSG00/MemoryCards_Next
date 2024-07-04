@@ -29,13 +29,15 @@ public class PlayerMoney : MonoBehaviour
         GameProgression.AddCurrentMoney += AddCurrentGameMoney;
         GameProgression.ResetCurrentMoney += SaveAndClear;
         ScaleSuspend.OnSuspendGame += SaveAndClear;
+        BonusButtons.GiveBonusButtons += AddCurrentGameMoney;
     }
 
     private void OnDisable()
     {
         GameProgression.AddCurrentMoney -= AddCurrentGameMoney;
-        GameProgression.ResetCurrentMoney += SaveAndClear;
+        GameProgression.ResetCurrentMoney -= SaveAndClear;
         ScaleSuspend.OnSuspendGame -= SaveAndClear;
+        BonusButtons.GiveBonusButtons -= AddCurrentGameMoney;
     }
 
     internal bool IsEnoughtMainMoney(int value)
