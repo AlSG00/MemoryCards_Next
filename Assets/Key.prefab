@@ -145,7 +145,7 @@ MonoBehaviour:
   _mustBuy: 1
   _priceTag: {fileID: 8176152831310480283}
   _sellPrice: 1
-  _shopPivotOffset: {x: 0, y: 1.34, z: 0}
+  _shopPivotOffset: {x: -0.325, y: 0.1, z: -0.41}
 --- !u!114 &2835949687555252430
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -108,24 +107,21 @@ public class ChestStuffGenerator : MonoBehaviour
             if (debuffChange <= _debuffChance)
             {
                 int currentDebuffChange = Random.Range(1, 100);
-                while (true)
+                if (currentDebuffChange < 10)
                 {
-                    if (currentDebuffChange < 10)
-                    {
-                        _effect = MixCards;
-                    }
-                    else if (currentDebuffChange < 20)
-                    {
-                        _effect = ActivateStopwatch;
-                    }
-                    else if (currentDebuffChange < 40)
-                    {
-                        _effect = BreakLight;
-                    }
-                    else
-                    {
-                        _effect = TakeTurns;
-                    }
+                    _effect = MixCards;
+                }
+                else if (currentDebuffChange < 20)
+                {
+                    _effect = ActivateStopwatch;
+                }
+                else if (currentDebuffChange < 40)
+                {
+                    _effect = BreakLight;
+                }
+                else
+                {
+                    _effect = TakeTurns;
                 }
 
                 main.startColor = _particleDebuffColor;
