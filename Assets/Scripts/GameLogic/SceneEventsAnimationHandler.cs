@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class SceneEventsAnimationHandler : MonoBehaviour
 {
-    [SerializeField] Animator _animator;
+    [SerializeField] private Animator _animator;
+
+    private const string _leaveEndGameScreenTrigger = "";
+    private const string _LeaveGameTrigger = "";
+    private const string _BreakLightTrigger = "";
+    private const string _FixLightTrigger = "";
+
 
     private void OnEnable()
     {
@@ -53,5 +59,15 @@ public class SceneEventsAnimationHandler : MonoBehaviour
     private void PlayAnimationAudio()
     {
         // WIP
+    }
+
+    private void BreakLightByDebuff()
+    {
+        //_animator.SetTrigger("")
+    }
+
+    private void FixBrokenLight()
+    {
+
     }
 }
