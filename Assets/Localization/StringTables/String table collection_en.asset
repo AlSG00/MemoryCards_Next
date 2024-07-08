@@ -200,6 +200,10 @@ MonoBehaviour:
     m_Localized: BACK
     m_Metadata:
       m_Items: []
+  - m_Id: 86602074877632512
+    m_Localized: Bonus
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

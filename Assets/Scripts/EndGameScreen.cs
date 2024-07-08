@@ -25,6 +25,8 @@ public class EndGameScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _finalScoreLogo;
     [SerializeField] private TextMeshProUGUI _rewardValueText;
     [SerializeField] private TextMeshProUGUI _rewardLogo;
+    [SerializeField] private TextMeshProUGUI _rewardBonusValue;
+    [SerializeField] private TextMeshProUGUI _rewardBonusLogo;
     [SerializeField] private TextMeshProUGUI _rewardMultiplierValueText;
     [SerializeField] private TextMeshProUGUI _rewardMultiplierLogo;
     [SerializeField] private TextMeshProUGUI _newItemsAvailableLogo;
@@ -63,6 +65,8 @@ public class EndGameScreen : MonoBehaviour
             _rewardMultiplierLogo,
             _rewardValueText,
             _rewardLogo,
+            _rewardBonusValue,
+            _rewardBonusLogo,
             _newItemsAvailableLogo,
         };
 
@@ -139,6 +143,12 @@ public class EndGameScreen : MonoBehaviour
         ChangeTextElementVisibility(_rewardMultiplierValueText, true, true);
         SetRewardMultiplierValueText();
         SetTextElementValue(_rewardValueText, _resultCalculator.MultipliedReward, true, _resultCalculator.Reward);
+        await Task.Delay(_nextElementShowDelay);
+
+        ChangeTextElementVisibility(_rewardBonusLogo, true, true);
+        ChangeTextElementVisibility(_rewardBonusValue, true, true);
+        SetTextElementValue(_rewardBonusValue, _resultCalculator.BonusReward, true, 0);
+        SetTextElementValue(_rewardValueText, _resultCalculator.FinalReward, true, _resultCalculator.MultipliedReward);
         await Task.Delay(_nextElementShowDelay);
 
         _restartButton.SetActive(true);

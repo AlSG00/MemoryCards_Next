@@ -14,9 +14,10 @@ public class EndGameResultsCalculator : MonoBehaviour
     public int MinutesElapsed { get; private set; }
     public int SecondsElapsed { get; private set; }
     public int ItemsRemaining { get; private set; }
-    public float Reward { get; private set; }
-    public float BonusReward { get; private set; }
+    public int Reward { get; private set; }
+    public int BonusReward { get; private set; }
     public int MultipliedReward { get; private set; }
+    public int FinalReward { get; private set; }
     public float RewardMultplier { get; private set; }
 
     private void Awake()
@@ -79,8 +80,9 @@ public class EndGameResultsCalculator : MonoBehaviour
 
     private void CalculateRewardValue()
     {
-        Reward = Mathf.Ceil((FinalScoreValuesArray[3] / 10)) + BonusReward;
+        Reward = (int)Mathf.Ceil((FinalScoreValuesArray[3] / 10));
         MultipliedReward = (int)Mathf.Ceil(Reward * RewardMultplier);
+        FinalReward = MultipliedReward + BonusReward;
     }
 
     private void CalculateRewardMultiplierValue()

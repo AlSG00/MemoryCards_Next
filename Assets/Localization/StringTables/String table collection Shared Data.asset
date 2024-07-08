@@ -195,6 +195,10 @@ MonoBehaviour:
     m_Key: MainScene/--- UI/- DifficultyLevelMenuUICanvas/LeaveDifficultyMenuButton
     m_Metadata:
       m_Items: []
+  - m_Id: 86602074877632512
+    m_Key: MainScene/--- UI/- EndGameScreenUICanvas/BonusCoins/Logo
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
