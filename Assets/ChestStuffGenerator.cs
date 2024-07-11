@@ -60,6 +60,7 @@ public class ChestStuffGenerator : MonoBehaviour
     private void OnEnable()
     {
         Chest.OnOpenChest += ChooseStuff;
+        Chest.OnShow += RemoveParticles;
         ChestOpenEventController.EnableParticleSystem += ActivateParticleSystem;
         ChestOpenEventController.ActivateBonusEffect += ActivateBonusEffect;
     }
@@ -67,8 +68,14 @@ public class ChestStuffGenerator : MonoBehaviour
     private void OnDisable()
     {
         Chest.OnOpenChest -= ChooseStuff;
+        Chest.OnShow -= RemoveParticles;
         ChestOpenEventController.EnableParticleSystem -= ActivateParticleSystem;
         ChestOpenEventController.ActivateBonusEffect -= ActivateBonusEffect;
+    }
+
+    private void RemoveParticles()
+    {
+        _particles.Stop();
     }
 
     private void ChooseStuff(ItemType usedKeyType)

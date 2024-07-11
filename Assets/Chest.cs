@@ -5,6 +5,7 @@ using UnityEngine;
 public class Chest : TableItem
 {
     public static event System.Action<ItemType> OnOpenChest;
+    public static event System.Action OnShow;
 
     private void OnEnable()
     {
@@ -18,14 +19,15 @@ public class Chest : TableItem
         KeyUseLogic.OnUseKey += OpenWithKey;
     }
 
-    //private protected override void Show()
-    //{
-    //    if (isVisible == false)
-    //    {
-    //        isVisible = true;
-    //        _animator.SetTrigger("Show");
-    //    }
-    //}
+    private protected override void Show()
+    {
+        if (isVisible == false)
+        {
+            isVisible = true;
+            OnShow?.Invoke();
+            _animator.SetTrigger("Show");
+        }
+    }
 
     //private protected override void Hide()
     //{
