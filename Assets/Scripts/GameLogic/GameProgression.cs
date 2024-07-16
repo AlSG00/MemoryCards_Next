@@ -159,6 +159,8 @@ public class GameProgression : MonoBehaviour
         }
 
         // TODO: Rework this block
+        /// Tutorial code block
+        /*
         if (playingTutorial)
         {
             _cardLayoutHandler.RemoveCertainCards(confirmedCards);
@@ -183,13 +185,16 @@ public class GameProgression : MonoBehaviour
         }
         else
         {
+         */
+        ///
             score += 10; //TODO: TEMP. Move to score script
 
             onScoreChanged?.Invoke(score);
             _cardLayoutHandler.RemoveCertainCards(confirmedCards);
             if (_cardGenerator.CheckRemainingCards() == false)
             {
-                AddCurrentMoney?.Invoke(1); // TODO: Rework
+                int moneyToAdd = 1 + (int)CardDifficulty;
+                AddCurrentMoney?.Invoke(moneyToAdd); // TODO: Rework
                 SetNextRound();
             }
             else
@@ -199,7 +204,7 @@ public class GameProgression : MonoBehaviour
                     OnTurnsChanged?.Invoke(true);
                 }
             }
-        }
+        //}
     }
 
     private void SetGamePause()

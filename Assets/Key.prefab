@@ -139,7 +139,7 @@ MonoBehaviour:
   _currentPivot: {fileID: 0}
   _previousPivot: {fileID: 0}
   _cursorPivot: {fileID: 0}
-  _buyPrice: 1
+  _buyPrice: 10
   itemName: Key
   _type: 5
   _mustBuy: 1

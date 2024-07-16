@@ -140,12 +140,12 @@ MonoBehaviour:
   _currentPivot: {fileID: 0}
   _previousPivot: {fileID: 0}
   _cursorPivot: {fileID: 0}
-  _buyPrice: 1
+  _buyPrice: 15
   itemName: Item_FindAllCards_Test
   _type: 4
   _mustBuy: 1
   _priceTag: {fileID: 5761858379588184332}
-  _sellPrice: 0
+  _sellPrice: 5
   _shopPivotOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &5392046895359875211
 MonoBehaviour:

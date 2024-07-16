@@ -227,7 +227,7 @@ MonoBehaviour:
   _type: 1
   _mustBuy: 1
   _priceTag: {fileID: 8696426243378598769}
-  _sellPrice: 1
+  _sellPrice: 10
   _shopPivotOffset: {x: -0.4, y: -0.115, z: 0.235}
 --- !u!114 &8510616438774062110
 MonoBehaviour:
