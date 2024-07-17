@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 475738716172884170}
   - component: {fileID: 475738716172884171}
   - component: {fileID: 475738716172884168}
-  - component: {fileID: 475738716172884169}
+  - component: {fileID: 7155679533901335244}
   m_Layer: 0
   m_Name: Magnifier
   m_TagString: Untagged
@@ -48,7 +48,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5799075, y: 0.1259917, z: 1.3671541}
-  m_Center: {x: 0.13644567, y: 1.2540874, z: -1.1143773}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &475738716172884171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioPlayer: {fileID: 0}
-  _animator: {fileID: 0}
+  _animator: {fileID: 9099638737601104275}
   _moveToStandartPositionTime: 0.1
   _moveToCursorTime: 0.1
   _currentPivot: {fileID: 0}
@@ -74,7 +74,7 @@ MonoBehaviour:
   _mustBuy: 1
   _priceTag: {fileID: 268092172984538597}
   _sellPrice: 1
-  _shopPivotOffset: {x: 0, y: 0, z: 0}
+  _shopPivotOffset: {x: 0, y: 0.052, z: 0}
 --- !u!114 &475738716172884168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _item: {fileID: 475738716172884171}
   _tagText: {fileID: 7047838219464871856}
---- !u!114 &475738716172884169
+--- !u!114 &7155679533901335244
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,9 +98,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 475738716172884167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f97d8d53e5a3f498bdddad976e952d, type: 3}
+  m_Script: {fileID: 11500000, guid: 416d187b5a5ec4741a16eb42939240b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hoveredType: 0
+  _hoveredCard: {fileID: 0}
 --- !u!1 &8706092426878081571
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,6 +114,7 @@ GameObject:
   - component: {fileID: 8329847607253336217}
   - component: {fileID: 4915199428659646268}
   - component: {fileID: 7193018947080748022}
+  - component: {fileID: 9099638737601104275}
   m_Layer: 0
   m_Name: MagnifierObj
   m_TagString: Untagged
@@ -127,7 +130,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8706092426878081571}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: 0.13593036, y: 1.2506155, z: -1.1291609}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.34601912, y: 0.34601912, z: 0.34601912}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -187,6 +190,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &9099638737601104275
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706092426878081571}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8790dfadc6bf14a46b80f8fcfde00bf2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &475738714353933478
 PrefabInstance:
   m_ObjectHideFlags: 0
